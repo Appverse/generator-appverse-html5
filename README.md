@@ -1,6 +1,6 @@
 ## generator-appverse-html5 
 
-This is a Yeoman Generator for Appverse - HTML 5
+This is a Yeoman Generator for Appverse - HTML5
 
 The generator is not yet published. Follow the steps below to test it. 
 
