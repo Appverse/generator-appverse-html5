@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<div class="container text-center" scrolly-scroll ng-controller="homeController">
+
+    <h1>Welcome to '<%=appName%>'</h1>
+    <form class="form-horizontal well text-left help-inline" ng-hide="isUserConnected">
+        <div class="control-group">
+            <label class="control-label" for="inputUser">Username:</label>
+            <div class="controls">
+                <input type="text" id="inputUser" placeholder="Username" ng-model="username">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputPassword">Password:</label>
+            <div class="controls">
+                <input type="password" id="inputPassword" placeholder="Password" ng-model="password">
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <label class="checkbox">
+                    <input type="checkbox">Remember me
+                </label>
+                <button class="btn btn-primary" ng-click="login()">Login</button>
+            </div>
+        </div>
+    </form>
+
+    <div ng-show="isUserConnected">
+        <a ui-sref="tasks" class="btn btn-primary">Go to task list</a>
+        <button class="btn btn-danger" ng-click="logout()">Logout</button>
+    </div>
+</div>

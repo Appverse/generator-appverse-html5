@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<div class="container" scrolly-scroll ng-controller="taskController">
+    <div ng-hide="isUserConnected">
+        <p>This page requires login. Please go to home page:</p>
+        <a ui-sref="home" class="btn btn-primary">Go to home page</a>
+    </div>
+    <div ng-show="isUserConnected">
+        <h1>Task list</h1>
+        <div rest rest-path="tasks.json" rest-name="tasks"></div>
+        <alert ng-show="tasksLoading">Loading...</alert>
+        <alert ng-show="tasksError" class="alert-error">Error loading topics</alert>
+        <ul>
+            <li ng-repeat="task in tasks | orderBy:'name'">{{task.name}}</li>
+        </ul>
+        <input ng-model="newTask" type="text" placeholder="Task title">
+        <button class="btn btn-primary" ng-click="addTask();newTask=''">Add task</button>
+    </div>
+</div>
