@@ -299,7 +299,7 @@ module.exports = function (grunt) {
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
                 fontsDir: '<%= yeoman.app %>/styles/fonts',
-                importPath: '<%= yeoman.app %>/bower_components',
+                importPath: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/vendor/assets/stylesheets',
                 httpImagesPath: '/images',
                 httpGeneratedImagesPath: '/images/generated',
                 httpFontsPath: '/styles/fonts',
@@ -433,16 +433,18 @@ module.exports = function (grunt) {
                         'styles/images/*',
                         '*.html',
                         'views/**/*.html',
-                        'template/**/*.html',
-                        'bower_components/bootstrap-sass/img/glyphicons-halflings*.png'
+                        'template/**/*.html'
                     ]
+                }, {
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/vendor/assets/fonts',
+                    dest: '<%= yeoman.dist %>/styles/fonts',
+                    src: '**/*'
                 }, {
                     expand: true,
                     cwd: '.tmp/images',
                     dest: '<%= yeoman.dist %>/images',
-                    src: [
-                        'generated/*'
-                    ]
+                    src: 'generated/*'
                 }, {
                     expand: true,
                     cwd: '<%= yeoman.app %>/bower_components/angular-i18n',
@@ -472,6 +474,12 @@ module.exports = function (grunt) {
                     '*ar-eg.js'
                 ]
             },
+            fonts: {
+                expand: true,
+                cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/vendor/assets/fonts',
+                dest: '.tmp/styles/fonts',
+                src: '**/*'
+            },
             png: {
                 expand: true,
                 cwd: '<%= yeoman.app %>',
@@ -483,7 +491,8 @@ module.exports = function (grunt) {
             server: [
                 'coffee',
                 'compass:server',
-                'copy:i18n'
+                'copy:i18n',
+                'copy:fonts'
             ],
             dist: [
                 'coffee',
