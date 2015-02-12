@@ -256,7 +256,7 @@ module.exports = function (grunt) {
                 }]
             },
             server: '.tmp',
-	    doc:'doc'
+            doc: 'doc'
         },
         jshint: {
             options: {
@@ -407,17 +407,15 @@ module.exports = function (grunt) {
         },
         // Put files not handled in other tasks here
         copy: {
-	    dev_dist: {
-	    	files: [{
+            dev_dist: {
+                files: [{
                     expand: true,
                     dot: true,
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
-                    src: [
-                        '**'
-                    ]
-		}]
-	    },
+                    src: '**'
+                }]
+            },
             dist: {
                 files: [{
                     expand: true,
@@ -610,10 +608,10 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('doc', [
-    	'clean:doc',
+     'clean:doc',
         'docular'
     ]);
-    
+
     grunt.registerTask('doc:watch', [
         'doc',
         'connect:doc',
@@ -638,15 +636,15 @@ module.exports = function (grunt) {
         'usemin',
         'htmlmin'
     ]);
-    
+
     grunt.registerTask('dist:dev', [
         'clean:dist',
         'copy:dev_dist',
         'compass:dev_dist'
     ]);
 
-grunt.registerTask('dist:watch', [
-    	'dist',
+    grunt.registerTask('dist:watch', [
+     'dist',
         'connect:dist',
         'open:server',
         'watch'
