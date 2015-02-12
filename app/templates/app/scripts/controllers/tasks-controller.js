@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('<%=appName%>App')
+angular.module('App.Controllers')
 
 .controller('taskController', ['$log', '$scope',
 

@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('<%=appName%>App', ['COMMONAPI'])
+angular.module('App.Controllers',[]);
+
+angular.module('<%=appName%>App', ['COMMONAPI','App.Controllers'])
 
 .run(['$rootScope', '$location', '$log', 'AuthenticationService', 'RoleService', 'AUTHORIZATION_DATA', 'SECURITY_GENERAL',
     function ($rootScope, $location, $log, AuthenticationService, RoleService, AUTHORIZATION_DATA, SECURITY_GENERAL) {

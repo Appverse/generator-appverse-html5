@@ -1,0 +1,31 @@
+<div class="container">
+    <p class="lead">Translation Demo</p>
+    <p>Select desired locale:</p>
+    <button class="btn" ng-click="setLocale('es-ES')">es-ES</button>
+    <button class="btn" ng-click="setLocale('en-US')">en-US</button>
+    <button class="btn" ng-click="setLocale('ja-JP')">ja-JP</button>
+    <button class="btn" ng-click="setLocale('ar-EG')">ar-EG</button>
+
+    <h4>Date</h4>
+
+    <p>{{now | date:'fullDate'}}</p>
+
+    <h4>Currency</h4>
+
+    <p>{{100 | currency}}</p>
+
+    <h4>Number</h4>
+
+    <!-- Number should be rounded using locale -->
+    <p>{{1200300.456789 | number}}</p>
+
+    <h4>Text</h4>
+
+    <p translate>WELCOME</p>
+
+    <!-- With values -->
+    <p translate translate-values='{"name": "Alex"}'>WELCOME_NAME</p>
+
+    <!-- Using scope variables -->
+    <p translate translate-values='{"name": "{{name}}", "age": {{age}} }'>WELCOME_NAME_AGE</p>
+</div>
