@@ -319,16 +319,6 @@ module.exports = function (grunt) {
                 options: {
                     debugInfo: true,
                     cssDir: '<%= yeoman.dist %>/styles'
-            }
-            }
-        },
-        uglify: {
-            dist: {
-                files: {
-                    '<%= yeoman.dist %>/scripts/api/angular-jqm.js': ['<%= yeoman.app %>/scripts/api/angular-jqm.js'],
-                    '<%= yeoman.dist %>/bower_components/angular-animate/angular-animate.js': ['<%= yeoman.app %>/bower_components/angular-animate/angular-animate.js'],
-                    '<%= yeoman.dist %>/bower_components/angular-route/angular-route.js': ['<%= yeoman.app %>/bower_components/angular-route/angular-route.js'],
-                    '<%= yeoman.dist %>/bower_components/angular-touch/angular-touch.js': ['<%= yeoman.app %>/bower_components/angular-touch/angular-touch.js']
                 }
             }
         },
@@ -562,27 +552,12 @@ module.exports = function (grunt) {
                             rank: {}
                         }
                     ]
-                }, {
-                    groupTitle: 'Angular jQM',
-                    groupId: 'angular-jqm',
-                    groupIcon: 'icon-mobile-phone',
-                    sections: [
-                        {
-                            id: "jqmapi",
-                            title: "API",
-                            showSource: true,
-                            scripts: ["app/scripts/api/angular-jqm.js"
-                            ],
-                            docs: ["ngdocs/jqmapi"],
-                            rank: {}
-                        }
-                    ]
                 }
             ]
         },
-	license: {
+        license: {
             licence: {
-                output:'licenses.json'
+                output: 'licenses.json'
             }
         }
     });
