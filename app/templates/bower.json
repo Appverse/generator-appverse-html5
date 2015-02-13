@@ -2,7 +2,7 @@
   "name": "<%=appName%>",
   "version": "0.0.1",
   "dependencies": {
-    "appverse-web-html5-core": "~0.3.0",
+    "appverse-web-html5-core": "develop",
     "appverse-web-html5-security": "~0.3.0",
     "appverse-web-html5-ui": "~0.3.0"
   },
@@ -12,6 +12,7 @@
     "angularjs-scope.safeapply": "*"
   },
   "resolutions": {
-    "angular": "~1.2.28"
+    "angular": "~1.2.28",
+    "appverse-web-html5-core": "develop"
   }
 }
