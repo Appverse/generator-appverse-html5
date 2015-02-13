@@ -1,8 +1,9 @@
+/*globals AppInit:false */
 'use strict';
 
 angular.module('App.Controllers', []);
 
-angular.module('<%=appName%>App', ['COMMONAPI', 'App.Controllers'])
+angular.module('<%=appName%>App', ['appverse.detection', 'appverse.logging', 'appverse.router', 'appverse.rest', 'appverse.cache', 'appverse', 'App.Controllers'])
 
 .run(['$log',
     function ($log) {
@@ -14,22 +15,13 @@ AppInit.setConfig({
 
     // Application general environment
     // Overrides defaults and mobile settings
-    environment: {
-
-        "REST_CONFIG": {
-            "BaseUrl": "api"
-        }
-    },
+    environment: {},
 
     // Settings to use when Appverse Mobile is loaded
     // Will override environment values
-    appverseMobile: {
-
-    },
+    appverseMobile: {},
 
     //Settings to use when mobile browser is detected
     // Will override environment values
-    mobileBrowser: {
-
-    }
+    mobileBrowser: {}
 });
