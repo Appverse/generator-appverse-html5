@@ -115,32 +115,10 @@ module.exports = yeoman.generators.Base.extend({
       var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/controllers/tasks-controller.js', 'scripts/states/app-states.js' ];
       Array.prototype.push.apply(js, appsJS);
 
-      //API TRANSLATE
-      if (this.appTranslate) {
-          var translateJS = ['bower_components/angular-translate/angular-translate.min.js',
-                             'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
-                             'bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
-                             'bower_components/appverse-web-html5-core/src/modules/api-translate.js',
-                             'scripts/controllers/translation-controller.js'
-                            ];
-          Array.prototype.push.apply(js, translateJS);
-      }
-
       this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
       this.write('app/index.html', this.indexFile);
   },
   projectfiles: function () {
-      if (this.appTranslate) {
-           this.directory('/app/resources/i18n', '/app/resources/i18n');
-           this.fs.copy(
-           this.templatePath('/app/scripts/controllers/translation-controller.js'),
-           this.destinationPath('/app/scripts/controllers/translation-controller.js')
-           );
-           this.fs.copy(
-           this.templatePath('/app/views/translation/translation.html'),
-           this.destinationPath('/app/views/translation/translation.html')
-           );
-      }
       if (this.appQR) {
           this.fs.copy(
            this.templatePath('/app/views/qr/qr.html'),
@@ -250,9 +228,15 @@ module.exports = yeoman.generators.Base.extend({
       );
     }           
   },
+  composed: function () {
+
+  },
   install: function () {
     this.installDependencies({
       skipInstall: this.options['skip-install']
     });
+    if (this.appTranslate) {
+       this.composeWith('appverse-html5:translate', { options: {}});
+    }
   }
 });
