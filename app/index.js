@@ -89,19 +89,19 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
                 'bower_components/angular-xeditable/dist/js/xeditable.js',
 
-                'bower_components/appverse-web-html5-core/dist/api-cache/api-cache.min.js',
-                'bower_components/appverse-web-html5-core/dist/api-detection/api-detection.min.js',
-                'bower_components/appverse-web-html5-core/dist/api-logging/api-logging.min.js',
-                'bower_components/appverse-web-html5-core/dist/api-router/api-router.min.js',
-                'bower_components/appverse-web-html5-core/dist/api-main/api-main.min.js',
+                'bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js',
+                'bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js',
+                'bower_components/appverse-web-html5-core/dist/appverse-logging/appverse-logging.min.js',
+                'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
+                'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
                 'bower_components/lodash/dist/lodash.underscore.min.js',
                 'bower_components/restangular/dist/restangular.min.js',
-                'bower_components/appverse-web-html5-core/dist/api-rest/api-rest.min.js',
+                'bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js',
                 'bower_components/appverse-web-html5-security/dist/api-security/api-security.min.js',
                 'bower_components/socket.io-client/dist/socket.io.min.js',
-                'bower_components/appverse-web-html5-core/dist/api-serverpush/api-serverpush.min.js',
-                'bower_components/appverse-web-html5-core/dist/api-utils/api-utils.min.js',
-                'bower_components/appverse-web-html5-core/dist/api-performance/api-performance.min.js'
+                'bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js',
+                'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js',
+                'bower_components/appverse-web-html5-core/dist/appverse-performance/appverse-performance.min.js'
             ];
 
 
@@ -121,7 +121,7 @@ module.exports = yeoman.generators.Base.extend({
                 var translateJS = ['bower_components/angular-translate/angular-translate.min.js',
                              'bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
                              'bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
-                             'bower_components/appverse-web-html5-core/dist/api-translate/api-translate.min.js',
+                             'bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js',
                              'scripts/controllers/translation-controller.js'
                             ];
                 Array.prototype.push.apply(js, translateJS);
