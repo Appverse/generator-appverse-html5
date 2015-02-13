@@ -226,6 +226,14 @@ module.exports = yeoman.generators.Base.extend({
                 this.destinationPath('.bowerrc')
             );
             this.fs.copy(
+                this.templatePath('.editorconfig'),
+                this.destinationPath('.editorconfig')
+            );
+            this.fs.copy(
+                this.templatePath('.jshintrc'),
+                this.destinationPath('.jshintrc')
+            );
+            this.fs.copy(
                 this.templatePath('Gruntfile.js'),
                 this.destinationPath('Gruntfile.js')
             );
