@@ -27,9 +27,6 @@
 
     <div ng-show="isUserConnected">
         <a ui-sref="tasks" class="btn btn-primary">Go to task list</a>
-         <% if (appQR) { %>
-              <a ui-sref="qr" class="btn btn-primary">Go to QR Demo</a>
-        <% } %>
         <button class="btn btn-danger" ng-click="logout()">Logout</button>
     </div>
 </div>

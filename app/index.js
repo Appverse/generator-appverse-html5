@@ -104,14 +104,6 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/appverse-web-html5-core/src/modules/api-performance.js'
                ];
 
-
-      //QR MODULE
-      if (this.appQR) {
-          var qrJS = ['bower_components/qrcode/lib/qrcode.min.js',
-                      'bower_components/angular-qr/angular-qr.min.js'
-                     ];
-           Array.prototype.push.apply(js, qrJS);
-      }
       //APP FILES
       var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/controllers/tasks-controller.js', 'scripts/states/app-states.js' ];
       Array.prototype.push.apply(js, appsJS);
@@ -120,12 +112,6 @@ module.exports = yeoman.generators.Base.extend({
       this.write('app/index.html', this.indexFile);
   },
   projectfiles: function () {
-      if (this.appQR) {
-          this.fs.copy(
-           this.templatePath('/app/views/qr/qr.html'),
-           this.destinationPath('/app/views/qr/qr.html')
-           );
-      }
         this.fs.copyTpl(          
         this.templatePath('package.json'),
         this.destinationPath('package.json'),
@@ -239,6 +225,9 @@ module.exports = yeoman.generators.Base.extend({
     });
     if (this.appTranslate) {
        this.composeWith('appverse-html5:translate', { options: {}});
+    }
+       if (this.appQR) {
+       this.composeWith('appverse-html5:qr', { options: {}});
     }
   }
 });

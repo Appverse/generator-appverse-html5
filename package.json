@@ -18,7 +18,8 @@
   },
   "files": [
     "app",
-    "translate"
+    "translate",
+    "qr"
   ],
   "keywords": [
     "yeoman-generator"

@@ -58,14 +58,6 @@ angular.module('<%=appName%>App')
                     templateUrl: 'views/tasks/tasks.html'
                 })
 
-                    <% if (appQR) { %>
-                //////////////////////////
-                // SECTION: QR //
-                //////////////////////////
-                .state('qr', {
-                    url: '/qr',
-                    templateUrl: 'views/qr/qr.html'
-                })
-                <% } %>
+
                 ;
             }]);
