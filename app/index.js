@@ -7,6 +7,7 @@ var path = require ('path');
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
     this.pkg = require('../package.json');
+    this.conflicter.force = true;
   },
 
   prompting: function () {
@@ -232,6 +233,7 @@ module.exports = yeoman.generators.Base.extend({
 
   },
   install: function () {
+   //   obj.page.conflicter.force = true;
     this.installDependencies({
       skipInstall: this.options['skip-install']
     });
