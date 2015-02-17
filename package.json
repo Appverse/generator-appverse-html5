@@ -19,7 +19,8 @@
   "files": [
     "app",
     "translate",
-    "qr"
+    "qr",
+    "app-view"
   ],
   "keywords": [
     "yeoman-generator"
