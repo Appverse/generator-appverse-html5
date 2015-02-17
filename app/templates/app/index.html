@@ -74,16 +74,6 @@
                 <li data-ng-class="{ active: $state.includes('tasks') }">
                     <a ui-sref="tasks">Task list</a>
                 </li>
-                <% if (appTranslate) { %>
-                  <li data-ng-class="{ active: $state.includes('translation') }">
-                    <a ui-sref="translation">Translation</a>
-                </li>
-                <% } %>
-                 <% if (appQR) { %>
-                  <li data-ng-class="{ active: $state.includes('qr') }">
-                    <a ui-sref="qr">QR</a>
-                </li>
-                <% } %>
             </ul>
         </div>
     </nav>

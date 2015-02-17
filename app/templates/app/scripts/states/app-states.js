@@ -57,24 +57,7 @@ angular.module('<%=appName%>App')
                     url: '/tasks',
                     templateUrl: 'views/tasks/tasks.html'
                 })
-               <% if (appTranslate) { %>
-                //////////////////////////
-                // SECTION: Translation //
-                //////////////////////////
-                .state('translation', {
-                    url: '/translation',
-                    templateUrl: 'views/translation/translation.html',
-                    controller: 'translationController'
-                })
-                <% } %>
-                    <% if (appQR) { %>
-                //////////////////////////
-                // SECTION: QR //
-                //////////////////////////
-                .state('qr', {
-                    url: '/qr',
-                    templateUrl: 'views/qr/qr.html'
-                })
-                <% } %>
+
+
                 ;
             }]);
