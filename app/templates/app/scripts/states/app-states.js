@@ -50,31 +50,6 @@ angular.module('<%=appName%>App')
                     templateUrl: 'views/home.html'
 
                 })
-                ///////////
-                // Tasks //
-                ///////////
-                .state('tasks', {
-                    url: '/tasks',
-                    templateUrl: 'views/tasks/tasks.html'
-                })
-               <% if (appTranslate) { %>
-                //////////////////////////
-                // SECTION: Translation //
-                //////////////////////////
-                .state('translation', {
-                    url: '/translation',
-                    templateUrl: 'views/translation/translation.html',
-                    controller: 'translationController'
-                })
-                <% } %>
-                    <% if (appQR) { %>
-                //////////////////////////
-                // SECTION: QR //
-                //////////////////////////
-                .state('qr', {
-                    url: '/qr',
-                    templateUrl: 'views/qr/qr.html'
-                })
-                <% } %>
+
                 ;
             }]);

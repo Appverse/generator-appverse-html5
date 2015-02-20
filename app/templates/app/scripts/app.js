@@ -3,7 +3,7 @@
 
 angular.module('App.Controllers', []);
 
-angular.module('<%=appName%>App', ['appverse.detection', 'appverse.logging', 'appverse.router', 'appverse.rest', 'appverse.cache', 'appverse', 'App.Controllers'])
+angular.module('<%=appName%>App', ['appverse', 'appverse.router', 'App.Controllers'])
 
 .run(['$log',
     function ($log) {

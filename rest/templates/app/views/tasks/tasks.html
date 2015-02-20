@@ -1,10 +1,6 @@
 <!DOCTYPE HTML>
-<div class="container" scrolly-scroll ng-controller="taskController">
-    <div ng-hide="isUserConnected">
-        <p>This page requires login. Please go to home page:</p>
-        <a ui-sref="home" class="btn btn-primary">Go to home page</a>
-    </div>
-    <div ng-show="isUserConnected">
+<div class="container" scrolly-scroll ng-controller="tasksController">
+    <div class="well" >
         <h1>Task list</h1>
         <div rest rest-path="tasks.json" rest-name="tasks"></div>
         <alert ng-show="tasksLoading">Loading...</alert>

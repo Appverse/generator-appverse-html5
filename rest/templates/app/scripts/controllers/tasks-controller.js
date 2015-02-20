@@ -2,10 +2,10 @@
 
 angular.module('App.Controllers')
 
-.controller('taskController', ['$log', '$scope',
+.controller('tasksController', ['$log', '$scope',
 
     function ($log, $scope) {
-        $log.debug('taskController loading');
+        $log.debug('tasksController loading');
 
         $scope.addTask = function () {
             $scope.tasks.push({
