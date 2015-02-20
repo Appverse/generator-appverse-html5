@@ -34,7 +34,7 @@ module.exports = yeoman.generators.Base.extend({
                 name: 'appName',
                 message: 'What is your app\'s name ?  ' +
                 '\n Application name cannot contain special characters or a blank space. ' +
-                '\n Name will be slug if needed  ',
+                '\n Name will be slug if needed.  ',
                 default: slug.slugify(this.appname) // Transform text into an ascii slug which can be used in safely in URLs
         }, {
                 type: 'checkbox',
@@ -54,17 +54,31 @@ module.exports = yeoman.generators.Base.extend({
                     {
                         name: 'REST',
                         value: 'appRest',
-                        checked: false,
-                        message: ' '
+                        checked: false
                     }, {
                         name: 'Detection',
                         value: 'appDetection',
                         checked: false
                     },  {
+                        name: 'Server Push',
+                        value: 'appServerPush',
+                        checked: false
+                    },
+                    {
                         name: 'Translate',
                         value: 'appTranslate',
                         checked: false
                     }, {
+                        name: 'Security',
+                        value: 'appSecurity',
+                        checked: false
+                    },
+                     {
+                        name: 'Performance',
+                        value: 'appPerformance',
+                        checked: false
+                    },
+                     {
                         name: 'QR',
                         value: 'appQR',
                         checked: false
@@ -86,6 +100,12 @@ module.exports = yeoman.generators.Base.extend({
             this.appTranslate = hasFeature('appTranslate');
             this.appQR = hasFeature('appQR');
             this.appRest = hasFeature('appRest');
+            this.appPerformance = hasFeature('appPerformance');
+            this.appSecurity = hasFeature('appSecurity');
+            this.appServerPush = hasFeature('appServerPush');
+            this.appCache = hasFeature ('appCache');
+            this.appLogging = hasFeature ('appLogging');
+            this.appDetection = hasFeature ('appDetection');
 
             this.env.options.appPath = this.options.appPath || 'app';
             this.config.set('appPath', this.env.options.appPath);
@@ -226,11 +246,29 @@ module.exports = yeoman.generators.Base.extend({
     if (this.appRest) {
        this.composeWith('appverse-html5:rest', { options: {}});
     }
+    if (this.appPerformance) {
+       this.composeWith('appverse-html5:performance', { options: {}});
+    }
+    if (this.appLogging) {
+       this.composeWith('appverse-html5:logging', { options: {}});
+    }
+    if (this.appDetection) {
+       this.composeWith('appverse-html5:detection', { options: {}});
+    }
+    if (this.appCache) {
+       this.composeWith('appverse-html5:cache', { options: {}});
+    }
     if (this.appTranslate) {
        this.composeWith('appverse-html5:translate', { options: {}});
     }
-       if (this.appQR) {
+    if (this.appQR) {
        this.composeWith('appverse-html5:qr', { options: {}});
+    }
+    if (this.appSecurity) {
+       this.composeWith('appverse-html5:security', { options: {}});
+    }
+     if (this.appServerPush) {
+       this.composeWith('appverse-html5:serverpush', { options: {}});
     }
   }
 

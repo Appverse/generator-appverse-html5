@@ -21,7 +21,13 @@
     "translate",
     "qr",
     "app-view",
-    "rest"
+    "rest",
+    "cache",
+    "detection",
+    "performance",
+    "logging",
+    "serverpush",
+    "security"
   ],
   "keywords": [
     "yeoman-generator"

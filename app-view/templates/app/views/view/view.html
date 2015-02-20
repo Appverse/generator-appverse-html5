@@ -1,10 +1,6 @@
 <!DOCTYPE HTML>
 <div class="container" scrolly-scroll>
-    <div ng-hide="isUserConnected">
-        <p>This page requires login. Please go to home page:</p>
-        <a ui-sref="home" class="btn btn-primary">Go to home page</a>
-    </div>
-    <div ng-show="isUserConnected">
+    <div class="well">
         <p class="lead"><%=viewName%></p>
         <p class="pull-left">&nbsp;&nbsp;{{name}}</p>
         <div class="clearfix"></div>

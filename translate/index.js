@@ -12,7 +12,7 @@ module.exports = yeoman.generators.Base.extend({
     var translateJS = '\n \t<script src="bower_components/angular-translate/angular-translate.min.js"></script> \n' +
                       '\t<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script> \n' +
                       '\t<script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script> \n' +
-                      '\t<script src="bower_components/appverse-web-html5-core/src/modules/api-translate.js"></script> \n' +
+                      '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"></script> \n' +
                       '\t<script src="scripts/controllers/translation-controller.js"></script>';
 
     var indexPath = this.destinationPath('app/index.html');
@@ -47,17 +47,17 @@ module.exports = yeoman.generators.Base.extend({
       this.destinationPath('/app/views/translation/translation.html')
     );
 
-    //HOME VIEW
-     var homePath = this.destinationPath('app/views/home.html');
-     var homeFile = this.readFileAsString(homePath);
-     var homeLink = '\n <a ui-sref="translation" class="btn btn-primary">Go to Translate Demo</a>';
-     var homeTag = '</a>';
-     if (homeFile.indexOf (homeLink) === -1) {
-         var pos = homeFile.lastIndexOf (homeTag) + homeTag.length;
-         var output = [homeFile.slice(0, pos), homeLink, homeFile.slice(pos)].join('');
-         this.write(homePath, output);
+      //ANGULAR MODULES
+      var hook = '\'App.Controllers\'',
+      path   = this.destinationPath('app/scripts/app.js'),
+      file   = this.readFileAsString(path),
+      insert = ", 'appverse.translate'";
+      if (file.indexOf(insert) === -1) {
+        var pos = file.lastIndexOf (hook) + hook.length;
+        var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
+        //this.writeFileFromString(path, output);
+        this.write(path, output);
      }
-
     //STATES
       var hook = '$stateProvider',
       path   = this.destinationPath('app/scripts/states/app-states.js'),

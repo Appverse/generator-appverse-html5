@@ -10,18 +10,19 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: function () {
     var restJS = '\n  \t<!-- REST MODULE --> \n' +
-                      '\t<script src="bower_components/lodash/dist/lodash.underscore.min.js"></script> \n' +
-                      '\t<script src="bower_components/restangular/dist/restangular.min.js"></script> \n' +
-                      '\t <script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script> \n' +
-                      '\t<!-- REST DEMO --> \n' +
-                      '\t<script src="scripts/controllers/tasks-controller.js"></script>';
+                     '\t<script src="bower_components/angular-resource/angular-resource.min.js"></script> \n' +
+                     '\t<script src="bower_components/lodash/dist/lodash.underscore.min.js"></script> \n' +
+                     '\t<script src="bower_components/restangular/dist/restangular.min.js"></script> \n' +
+                     '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script> \n' +
+                     '\t<!-- REST DEMO --> \n' +
+                     '\t<script src="scripts/controllers/tasks-controller.js"></script>';
 
     var indexPath = this.destinationPath('app/index.html');
     var index = this.readFileAsString(indexPath);
     var indexTag = 'app-states.js"></script>';
     var output = index;
 
-    if (index.indexOf("api-rest.js") === -1) {
+    if (index.indexOf("appverse-rest.js") === -1) {
       var pos = index.lastIndexOf (indexTag) + indexTag.length;
       output = [index.slice(0, pos), restJS, index.slice(pos)].join('');
     }
