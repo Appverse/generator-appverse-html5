@@ -3,11 +3,10 @@
 
 angular.module('App.Controllers', []);
 
-angular.module('<%=appName%>App', ['appverse', 'appverse.router', 'App.Controllers'])
+angular.module('<%=appName%>App', ['appverse.router', 'App.Controllers','appverse'])
 
 .run(['$log',
     function ($log) {
-
         $log.debug('<%=appName%>App run');
     }]);
 

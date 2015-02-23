@@ -1,5 +1,6 @@
 var yeoman = require('yeoman-generator');
 var path = require ('path');
+var fs = require ('fs');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -8,7 +9,7 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   writing: function () {
-    var performanceJS = '\n \t<!-- SECURITY MODULE --> \n' +
+    var performanceJS = '\n \t<!-- SERVER PUSH MODULE --> \n' +
                         '\t<script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>\n' +
                         '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
 
@@ -22,8 +23,8 @@ module.exports = yeoman.generators.Base.extend({
       output = [index.slice(0, pos), performanceJS, index.slice(pos)].join('');
     }
     if (output.length > index.length) {
-        this.write(indexPath, output);
-        this.log('Writing index.html');
+        fs.writeFileSync(indexPath, output);
+        this.log('Writing index.html by the Server Push generator');
     }
   },
   projectFiles: function () {
@@ -31,14 +32,13 @@ module.exports = yeoman.generators.Base.extend({
       var hook = '\'App.Controllers\'',
       path   = this.destinationPath('app/scripts/app.js'),
       file   = this.readFileAsString(path),
-      insert = ", 'appverse.serverpush'";
+      insert = ", 'appverse.serverPush'";
       if (file.indexOf(insert) === -1) {
         var pos = file.lastIndexOf (hook) + hook.length;
         var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
         //this.writeFileFromString(path, output);
-        this.write(path, output);
+        fs.writeFileSync(path, output);
      }
-
     }
 
 });

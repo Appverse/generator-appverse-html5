@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "dependencies": {
     "appverse-web-html5-core": "develop",
-    <% if (this.appSecurity) { %>
-    "appverse-web-html5-security": "~0.3.0",
-    <% } %>
     "appverse-web-html5-ui": "~0.3.0"
   },
   "devDependencies": {

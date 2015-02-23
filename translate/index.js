@@ -1,19 +1,19 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var path = require ('path');
+var fs = require ('fs');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
     this.log('You called the AppverseHtml5 Translate subgenerator.');
     this.conflicter.force = true;
   },
-
   writing: function () {
-    var translateJS = '\n \t<script src="bower_components/angular-translate/angular-translate.min.js"></script> \n' +
+    var translateJS = '\n \t<!-- TRANSLATE MODULE --> \n' +
+                      '\t<script src="bower_components/angular-translate/angular-translate.min.js"></script> \n' +
                       '\t<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script> \n' +
                       '\t<script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script> \n' +
-                      '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"></script> \n' +
-                      '\t<script src="scripts/controllers/translation-controller.js"></script>';
+                      '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"></script> \n';
 
     var indexPath = this.destinationPath('app/index.html');
     var index = this.readFileAsString(indexPath);
@@ -24,29 +24,12 @@ module.exports = yeoman.generators.Base.extend({
       var pos = index.lastIndexOf (indexTag) + indexTag.length;
       output = [index.slice(0, pos), translateJS, index.slice(pos)].join('');
     }
-    var navLink = '<li data-ng-class="{active: $state.includes(\'translation\')}"><a ui-sref="translation">Translation</a></li>';
-    var navTag = '</li>';
-    var navFile = output;
-    if (navFile.indexOf (navLink) === -1) {
-      var pos = navFile.lastIndexOf (navTag) + navTag.length;
-      output = [navFile.slice(0, pos), navLink, navFile.slice(pos)].join('');
-    }
     if (output.length > index.length) {
-        this.write(indexPath, output);
-        this.log('Writing index.html');
+        fs.writeFileSync(indexPath, output);
+        this.log('Writing index.html by the Translate generator');
     }
   },
   projectFiles: function () {
-    this.directory('/app/resources/i18n', '/app/resources/i18n');
-    this.fs.copy(
-       this.templatePath('/app/scripts/controllers/translation-controller.js'),
-       this.destinationPath('/app/scripts/controllers/translation-controller.js')
-    );
-    this.fs.copy(
-      this.templatePath('/app/views/translation/translation.html'),
-      this.destinationPath('/app/views/translation/translation.html')
-    );
-
       //ANGULAR MODULES
       var hook = '\'App.Controllers\'',
       path   = this.destinationPath('app/scripts/app.js'),
@@ -56,20 +39,7 @@ module.exports = yeoman.generators.Base.extend({
         var pos = file.lastIndexOf (hook) + hook.length;
         var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
         //this.writeFileFromString(path, output);
-        this.write(path, output);
+        fs.writeFileSync(path, output);
      }
-    //STATES
-      var hook = '$stateProvider',
-      path   = this.destinationPath('app/scripts/states/app-states.js'),
-      file   = this.readFileAsString(path),
-      insert = "\n .state('translation', {url: '/translation',templateUrl: 'views/translation/translation.html',controller: 'translationController'})";
-      if (file.indexOf(insert) === -1) {
-        var pos = file.lastIndexOf (hook) + hook.length;
-        var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
-        //this.writeFileFromString(path, output);
-        this.write(path, output);
-     }
-
     }
-
 });

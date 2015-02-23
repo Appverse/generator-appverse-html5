@@ -10,12 +10,9 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
     this.conflicter.force = true;
   },
-
-
-    prompting: function () {
-        var done = this.async();
-
-        console.log(chalk.cyan('\n' +
+prompting: function () {
+    var done = this.async();
+    console.log(chalk.cyan('\n' +
             '                 __    __                    \n' +
             '   __ _ _ __  _ _\\ \\  / /__ _ __ ___  ___    \n' +
             '  / _| | |_ \\| |_ \\ \\/ / _ | |__/ __|/ _ \\   \n' +
@@ -85,18 +82,14 @@ module.exports = yeoman.generators.Base.extend({
                     }
                 ]
     }];
-
-        this.prompt(prompts, function (props) {
+    this.prompt(prompts, function (props) {
             this.appName = slug.slugify(props.appName);
             var coreOptions = props.coreOptions;
-
             function hasFeature(feat) {
                 return coreOptions.indexOf(feat) !== -1;
             }
-
             // manually deal with the response, get back and store the results.
             // we change a bit this way of doing to automatically do this in the self.prompt() method.
-
             this.appTranslate = hasFeature('appTranslate');
             this.appQR = hasFeature('appQR');
             this.appRest = hasFeature('appRest');
@@ -106,14 +99,11 @@ module.exports = yeoman.generators.Base.extend({
             this.appCache = hasFeature ('appCache');
             this.appLogging = hasFeature ('appLogging');
             this.appDetection = hasFeature ('appDetection');
-
             this.env.options.appPath = this.options.appPath || 'app';
             this.config.set('appPath', this.env.options.appPath);
-
             done();
         }.bind(this));
     },
-
     writing: {
         writeIndex: function () {
             this.log('Writing the index.html... ');
@@ -130,6 +120,7 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
                 'bower_components/angular-xeditable/dist/js/xeditable.js',
                 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
+                'bower_components/angular-route/angular-route.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
                 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js',
@@ -139,10 +130,11 @@ module.exports = yeoman.generators.Base.extend({
             //APP FILES
             var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
             Array.prototype.push.apply(js, appsJS);
-
             this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
             this.write('app/index.html', this.indexFile);
         },
+
+    },
   projectfiles: function () {
         this.fs.copyTpl(
         this.templatePath('package.json'),
@@ -236,40 +228,41 @@ module.exports = yeoman.generators.Base.extend({
        this.templatePath('robots.txt'),
        this.destinationPath('robots.txt')
       );
-    }
-  },
-  install: function () {
-   //   obj.page.conflicter.force = true;
+    },
+ install: function () {
+        if (this.appRest) {
+           this.composeWith('appverse-html5:rest', { options: {}});
+         }
+        if (this.appQR) {
+            this.composeWith('appverse-html5:qr', { options: {}});
+        }
+        if (this.appSecurity) {
+            this.composeWith('appverse-html5:security', { options: {}});
+        }
+        if (this.appServerPush) {
+            this.composeWith('appverse-html5:serverpush', { options: {}});
+        }
+        if (this.appTranslate) {
+            this.composeWith('appverse-html5:translate', { options: {}});
+        }
+        if (this.appCache) {
+            this.composeWith('appverse-html5:cache', { options: {}});
+        }
+        if (this.appLogging) {
+            this.composeWith('appverse-html5:logging', { options: {}});
+        }
+        if (this.appDetection) {
+            this.composeWith('appverse-html5:detection', { options: {}});
+        }
+        if (this.appPerformance) {
+            this.composeWith('appverse-html5:performance', { options: {}});
+        }
     this.installDependencies({
       skipInstall: this.options['skip-install']
     });
-    if (this.appRest) {
-       this.composeWith('appverse-html5:rest', { options: {}});
-    }
-    if (this.appPerformance) {
-       this.composeWith('appverse-html5:performance', { options: {}});
-    }
-    if (this.appLogging) {
-       this.composeWith('appverse-html5:logging', { options: {}});
-    }
-    if (this.appDetection) {
-       this.composeWith('appverse-html5:detection', { options: {}});
-    }
-    if (this.appCache) {
-       this.composeWith('appverse-html5:cache', { options: {}});
-    }
-    if (this.appTranslate) {
-       this.composeWith('appverse-html5:translate', { options: {}});
-    }
-    if (this.appQR) {
-       this.composeWith('appverse-html5:qr', { options: {}});
-    }
-    if (this.appSecurity) {
-       this.composeWith('appverse-html5:security', { options: {}});
-    }
-     if (this.appServerPush) {
-       this.composeWith('appverse-html5:serverpush', { options: {}});
-    }
-  }
+ },
+     end : function () {
+        this.log('Finish! ');
+    },
 
 });

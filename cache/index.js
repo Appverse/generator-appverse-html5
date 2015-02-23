@@ -1,12 +1,12 @@
 var yeoman = require('yeoman-generator');
 var path = require ('path');
+var fs = require ('fs');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
     this.log('You called the AppverseHtml5 Cache subgenerator.');
     this.conflicter.force = true;
   },
-
   writing: function () {
     var restJS = '\n  \t<!-- CACHE MODULE --> \n' +
                       '\t<script src="bower_components/angular-cache/dist/angular-cache.min.js"></script> \n' +
@@ -22,11 +22,10 @@ module.exports = yeoman.generators.Base.extend({
       output = [index.slice(0, pos), restJS, index.slice(pos)].join('');
     }
     if (output.length > index.length) {
-        this.write(indexPath, output);
-        this.log('Writing index.html');
+        fs.writeFileSync(indexPath, output);
+        this.log('Writing index.html by the Cache generator.');
     }
-  },
-  projectFiles: function () {
+
     //ANGULAR MODULES
       var hook = '\'App.Controllers\'',
       path   = this.destinationPath('app/scripts/app.js'),
@@ -36,9 +35,7 @@ module.exports = yeoman.generators.Base.extend({
         var pos = file.lastIndexOf (hook) + hook.length;
         var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
         //this.writeFileFromString(path, output);
-        this.write(path, output);
+        fs.writeFileSync(path, output);
      }
-
-    }
-
+  }
 });

@@ -1,5 +1,6 @@
 var yeoman = require('yeoman-generator');
 var path = require ('path');
+var fs = require ('fs');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -9,7 +10,7 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: function () {
     var restJS = '\n  \t<!-- PERFORMANCE MODULE --> \n' +
-                      '\t <script src="bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-performance.min.js"></script>';
+                      '\t <script src="bower_components/appverse-web-html5-core/dist/appverse-performance/appverse-performance.min.js"></script>';
 
     var indexPath = this.destinationPath('app/index.html');
     var index = this.readFileAsString(indexPath);
@@ -21,8 +22,8 @@ module.exports = yeoman.generators.Base.extend({
       output = [index.slice(0, pos), restJS, index.slice(pos)].join('');
     }
     if (output.length > index.length) {
-        this.write(indexPath, output);
-        this.log('Writing index.html');
+        fs.writeFileSync(indexPath, output);
+        this.log('Writing index.html by the Performance generator');
     }
   },
   projectFiles: function () {
@@ -35,7 +36,7 @@ module.exports = yeoman.generators.Base.extend({
         var pos = file.lastIndexOf (hook) + hook.length;
         var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
         //this.writeFileFromString(path, output);
-        this.write(path, output);
+        fs.writeFileSync(path, output);
      }
 
     }

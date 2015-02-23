@@ -1,5 +1,6 @@
 'use strict';
 var yeoman = require('yeoman-generator');
+var fs = require ('fs');
 
 module.exports = yeoman.generators.Base.extend({
   initializing: function () {
@@ -35,19 +36,9 @@ module.exports = yeoman.generators.Base.extend({
       output = [navFile.slice(0, pos), navLink, navFile.slice(pos)].join('');
     }
     if (output.length > index.length) {
-        this.write(indexPath, output);
+        fs.writeFileSync(indexPath, output);
         this.log('Writing index.html');
     }
-    //HOME VIEW
-     var homePath = this.destinationPath('app/views/home.html');
-     var homeFile = this.readFileAsString(homePath);
-     var homeLink = '\n <a ui-sref="' + this.viewName + '" class="btn btn-primary">Go to '+ this.viewName + '</a>';
-     var homeTag = '</a>';
-     if (homeFile.indexOf (homeLink) === -1) {
-         var pos = homeFile.lastIndexOf (homeTag) + homeTag.length;
-         var output = [homeFile.slice(0, pos), homeLink, homeFile.slice(pos)].join('');
-         this.write(homePath, output);
-     }
 
     //STATES
       var hook = '$stateProvider',
@@ -58,7 +49,7 @@ module.exports = yeoman.generators.Base.extend({
       if (file.indexOf(insert) === -1) {
         var pos = file.lastIndexOf (hook) + hook.length;
         var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
-        this.write(path, output);
+        fs.writeFileSync(path, output);
      }
 
     this.fs.copyTpl(
