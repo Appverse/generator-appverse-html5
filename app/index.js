@@ -121,10 +121,10 @@ prompting: function () {
                 'bower_components/angular-xeditable/dist/js/xeditable.js',
                 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
                 'bower_components/angular-route/angular-route.min.js',
+                'bower_components/angular-resource/angular-resource.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
                 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js',
-
+                'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js'
             ];
 
             //APP FILES
@@ -262,7 +262,7 @@ prompting: function () {
     });
  },
      end : function () {
-        this.log('Finish! ');
+        this.log("Finish! Execute 'grunt server' to run de application.");
     },
 
 });

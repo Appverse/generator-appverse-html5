@@ -6,37 +6,49 @@
   <div class="well">
        <img src="styles/images/logo.png" alt="Appverse HTML5 Powered" title="Appverse HTML5 Powered">
        <h3>Your project is ready.</h3>
-       <hr></hr>
-       <p class="text-left">Selected Modules: </p>
+       <p class="text-left">You can add modules later executing subgenerators</p>
        <div>
-            <table>
-                <% if (appRest) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> REST</p></tr>
-                <% } %>
-                <% if (appCache) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> Cache</p></td></tr>
-                <% } %>
-                <% if (appDetection) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> Detection</p></td></tr>
-                <% } %>
-                <% if (appPerformance) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> Performance</p></td></tr>
-                <% } %>
-                <% if (appLogging) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> Logging</p></td></tr>
-                <% } %>
-                <% if (appServerPush) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> Server Push</p></td></tr>
-                <% } %>
-                <% if (appTranslate) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> Translation</p></td></tr>
-                <% } %>
-                <% if (appSecurity) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> Security</p></td></tr>
-                <% } %>
-                <% if (appQR) { %>
-                <tr><td><p class="text-left"><i class="glyphicon glyphicon-ok"></i> QR</p></td></tr>
-                <% } %>
+           <table id="appversemodules" class="table">
+                <tr>
+                    <td><p class="text-left"><% if (appRest) { %><i class="glyphicon glyphicon-ok"></i><% } %> REST</p></td>
+                    <td><p class="text-left">appverse-html5:rest</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appCache) { %><i class="glyphicon glyphicon-ok"></i><% } %>  Cache</p></td>
+                    <td><p class="text-left">appverse-html5:cache</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appDetection) { %><i class="glyphicon glyphicon-ok"></i><% } %> Detection</p></td>
+                    <td><p class="text-left">yo appverse-html5:detection</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appPerformance) { %><i class="glyphicon glyphicon-ok"></i><% } %> Performance</p></td>
+                    <td><p class="text-left">appverse-html5:performance</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appLogging) { %><i class="glyphicon glyphicon-ok"></i><% } %> Logging</p></td>
+                    <td><p class="text-left">appverse-html5:logging</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appServerPush) { %><i class="glyphicon glyphicon-ok"></i><% } %> Server Push</p></td>
+                    <td><p class="text-left">appverse-html5:serverpush</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appTranslate) { %><i class="glyphicon glyphicon-ok"></i><% } %> Translation</p></td>
+                    <td><p class="text-left">appverse-html5:translate</p></td>
+               </tr>
+               <tr>
+                    <td><p class="text-left"><% if (appSecurity) { %><i class="glyphicon glyphicon-ok"></i><% } %> Security</p></td>
+                    <td><p class="text-left">appverse-html5:security</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appQR) { %><i class="glyphicon glyphicon-ok"></i>  <% } %> QR</p></td>
+                    <td><p class="text-left">appverse-html5:qr</p></td>
+               </tr>
+               <tr>
+                    <td><p class="text-left">Add a new view</p></td>
+                    <td><p class="text-left">appverse-html5:app-view</p></td>
+               </tr>
             </table>
        </div>
   </div>

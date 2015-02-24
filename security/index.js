@@ -10,7 +10,6 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: function () {
     var securityJS = '\n \t<!-- SECURITY MODULE --> \n' +
-                        '\t<script src="bower_components/angular-resource/angular-resource.min.js"></script>\n' +
                         '\t<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>\n' +
                         '\t<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script> \n' +
                         '\t<script src="bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"></script>';
