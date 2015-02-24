@@ -1,32 +1,59 @@
 <!DOCTYPE html>
 <div class="container text-center" scrolly-scroll ng-controller="homeController">
-
-    <h1>Welcome to '<%=appName%>'</h1>
-    <form class="form-horizontal well text-left help-inline" ng-hide="isUserConnected">
-        <div class="control-group">
-            <label class="control-label" for="inputUser">Username:</label>
-            <div class="controls">
-                <input type="text" id="inputUser" placeholder="Username" ng-model="username">
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="inputPassword">Password:</label>
-            <div class="controls">
-                <input type="password" id="inputPassword" placeholder="Password" ng-model="password">
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <label class="checkbox">
-                    <input type="checkbox">Remember me
-                </label>
-                <button class="btn btn-primary" ng-click="login()">Login</button>
-            </div>
-        </div>
-    </form>
-
-    <div ng-show="isUserConnected">
-        <a ui-sref="tasks" class="btn btn-primary">Go to task list</a>
-        <button class="btn btn-danger" ng-click="logout()">Logout</button>
-    </div>
+  <div class="page-header">
+        <h1>Welcome to 'test03' </h1>
+  </div>
+  <div class="well">
+       <img src="styles/images/logo.png" alt="Appverse HTML5 Powered" title="Appverse HTML5 Powered">
+       <h3>Your project is ready.</h3>
+       <p class="text-left">You can add modules later executing subgenerators</p>
+       <div>
+           <table id="appversemodules" class="table">
+                <tr>
+                    <td><p class="text-left"><% if (appRest) { %><i class="glyphicon glyphicon-ok"></i><% } %> REST</p></td>
+                    <td><p class="text-left">appverse-html5:rest</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appCache) { %><i class="glyphicon glyphicon-ok"></i><% } %>  Cache</p></td>
+                    <td><p class="text-left">appverse-html5:cache</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appDetection) { %><i class="glyphicon glyphicon-ok"></i><% } %> Detection</p></td>
+                    <td><p class="text-left">yo appverse-html5:detection</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appPerformance) { %><i class="glyphicon glyphicon-ok"></i><% } %> Performance</p></td>
+                    <td><p class="text-left">appverse-html5:performance</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appLogging) { %><i class="glyphicon glyphicon-ok"></i><% } %> Logging</p></td>
+                    <td><p class="text-left">appverse-html5:logging</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appServerPush) { %><i class="glyphicon glyphicon-ok"></i><% } %> Server Push</p></td>
+                    <td><p class="text-left">appverse-html5:serverpush</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appTranslate) { %><i class="glyphicon glyphicon-ok"></i><% } %> Translation</p></td>
+                    <td><p class="text-left">appverse-html5:translate</p></td>
+               </tr>
+               <tr>
+                    <td><p class="text-left"><% if (appSecurity) { %><i class="glyphicon glyphicon-ok"></i><% } %> Security</p></td>
+                    <td><p class="text-left">appverse-html5:security</p></td>
+               </tr>
+                <tr>
+                    <td><p class="text-left"><% if (appQR) { %><i class="glyphicon glyphicon-ok"></i>  <% } %> QR</p></td>
+                    <td><p class="text-left">appverse-html5:qr</p></td>
+               </tr>
+               <tr>
+                    <td><p class="text-left">Add a new view</p></td>
+                    <td><p class="text-left">appverse-html5:app-view</p></td>
+               </tr>
+            </table>
+       </div>
+  </div>
+  <div>
+     <h4> Thank you for using AppVerse. </h4>
+     <p>Check <a ng-href="https://appverse.gftlabs.com/showcase-html5/#/home">AppVerse showcase </a> for some demos</p>
+  </div>
 </div>

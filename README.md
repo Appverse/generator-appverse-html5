@@ -1,4 +1,7 @@
-## generator-appverse-html5 
+## [Appverse HTML5](http://appverse.org/)
+![](http://appversed.files.wordpress.com/2012/12/logo.png)
+
+### generator-appverse-html5 
 
 This is a Yeoman Generator for Appverse - HTML5
 
@@ -40,6 +43,49 @@ Execute grunt to test it:
 grunt server
 ```
 
+### Sub-generators
+
+* REST 
+```bash
+yo appverse-html5:rest
+```
+* Cache   
+```bash
+yo appverse-html5:cache 
+```
+* Detection  
+```bash
+yo appverse-html5:detection 
+```
+* Performance
+```bash
+yo appverse-html5:performance    
+```
+* Logging   
+```bash 
+yo appverse-html5:logging 
+```
+* Server Push 
+```bash 
+yo appverse-html5:serverpush    
+```
+* Translation  
+```bash 
+yo appverse-html5:translate
+```
+* Security  
+```bash 
+yo appverse-html5:security
+```
+* QR  
+```bash
+yo appverse-html5:qr
+```
+* Add a new view  
+```bash
+yo appverse-html5:app-view
+```
+[Appverse HTML5 Showcase](https://appverse.gftlabs.com/showcase-html5/#/home)
 
 > [Yeoman](http://yeoman.io) generator
 

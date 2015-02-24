@@ -50,14 +50,6 @@ angular.module('<%=appName%>App')
                     templateUrl: 'views/home.html'
 
                 })
-                ///////////
-                // Tasks //
-                ///////////
-                .state('tasks', {
-                    url: '/tasks',
-                    templateUrl: 'views/tasks/tasks.html'
-                })
-
 
                 ;
             }]);

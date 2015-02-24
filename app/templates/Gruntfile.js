@@ -256,7 +256,7 @@ module.exports = function (grunt) {
                 }]
             },
             server: '.tmp',
-	    doc:'doc'
+            doc: 'doc'
         },
         jshint: {
             options: {
@@ -299,7 +299,7 @@ module.exports = function (grunt) {
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
                 fontsDir: '<%= yeoman.app %>/styles/fonts',
-                importPath: '<%= yeoman.app %>/bower_components',
+                importPath: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/stylesheets',
                 httpImagesPath: '/images',
                 httpGeneratedImagesPath: '/images/generated',
                 httpFontsPath: '/styles/fonts',
@@ -319,16 +319,6 @@ module.exports = function (grunt) {
                 options: {
                     debugInfo: true,
                     cssDir: '<%= yeoman.dist %>/styles'
-            }
-            }
-        },
-        uglify: {
-            dist: {
-                files: {
-                    '<%= yeoman.dist %>/scripts/api/angular-jqm.js': ['<%= yeoman.app %>/scripts/api/angular-jqm.js'],
-                    '<%= yeoman.dist %>/bower_components/angular-animate/angular-animate.js': ['<%= yeoman.app %>/bower_components/angular-animate/angular-animate.js'],
-                    '<%= yeoman.dist %>/bower_components/angular-route/angular-route.js': ['<%= yeoman.app %>/bower_components/angular-route/angular-route.js'],
-                    '<%= yeoman.dist %>/bower_components/angular-touch/angular-touch.js': ['<%= yeoman.app %>/bower_components/angular-touch/angular-touch.js']
                 }
             }
         },
@@ -417,17 +407,15 @@ module.exports = function (grunt) {
         },
         // Put files not handled in other tasks here
         copy: {
-	    dev_dist: {
-	    	files: [{
+            dev_dist: {
+                files: [{
                     expand: true,
                     dot: true,
                     cwd: '<%= yeoman.app %>',
                     dest: '<%= yeoman.dist %>',
-                    src: [
-                        '**'
-                    ]
-		}]
-	    },
+                    src: '**'
+                }]
+            },
             dist: {
                 files: [{
                     expand: true,
@@ -443,16 +431,18 @@ module.exports = function (grunt) {
                         'styles/images/*',
                         '*.html',
                         'views/**/*.html',
-                        'template/**/*.html',
-                        'bower_components/bootstrap-sass/img/glyphicons-halflings*.png'
+                        'template/**/*.html'
                     ]
+                }, {
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts',
+                    dest: '<%= yeoman.dist %>/styles/fonts',
+                    src: '**/*'
                 }, {
                     expand: true,
                     cwd: '.tmp/images',
                     dest: '<%= yeoman.dist %>/images',
-                    src: [
-                        'generated/*'
-                    ]
+                    src: 'generated/*'
                 }, {
                     expand: true,
                     cwd: '<%= yeoman.app %>/bower_components/angular-i18n',
@@ -482,6 +472,12 @@ module.exports = function (grunt) {
                     '*ar-eg.js'
                 ]
             },
+            fonts: {
+                expand: true,
+                cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts',
+                dest: '.tmp/styles/fonts',
+                src: '**/*'
+            },
             png: {
                 expand: true,
                 cwd: '<%= yeoman.app %>',
@@ -493,7 +489,8 @@ module.exports = function (grunt) {
             server: [
                 'coffee',
                 'compass:server',
-                'copy:i18n'
+                'copy:i18n',
+                'copy:fonts'
             ],
             dist: [
                 'coffee',
@@ -562,27 +559,12 @@ module.exports = function (grunt) {
                             rank: {}
                         }
                     ]
-                }, {
-                    groupTitle: 'Angular jQM',
-                    groupId: 'angular-jqm',
-                    groupIcon: 'icon-mobile-phone',
-                    sections: [
-                        {
-                            id: "jqmapi",
-                            title: "API",
-                            showSource: true,
-                            scripts: ["app/scripts/api/angular-jqm.js"
-                            ],
-                            docs: ["ngdocs/jqmapi"],
-                            rank: {}
-                        }
-                    ]
                 }
             ]
         },
-	license: {
+        license: {
             licence: {
-                output:'licenses.json'
+                output: 'licenses.json'
             }
         }
     });
@@ -626,10 +608,10 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('doc', [
-    	'clean:doc',
+     'clean:doc',
         'docular'
     ]);
-    
+
     grunt.registerTask('doc:watch', [
         'doc',
         'connect:doc',
@@ -654,15 +636,15 @@ module.exports = function (grunt) {
         'usemin',
         'htmlmin'
     ]);
-    
+
     grunt.registerTask('dist:dev', [
         'clean:dist',
         'copy:dev_dist',
         'compass:dev_dist'
     ]);
 
-grunt.registerTask('dist:watch', [
-    	'dist',
+    grunt.registerTask('dist:watch', [
+     'dist',
         'connect:dist',
         'open:server',
         'watch'

@@ -16,8 +16,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css styles/vendor.css -->
-    <link rel="stylesheet" href="styles/jquery.mobile-1.3.2.min.css">
-    <link rel="stylesheet" href="styles/angular-jqm.css">
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
     <link rel="stylesheet" type="text/css" href="bower_components/ng-grid/ng-grid.min.css" />
     <!-- endbuild -->
@@ -69,13 +67,13 @@
                  will set the links to 'active' if, for example on the first link, 'contacts' or any of
                  its descendant states are activated. -->
                 <li data-ng-class="{ active: $state.includes('home') }">
-                    <a ui-sref="home">Home</a>
+                    <a ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
                 </li>
-                <li data-ng-class="{ active: $state.includes('tasks') }">
-                    <a ui-sref="tasks">Task list</a>
-                </li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
+
     </nav>
 
     <!-- MAIN INSERTION POINT
@@ -83,16 +81,8 @@
          It replaces the default Angular's ng-view directive.
          It will be populate by its immediate children's templates/views unless otherwise
          explicitly named views are targeted.
-         It's also employing the ng-animate directive.
-         For example: <div ui-view ng-animate="{enter:'fade-enter'}">
      -->
     <div ui-view class="myslide" autoscroll="false"></div>
-
-    <!--    <script src="https://plus.google.com/js/client:plusone.js"></script>-->
-
-    <!-- Temporary solution based on CDN. For development purpose only -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>
-
 
 </body>
 

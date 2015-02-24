@@ -1,6 +1,6 @@
 {
   "name": "generator-appverse-html5",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Appverse HTML 5 generator",
   "license": "MIT",
   "main": "app/index.js",
@@ -20,7 +20,14 @@
     "app",
     "translate",
     "qr",
-    "app-view"
+    "app-view",
+    "rest",
+    "cache",
+    "detection",
+    "performance",
+    "logging",
+    "serverpush",
+    "security"
   ],
   "keywords": [
     "yeoman-generator"
@@ -38,6 +45,6 @@
     "mocha": "*"
   },
   "peerDependencies": {
-    "yo": ">=1.0.0"
+    "yo": ">=1.4.0"
   }
 }
