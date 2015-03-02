@@ -52,6 +52,7 @@ yo appverse-html5:rest
 ```
 
 * Cache   
+
 ```bash
 yo appverse-html5:cache 
 ```
@@ -131,6 +132,13 @@ and the name will be set by default with the current folder name.
 
 ```bash
 yo appverse-html5 myWeb --all
+```
+
+#### Skip install
+Add the skip-install argument to skip npm and bower install process. 
+
+```bash
+yo appverse-html5 myWeb --skip-install
 ```
 
 
