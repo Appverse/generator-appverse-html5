@@ -3,8 +3,6 @@ CACHE MANIFEST
 CACHE:
 #index.html
 styles/main.css
-http://cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js
-https://plus.google.com/js/client:plusone.js
 bower_components/jquery/jquery.js
 bower_components/angular/angular.js
 bower_components/angular-bootstrap/ui-bootstrap.js
