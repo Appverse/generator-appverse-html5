@@ -10,6 +10,42 @@ module.exports = yeoman.generators.Base.extend({
     this.pkg = require('../package.json');
     this.conflicter.force = true;
   },
+    constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+    this.interactiveMode = true;
+    // This makes `appname` an argument.
+    this.argument('applicationName', { type: String, required: false });
+    // And you can then access it later on this way; e.g. CamelCased
+    if ( typeof this.applicationName != 'undefined') {
+        this.applicationName = slug.slugify(this.applicationName);
+        this.interactiveMode = false;
+        this.log(
+            'Setting interactive mode off!'
+        );
+    }
+    // This method adds support for a `--cache` flag
+    this.option('cache');
+    this.option('detection');
+    this.option('logging');
+    this.option('performance');
+    this.option('qr');
+    this.option('translate');
+    this.option('serverpush');
+    this.option('security');
+    this.option('rest');
+    this.option('all');
+
+    if (this.interactiveMode) {
+        if (this.options.cache || this.options.detection || this.options.logging || this.options.performance ||this.options.qr || this.options.translate
+            || this.options.serverpush || this.options.security || this.options.rest || this.options.all) {
+            this.applicationName = slug.slugify(this.appname);
+            this.interactiveMode = false;
+            this.log(
+               'Setting interactive mode off!'
+            );
+        }
+    }
+  },
 prompting: function () {
     var done = this.async();
     console.log(chalk.cyan('\n' +
@@ -26,13 +62,14 @@ prompting: function () {
             'Welcome to the ' + chalk.cyan('Appverse Html5') + ' generator!'
         );
 
+        if (this.interactiveMode) {
         var prompts = [
             {
                 name: 'appName',
                 message: 'What is your app\'s name ?  ' +
                 '\n Application name cannot contain special characters or a blank space. ' +
                 '\n Name will be slug if needed.  ',
-                default: slug.slugify(this.appname) // Transform text into an ascii slug which can be used in safely in URLs
+                default: slug.slugify(this.appname)
         }, {
                 type: 'checkbox',
                 name: 'coreOptions',
@@ -81,28 +118,53 @@ prompting: function () {
                         checked: false
                     }
                 ]
-    }];
-    this.prompt(prompts, function (props) {
-            this.appName = slug.slugify(props.appName);
-            var coreOptions = props.coreOptions;
-            function hasFeature(feat) {
-                return coreOptions.indexOf(feat) !== -1;
-            }
-            // manually deal with the response, get back and store the results.
-            // we change a bit this way of doing to automatically do this in the self.prompt() method.
-            this.appTranslate = hasFeature('appTranslate');
-            this.appQR = hasFeature('appQR');
-            this.appRest = hasFeature('appRest');
-            this.appPerformance = hasFeature('appPerformance');
-            this.appSecurity = hasFeature('appSecurity');
-            this.appServerPush = hasFeature('appServerPush');
-            this.appCache = hasFeature ('appCache');
-            this.appLogging = hasFeature ('appLogging');
-            this.appDetection = hasFeature ('appDetection');
-            this.env.options.appPath = this.options.appPath || 'app';
-            this.config.set('appPath', this.env.options.appPath);
+            }];
+          } else {
+              var prompts = [];
+          }
+
+        this.prompt(prompts, function (props) {
+             function hasFeature(options, feat) {
+                    if (typeof options != 'undefined') {
+                    return options.indexOf(feat) !== -1;
+                    } else {
+                        return false;
+                    }
+                }
+              if (prompts.length > 0) {
+                this.appName = slug.slugify(props.appName);
+                var coreOptions = props.coreOptions;
+
+                // manually deal with the response, get back and store the results.
+                // we change a bit this way of doing to automatically do this in the self.prompt() method.
+                   this.appTranslate = hasFeature(coreOptions,'appTranslate');
+                   this.appQR = hasFeature(coreOptions,'appQR');
+                   this.appRest = hasFeature(coreOptions,'appRest');
+                   this.appPerformance = hasFeature(coreOptions,'appPerformance');
+                   this.appSecurity = hasFeature(coreOptions,'appSecurity');
+                   this.appServerPush = hasFeature(coreOptions,'appServerPush');
+                   this.appCache = hasFeature (coreOptions,'appCache');
+                   this.appLogging = hasFeature (coreOptions,'appLogging');
+                   this.appDetection = hasFeature (coreOptions,'appDetection');
+                   this.env.options.appPath = this.options.appPath || 'app';
+                   this.config.set('appPath', this.env.options.appPath);
+                } else {
+                    this.appName = slug.slugify(this.applicationName);
+                    this.appTranslate = this.options.translate || this.options.all;
+                    this.appQR = this.options.qr || this.options.all;
+                    this.appRest = this.options.rest || this.options.all;
+                    this.appPerformance = this.options.performance || this.options.all;
+                    this.appSecurity = this.options.security || this.options.all;
+                    this.appServerPush = this.options.serverpush || this.options.all;
+                    this.appCache = this.options.cache || this.options.all;
+                    this.appLogging = this.options.logging || this.options.all;
+                    this.appDetection = this.options.detection || this.options.all;
+                    this.env.options.appPath = this.options.appPath || 'app';
+                    this.config.set('appPath', this.env.options.appPath);
+                }
             done();
         }.bind(this));
+
     },
     writing: {
         writeIndex: function () {
