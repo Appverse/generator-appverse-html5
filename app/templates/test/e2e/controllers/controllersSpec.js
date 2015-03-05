@@ -13,10 +13,4 @@ describe("E2E: Testing Controllers", function () {
         expect(element('[ui-view]').html()).toContain('ng-controller="homeController"');
     });
 
-    it('should have a working tasks page controller', function () {
-        browser().navigateTo('#/tasks');
-        expect(browser().location().path()).toBe("/tasks");
-        expect(element('[ui-view]').html()).toContain('ng-controller="taskController"');
-    });
-
 });

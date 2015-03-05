@@ -13,7 +13,7 @@ module.exports = function (config) {
     ];
 
     conf.proxies = {
-        '/': 'http://localhost:9090/',
+        '/': 'http://localhost:9003/',
         '/scripts/': 'http://localhost:9876/base/app/scripts/'
     };
 

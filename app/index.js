@@ -240,16 +240,6 @@ prompting: function () {
        this.destinationPath('/app/scripts/app.js'),
        this
       );
-       this.fs.copyTpl(
-       this.templatePath('/test/midway/controllers/controllersSpec.js'),
-       this.destinationPath('/test/midway/controllers/controllersSpec.js'),
-       this
-      );
-       this.fs.copyTpl(
-       this.templatePath('/test/midway/appSpec.js'),
-       this.destinationPath('/test/midway/appSpec.js'),
-       this
-      );
       this.fs.copyTpl(
        this.templatePath('/test/unit/controllers/controllersSpec.js'),
        this.destinationPath('/test/unit/controllers/controllersSpec.js'),
