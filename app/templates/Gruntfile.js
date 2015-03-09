@@ -184,7 +184,7 @@ module.exports = function (grunt) {
                 protocol: 'http',
                 port: 9000,
                 // Change this to '0.0.0.0' to access the server from outside.
-                hostname: 'localhost'
+                hostname: '0.0.0.0'
             },
             livereload: {
                 options: {
@@ -496,6 +496,14 @@ module.exports = function (grunt) {
         'concurrent:server',
         'autoprefixer',
         'connect:livereload',
+        'open:server'
+    ]);
+
+     grunt.registerTask('server:watch', [
+        'clean:server',
+        'concurrent:server',
+        'autoprefixer',
+        'connect:livereload',
         'open:server',
         'watch'
     ]);
@@ -553,6 +561,7 @@ module.exports = function (grunt) {
         'open:dist',
         'watch'
     ]);
+
 
     grunt.registerTask('default', [
         'server'

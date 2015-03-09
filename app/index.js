@@ -248,8 +248,6 @@ prompting: function () {
       this.directory('/ngdocs', '/ngdocs');
       this.directory('/test', '/test');
       this.directory('/app/images', '/app/images');
-      this.directory('/app/resources/detection', '/app/resources/detection');
-      this.directory('/app/resources/configuration', '/app/resources/configuration');
       this.directory('/app/scripts/api', '/app/scripts/api');
       this.directory('/app/styles', '/app/styles');
       this.fs.copy(
