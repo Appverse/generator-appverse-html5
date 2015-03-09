@@ -23,7 +23,7 @@
     "grunt-ng-annotate": "~0.1",
     "grunt-open": "~0.2.0",
     "grunt-rev": "~0.1.0",
-    "grunt-usemin": "~2.1.1",
+    "grunt-usemin": "~3.0.0",
     "karma": "~0.12",
     "karma-chrome-launcher": "~0.1.0",
     "karma-coffee-preprocessor": "~0.1.0",

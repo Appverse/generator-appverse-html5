@@ -330,7 +330,8 @@ module.exports = function (grunt) {
         },
         usemin: {
             html: ['<%= yeoman.dist %>/*.html', '<%= yeoman.dist %>/views/**/*.html'],
-            css: ['<%= yeoman.dist %>/styles/**/*.css'],
+            css: '<%= yeoman.dist %>/styles/**/*.css',
+            js: '<%= yeoman.dist %>/scripts/**/*.js',
             options: {
                 assetsDirs: ['<%= yeoman.dist %>/**']
             }
