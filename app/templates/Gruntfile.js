@@ -135,9 +135,9 @@ module.exports = function (grunt) {
                 files: ['test/spec/**/*.coffee'],
                 tasks: ['coffee:test']
             },
-            compass: {
+            sass: {
                 files: ['<%= yeoman.app %>/styles/**/*.{scss,sass}'],
-                tasks: ['compass:server', 'autoprefixer:tmp']
+                tasks: ['sass', 'autoprefixer:tmp']
             },
             styles: {
                 files: ['<%= yeoman.app %>/styles/**/*.css'],
@@ -295,29 +295,19 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        compass: {
+        sass: {
             options: {
-                sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
-                generatedImagesDir: '.tmp/images/generated',
-                imagesDir: '<%= yeoman.app %>/styles/images',
-                javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/styles/fonts',
-                importPath: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/stylesheets',
-                httpImagesPath: 'images',
-                httpGeneratedImagesPath: 'images/generated',
-                httpFontsPath: 'fonts',
-                relativeAssets: false
-            },
-            dist: {
-                options: {
-                    debugInfo: false
-                }
+                sourceMap: true,
+                includePaths: ['<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/stylesheets']
             },
             server: {
-                options: {
-                    debugInfo: true
-                }
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/styles',
+                    src: '*.{scss,sass}',
+                    dest: '.tmp/styles',
+                    ext: '.css'
+                }]
             }
         },
         rev: {
@@ -326,7 +316,8 @@ module.exports = function (grunt) {
                     src: [
                         '<%= yeoman.dist %>/scripts/**/*.js',
                         '<%= yeoman.dist %>/styles/**/*.css',
-                        '<%= yeoman.dist %>/styles/images/**/*'
+                        '<%= yeoman.dist %>/styles/images/**/*',
+                        '<%= yeoman.dist %>/fonts/**/*'
                     ]
                 }
             }
@@ -339,7 +330,8 @@ module.exports = function (grunt) {
         },
         usemin: {
             html: ['<%= yeoman.dist %>/*.html', '<%= yeoman.dist %>/views/**/*.html'],
-            css: ['<%= yeoman.dist %>/styles/**/*.css'],
+            css: '<%= yeoman.dist %>/styles/**/*.css',
+            js: '<%= yeoman.dist %>/scripts/**/*.js',
             options: {
                 assetsDirs: ['<%= yeoman.dist %>/**']
             }
@@ -349,9 +341,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
-                    src: [
-                        'styles/images/*.{jpg,jpeg,svg,gif}'
-                    ],
+                    src: 'styles/images/**/*.{jpg,jpeg,svg,gif,png}',
                     dest: '<%= yeoman.dist %>'
                 }]
             }
@@ -363,7 +353,7 @@ module.exports = function (grunt) {
                     removeCommentsFromCDATA: true,
                     removeCDATASectionsFromCDATA: true,
                     collapseWhitespace: true,
-                    //                    conservativeCollapse: true,
+                    //conservativeCollapse: true,
                     collapseBooleanAttributes: true,
                     removeAttributeQuotes: false,
                     removeRedundantAttributes: true,
@@ -406,7 +396,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts',
-                    dest: '<%= yeoman.dist %>/styles/fonts',
+                    dest: '<%= yeoman.dist %>/fonts',
                     src: '**/*'
                 }, {
                     expand: true,
@@ -445,20 +435,20 @@ module.exports = function (grunt) {
             fonts: {
                 expand: true,
                 cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts',
-                dest: '.tmp/styles/fonts',
+                dest: '.tmp/fonts',
                 src: '**/*'
             }
         },
         concurrent: {
             server: [
                 'coffee',
-                'compass:server',
+                'sass',
                 'copy:i18n',
                 'copy:fonts'
             ],
             dist: [
                 'coffee',
-                'compass:dist',
+                'sass',
                 'imagemin'
             ]
         },
@@ -490,29 +480,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        docular: {
-            showDocularDocs: false,
-            showAngularDocs: true,
-            docular_webapp_target: "doc",
-            groups: [
-                {
-                    groupTitle: 'Appverse HTML5',
-                    groupId: 'appverse',
-                    groupIcon: 'icon-beer',
-                    sections: [
-                        {
-                            id: "commonapi",
-                            title: "Common API",
-                            showSource: true,
-                            scripts: ["app/scripts/api/modules", "app/scripts/api/directives"
-                            ],
-                            docs: ["ngdocs/commonapi"],
-                            rank: {}
-                        }
-                    ]
-                }
-            ]
-        },
         license: {
             licence: {
                 output: 'licenses.json'
@@ -523,7 +490,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-license');
-    grunt.loadNpmTasks('grunt-docular');
 
     grunt.registerTask('server', [
         'clean:server',

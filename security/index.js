@@ -42,7 +42,7 @@ module.exports = yeoman.generators.Base.extend({
    }
   },
   install : function () {
-        this.bowerInstall (["appverse-web-html5-security#develop"], { save: true });
+        this.bowerInstall (["appverse-web-html5-security#~0.4.0"], { save: true });
   }
 
 });
