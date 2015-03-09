@@ -481,29 +481,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        docular: {
-            showDocularDocs: false,
-            showAngularDocs: true,
-            docular_webapp_target: "doc",
-            groups: [
-                {
-                    groupTitle: 'Appverse HTML5',
-                    groupId: 'appverse',
-                    groupIcon: 'icon-beer',
-                    sections: [
-                        {
-                            id: "commonapi",
-                            title: "Common API",
-                            showSource: true,
-                            scripts: ["app/scripts/api/modules", "app/scripts/api/directives"
-                            ],
-                            docs: ["ngdocs/commonapi"],
-                            rank: {}
-                        }
-                    ]
-                }
-            ]
-        },
         license: {
             licence: {
                 output: 'licenses.json'
@@ -514,7 +491,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-license');
-    grunt.loadNpmTasks('grunt-docular');
 
     grunt.registerTask('server', [
         'clean:server',
