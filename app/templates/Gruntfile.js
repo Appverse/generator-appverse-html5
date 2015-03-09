@@ -296,7 +296,7 @@ module.exports = function (grunt) {
             }
         },
         sass: {
-                options: {
+            options: {
                 sourceMap: true,
                 includePaths: ['<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/stylesheets']
             },
@@ -341,9 +341,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
-                    src: [
-                        'styles/images/*.{jpg,jpeg,svg,gif}'
-                    ],
+                    src: 'styles/images/**/*.{jpg,jpeg,svg,gif,png}',
                     dest: '<%= yeoman.dist %>'
                 }]
             }
@@ -355,7 +353,7 @@ module.exports = function (grunt) {
                     removeCommentsFromCDATA: true,
                     removeCDATASectionsFromCDATA: true,
                     collapseWhitespace: true,
-                    //                    conservativeCollapse: true,
+                    //conservativeCollapse: true,
                     collapseBooleanAttributes: true,
                     removeAttributeQuotes: false,
                     removeRedundantAttributes: true,
