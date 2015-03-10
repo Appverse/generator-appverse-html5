@@ -39,6 +39,8 @@ bower install
 
 `grunt server`
 
+`grunt server:open`
+
 ## Testing
 
 Exexecute the following command to launch tests
