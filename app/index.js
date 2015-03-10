@@ -326,7 +326,8 @@ prompting: function () {
     });
  },
      end : function () {
-        this.log("Finish! Execute 'grunt server:open' to see the results.");
+        this.log("Finish! Execute 'grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page.");
+        this.log(" or just execute 'grunt server' to start the server.");
     },
 
 });
