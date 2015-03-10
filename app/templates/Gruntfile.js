@@ -496,10 +496,10 @@ module.exports = function (grunt) {
         'concurrent:server',
         'autoprefixer',
         'connect:livereload',
-        'open:server'
+        'watch'
     ]);
 
-     grunt.registerTask('server:watch', [
+     grunt.registerTask('server:open', [
         'clean:server',
         'concurrent:server',
         'autoprefixer',
