@@ -326,7 +326,7 @@ prompting: function () {
     });
  },
      end : function () {
-        this.log("Finish! Execute 'grunt server' to run de application.");
+        this.log("Finish! Execute 'grunt server:open' to see the results.");
     },
 
 });
