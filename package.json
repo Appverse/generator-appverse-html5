@@ -30,7 +30,11 @@
     "security"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "appverse-html5-generator",
+    "scaffold",
+    "generator",
+    "framework"
   ],
   "dependencies": {
     "yeoman-generator": "^0.18.0",
