@@ -1,14 +1,14 @@
 {
   "name": "generator-appverse-html5",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Appverse HTML 5 generator",
-  "license": "MIT",
+  "license": "http://appverse.org/legal/appverse-license/",
   "main": "app/index.js",
-  "repository": "someuser/generator-appverse-html5",
+  "repository": "appverse/generator-appverse-html5",
   "author": {
-    "name": "",
-    "email": "",
-    "url": "https://github.com/someuser"
+    "name": "Appverse",
+    "email": "github@appverse.org",
+    "url": "http://appverse.org"
   },
   "engines": {
     "node": ">=0.10.0"
