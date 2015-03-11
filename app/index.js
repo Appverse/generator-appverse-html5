@@ -1,3 +1,24 @@
+/*
+ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
+ This Source Code Form is subject to the terms of the Appverse Public License
+ Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this
+ file, You can obtain one at http://www.appverse.mobi/licenses/apl_v2.0.pdf. [^]
+ Redistribution and use in source and binary forms, with or without modification,
+ are permitted provided that the conditions of the AppVerse Public License v2.0
+ are met.
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
+ SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+ */
+
 'use strict';
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
@@ -208,10 +229,32 @@ prompting: function () {
         this.destinationPath('bower.json'),
         this
       );
+       this.fs.copyTpl(
+        this.templatePath('.editorconfig'),
+        this.destinationPath('.editorconfig'),
+        this
+      );
+        this.fs.copyTpl(
+        this.templatePath('.jshintrc'),
+        this.destinationPath('.jshintrc'),
+        this
+      );
         this.fs.copyTpl(
         this.templatePath('README.md'),
         this.destinationPath('README.md'),
         this
+      );
+      this.fs.copy(
+       this.templatePath('.bowerrc'),
+       this.destinationPath('.bowerrc')
+      );
+      this.fs.copy(
+       this.templatePath('Gruntfile.js'),
+       this.destinationPath('Gruntfile.js')
+      );
+      this.fs.copy(
+       this.templatePath('LICENSE.md'),
+       this.destinationPath('LICENSE.md')
       );
       this.fs.copyTpl(
        this.templatePath('sonar-project.properties'),
@@ -240,56 +283,15 @@ prompting: function () {
        this.destinationPath('/app/scripts/app.js'),
        this
       );
-       this.fs.copyTpl(
-       this.templatePath('/test/midway/controllers/controllersSpec.js'),
-       this.destinationPath('/test/midway/controllers/controllersSpec.js'),
-       this
-      );
-       this.fs.copyTpl(
-       this.templatePath('/test/midway/appSpec.js'),
-       this.destinationPath('/test/midway/appSpec.js'),
-       this
-      );
       this.fs.copyTpl(
        this.templatePath('/test/unit/controllers/controllersSpec.js'),
        this.destinationPath('/test/unit/controllers/controllersSpec.js'),
        this
       );
-      this.directory('/ngdocs', '/ngdocs');
       this.directory('/test', '/test');
       this.directory('/app/images', '/app/images');
-      this.directory('/app/resources/detection', '/app/resources/detection');
-      this.directory('/app/resources/configuration', '/app/resources/configuration');
       this.directory('/app/scripts/api', '/app/scripts/api');
       this.directory('/app/styles', '/app/styles');
-      this.fs.copy(
-       this.templatePath('.bowerrc'),
-       this.destinationPath('.bowerrc')
-      );
-      this.fs.copy(
-       this.templatePath('Gruntfile.js'),
-       this.destinationPath('Gruntfile.js')
-      );
-      this.fs.copy(
-       this.templatePath('LICENSE.md'),
-       this.destinationPath('LICENSE.md')
-      );
-      this.fs.copy(
-       this.templatePath('app/.htaccess'),
-       this.destinationPath('app/.htaccess')
-      );
-       this.fs.copy(
-       this.templatePath('app/404.html'),
-       this.destinationPath('app/404.html')
-      );
-       this.fs.copy(
-       this.templatePath('cache.manifest'),
-       this.destinationPath('cache.manifest')
-      );
-      this.fs.copy(
-       this.templatePath('robots.txt'),
-       this.destinationPath('robots.txt')
-      );
     },
  install: function () {
         if (this.appRest) {
@@ -324,7 +326,8 @@ prompting: function () {
     });
  },
      end : function () {
-        this.log("Finish! Execute 'grunt server' to run de application.");
+        this.log("Finish! Execute 'grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page.");
+        this.log(" or just execute 'grunt server' to start the server.");
     },
 
 });

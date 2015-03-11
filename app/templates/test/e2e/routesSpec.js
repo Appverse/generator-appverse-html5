@@ -17,9 +17,4 @@ describe("E2E: Testing Routes", function () {
         expect(browser().location().path()).toBe("/home");
     });
 
-    it('should have a working /tasks route', function () {
-        browser().navigateTo('#/tasks');
-        expect(browser().location().path()).toBe("/tasks");
-    });
-
 });

@@ -1,4 +1,3 @@
-// Generated on 2013-09-19 using generator-angular 0.4.0
 'use strict';
 var LIVERELOAD_PORT = 35728;
 var lrSnippet = require('connect-livereload')({
@@ -135,9 +134,9 @@ module.exports = function (grunt) {
                 files: ['test/spec/**/*.coffee'],
                 tasks: ['coffee:test']
             },
-            compass: {
+            sass: {
                 files: ['<%= yeoman.app %>/styles/**/*.{scss,sass}'],
-                tasks: ['compass:server', 'autoprefixer:tmp']
+                tasks: ['sass', 'autoprefixer:tmp']
             },
             styles: {
                 files: ['<%= yeoman.app %>/styles/**/*.css'],
@@ -151,8 +150,7 @@ module.exports = function (grunt) {
                     '<%= yeoman.app %>/**/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/**/*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/**/*.js',
-                    '{.tmp,<%= yeoman.app %>}/configuration/**/*.json',
-                    '<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}'
+                    '<%= yeoman.app %>/resources/**/*'
                 ]
             }
             //            ,
@@ -183,9 +181,9 @@ module.exports = function (grunt) {
         connect: {
             options: {
                 protocol: 'http',
-                port: 9090,
+                port: 9000,
                 // Change this to '0.0.0.0' to access the server from outside.
-                hostname: 'localhost'
+                hostname: require('os').hostname()
             },
             livereload: {
                 options: {
@@ -203,6 +201,7 @@ module.exports = function (grunt) {
             },
             test: {
                 options: {
+                    port: 9003,
                     middleware: function (connect) {
                         return [
                             mountFolder(connect, '.tmp'),
@@ -215,6 +214,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
+                    port: 9001,
                     middleware: function (connect) {
                         return [
                             delayApiCalls,
@@ -227,7 +227,7 @@ module.exports = function (grunt) {
             },
             doc: {
                 options: {
-                    port: 9001,
+                    port: 9002,
                     middleware: function (connect) {
                         return [
                             mountFolder(connect, yeomanConfig.doc)
@@ -240,8 +240,11 @@ module.exports = function (grunt) {
             server: {
                 url: '<%= connect.options.protocol %>://<%= connect.options.hostname %>:<%= connect.options.port %>'
             },
+            dist: {
+                url: '<%= connect.options.protocol %>://<%= connect.options.hostname %>:<%= connect.dist.options.port %>'
+            },
             doc: {
-                url: '<%= connect.options.protocol %>://<%= connect.options.hostname %>:9001'
+                url: '<%= connect.options.protocol %>://<%= connect.options.hostname %>:<%= connect.doc.options.port %>'
             }
         },
         clean: {
@@ -291,46 +294,29 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        compass: {
+        sass: {
             options: {
-                sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
-                generatedImagesDir: '.tmp/images/generated',
-                imagesDir: '<%= yeoman.app %>/images',
-                javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/styles/fonts',
-                importPath: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/stylesheets',
-                httpImagesPath: '/images',
-                httpGeneratedImagesPath: '/images/generated',
-                httpFontsPath: '/styles/fonts',
-                relativeAssets: false
-            },
-            dist: {
-                options: {
-                    debugInfo: false
-                }
+                sourceMap: true,
+                includePaths: ['<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/stylesheets']
             },
             server: {
-                options: {
-                    debugInfo: true
-                }
-            },
-            dev_dist: {
-                options: {
-                    debugInfo: true,
-                    cssDir: '<%= yeoman.dist %>/styles'
-                }
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/styles',
+                    src: '*.{scss,sass}',
+                    dest: '.tmp/styles',
+                    ext: '.css'
+                }]
             }
         },
         rev: {
             dist: {
                 files: {
                     src: [
-                        '<%= yeoman.dist %>/scripts/*.js',
-                        '<%= yeoman.dist %>/styles/*.css',
-                        '<%= yeoman.dist %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
-                        '!<%= yeoman.dist %>/images/glyphicons-*',
-                        '<%= yeoman.dist %>/styles/images/*.{gif,png}'
+                        '<%= yeoman.dist %>/scripts/**/*.js',
+                        '<%= yeoman.dist %>/styles/**/*.css',
+                        '<%= yeoman.dist %>/styles/images/**/*',
+                        '<%= yeoman.dist %>/fonts/**/*'
                     ]
                 }
             }
@@ -343,7 +329,8 @@ module.exports = function (grunt) {
         },
         usemin: {
             html: ['<%= yeoman.dist %>/*.html', '<%= yeoman.dist %>/views/**/*.html'],
-            css: ['<%= yeoman.dist %>/styles/**/*.css'],
+            css: '<%= yeoman.dist %>/styles/**/*.css',
+            js: '<%= yeoman.dist %>/scripts/**/*.js',
             options: {
                 assetsDirs: ['<%= yeoman.dist %>/**']
             }
@@ -353,28 +340,9 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= yeoman.app %>',
-                    src: [
-                        'styles/images/*.{jpg,jpeg,svg,gif}',
-                        'images/*.{jpg,jpeg,svg,gif}'
-                    ],
+                    src: 'styles/images/**/*.{jpg,jpeg,svg,gif,png}',
                     dest: '<%= yeoman.dist %>'
                 }]
-            }
-        },
-        tinypng: {
-            options: {
-                apiKey: "l_QIDgceoKGF8PBNRr3cmYy_Nhfa9F1p",
-                checkSigs: true,
-                sigFile: '<%= yeoman.app %>/images/tinypng_sigs.json',
-                summarize: true,
-                showProgress: true,
-                stopOnImageError: true
-            },
-            dist: {
-                expand: true,
-                cwd: '<%= yeoman.app %>',
-                src: 'images/**/*.png',
-                dest: '<%= yeoman.app %>'
             }
         },
         htmlmin: {
@@ -384,7 +352,7 @@ module.exports = function (grunt) {
                     removeCommentsFromCDATA: true,
                     removeCDATASectionsFromCDATA: true,
                     collapseWhitespace: true,
-                    //                    conservativeCollapse: true,
+                    //conservativeCollapse: true,
                     collapseBooleanAttributes: true,
                     removeAttributeQuotes: false,
                     removeRedundantAttributes: true,
@@ -407,15 +375,6 @@ module.exports = function (grunt) {
         },
         // Put files not handled in other tasks here
         copy: {
-            dev_dist: {
-                files: [{
-                    expand: true,
-                    dot: true,
-                    cwd: '<%= yeoman.app %>',
-                    dest: '<%= yeoman.dist %>',
-                    src: '**'
-                }]
-            },
             dist: {
                 files: [{
                     expand: true,
@@ -436,7 +395,7 @@ module.exports = function (grunt) {
                 }, {
                     expand: true,
                     cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts',
-                    dest: '<%= yeoman.dist %>/styles/fonts',
+                    dest: '<%= yeoman.dist %>/fonts',
                     src: '**/*'
                 }, {
                     expand: true,
@@ -475,26 +434,20 @@ module.exports = function (grunt) {
             fonts: {
                 expand: true,
                 cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts',
-                dest: '.tmp/styles/fonts',
+                dest: '.tmp/fonts',
                 src: '**/*'
-            },
-            png: {
-                expand: true,
-                cwd: '<%= yeoman.app %>',
-                dest: '<%= yeoman.dist %>',
-                src: 'images/**/*.png'
             }
         },
         concurrent: {
             server: [
                 'coffee',
-                'compass:server',
+                'sass',
                 'copy:i18n',
                 'copy:fonts'
             ],
             dist: [
                 'coffee',
-                'compass:dist',
+                'sass',
                 'imagemin'
             ]
         },
@@ -507,14 +460,6 @@ module.exports = function (grunt) {
             unit_auto: {
                 configFile: './test/karma-unit.conf.js'
             },
-            midway: {
-                configFile: './test/karma-midway.conf.js',
-                autoWatch: false,
-                singleRun: true
-            },
-            midway_auto: {
-                configFile: './test/karma-midway.conf.js'
-            },
             e2e: {
                 configFile: './test/karma-e2e.conf.js',
                 autoWatch: false,
@@ -522,11 +467,6 @@ module.exports = function (grunt) {
             },
             e2e_auto: {
                 configFile: './test/karma-e2e.conf.js'
-            }
-        },
-        cdnify: {
-            dist: {
-                html: ['<%= yeoman.dist %>/*.html']
             }
         },
         ngAnnotate: {
@@ -539,29 +479,6 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        docular: {
-            showDocularDocs: false,
-            showAngularDocs: true,
-            docular_webapp_target: "doc",
-            groups: [
-                {
-                    groupTitle: 'Appverse HTML5',
-                    groupId: 'appverse',
-                    groupIcon: 'icon-beer',
-                    sections: [
-                        {
-                            id: "commonapi",
-                            title: "Common API",
-                            showSource: true,
-                            scripts: ["app/scripts/api/modules", "app/scripts/api/directives"
-                            ],
-                            docs: ["ngdocs/commonapi"],
-                            rank: {}
-                        }
-                    ]
-                }
-            ]
-        },
         license: {
             licence: {
                 output: 'licenses.json'
@@ -572,9 +489,16 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-license');
-    grunt.loadNpmTasks('grunt-docular');
 
     grunt.registerTask('server', [
+        'clean:server',
+        'concurrent:server',
+        'autoprefixer',
+        'connect:livereload',
+        'watch'
+    ]);
+
+     grunt.registerTask('server:open', [
         'clean:server',
         'concurrent:server',
         'autoprefixer',
@@ -590,30 +514,27 @@ module.exports = function (grunt) {
         'connect:test'
     ]);
 
-    grunt.registerTask('test', ['testserver', 'karma:unit', 'karma:midway', 'karma:e2e']);
-    grunt.registerTask('test:unit', ['karma:unit']);
-    grunt.registerTask('test:midway', ['testserver', 'karma:midway']);
-    grunt.registerTask('test:e2e', ['testserver', 'karma:e2e']);
-
-    //keeping these around for legacy use
-    grunt.registerTask('autotest', ['autotest:unit']);
-    grunt.registerTask('autotest:unit', ['karma:unit_auto']);
-    grunt.registerTask('autotest:midway', ['testserver', 'karma:midway_auto']);
-    grunt.registerTask('autotest:e2e', ['testserver', 'karma:e2e_auto']);
-
-
-    grunt.registerTask('devmode', [
+    grunt.registerTask('test', [
         'karma:unit',
-        'watch:karma'
+        'testserver',
+        'karma:e2e'
+    ]);
+
+    grunt.registerTask('test:unit', [
+        'karma:unit_auto'
+    ]);
+
+    grunt.registerTask('test:e2e', [
+        'testserver',
+        'karma:e2e_auto'
     ]);
 
     grunt.registerTask('doc', [
-     'clean:doc',
+        'clean:doc',
         'docular'
     ]);
 
-    grunt.registerTask('doc:watch', [
-        'doc',
+    grunt.registerTask('server:doc', [
         'connect:doc',
         'open:doc',
         'watch:doc'
@@ -623,12 +544,9 @@ module.exports = function (grunt) {
         'clean:dist',
         'useminPrepare',
         'concurrent:dist',
-        'tinypng',
-        'copy:png',
         'autoprefixer',
         'concat',
         'copy:dist',
-        'cdnify',
         'ngAnnotate',
         'cssmin',
         'uglify',
@@ -637,18 +555,12 @@ module.exports = function (grunt) {
         'htmlmin'
     ]);
 
-    grunt.registerTask('dist:dev', [
-        'clean:dist',
-        'copy:dev_dist',
-        'compass:dev_dist'
-    ]);
-
-    grunt.registerTask('dist:watch', [
-     'dist',
+    grunt.registerTask('server:dist', [
         'connect:dist',
-        'open:server',
+        'open:dist',
         'watch'
     ]);
+
 
     grunt.registerTask('default', [
         'server'

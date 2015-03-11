@@ -1,4 +1,3 @@
-/*globals AppInit:false */
 'use strict';
 
 angular.module('App.Controllers', []);
