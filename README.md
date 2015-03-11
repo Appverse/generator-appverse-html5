@@ -4,25 +4,20 @@
 ### generator-appverse-html5 
 
 This is a Yeoman Generator for Appverse - HTML5
-
-The generator is not yet published. Follow the steps below to test it. 
-
-1) Download the code 
-
+ 
 * Install yeoman if it is not installed previously.
 
 ```bash
-  npm install -g yo
+npm install -g yo
 ```
-2) On the downloaded code folfer execute: 
+
+* Install the Appverse HTML5 generator NPM package. 
 
 ```bash
-npm link
+npm install -g generator-appverse-html5
 ```
 
-That will create a symlink to the npm cache. 
-
-3) Create a new project using the generator-appverse-html5
+* Create a new project using the generator-appverse-html5
 
 ```bash
 mkdir testApp
@@ -41,6 +36,22 @@ Execute grunt to test it:
 
 ```bash
 grunt server
+```
+
+#### From sources
+* Get sources from [GitHub](https://github.com/appverse/generator-appverse-html5)
+
+* Link the package 
+
+```bash
+npm link
+```
+
+That will create a symlink to your npm cache. 
+Now you can execute the generator:
+
+```bash
+yo appverse-html5
 ```
 
 ### Sub-generators
