@@ -27,49 +27,51 @@ var path = require('path');
 var slug = require("underscore.string");
 
 module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.pkg = require('../package.json');
-    this.conflicter.force = true;
-  },
+    initializing: function () {
+        this.pkg = require('../package.json');
+        this.conflicter.force = true;
+    },
     constructor: function () {
-    yeoman.generators.Base.apply(this, arguments);
-    this.interactiveMode = true;
-    // This makes `appname` an argument.
-    this.argument('applicationName', { type: String, required: false });
-    // And you can then access it later on this way; e.g. CamelCased
-    if ( typeof this.applicationName != 'undefined') {
-        this.applicationName = slug.slugify(this.applicationName);
-        this.interactiveMode = false;
-        this.log(
-            'Setting interactive mode off!'
-        );
-    }
-    // This method adds support for a `--cache` flag
-    this.option('cache');
-    this.option('detection');
-    this.option('logging');
-    this.option('performance');
-    this.option('qr');
-    this.option('translate');
-    this.option('serverpush');
-    this.option('security');
-    this.option('rest');
-    this.option('all');
-
-    if (this.interactiveMode) {
-        if (this.options.cache || this.options.detection || this.options.logging || this.options.performance ||this.options.qr || this.options.translate
-            || this.options.serverpush || this.options.security || this.options.rest || this.options.all) {
-            this.applicationName = slug.slugify(this.appname);
+        yeoman.generators.Base.apply(this, arguments);
+        this.interactiveMode = true;
+        // This makes `appname` an argument.
+        this.argument('applicationName', {
+            type: String,
+            required: false
+        });
+        // And you can then access it later on this way; e.g. CamelCased
+        if (typeof this.applicationName != 'undefined') {
+            this.applicationName = slug.slugify(this.applicationName);
             this.interactiveMode = false;
             this.log(
-               'Setting interactive mode off!'
+                'Setting interactive mode off!'
             );
         }
-    }
-  },
-prompting: function () {
-    var done = this.async();
-    console.log(chalk.cyan('\n' +
+        // This method adds support for a `--cache` flag
+        this.option('cache');
+        this.option('detection');
+        this.option('logging');
+        this.option('performance');
+        this.option('qr');
+        this.option('translate');
+        this.option('serverpush');
+        this.option('security');
+        this.option('rest');
+        this.option('all');
+
+        if (this.interactiveMode) {
+            if (this.options.cache || this.options.detection || this.options.logging || this.options.performance || this.options.qr || this.options.translate || this.options.serverpush || this.options.security || this.options.rest || this.options.all) {
+                this.applicationName = slug.slugify(this.appname);
+                this.interactiveMode = false;
+                this.log(
+                    'Setting interactive mode off!'
+                );
+            }
+        }
+    },
+    prompting: function () {
+        var done = this.async();
+        console.log(chalk.cyan('\n' +
             '                 __    __                    \n' +
             '   __ _ _ __  _ _\\ \\  / /__ _ __ ___  ___    \n' +
             '  / _| | |_ \\| |_ \\ \\/ / _ | |__/ __|/ _ \\   \n' +
@@ -84,105 +86,114 @@ prompting: function () {
         );
 
         if (this.interactiveMode) {
-        var prompts = [
-            {
-                name: 'appName',
-                message: 'What is your app\'s name ?  ' +
-                '\n Application name cannot contain special characters or a blank space. ' +
-                '\n Name will be slug if needed.  ',
-                default: slug.slugify(this.appname)
+            var prompts = [
+                {
+                    name: 'appName',
+                    message: 'What is your app\'s name ?  ' +
+                        '\n Application name cannot contain special characters or a blank space. ' +
+                        '\n Name will be slug if needed.  ',
+                    default: slug.slugify(this.appname)
         }, {
-                type: 'checkbox',
-                name: 'coreOptions',
-                message: "Select core modules. \n You can add the modules later executing the subgenerators",
-                choices: [
-                    {
-                        name: 'Logging',
-                        value: 'appLogging',
-                        checked: false
+                    type: 'checkbox',
+                    name: 'coreOptions',
+                    message: "Select core modules. \n You can add the modules later executing the subgenerators",
+                    choices: [
+                        {
+                            name: 'Logging',
+                            value: 'appLogging',
+                            checked: false
                     },
-                     {
-                        name: 'Cache',
-                        value: 'appCache',
-                        checked: false
+                        {
+                            name: 'Cache',
+                            value: 'appCache',
+                            checked: false
                     },
-                    {
-                        name: 'REST',
-                        value: 'appRest',
-                        checked: false
+                        {
+                            name: 'REST',
+                            value: 'appRest',
+                            checked: false
                     }, {
-                        name: 'Detection',
-                        value: 'appDetection',
-                        checked: false
-                    },  {
-                        name: 'Server Push',
-                        value: 'appServerPush',
-                        checked: false
-                    },
-                    {
-                        name: 'Translate',
-                        value: 'appTranslate',
-                        checked: false
+                            name: 'Detection',
+                            value: 'appDetection',
+                            checked: false
                     }, {
-                        name: 'Security',
-                        value: 'appSecurity',
-                        checked: false
+                            name: 'Server Push',
+                            value: 'appServerPush',
+                            checked: false
                     },
-                     {
-                        name: 'Performance',
-                        value: 'appPerformance',
-                        checked: false
+                        {
+                            name: 'Translate',
+                            value: 'appTranslate',
+                            checked: false
+                    }, {
+                            name: 'Security',
+                            value: 'appSecurity',
+                            checked: false
                     },
-                     {
-                        name: 'QR',
-                        value: 'appQR',
-                        checked: false
+                        {
+                            name: 'Performance',
+                            value: 'appPerformance',
+                            checked: false
+                    },
+                        {
+                            name: 'QR',
+                            value: 'appQR',
+                            checked: false
                     }
                 ]
-            }];
-          } else {
-              var prompts = [];
-          }
+                }, {
+                    type: "input",
+                    name: "restBaseUrl",
+                    message: "Configure your REST backend URL? ",
+                    default: "http://127.0.0.1:8000",
+                    when: function (answers) {
+                        return answers.coreOptions.indexOf('appRest') !== -1;
+                    }
+                }];
+        } else {
+            var prompts = [];
+        }
 
         this.prompt(prompts, function (props) {
-             function hasFeature(options, feat) {
-                    if (typeof options != 'undefined') {
+            function hasFeature(options, feat) {
+                if (typeof options != 'undefined') {
                     return options.indexOf(feat) !== -1;
-                    } else {
-                        return false;
-                    }
+                } else {
+                    return false;
                 }
-              if (prompts.length > 0) {
+            }
+            if (prompts.length > 0) {
                 this.appName = slug.slugify(props.appName);
                 var coreOptions = props.coreOptions;
 
                 // manually deal with the response, get back and store the results.
                 // we change a bit this way of doing to automatically do this in the self.prompt() method.
-                   this.appTranslate = hasFeature(coreOptions,'appTranslate');
-                   this.appQR = hasFeature(coreOptions,'appQR');
-                   this.appRest = hasFeature(coreOptions,'appRest');
-                   this.appPerformance = hasFeature(coreOptions,'appPerformance');
-                   this.appSecurity = hasFeature(coreOptions,'appSecurity');
-                   this.appServerPush = hasFeature(coreOptions,'appServerPush');
-                   this.appCache = hasFeature (coreOptions,'appCache');
-                   this.appLogging = hasFeature (coreOptions,'appLogging');
-                   this.appDetection = hasFeature (coreOptions,'appDetection');
-                   this.env.options.appPath = this.options.appPath || 'app';
-                   this.config.set('appPath', this.env.options.appPath);
-                } else {
-                    this.appName = slug.slugify(this.applicationName);
-                    this.appTranslate = this.options.translate || this.options.all;
-                    this.appQR = this.options.qr || this.options.all;
-                    this.appRest = this.options.rest || this.options.all;
-                    this.appPerformance = this.options.performance || this.options.all;
-                    this.appSecurity = this.options.security || this.options.all;
-                    this.appServerPush = this.options.serverpush || this.options.all;
-                    this.appCache = this.options.cache || this.options.all;
-                    this.appLogging = this.options.logging || this.options.all;
-                    this.appDetection = this.options.detection || this.options.all;
-                    this.env.options.appPath = this.options.appPath || 'app';
-                    this.config.set('appPath', this.env.options.appPath);
-                }
+                this.appTranslate = hasFeature(coreOptions, 'appTranslate');
+                this.appQR = hasFeature(coreOptions, 'appQR');
+                this.appRest = hasFeature(coreOptions, 'appRest');
+                this.restBaseUrl = props.restBaseUrl;
+                this.appPerformance = hasFeature(coreOptions, 'appPerformance');
+                this.appSecurity = hasFeature(coreOptions, 'appSecurity');
+                this.appServerPush = hasFeature(coreOptions, 'appServerPush');
+                this.appCache = hasFeature(coreOptions, 'appCache');
+                this.appLogging = hasFeature(coreOptions, 'appLogging');
+                this.appDetection = hasFeature(coreOptions, 'appDetection');
+                this.env.options.appPath = this.options.appPath || 'app';
+                this.config.set('appPath', this.env.options.appPath);
+            } else {
+                this.appName = slug.slugify(this.applicationName);
+                this.appTranslate = this.options.translate || this.options.all;
+                this.appQR = this.options.qr || this.options.all;
+                this.appRest = this.options.rest || this.options.all;
+                this.appPerformance = this.options.performance || this.options.all;
+                this.appSecurity = this.options.security || this.options.all;
+                this.appServerPush = this.options.serverpush || this.options.all;
+                this.appCache = this.options.cache || this.options.all;
+                this.appLogging = this.options.logging || this.options.all;
+                this.appDetection = this.options.detection || this.options.all;
+                this.env.options.appPath = this.options.appPath || 'app';
+                this.config.set('appPath', this.env.options.appPath);
+            }
             done();
         }.bind(this));
 
@@ -218,114 +229,134 @@ prompting: function () {
         },
 
     },
-  projectfiles: function () {
+    projectfiles: function () {
         this.fs.copyTpl(
-        this.templatePath('package.json'),
-        this.destinationPath('package.json'),
-        this
-      );
+            this.templatePath('package.json'),
+            this.destinationPath('package.json'),
+            this
+        );
         this.fs.copyTpl(
-        this.templatePath('bower.json'),
-        this.destinationPath('bower.json'),
-        this
-      );
-       this.fs.copyTpl(
-        this.templatePath('.editorconfig'),
-        this.destinationPath('.editorconfig'),
-        this
-      );
+            this.templatePath('bower.json'),
+            this.destinationPath('bower.json'),
+            this
+        );
         this.fs.copyTpl(
-        this.templatePath('.jshintrc'),
-        this.destinationPath('.jshintrc'),
-        this
-      );
+            this.templatePath('.editorconfig'),
+            this.destinationPath('.editorconfig'),
+            this
+        );
         this.fs.copyTpl(
-        this.templatePath('README.md'),
-        this.destinationPath('README.md'),
-        this
-      );
-      this.fs.copy(
-       this.templatePath('.bowerrc'),
-       this.destinationPath('.bowerrc')
-      );
-      this.fs.copy(
-       this.templatePath('Gruntfile.js'),
-       this.destinationPath('Gruntfile.js')
-      );
-      this.fs.copy(
-       this.templatePath('LICENSE.md'),
-       this.destinationPath('LICENSE.md')
-      );
-      this.fs.copyTpl(
-       this.templatePath('sonar-project.properties'),
-       this.destinationPath('sonar-project.properties'),
-       this
-      );
-       this.fs.copyTpl(
-       this.templatePath('/app/views/home.html'),
-       this.destinationPath('/app/views/home.html'),
-       this
-      );
-       this.fs.copyTpl(
-       this.templatePath('/app/scripts/controllers/home-controller.js'),
-       this.destinationPath('/app/scripts/controllers/home-controller.js'),
-       this
-      );
+            this.templatePath('.jshintrc'),
+            this.destinationPath('.jshintrc'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('README.md'),
+            this.destinationPath('README.md'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('.bowerrc'),
+            this.destinationPath('.bowerrc')
+        );
+        this.fs.copy(
+            this.templatePath('Gruntfile.js'),
+            this.destinationPath('Gruntfile.js')
+        );
+        this.fs.copy(
+            this.templatePath('LICENSE.md'),
+            this.destinationPath('LICENSE.md')
+        );
+        this.fs.copyTpl(
+            this.templatePath('sonar-project.properties'),
+            this.destinationPath('sonar-project.properties'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/views/home.html'),
+            this.destinationPath('/app/views/home.html'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/controllers/home-controller.js'),
+            this.destinationPath('/app/scripts/controllers/home-controller.js'),
+            this
+        );
 
-      this.directory('/server', '/server');
-      this.fs.copyTpl(
-      this.templatePath('/app/scripts/states/app-states.js'),
-      this.destinationPath('/app/scripts/states/app-states.js'),
-      this
-      );
-       this.fs.copyTpl(
-       this.templatePath('/app/scripts/app.js'),
-       this.destinationPath('/app/scripts/app.js'),
-       this
-      );
-      this.fs.copyTpl(
-       this.templatePath('/test/unit/controllers/controllersSpec.js'),
-       this.destinationPath('/test/unit/controllers/controllersSpec.js'),
-       this
-      );
-      this.directory('/test', '/test');
-      this.directory('/app/images', '/app/images');
-      this.directory('/app/scripts/api', '/app/scripts/api');
-      this.directory('/app/styles', '/app/styles');
+        this.directory('/server', '/server');
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/states/app-states.js'),
+            this.destinationPath('/app/scripts/states/app-states.js'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/app.js'),
+            this.destinationPath('/app/scripts/app.js'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/test/unit/controllers/controllersSpec.js'),
+            this.destinationPath('/test/unit/controllers/controllersSpec.js'),
+            this
+        );
+        this.directory('/test', '/test');
+        this.directory('/app/images', '/app/images');
+        this.directory('/app/scripts/api', '/app/scripts/api');
+        this.directory('/app/styles', '/app/styles');
     },
- install: function () {
+    install: function () {
         if (this.appRest) {
-           this.composeWith('appverse-html5:rest', { options: {}});
-         }
+            this.composeWith('appverse-html5:rest', {
+                options: {
+                    restBaseUrl: this.restBaseUrl
+                }
+            });
+        }
         if (this.appQR) {
-            this.composeWith('appverse-html5:qr', { options: {}});
+            this.composeWith('appverse-html5:qr', {
+                options: {}
+            });
         }
         if (this.appSecurity) {
-            this.composeWith('appverse-html5:security', { options: {}});
+            this.composeWith('appverse-html5:security', {
+                options: {}
+            });
         }
         if (this.appServerPush) {
-            this.composeWith('appverse-html5:serverpush', { options: {}});
+            this.composeWith('appverse-html5:serverpush', {
+                options: {}
+            });
         }
         if (this.appTranslate) {
-            this.composeWith('appverse-html5:translate', { options: {}});
+            this.composeWith('appverse-html5:translate', {
+                options: {}
+            });
         }
         if (this.appCache) {
-            this.composeWith('appverse-html5:cache', { options: {}});
+            this.composeWith('appverse-html5:cache', {
+                options: {}
+            });
         }
         if (this.appLogging) {
-            this.composeWith('appverse-html5:logging', { options: {}});
+            this.composeWith('appverse-html5:logging', {
+                options: {}
+            });
         }
         if (this.appDetection) {
-            this.composeWith('appverse-html5:detection', { options: {}});
+            this.composeWith('appverse-html5:detection', {
+                options: {}
+            });
         }
         if (this.appPerformance) {
-            this.composeWith('appverse-html5:performance', { options: {}});
+            this.composeWith('appverse-html5:performance', {
+                options: {}
+            });
         }
-    this.installDependencies({
-      skipInstall: this.options['skip-install']
-    });
- },
-     end : function () {
+        this.installDependencies({
+            skipInstall: this.options['skip-install']
+        });
+    },
+    end: function () {
         this.log("Finish! Execute 'grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page.");
         this.log(" or just execute 'grunt server' to start the server.");
     },

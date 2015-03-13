@@ -37,13 +37,15 @@
     "framework"
   ],
   "dependencies": {
-    "yeoman-generator": "^0.18.0",
     "chalk": "0.5.1",
-    "yosay": "^0.3.0",
-    "underscore.string": "2.3.3",
-    "shelljs": "0.3.0",
+    "escodegen": "^1.6.1",
+    "esprima": "2.1.0",
     "grunt": "0.4.5",
-    "insight": "0.4.3"
+    "insight": "0.4.3",
+    "shelljs": "0.3.0",
+    "underscore.string": "2.3.3",
+    "yeoman-generator": "^0.18.0",
+    "yosay": "^0.3.0"
   },
   "devDependencies": {
     "mocha": "*"
