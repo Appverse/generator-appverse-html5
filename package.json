@@ -1,22 +1,22 @@
 {
-  "name": "generator-appverse-html5",
-  "version": "0.1.1",
-  "description": "Appverse HTML 5 generator",
-  "license": "http://appverse.org/legal/appverse-license/",
-  "main": "app/index.js",
-  "repository": "appverse/generator-appverse-html5",
-  "author": {
-    "name": "Appverse",
-    "email": "github@appverse.org",
-    "url": "http://appverse.org"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "files": [
+    "name": "generator-appverse-html5",
+    "version": "0.2.0",
+    "description": "Appverse HTML 5 generator",
+    "license": "http://appverse.org/legal/appverse-license/",
+    "main": "app/index.js",
+    "repository": "appverse/generator-appverse-html5",
+    "author": {
+        "name": "Appverse",
+        "email": "github@appverse.org",
+        "url": "http://appverse.org"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "scripts": {
+        "test": "mocha"
+    },
+    "files": [
     "app",
     "translate",
     "qr",
@@ -29,26 +29,28 @@
     "serverpush",
     "security"
   ],
-  "keywords": [
+    "keywords": [
     "yeoman-generator",
     "appverse-html5-generator",
     "scaffold",
     "generator",
     "framework"
   ],
-  "dependencies": {
-    "yeoman-generator": "^0.18.0",
-    "chalk": "0.5.1",
-    "yosay": "^0.3.0",
-    "underscore.string": "2.3.3",
-    "shelljs": "0.3.0",
-    "grunt": "0.4.5",
-    "insight": "0.4.3"
-  },
-  "devDependencies": {
-    "mocha": "*"
-  },
-  "peerDependencies": {
-    "yo": ">=1.4.0"
-  }
+    "dependencies": {
+        "chalk": "0.5.1",
+        "escodegen": "^1.6.1",
+        "esprima": "2.1.0",
+        "grunt": "0.4.5",
+        "insight": "0.4.3",
+        "shelljs": "0.3.0",
+        "underscore.string": "2.3.3",
+        "yeoman-generator": "^0.18.0",
+        "yosay": "^0.3.0"
+    },
+    "devDependencies": {
+        "mocha": "*"
+    },
+    "peerDependencies": {
+        "yo": ">=1.4.0"
+    }
 }
