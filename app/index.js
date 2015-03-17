@@ -299,10 +299,11 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('/test/unit/controllers/controllersSpec.js'),
             this
         );
-        this.directory('/test', '/test');
-        this.directory('/app/images', '/app/images');
-        this.directory('/app/scripts/api', '/app/scripts/api');
-        this.directory('/app/styles', '/app/styles');
+        //paths starting with "/" cause problems on UNIX based OS like OSX
+        this.directory('test', 'test');
+        this.directory('app/images', 'app/images');
+        this.directory('app/scripts/api', 'app/scripts/api');
+        this.directory('app/styles', 'app/styles');
     },
     install: function () {
         if (this.appRest) {
