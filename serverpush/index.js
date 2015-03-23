@@ -18,48 +18,124 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
+'use strict';
 var yeoman = require('yeoman-generator');
-var path = require ('path');
-var fs = require ('fs');
+var path = require('path');
+var fs = require('fs');
+var esprima = require('esprima');
+var estraverse = require('estraverse');
+var escodegen = require('escodegen');
+var utils = require('../utils.js');
 
 module.exports = yeoman.generators.Base.extend({
-  initializing: function () {
-    this.log('You called the AppverseHtml5 ServerPush subgenerator.');
-    this.conflicter.force = true;
-  },
+    constructor: function () {
+        yeoman.generators.Base.apply(this, arguments);
+        //SERVERPUSH_CONFIG
+        this.option('spushBaseUrl', {
+            desc: 'Server Push server base URL',
+            type: String,
+            defaults: 'http://127.0.0.1:3000'
+        });
+        this.spushBaseUrl = this.options['spushBaseUrl'];
+    },
+    initializing: function () {
+        this.log('You called the AppverseHtml5 ServerPush subgenerator.');
+        this.conflicter.force = true;
+    },
 
-  writing: function () {
-    var performanceJS = '\n \t<!-- SERVER PUSH MODULE --> \n' +
-                        '\t<script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>\n' +
-                        '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
+    writing: function () {
+        var sPushJS = '\n \t<!-- SERVER PUSH MODULE --> \n' +
+            '\t<script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>\n' +
+            '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
 
-    var indexPath = this.destinationPath('app/index.html');
-    var index = this.readFileAsString(indexPath);
-    var indexTag = 'app-states.js"></script>';
-    var output = index;
+        var indexPath = this.destinationPath('app/index.html');
+        var index = this.readFileAsString(indexPath);
+        var indexTag = 'app-states.js"></script>';
+        var output = index;
 
-    if (index.indexOf("appverse-serverpush.js") === -1) {
-      var pos = index.lastIndexOf (indexTag) + indexTag.length;
-      output = [index.slice(0, pos), performanceJS, index.slice(pos)].join('');
+        if (index.indexOf("appverse-serverpush.js") === -1) {
+            var pos = index.lastIndexOf(indexTag) + indexTag.length;
+            output = [index.slice(0, pos), sPushJS, index.slice(pos)].join('');
+        }
+        if (output.length > index.length) {
+            fs.writeFileSync(indexPath, output);
+            this.log('Writing index.html by the Server Push generator');
+        }
+    },
+    projectFiles: function () {
+        //ANGULAR MODULES
+        this.log('Writing angular modules (app.js) by the Rest generator');
+        var path = this.destinationPath('app/scripts/app.js');
+        var file = this.readFileAsString(path);
+
+        //PARSE FILE
+        var astCode = esprima.parse(file);
+
+        //ANGULAR REST MODULE
+        var appverseServerPush = {
+            type: "Literal",
+            value: "appverse.serverpush",
+            raw: "'appverse.serverpush'"
+        };
+        //APP NAME
+        var indexPath = this.destinationPath('package.json');
+        var packageApp = JSON.parse(this.readFileAsString(indexPath));
+        var appName = packageApp.name + "App";
+
+        //REPLACE JS
+        var moduleCode = estraverse.replace(astCode, {
+            enter: function (node, parent) {
+                if (node.type === 'Literal' && node.value == appName) {
+                    parent.arguments[1].elements.unshiftIfNotExist(appverseServerPush, function (e) {
+                        return e.type === appverseServerPush.type && e.value === appverseServerPush.value;
+                    });
+                    this.break();
+                }
+            }
+        });
+
+        var config = {
+            type: 'Property',
+            key: {
+                type: 'Literal',
+                value: 'SERVERPUSH_CONFIG',
+                raw: 'SERVERPUSH_CONFIG'
+            },
+            computed: false,
+            value: {
+                type: 'ObjectExpression',
+                properties: [{
+                    type: 'Property',
+                    key: {
+                        type: 'Literal',
+                        value: 'BaseUrl',
+                        raw: 'BaseUrl'
+                    },
+                    computed: false,
+                    value: {
+                        type: 'Literal',
+                        value: this.spushBaseUrl,
+                        raw: this.spushBaseUrl
+                    },
+                    kind: 'init',
+                    method: false,
+                    shorthand: false
+               }]
+            }
+        };
+
+        var configCode = estraverse.replace(moduleCode, {
+            enter: function (node, parent) {
+                if (node.type === 'Identifier' && node.name == 'environment') {
+                    parent.value.properties.pushIfNotExist(config, function (e) {
+                        return e.type === config.type && e.key.value === config.key.value;
+                    });
+                    this.break();
+                }
+            }
+        });
+        var finalCode = escodegen.generate(configCode);
+        fs.writeFileSync(path, finalCode);
+
     }
-    if (output.length > index.length) {
-        fs.writeFileSync(indexPath, output);
-        this.log('Writing index.html by the Server Push generator');
-    }
-  },
-  projectFiles: function () {
-    //ANGULAR MODULES
-      var hook = '\'App.Controllers\'',
-      path   = this.destinationPath('app/scripts/app.js'),
-      file   = this.readFileAsString(path),
-      insert = ", 'appverse.serverPush'";
-      if (file.indexOf(insert) === -1) {
-        var pos = file.lastIndexOf (hook) + hook.length;
-        var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
-        //this.writeFileFromString(path, output);
-        fs.writeFileSync(path, output);
-     }
-    }
-
 });
-

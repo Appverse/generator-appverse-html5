@@ -109,8 +109,8 @@ module.exports = yeoman.generators.Base.extend({
                     type: 'Property',
                     key: {
                         type: 'Literal',
-                        value: 'baseUrl',
-                        raw: 'baseUrl'
+                        value: 'BaseUrl',
+                        raw: 'BaseUrl'
                     },
                     computed: false,
                     value: {
