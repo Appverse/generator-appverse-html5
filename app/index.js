@@ -149,7 +149,16 @@ module.exports = yeoman.generators.Base.extend({
                     when: function (answers) {
                         return answers.coreOptions.indexOf('appRest') !== -1;
                     }
-                }];
+                },
+                {
+                    type: "input",
+                    name: "spushBaseUrl",
+                    message: "Configure your WebSocket Server URL? ",
+                    default: "http://127.0.0.1:3000",
+                    when: function (answers) {
+                        return answers.coreOptions.indexOf('appServerPush') !== -1;
+                    }
+                            }];
         } else {
             var prompts = [];
         }
@@ -172,6 +181,7 @@ module.exports = yeoman.generators.Base.extend({
                 this.appQR = hasFeature(coreOptions, 'appQR');
                 this.appRest = hasFeature(coreOptions, 'appRest');
                 this.restBaseUrl = props.restBaseUrl;
+                this.spushBaseUrl = props.spushBaseUrl;
                 this.appPerformance = hasFeature(coreOptions, 'appPerformance');
                 this.appSecurity = hasFeature(coreOptions, 'appSecurity');
                 this.appServerPush = hasFeature(coreOptions, 'appServerPush');
@@ -325,7 +335,9 @@ module.exports = yeoman.generators.Base.extend({
         }
         if (this.appServerPush) {
             this.composeWith('appverse-html5:serverpush', {
-                options: {}
+                options: {
+                    spushBaseUrl: this.spushBaseUrl
+                }
             });
         }
         if (this.appTranslate) {
