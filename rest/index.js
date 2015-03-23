@@ -25,7 +25,7 @@ var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
-var utils = require('./utils.js');
+var utils = require('../utils.js');
 
 
 module.exports = yeoman.generators.Base.extend({
@@ -128,7 +128,6 @@ module.exports = yeoman.generators.Base.extend({
         var configCode = estraverse.replace(moduleCode, {
             enter: function (node, parent) {
                 if (node.type === 'Identifier' && node.name == 'environment') {
-                    console.log("Identifier: " + JSON.stringify(node));
                     parent.value.properties.pushIfNotExist(config, function (e) {
                         return e.type === config.type && e.key.value === config.key.value;
                     });
