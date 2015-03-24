@@ -25,10 +25,11 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 var path = require('path');
 var slug = require("underscore.string");
+var utils = require('../utils.js');
+var pkg = require('../package.json');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
-        this.pkg = require('../package.json');
         this.conflicter.force = true;
     },
     constructor: function () {
@@ -71,19 +72,21 @@ module.exports = yeoman.generators.Base.extend({
     },
     prompting: function () {
         var done = this.async();
-        console.log(chalk.cyan('\n' +
+        console.log(chalk.bgBlack.cyan('\n' +
             '                 __    __                    \n' +
             '   __ _ _ __  _ _\\ \\  / /__ _ __ ___  ___    \n' +
             '  / _| | |_ \\| |_ \\ \\/ / _ | |__/ __|/ _ \\   \n' +
             ' | (_| | |_) | |_) \\  /  __| |  \\__ |  __/   \n' +
             '  \\__|_| .__/| .__/ \\/ \\___|_|  |___/\\___|   \n' +
             '       | |   | |                             \n' +
-            '       |_|   |_|                             \n'));
+            '       |_|   |_|                             \n' +
+            '                                    ' + 'v' + pkg.version + '\n \n'));
 
         // Have Yeoman greet the user.
         this.log(
-            'Welcome to the ' + chalk.cyan('Appverse Html5') + ' generator!'
+            'Welcome to the ' + chalk.bgBlack.cyan('Appverse Html5') + ' generator! \n'
         );
+        utils.checkVersion();
 
         if (this.interactiveMode) {
             var prompts = [

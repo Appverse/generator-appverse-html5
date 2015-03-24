@@ -26,7 +26,7 @@ var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
-
+var pkg = require('../package.json');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -38,9 +38,11 @@ module.exports = yeoman.generators.Base.extend({
             defaults: 'http://127.0.0.1:8000'
         });
         this.restBaseUrl = this.options['restBaseUrl'];
+
+        utils.checkVersion();
     },
     initializing: function () {
-        this.log('You called the AppverseHtml5 REST subgenerator.');
+        this.log('You called the Appverse Html5 - REST subgenerator.');
         this.conflicter.force = true;
     },
     writing: function () {
@@ -79,9 +81,7 @@ module.exports = yeoman.generators.Base.extend({
             raw: "'appverse.rest'"
         };
         //APP NAME
-        var indexPath = this.destinationPath('package.json');
-        var packageApp = JSON.parse(this.readFileAsString(indexPath));
-        var appName = packageApp.name + "App";
+        var appName = pkg.name + "App";
 
         //REPLACE JS
         var moduleCode = estraverse.replace(astCode, {
