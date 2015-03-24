@@ -295,8 +295,6 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('/app/scripts/controllers/home-controller.js'),
             this
         );
-
-        this.directory('/server', '/server');
         this.fs.copyTpl(
             this.templatePath('/app/scripts/states/app-states.js'),
             this.destinationPath('/app/scripts/states/app-states.js'),
@@ -313,10 +311,59 @@ module.exports = yeoman.generators.Base.extend({
             this
         );
         //paths starting with "/" cause problems on UNIX based OS like OSX
-        this.directory('test', 'test');
-        this.directory('app/images', 'app/images');
-        this.directory('app/scripts/api', 'app/scripts/api');
-        this.directory('app/styles', 'app/styles');
+        this.fs.copy(
+            this.templatePath('test/e2e/controllers/controllersSpec.js'),
+            this.destinationPath('test/e2e/controllers/controllersSpec.js')
+        );
+        this.fs.copy(
+            this.templatePath('test/e2e/routesSpec.js'),
+            this.destinationPath('test/e2e/routesSpec.js')
+        );
+        this.fs.copy(
+            this.templatePath('test/lib/chai-expect.js'),
+            this.destinationPath('test/lib/chai-expect.js')
+        );
+        this.fs.copy(
+            this.templatePath('test/lib/chai-should.js'),
+            this.destinationPath('test/lib/chai-should.js')
+        );
+        this.fs.copy(
+            this.templatePath('test/unit/karma-e2e.conf.js'),
+            this.destinationPath('test/unit/karma-e2e.conf.js')
+        );
+        this.fs.copy(
+            this.templatePath('test/unit/karma-shared.conf.js'),
+            this.destinationPath('test/unit/karma-shared.conf.js')
+        );
+        this.fs.copy(
+            this.templatePath('test/unit/karma-unit.conf.js'),
+            this.destinationPath('test/unit/karma-unit.conf.js')
+        );
+        this.fs.copy(
+            this.templatePath('test/unit/mocha.conf.js'),
+            this.destinationPath('test/unit/mocha.conf.js')
+        );
+        this.fs.copy(
+            this.templatePath('app/styles/images/logo.png'),
+            this.destinationPath('app/styles/images/logo.png')
+        );
+        this.fs.copy(
+            this.templatePath('app/styles/animations.scss'),
+            this.destinationPath('app/styles/animations.scss')
+        );
+        this.fs.copy(
+            this.templatePath('app/styles/bootstrap.scss'),
+            this.destinationPath('app/styles/bootstrap.scss')
+        );
+        this.fs.copy(
+            this.templatePath('app/styles/grid.scss'),
+            this.destinationPath('app/styles/grid.scss')
+        );
+        this.fs.copy(
+            this.templatePath('app/styles/main.scss'),
+            this.destinationPath('app/styles/main.scss')
+        );
+
     },
     install: function () {
         if (this.appRest) {
