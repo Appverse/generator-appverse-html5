@@ -394,7 +394,7 @@ module.exports = function (grunt) {
                     ]
                 }, {
                     expand: true,
-                    cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts',
+                    cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts/bootstrap',
                     dest: '<%= yeoman.dist %>/fonts',
                     src: '**/*'
                 }, {
@@ -433,7 +433,7 @@ module.exports = function (grunt) {
             },
             fonts: {
                 expand: true,
-                cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts',
+                cwd: '<%= yeoman.app %>/bower_components/bootstrap-sass-official/assets/fonts/bootstrap',
                 dest: '.tmp/fonts',
                 src: '**/*'
             }
@@ -498,7 +498,7 @@ module.exports = function (grunt) {
         'watch'
     ]);
 
-     grunt.registerTask('server:open', [
+    grunt.registerTask('server:open', [
         'clean:server',
         'concurrent:server',
         'autoprefixer',

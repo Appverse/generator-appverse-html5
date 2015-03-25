@@ -363,7 +363,18 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('app/styles/main.scss'),
             this.destinationPath('app/styles/main.scss')
         );
-
+        this.fs.copy(
+            this.templatePath('app/styles/theme/_bootswatch.scss'),
+            this.destinationPath('app/styles/theme/_bootswatch.scss')
+        );
+        this.fs.copy(
+            this.templatePath('app/styles/theme/_variables.scss'),
+            this.destinationPath('app/styles/theme/_variables.scss')
+        );
+        this.fs.copy(
+            this.templatePath('app/styles/theme/_addvariables.scss'),
+            this.destinationPath('app/styles/theme/_addvariables.scss')
+        );
     },
     install: function () {
         if (this.appRest) {
@@ -415,6 +426,9 @@ module.exports = yeoman.generators.Base.extend({
                 options: {}
             });
         }
+        this.composeWith('appverse-html5:bootstrap-theme', {
+            options: {}
+        });
         this.installDependencies({
             skipInstall: this.options['skip-install']
         });
