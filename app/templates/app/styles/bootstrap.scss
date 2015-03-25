@@ -1,8 +1,8 @@
-
-// Core variables and mixins
+//bootstrap variables
+@import "theme/variables";
 @import "bootstrap/variables";
+// Core variables and mixins
 @import "bootstrap/mixins";
-
 // Reset and dependencies
 @import "bootstrap/normalize";
 @import "bootstrap/print";
@@ -45,6 +45,8 @@
 // Utility classes
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
+//THEME
+@import "theme/bootswatch";
 /*
 http://getbootstrap.com/components/#navbar-fixed-top
 The fixed navbar will overlay your other content, unless you add padding to the top of the <body>. Try out your own values or use our snippet below. Tip: By default, the navbar is 50px high.
