@@ -334,20 +334,20 @@ module.exports = yeoman.generators.Base.extend({
                 this.destinationPath('test/lib/chai-should.js')
             );
             this.fs.copy(
-                this.templatePath('test/unit/karma-e2e.conf.js'),
-                this.destinationPath('test/unit/karma-e2e.conf.js')
+                this.templatePath('test/karma-e2e.conf.js'),
+                this.destinationPath('test/karma-e2e.conf.js')
             );
             this.fs.copy(
-                this.templatePath('test/unit/karma-shared.conf.js'),
-                this.destinationPath('test/unit/karma-shared.conf.js')
+                this.templatePath('test/karma-shared.conf.js'),
+                this.destinationPath('test/karma-shared.conf.js')
             );
             this.fs.copy(
-                this.templatePath('test/unit/karma-unit.conf.js'),
-                this.destinationPath('test/unit/karma-unit.conf.js')
+                this.templatePath('test/karma-unit.conf.js'),
+                this.destinationPath('test/karma-unit.conf.js')
             );
             this.fs.copy(
-                this.templatePath('test/unit/mocha.conf.js'),
-                this.destinationPath('test/unit/mocha.conf.js')
+                this.templatePath('test/mocha.conf.js'),
+                this.destinationPath('test/mocha.conf.js')
             );
             this.fs.copy(
                 this.templatePath('app/styles/images/logo.png'),
