@@ -18,32 +18,62 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
+
+/*jshint node:true*/
+
 'use strict';
 var yeoman = require('yeoman-generator');
-var path = require('path');
 var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
-var pkg = require('../package.json');
+
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-
-        this.option('restBaseUrl', {
-            desc: 'Rest server base URL',
-            type: String,
-            defaults: 'http://127.0.0.1:8000'
-        });
-        this.restBaseUrl = this.options['restBaseUrl'];
-
         utils.checkVersion();
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - REST subgenerator.');
         this.conflicter.force = true;
+    },
+    prompting: function () {
+        var done = this.async();
+        var prompts = [
+            {
+                type: "input",
+                name: "restBaseUrl",
+                message: "Configure your REST backend URL",
+                default: "http://127.0.0.1"
+             }, {
+                type: "input",
+                name: "restBaseUrlPort",
+                message: "Configure your REST backend URL Port",
+                default: "8000"
+             }, {
+                type: "confirm",
+                name: "mockServer",
+                message: "Do you want a REST MOCK Server (json-server)?",
+                default: true
+             }, {
+                type: "input",
+                name: "mockServerPort",
+                message: "Configure your REST MOCK server PORT? ",
+                default: "8888",
+                when: function (answers) {
+                    return answers.mockServer;
+                }
+            }
+        ];
+        this.prompt(prompts, function (props) {
+            this.restBaseUrl = props.restBaseUrl;
+            this.restBaseUrlPort = props.restBaseUrlPort;
+            this.mockServer = props.mockServer;
+            this.mockServerPort = props.mockServerPort;
+            done();
+        }.bind(this));
     },
     writing: function () {
         var restJS = '\n  \t<!-- REST MODULE --> \n' +
@@ -81,12 +111,12 @@ module.exports = yeoman.generators.Base.extend({
             raw: "'appverse.rest'"
         };
         //APP NAME
-        var appName = pkg.name + "App";
+        var appName = utils.getApplicationName(this);
 
         //REPLACE JS
         var moduleCode = estraverse.replace(astCode, {
             enter: function (node, parent) {
-                if (node.type === 'Literal' && node.value == appName) {
+                if (node.type === 'Literal' && node.value === appName) {
                     parent.arguments[1].elements.unshiftIfNotExist(appverseRest, function (e) {
                         return e.type === appverseRest.type && e.value === appverseRest.value;
                     });
@@ -115,8 +145,8 @@ module.exports = yeoman.generators.Base.extend({
                     computed: false,
                     value: {
                         type: 'Literal',
-                        value: this.restBaseUrl,
-                        raw: this.restBaseUrl
+                        value: '/api',
+                        raw: '/api'
                     },
                     kind: 'init',
                     method: false,
@@ -127,7 +157,7 @@ module.exports = yeoman.generators.Base.extend({
 
         var configCode = estraverse.replace(moduleCode, {
             enter: function (node, parent) {
-                if (node.type === 'Identifier' && node.name == 'environment') {
+                if (node.type === 'Identifier' && node.name === 'environment') {
                     parent.value.properties.pushIfNotExist(config, function (e) {
                         return e.type === config.type && e.key.value === config.key.value;
                     });
@@ -138,5 +168,32 @@ module.exports = yeoman.generators.Base.extend({
         var finalCode = escodegen.generate(configCode);
         fs.writeFileSync(path, finalCode);
 
+        this.fs.copyTpl(
+            this.templatePath('Gruntfile.js'),
+            this.destinationPath('Gruntfile.js'),
+            this
+        );
+
+        if (!fs.existsSync("api")) {
+            fs.mkdirSync("api");
+        }
+    },
+    installingDeps: function () {
+        this.npmInstall(['grunt-connect-proxy'], {
+            'saveDev': true
+        });
+        if (this.mockServer) {
+            this.npmInstall(['json-server'], {
+                'saveDev': true
+            });
+        }
+    },
+    end: function () {
+        console.log("Done.");
+        if (this.mockServer) {
+            console.log("Execute 'grunt mockserver' to start you application on Mock mode.");
+            console.log("Put your .json files into the api folder to serve them automatically with the Mock server");
+            console.log("The Mock server will route all your entities using REST URL patterns.");
+        }
     }
 });

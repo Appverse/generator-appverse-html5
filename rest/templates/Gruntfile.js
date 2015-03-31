@@ -185,6 +185,8 @@ module.exports = function (grunt) {
                     middleware: function (connect) {
                         var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
                         return [
+                             // Include the proxy first
+                            proxy,
                             delayApiCalls,
                             lrSnippet,
                             mountFolder(connect, '.tmp'),
@@ -193,12 +195,55 @@ module.exports = function (grunt) {
                             httpMethods
                         ];
                     }
-                }
+                },
+                proxies: [
+                    {
+                        context: '/api',
+                        host: "<%= restBaseUrl %>",
+                        port: <%= restBaseUrlPort %> ,
+                        https: false,
+                        rewrite: {
+                            '^/api': ''
+                        }
+                    }
+             ]
             },
+            <%
+            if (mockServer) { %>
+                mocklivereload: {
+                    options: {
+                        middleware: function (connect) {
+                            var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
+                            return [
+                            // Include the proxy first
+                            proxy,
+                            delayApiCalls,
+                            lrSnippet,
+                            mountFolder(connect, '.tmp'),
+                            mountFolder(connect, yeomanConfig.server),
+                            mountFolder(connect, yeomanConfig.app),
+                            httpMethods
+                        ];
+                        }
+                    },
+                    proxies: [
+                        {
+                            context: '/api',
+                            host: '127.0.0.1',
+                            port: <%= mockServerPort %> ,
+                            https: false,
+                            rewrite: {
+                                '^/api': ''
+                            }
+                    }
+             ]
+                }, <%
+            } %>
             test: {
                 options: {
                     port: 9003,
                     middleware: function (connect) {
+                        var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
                         return [
                             mountFolder(connect, '.tmp'),
                             mountFolder(connect, yeomanConfig.server),
@@ -219,7 +264,18 @@ module.exports = function (grunt) {
                             httpMethods
                         ];
                     }
-                }
+                },
+                proxies: [
+                    {
+                        context: '/rest',
+                        host: "<%= restBaseUrl %>",
+                        port: <%= restBaseUrlPort %> ,
+                        https: false,
+                        rewrite: {
+                            '^/api': ''
+                        }
+                    }
+             ]
             },
             doc: {
                 options: {
@@ -487,7 +543,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-license');
-
+    grunt.loadNpmTasks('grunt-connect-proxy');
 
     grunt.registerTask('server', [
         'clean:server',
@@ -565,5 +621,35 @@ module.exports = function (grunt) {
         'server'
     ]);
 
+    <%
+    if (mockServer) { %>
+        grunt.registerTask('mockserver', 'Run mock server.', function () {
+            console.log('Running Mock Server ');
+            var jsonServer = require('json-server');
+            var fs = require("fs");
+            var path = require("path");
+            console.log('Reading MOCK - JSON directory. Loading al the json files to the MockServer database.');
+            var p = "./api/";
+            var db = {};
+            fs.readdir(p, function (err, files) {
+                files.forEach(function (file) {
+                    if (path.extname(p + file) === '.json') {
+                        db[path.basename(p + file, '.json')] = require(p + file);
+                    }
+                });
+            });
+            var router = jsonServer.router(db); // Express router
+            var server = jsonServer.create(); // Express server
+
+            server.use(router);
+            server.listen( <%= mockServerPort %> );
+            grunt.task.run('configureProxies:server');
+            grunt.task.run('clean:server');
+            grunt.task.run('concurrent:server');
+            grunt.task.run('autoprefixer');
+            grunt.task.run('connect:mocklivereload');
+            grunt.task.run('watch');
+        }); <%
+    } %>
 
 };

@@ -27,10 +27,13 @@ var path = require('path');
 var slug = require("underscore.string");
 var utils = require('../utils.js');
 var pkg = require('../package.json');
+var inquirer = require('inquirer');
+
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
+
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
@@ -88,6 +91,7 @@ module.exports = yeoman.generators.Base.extend({
         );
         utils.checkVersion();
 
+
         if (this.interactiveMode) {
             var prompts = [
                 {
@@ -96,11 +100,13 @@ module.exports = yeoman.generators.Base.extend({
                         '\n Application name cannot contain special characters or a blank space. ' +
                         '\n Name will be slug if needed.  ',
                     default: slug.slugify(this.appname)
-        }, {
+        },
+                {
                     type: 'checkbox',
                     name: 'coreOptions',
                     message: "Select core modules. \n You can add the modules later executing the subgenerators",
                     choices: [
+                          new inquirer.Separator(),
                         {
                             name: 'Logging',
                             value: 'appLogging',
@@ -112,30 +118,34 @@ module.exports = yeoman.generators.Base.extend({
                             checked: false
                     },
                         {
-                            name: 'REST',
-                            value: 'appRest',
+                            name: 'Performance',
+                            value: 'appPerformance',
                             checked: false
                     }, {
                             name: 'Detection',
                             value: 'appDetection',
+                            checked: false
+                    },
+                        new inquirer.Separator(),
+                        {
+                            name: 'REST',
+                            value: 'appRest',
                             checked: false
                     }, {
                             name: 'Server Push',
                             value: 'appServerPush',
                             checked: false
                     },
+                          new inquirer.Separator(),
                         {
-                            name: 'Translate',
-                            value: 'appTranslate',
-                            checked: false
-                    }, {
                             name: 'Security',
                             value: 'appSecurity',
                             checked: false
                     },
+                        new inquirer.Separator(),
                         {
-                            name: 'Performance',
-                            value: 'appPerformance',
+                            name: 'Translate',
+                            value: 'appTranslate',
                             checked: false
                     },
                         {
@@ -144,15 +154,13 @@ module.exports = yeoman.generators.Base.extend({
                             checked: false
                     }
                 ]
-                }, {
-                    type: "input",
-                    name: "restBaseUrl",
-                    message: "Configure your REST backend URL? ",
-                    default: "http://127.0.0.1:8000",
-                    when: function (answers) {
-                        return answers.coreOptions.indexOf('appRest') !== -1;
-                    }
                 },
+                {
+                    type: "confirm",
+                    name: "bootstrapTheme",
+                    message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
+                    default: true
+             },
                 {
                     type: "input",
                     name: "spushBaseUrl",
@@ -176,6 +184,7 @@ module.exports = yeoman.generators.Base.extend({
             }
             if (prompts.length > 0) {
                 this.appName = slug.slugify(props.appName);
+                this.bootstrapSelector = props.bootstrapTheme;
                 var coreOptions = props.coreOptions;
 
                 // manually deal with the response, get back and store the results.
@@ -183,7 +192,6 @@ module.exports = yeoman.generators.Base.extend({
                 this.appTranslate = hasFeature(coreOptions, 'appTranslate');
                 this.appQR = hasFeature(coreOptions, 'appQR');
                 this.appRest = hasFeature(coreOptions, 'appRest');
-                this.restBaseUrl = props.restBaseUrl;
                 this.spushBaseUrl = props.spushBaseUrl;
                 this.appPerformance = hasFeature(coreOptions, 'appPerformance');
                 this.appSecurity = hasFeature(coreOptions, 'appSecurity');
@@ -240,157 +248,161 @@ module.exports = yeoman.generators.Base.extend({
             this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
             this.write('app/index.html', this.indexFile);
         },
-
-    },
-    projectfiles: function () {
-        this.fs.copyTpl(
-            this.templatePath('package.json'),
-            this.destinationPath('package.json'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('bower.json'),
-            this.destinationPath('bower.json'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('.editorconfig'),
-            this.destinationPath('.editorconfig'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('.jshintrc'),
-            this.destinationPath('.jshintrc'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('README.md'),
-            this.destinationPath('README.md'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('.bowerrc'),
-            this.destinationPath('.bowerrc')
-        );
-        this.fs.copy(
-            this.templatePath('Gruntfile.js'),
-            this.destinationPath('Gruntfile.js')
-        );
-        this.fs.copy(
-            this.templatePath('LICENSE.md'),
-            this.destinationPath('LICENSE.md')
-        );
-        this.fs.copyTpl(
-            this.templatePath('sonar-project.properties'),
-            this.destinationPath('sonar-project.properties'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('/app/views/home.html'),
-            this.destinationPath('/app/views/home.html'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('/app/scripts/controllers/home-controller.js'),
-            this.destinationPath('/app/scripts/controllers/home-controller.js'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('/app/scripts/states/app-states.js'),
-            this.destinationPath('/app/scripts/states/app-states.js'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('/app/scripts/app.js'),
-            this.destinationPath('/app/scripts/app.js'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('/test/unit/controllers/controllersSpec.js'),
-            this.destinationPath('/test/unit/controllers/controllersSpec.js'),
-            this
-        );
-        //paths starting with "/" cause problems on UNIX based OS like OSX
-        this.fs.copy(
-            this.templatePath('test/e2e/controllers/controllersSpec.js'),
-            this.destinationPath('test/e2e/controllers/controllersSpec.js')
-        );
-        this.fs.copy(
-            this.templatePath('test/e2e/routesSpec.js'),
-            this.destinationPath('test/e2e/routesSpec.js')
-        );
-        this.fs.copy(
-            this.templatePath('test/lib/chai-expect.js'),
-            this.destinationPath('test/lib/chai-expect.js')
-        );
-        this.fs.copy(
-            this.templatePath('test/lib/chai-should.js'),
-            this.destinationPath('test/lib/chai-should.js')
-        );
-        this.fs.copy(
-            this.templatePath('test/unit/karma-e2e.conf.js'),
-            this.destinationPath('test/unit/karma-e2e.conf.js')
-        );
-        this.fs.copy(
-            this.templatePath('test/unit/karma-shared.conf.js'),
-            this.destinationPath('test/unit/karma-shared.conf.js')
-        );
-        this.fs.copy(
-            this.templatePath('test/unit/karma-unit.conf.js'),
-            this.destinationPath('test/unit/karma-unit.conf.js')
-        );
-        this.fs.copy(
-            this.templatePath('test/unit/mocha.conf.js'),
-            this.destinationPath('test/unit/mocha.conf.js')
-        );
-        this.fs.copy(
-            this.templatePath('app/styles/images/logo.png'),
-            this.destinationPath('app/styles/images/logo.png')
-        );
-        this.fs.copy(
-            this.templatePath('app/styles/animations.scss'),
-            this.destinationPath('app/styles/animations.scss')
-        );
-        this.fs.copy(
-            this.templatePath('app/styles/bootstrap.scss'),
-            this.destinationPath('app/styles/bootstrap.scss')
-        );
-        this.fs.copy(
-            this.templatePath('app/styles/grid.scss'),
-            this.destinationPath('app/styles/grid.scss')
-        );
-        this.fs.copy(
-            this.templatePath('app/styles/main.scss'),
-            this.destinationPath('app/styles/main.scss')
-        );
-        this.fs.copy(
-            this.templatePath('app/styles/theme/_bootswatch.scss'),
-            this.destinationPath('app/styles/theme/_bootswatch.scss')
-        );
-        this.fs.copy(
-            this.templatePath('app/styles/theme/_variables.scss'),
-            this.destinationPath('app/styles/theme/_variables.scss')
-        );
-        this.fs.copy(
-            this.templatePath('app/styles/theme/_addvariables.scss'),
-            this.destinationPath('app/styles/theme/_addvariables.scss')
-        );
-    },
-    install: function () {
-        if (this.appRest) {
-            this.composeWith('appverse-html5:rest', {
-                options: {
-                    restBaseUrl: this.restBaseUrl
-                }
-            });
+        files: function () {
+            this.fs.copyTpl(
+                this.templatePath('package.json'),
+                this.destinationPath('package.json'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('bower.json'),
+                this.destinationPath('bower.json'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('.editorconfig'),
+                this.destinationPath('.editorconfig'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('.jshintrc'),
+                this.destinationPath('.jshintrc'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('README.md'),
+                this.destinationPath('README.md'),
+                this
+            );
+            this.fs.copy(
+                this.templatePath('.bowerrc'),
+                this.destinationPath('.bowerrc')
+            );
+            this.fs.copy(
+                this.templatePath('Gruntfile.js'),
+                this.destinationPath('Gruntfile.js')
+            );
+            this.fs.copy(
+                this.templatePath('LICENSE.md'),
+                this.destinationPath('LICENSE.md')
+            );
+            this.fs.copyTpl(
+                this.templatePath('sonar-project.properties'),
+                this.destinationPath('sonar-project.properties'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('/app/views/home.html'),
+                this.destinationPath('/app/views/home.html'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('/app/scripts/controllers/home-controller.js'),
+                this.destinationPath('/app/scripts/controllers/home-controller.js'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('/app/scripts/states/app-states.js'),
+                this.destinationPath('/app/scripts/states/app-states.js'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('/app/scripts/app.js'),
+                this.destinationPath('/app/scripts/app.js'),
+                this
+            );
+            this.fs.copyTpl(
+                this.templatePath('/test/unit/controllers/controllersSpec.js'),
+                this.destinationPath('/test/unit/controllers/controllersSpec.js'),
+                this
+            );
+            //paths starting with "/" cause problems on UNIX based OS like OSX
+            this.fs.copy(
+                this.templatePath('test/e2e/controllers/controllersSpec.js'),
+                this.destinationPath('test/e2e/controllers/controllersSpec.js')
+            );
+            this.fs.copy(
+                this.templatePath('test/e2e/routesSpec.js'),
+                this.destinationPath('test/e2e/routesSpec.js')
+            );
+            this.fs.copy(
+                this.templatePath('test/lib/chai-expect.js'),
+                this.destinationPath('test/lib/chai-expect.js')
+            );
+            this.fs.copy(
+                this.templatePath('test/lib/chai-should.js'),
+                this.destinationPath('test/lib/chai-should.js')
+            );
+            this.fs.copy(
+                this.templatePath('test/unit/karma-e2e.conf.js'),
+                this.destinationPath('test/unit/karma-e2e.conf.js')
+            );
+            this.fs.copy(
+                this.templatePath('test/unit/karma-shared.conf.js'),
+                this.destinationPath('test/unit/karma-shared.conf.js')
+            );
+            this.fs.copy(
+                this.templatePath('test/unit/karma-unit.conf.js'),
+                this.destinationPath('test/unit/karma-unit.conf.js')
+            );
+            this.fs.copy(
+                this.templatePath('test/unit/mocha.conf.js'),
+                this.destinationPath('test/unit/mocha.conf.js')
+            );
+            this.fs.copy(
+                this.templatePath('app/styles/images/logo.png'),
+                this.destinationPath('app/styles/images/logo.png')
+            );
+            this.fs.copy(
+                this.templatePath('app/styles/animations.scss'),
+                this.destinationPath('app/styles/animations.scss')
+            );
+            this.fs.copy(
+                this.templatePath('app/styles/bootstrap.scss'),
+                this.destinationPath('app/styles/bootstrap.scss')
+            );
+            this.fs.copy(
+                this.templatePath('app/styles/grid.scss'),
+                this.destinationPath('app/styles/grid.scss')
+            );
+            this.fs.copy(
+                this.templatePath('app/styles/main.scss'),
+                this.destinationPath('app/styles/main.scss')
+            );
+            this.fs.copy(
+                this.templatePath('app/styles/theme/_bootswatch.scss'),
+                this.destinationPath('app/styles/theme/_bootswatch.scss')
+            );
+            this.fs.copy(
+                this.templatePath('app/styles/theme/_variables.scss'),
+                this.destinationPath('app/styles/theme/_variables.scss')
+            );
+            this.fs.copy(
+                this.templatePath('app/styles/theme/_addvariables.scss'),
+                this.destinationPath('app/styles/theme/_addvariables.scss')
+            );
         }
-        if (this.appQR) {
-            this.composeWith('appverse-html5:qr', {
+    },
+
+    install: function () {
+        if (this.bootstrapSelector) {
+            this.composeWith('appverse-html5:bootstrap-theme', {
                 options: {}
             });
         }
-        if (this.appSecurity) {
-            this.composeWith('appverse-html5:security', {
+        if (this.appCache) {
+            this.composeWith('appverse-html5:cache', {
+                options: {}
+            });
+        }
+        if (this.appLogging) {
+            this.composeWith('appverse-html5:logging', {
+                options: {}
+            });
+        }
+
+        if (this.appRest) {
+            this.composeWith('appverse-html5:rest', {
                 options: {}
             });
         }
@@ -406,13 +418,8 @@ module.exports = yeoman.generators.Base.extend({
                 options: {}
             });
         }
-        if (this.appCache) {
-            this.composeWith('appverse-html5:cache', {
-                options: {}
-            });
-        }
-        if (this.appLogging) {
-            this.composeWith('appverse-html5:logging', {
+        if (this.appSecurity) {
+            this.composeWith('appverse-html5:security', {
                 options: {}
             });
         }
@@ -426,9 +433,12 @@ module.exports = yeoman.generators.Base.extend({
                 options: {}
             });
         }
-        this.composeWith('appverse-html5:bootstrap-theme', {
-            options: {}
-        });
+
+        if (this.appQR) {
+            this.composeWith('appverse-html5:qr', {
+                options: {}
+            });
+        }
         this.installDependencies({
             skipInstall: this.options['skip-install']
         });

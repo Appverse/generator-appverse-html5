@@ -59,7 +59,17 @@ Array.prototype.unshiftIfNotExist = function (element, comparer) {
         this.unshift(element);
     }
 };
+//
+// Get the Generated angular application name
+//
+function getApplicationName(context) {
+    //APP NAME
+    var pkgPath = context.destinationPath('package.json');
+    var pkg = JSON.parse(context.readFileAsString(pkgPath));
+    return pkg.name + "App";
+}
 
 module.exports = {
-    checkVersion: checkVersion
+    checkVersion: checkVersion,
+    getApplicationName: getApplicationName
 };

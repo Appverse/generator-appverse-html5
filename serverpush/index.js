@@ -20,13 +20,11 @@
  */
 'use strict';
 var yeoman = require('yeoman-generator');
-var path = require('path');
 var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
-var pkg = require('../package.json');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -79,8 +77,9 @@ module.exports = yeoman.generators.Base.extend({
             value: "appverse.serverpush",
             raw: "'appverse.serverpush'"
         };
+
         //APP NAME
-        var appName = pkg.name + "App";
+        var appName = utils.getApplicationName(this);
 
         //REPLACE JS
         var moduleCode = estraverse.replace(astCode, {
