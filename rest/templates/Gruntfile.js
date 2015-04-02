@@ -547,6 +547,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', [
         'clean:server',
+        'configureProxies:livereload',
         'concurrent:server',
         'autoprefixer',
         'connect:livereload',
@@ -556,6 +557,7 @@ module.exports = function (grunt) {
     grunt.registerTask('server:open', [
         'clean:server',
         'concurrent:server',
+        'configureProxies:livereload',
         'autoprefixer',
         'connect:livereload',
         'open:server',
@@ -643,11 +645,11 @@ module.exports = function (grunt) {
 
             server.use(router);
             server.listen( <%= mockServerPort %> );
-            grunt.task.run('configureProxies:server');
+            grunt.task.run('configureProxies:mocklivereload');
             grunt.task.run('clean:server');
             grunt.task.run('concurrent:server');
             grunt.task.run('autoprefixer');
-            grunt.task.run('connect:mocklivereload');
+            grunt.task.run('connect:livereload');
             grunt.task.run('watch');
         }); <%
     } %>

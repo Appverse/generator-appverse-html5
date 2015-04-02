@@ -8,7 +8,9 @@
 <!--<![endif]-->
 
 <head>
-    <title data-ng-bind="$state.current.name"><%=appName%></title>
+    <title data-ng-bind="$state.current.name">
+        <%=appName%>
+    </title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
@@ -58,7 +60,9 @@
                  then to navigate to a state. When this link is clicked it will take the application
                  to the 'home' state. Behind the scenes the directive also adds the correct href attr
                  and url. -->
-            <a class="navbar-brand" ui-sref="home"><%=appName%></a>
+            <a class="navbar-brand" ui-sref="home">
+                <%=appName%>
+            </a>
         </div>
 
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
@@ -69,8 +73,6 @@
                 <li data-ng-class="{ active: $state.includes('home') }">
                     <a ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
                 </li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
 

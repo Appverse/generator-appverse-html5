@@ -151,6 +151,22 @@ module.exports = yeoman.generators.Base.extend({
                     kind: 'init',
                     method: false,
                     shorthand: false
+               }, {
+                    type: 'Property',
+                    key: {
+                        type: 'Literal',
+                        value: 'RequestSuffix',
+                        raw: 'RequestSuffix'
+                    },
+                    computed: false,
+                    value: {
+                        type: 'Literal',
+                        value: '',
+                        raw: ''
+                    },
+                    kind: 'init',
+                    method: false,
+                    shorthand: false
                }]
             }
         };

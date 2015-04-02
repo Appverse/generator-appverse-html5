@@ -57,6 +57,8 @@ yo appverse-html5
 ### Sub-generators
 
 * REST 
+Add the Appverse REST module to the project. 
+Can add a MOCK REST Server (json-server).
 
 ```bash
 yo appverse-html5:rest
@@ -112,7 +114,19 @@ yo appverse-html5:qr
 * Add a new view  
 
 ```bash
-yo appverse-html5:app-view
+yo appverse-html5:app-view $viewname
+```
+
+* Add a new REST entity  
+The subgenerator will require REST module installed. 
+
+It will create:
+  * A view to manage the Rest entity
+  * A controller for the view
+  * A MOCK JSON file if the MOCK REST server was selected.
+
+```bash
+yo appverse-html5:rest-entity $entityname
 ```
 
 ### Bootstrap theme selector 
