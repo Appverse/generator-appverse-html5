@@ -74,7 +74,7 @@ module.exports = yeoman.generators.Base.extend({
                 }
             }
             if (!seen) {
-                var controllerJS = '<script src="scripts/controllers/' + this.controllerScript + '"></script>';
+                var controllerJS = '\n<script src="scripts/controllers/' + this.controllerScript + '"></script>\n';
                 indexHTML(controllerJS).insertAfter(indexHTML('script').get()[indexHTML('script').length - 1]);
             }
 
