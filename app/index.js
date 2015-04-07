@@ -377,10 +377,6 @@ module.exports = yeoman.generators.Base.extend({
                 this.templatePath('app/styles/theme/_variables.scss'),
                 this.destinationPath('app/styles/theme/_variables.scss')
             );
-            this.fs.copy(
-                this.templatePath('app/styles/theme/_addvariables.scss'),
-                this.destinationPath('app/styles/theme/_addvariables.scss')
-            );
         }
     },
 
