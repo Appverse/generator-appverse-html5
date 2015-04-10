@@ -30,6 +30,7 @@ var escodegen = require('escodegen');
 var utils = require('../utils.js');
 
 
+
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
@@ -77,8 +78,8 @@ module.exports = yeoman.generators.Base.extend({
     },
     writing: function () {
         var restJS = '\n  \t<!-- REST MODULE --> \n' +
+            '\t<script src="bower_components/lodash/lodash.min.js"></script> \n' +
             '\t<script src="bower_components/angular-resource/angular-resource.min.js"></script> \n' +
-            '\t<script src="bower_components/lodash/dist/lodash.underscore.min.js"></script> \n' +
             '\t<script src="bower_components/restangular/dist/restangular.min.js"></script> \n' +
             '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script> \n';
 
@@ -184,30 +185,47 @@ module.exports = yeoman.generators.Base.extend({
         var finalCode = escodegen.generate(configCode);
         fs.writeFileSync(path, finalCode);
 
-        this.fs.copyTpl(
-            this.templatePath('Gruntfile.js'),
-            this.destinationPath('Gruntfile.js'),
-            this
-        );
+        /*  this.fs.copyTpl(
+              this.templatePath('config/connect.js'),
+              this.destinationPath('config/connect.js'),
+              this
+          ); */
 
-        if (!fs.existsSync("api")) {
-            fs.mkdirSync("api");
+        this.template('config/connect.js', 'config/connect.js');
+
+        if (this.mockServer) {
+            if (!fs.existsSync("tasks")) {
+                fs.mkdirSync("tasks");
+            }
+            if (!fs.existsSync("api")) {
+                fs.mkdirSync("api");
+            }
+            this.template('tasks/mockserverTask.js', 'tasks/mockserverTask.js');
         }
     },
     installingDeps: function () {
+        //TODO - TEMP  APPROACH - PENDING APPVERSE
+        /* var bower = require(this.destinationPath('./bower.json'));
+         bower.dependencies["lodash"] = "~3.6.0";
+         bower.resolutions["lodash"] = "~3.6.0";
+         fs.writeFileSync(this.destinationPath('./bower.json'), JSON.stringify(bower)); */
+
+        this.bowerInstall("lodash");
         this.npmInstall(['grunt-connect-proxy'], {
             'saveDev': true
         });
+
         if (this.mockServer) {
             this.npmInstall(['json-server'], {
                 'saveDev': true
             });
         }
+
     },
     end: function () {
-        console.log("Done.");
+
         if (this.mockServer) {
-            console.log("Execute 'grunt mockserver' to start you application on Mock mode.");
+            console.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
             console.log("Put your .json files into the api folder to serve them automatically with the Mock server");
             console.log("The Mock server will route all your entities using REST URL patterns.");
         }
