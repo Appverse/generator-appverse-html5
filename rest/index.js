@@ -185,13 +185,8 @@ module.exports = yeoman.generators.Base.extend({
         var finalCode = escodegen.generate(configCode);
         fs.writeFileSync(path, finalCode);
 
-        /*  this.fs.copyTpl(
-              this.templatePath('config/connect.js'),
-              this.destinationPath('config/connect.js'),
-              this
-          ); */
-
         this.template('config/connect.js', 'config/connect.js');
+        this.template('tasks/server.js', 'tasks/server.js');
 
         if (this.mockServer) {
             if (!fs.existsSync("tasks")) {
@@ -205,11 +200,6 @@ module.exports = yeoman.generators.Base.extend({
     },
     installingDeps: function () {
         //TODO - TEMP  APPROACH - PENDING APPVERSE
-        /* var bower = require(this.destinationPath('./bower.json'));
-         bower.dependencies["lodash"] = "~3.6.0";
-         bower.resolutions["lodash"] = "~3.6.0";
-         fs.writeFileSync(this.destinationPath('./bower.json'), JSON.stringify(bower)); */
-
         this.bowerInstall("lodash");
         this.npmInstall(['grunt-connect-proxy'], {
             'saveDev': true
