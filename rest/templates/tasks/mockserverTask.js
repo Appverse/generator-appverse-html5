@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         var fs = require("fs");
         var path = require("path");
         console.log('Reading MOCK - JSON directory. Loading al the json files to the MockServer database.');
-        var p = "./api/";
+        var p = __dirname + "/../api/";
         var db = {};
         fs.readdir(p, function (err, files) {
             files.forEach(function (file) {

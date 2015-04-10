@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', [
         'clean:server',
+        'configureProxies:livereload',
         'concurrent:server',
         'autoprefixer',
         'connect:livereload',
@@ -12,6 +13,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server:open', [
         'clean:server',
+        'configureProxies:livereload',
         'concurrent:server',
         'autoprefixer',
         'connect:livereload',

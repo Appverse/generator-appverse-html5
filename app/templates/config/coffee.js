@@ -1,6 +1,4 @@
 'use strict';
-// Generates a custom Modernizr build that includes only the tests you
-// reference in your app
 
 module.exports = {
     options: {

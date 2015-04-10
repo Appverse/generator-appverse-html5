@@ -160,6 +160,11 @@ module.exports = yeoman.generators.Base.extend({
                     name: "bootstrapTheme",
                     message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
                     default: true
+             }, {
+                    type: "confirm",
+                    name: "webkit",
+                    message: "Do you want to package your application as a desktop application using Node-Webkit?",
+                    default: false
              },
                 {
                     type: "input",
@@ -185,6 +190,7 @@ module.exports = yeoman.generators.Base.extend({
             if (prompts.length > 0) {
                 this.appName = slug.slugify(props.appName);
                 this.bootstrapSelector = props.bootstrapTheme;
+                this.webkit = props.webkit;
                 var coreOptions = props.coreOptions;
 
                 // manually deal with the response, get back and store the results.
@@ -389,6 +395,11 @@ module.exports = yeoman.generators.Base.extend({
 
         if (this.appQR) {
             this.composeWith('appverse-html5:qr', {
+                options: {}
+            });
+        }
+        if (this.webkit) {
+            this.composeWith('appverse-html5:webkit', {
                 options: {}
             });
         }
