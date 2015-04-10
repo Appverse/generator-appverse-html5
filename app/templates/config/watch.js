@@ -20,7 +20,7 @@ module.exports = {
     },
     livereload: {
         options: {
-            livereload: '<%=ports.livereload%>'
+            livereload: true
         },
         files: [
                    '<%=paths.app%>/**/*.html',
