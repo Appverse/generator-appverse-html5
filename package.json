@@ -1,6 +1,6 @@
 {
   "name": "generator-appverse-html5",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "Appverse HTML 5 generator",
   "license": "http://appverse.org/legal/appverse-license/",
   "main": "app/index.js",
@@ -30,7 +30,8 @@
     "security",
     "utils.js",
     "bootstrap-theme",
-    "rest-entity"
+    "rest-entity",
+    "webkit"
   ],
   "keywords": [
     "yeoman-generator",

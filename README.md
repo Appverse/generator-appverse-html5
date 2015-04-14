@@ -129,6 +129,26 @@ It will create:
 yo appverse-html5:rest-entity $entityname
 ```
 
+* Node-Webkit 
+Add Node-Webkit support to the project.
+
+```bash
+yo appverse-html5:webkit
+```
+
+Package your application with Grunt as an executable file. 
+
+```bash
+grunt nodewebkit:dist
+``` 
+
+Start your application using the Node-Webkit browser
+
+```bash
+npm start 
+```
+
+
 ### Bootstrap theme selector 
 The Appverse HTML5 generator allows to select a bootstrap theme from [Bootswatch](http://bootswatch.com) using the [Bootswatch API](https://bootswatch.com/help/)
 
