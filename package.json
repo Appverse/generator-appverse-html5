@@ -30,7 +30,8 @@
     "security",
     "utils.js",
     "bootstrap-theme",
-    "rest-entity"
+    "rest-entity",
+    "webkit"
   ],
   "keywords": [
     "yeoman-generator",

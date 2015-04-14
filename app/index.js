@@ -22,7 +22,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-var yosay = require('yosay');
+
 var path = require('path');
 var slug = require("underscore.string");
 var utils = require('../utils.js');
@@ -160,6 +160,11 @@ module.exports = yeoman.generators.Base.extend({
                     name: "bootstrapTheme",
                     message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
                     default: true
+             }, {
+                    type: "confirm",
+                    name: "webkit",
+                    message: "Do you want to package your application as a desktop application using Node-Webkit?",
+                    default: false
              },
                 {
                     type: "input",
@@ -185,6 +190,7 @@ module.exports = yeoman.generators.Base.extend({
             if (prompts.length > 0) {
                 this.appName = slug.slugify(props.appName);
                 this.bootstrapSelector = props.bootstrapTheme;
+                this.webkit = props.webkit;
                 var coreOptions = props.coreOptions;
 
                 // manually deal with the response, get back and store the results.
@@ -311,72 +317,28 @@ module.exports = yeoman.generators.Base.extend({
                 this.destinationPath('/app/scripts/app.js'),
                 this
             );
-            this.fs.copyTpl(
-                this.templatePath('/test/unit/controllers/controllersSpec.js'),
-                this.destinationPath('/test/unit/controllers/controllersSpec.js'),
-                this
-            );
+
             //paths starting with "/" cause problems on UNIX based OS like OSX
             this.fs.copy(
-                this.templatePath('test/e2e/controllers/controllersSpec.js'),
-                this.destinationPath('test/e2e/controllers/controllersSpec.js')
+                this.templatePath('test'),
+                this.destinationPath('test')
             );
+
             this.fs.copy(
-                this.templatePath('test/e2e/routesSpec.js'),
-                this.destinationPath('test/e2e/routesSpec.js')
+                this.templatePath('app/styles'),
+                this.destinationPath('app/styles')
             );
+
             this.fs.copy(
-                this.templatePath('test/lib/chai-expect.js'),
-                this.destinationPath('test/lib/chai-expect.js')
+                this.templatePath('config'),
+                this.destinationPath('config')
             );
+
             this.fs.copy(
-                this.templatePath('test/lib/chai-should.js'),
-                this.destinationPath('test/lib/chai-should.js')
+                this.templatePath('tasks'),
+                this.destinationPath('tasks')
             );
-            this.fs.copy(
-                this.templatePath('test/karma-e2e.conf.js'),
-                this.destinationPath('test/karma-e2e.conf.js')
-            );
-            this.fs.copy(
-                this.templatePath('test/karma-shared.conf.js'),
-                this.destinationPath('test/karma-shared.conf.js')
-            );
-            this.fs.copy(
-                this.templatePath('test/karma-unit.conf.js'),
-                this.destinationPath('test/karma-unit.conf.js')
-            );
-            this.fs.copy(
-                this.templatePath('test/mocha.conf.js'),
-                this.destinationPath('test/mocha.conf.js')
-            );
-            this.fs.copy(
-                this.templatePath('app/styles/images/logo.png'),
-                this.destinationPath('app/styles/images/logo.png')
-            );
-            this.fs.copy(
-                this.templatePath('app/styles/animations.scss'),
-                this.destinationPath('app/styles/animations.scss')
-            );
-            this.fs.copy(
-                this.templatePath('app/styles/bootstrap.scss'),
-                this.destinationPath('app/styles/bootstrap.scss')
-            );
-            this.fs.copy(
-                this.templatePath('app/styles/grid.scss'),
-                this.destinationPath('app/styles/grid.scss')
-            );
-            this.fs.copy(
-                this.templatePath('app/styles/main.scss'),
-                this.destinationPath('app/styles/main.scss')
-            );
-            this.fs.copy(
-                this.templatePath('app/styles/theme/_bootswatch.scss'),
-                this.destinationPath('app/styles/theme/_bootswatch.scss')
-            );
-            this.fs.copy(
-                this.templatePath('app/styles/theme/_variables.scss'),
-                this.destinationPath('app/styles/theme/_variables.scss')
-            );
+
         }
     },
 
@@ -432,6 +394,11 @@ module.exports = yeoman.generators.Base.extend({
 
         if (this.appQR) {
             this.composeWith('appverse-html5:qr', {
+                options: {}
+            });
+        }
+        if (this.webkit) {
+            this.composeWith('appverse-html5:webkit', {
                 options: {}
             });
         }
