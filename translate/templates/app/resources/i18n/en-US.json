@@ -1,0 +1,5 @@
+{
+    "WELCOME": "Welcome!",
+    "WELCOME_NAME": "Welcome {{name}} !",
+    "WELCOME_NAME_AGE": "Welcome {{name}}, you are {{age}} year(s) old!"
+}
