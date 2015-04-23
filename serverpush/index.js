@@ -74,8 +74,8 @@ module.exports = yeoman.generators.Base.extend({
         //ANGULAR REST MODULE
         var appverseServerPush = {
             type: "Literal",
-            value: "appverse.serverpush",
-            raw: "'appverse.serverpush'"
+            value: "appverse.serverPush",
+            raw: "'appverse.serverPush'"
         };
 
         //APP NAME
@@ -84,7 +84,7 @@ module.exports = yeoman.generators.Base.extend({
         //REPLACE JS
         var moduleCode = estraverse.replace(astCode, {
             enter: function (node, parent) {
-                if (node.type === 'Literal' && node.value == appName) {
+                if (node.type === 'Literal' && node.value === appName) {
                     parent.arguments[1].elements.unshiftIfNotExist(appverseServerPush, function (e) {
                         return e.type === appverseServerPush.type && e.value === appverseServerPush.value;
                     });
@@ -125,7 +125,7 @@ module.exports = yeoman.generators.Base.extend({
 
         var configCode = estraverse.replace(moduleCode, {
             enter: function (node, parent) {
-                if (node.type === 'Identifier' && node.name == 'environment') {
+                if (node.type === 'Identifier' && node.name === 'environment') {
                     parent.value.properties.pushIfNotExist(config, function (e) {
                         return e.type === config.type && e.key.value === config.key.value;
                     });

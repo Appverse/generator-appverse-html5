@@ -24,8 +24,6 @@ var yeoman = require('yeoman-generator');
 var utils = require('../utils.js');
 var fs = require('fs');
 var _ = require('lodash');
-var estraverse = require('estraverse');
-var esprima = require('esprima');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -37,44 +35,19 @@ module.exports = yeoman.generators.Base.extend({
 
         this.log('You called the AppverseHtml5 Entity REST subgenerator.' + this.entity);
         utils.checkVersion();
-        //CHECK IF REST IS AVAILABLE
-        var path = this.destinationPath('app/scripts/app.js');
-        var file = this.readFileAsString(path);
-        //PARSE FILE
-        var astCode = esprima.parse(file);
-        var restModule = false;
-
-        estraverse.traverse(astCode, {
-            enter: function (node) {
-                if (node.type === 'Literal' && node.value === 'appverse.rest') {
-                    console.log("REST module found.");
-                    restModule = true;
-                    this.break();
-                }
-            }
-        });
-        this.restModule = restModule;
+        this.restModule = utils.checkAngularModule.call(this,'appverse.rest');
+        this.name = this.entity;
     },
     configuring: function () {
-        //TODO
-        //This is done async, the next writing code is executed this one have finished
-        /* if (!this.restModule) {
-             console.log("REST module not found. Adding Appverse - HTML5 REST ");
-             this.composeWith('appverse-html5:rest', {
-                 options: {}
-             });
-         } */
+        //ADD NG_GRID ANGULAR
+        utils.addAngularModule.call(this,'ngGrid');
     },
-
     writing: {
         writeCode: function () {
             if (this.restModule) {
-                var htmlRestDirective = '<div rest rest-path="' + this.entity + '" rest-name="' + this.entity + 's" rest-loading-text="Loading ' + this.entity + '"  rest-error-text="Error while loading ' + this.entity + '"></div>';
-
-                var htmlRestList = '<ul id="' + this.entity + '"><li ng-repeat="' + this.entity + ' in ' + this.entity + 's"><p><strong>ID:</strong> {{' + this.entity + '.id}}</p><p><strong>Name:</strong> {{' + this.entity + '.name}}</p></li></ul></div>';
-
-                var code = htmlRestDirective + htmlRestList;
-
+                if (!_.isUndefined(this.name)) {
+                    utils.addViewAndController.call(this);
+                }
                 //CHECK IF MOCK SERVER IS PRESENT
                 var pkgPath = this.destinationPath('package.json');
                 this.pkg = JSON.parse(this.readFileAsString(pkgPath));
@@ -84,15 +57,8 @@ module.exports = yeoman.generators.Base.extend({
                         id: 0,
                         name: "mockname"
                 }];
-
-                    fs.writeFileSync('api/' + this.entity + '.json', JSON.stringify(mockentity));
+                    fs.writeFileSync('api/' + this.name + '.json', JSON.stringify(mockentity));
                 }
-                this.composeWith('appverse-html5:app-view', {
-                    options: {
-                        name: this.entity,
-                        htmlcontent: code
-                    }
-                });
             } else {
                 console.log("REST module not found.");
                 console.log("Execute 'yo appverse-html5:rest' to add the REST module to the project.");

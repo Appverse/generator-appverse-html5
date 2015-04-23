@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<div class="container" scrolly-scroll="">
+    <div class="well">
+
+        <form novalidate class="form-inline clearfix" name="filterForm">
+            <div class="form-group pull-right">
+                <label for="filterText" class="sr-only">Filter</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="filterText" placeholder="Filter..." ng-model="filterText" ng-change="filter<%= _.capitalize(viewName) %>()">
+                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+                </div>
+            </div>
+        </form>
+        <br>
+
+        <div class="gridStyle" ng-grid="gridOptions"></div>
+        <br>
+        <form novalidate class="form-inline clearfix" name="<%=viewName%>Form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter name..." ng-model="newItem.name" required>
+            </div>
+            <br>
+            <div class="pull-right">
+                <button type="submit" class="btn btn-primary btn-sm" ng-click="post(newItem)" ng-disabled="!<%=viewName%>Form.$valid">{{newItem.id?'Save':'Add'}}</button>
+                <button class="btn btn-default btn-sm" ng-click="cancel()" ng-if="newItem.id">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

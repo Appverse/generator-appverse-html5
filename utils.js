@@ -23,6 +23,143 @@
 var updateNotifier = require('update-notifier');
 var pkg = require('./package.json');
 var chalk = require('chalk');
+var cheerio = require('cheerio');
+var _ = require('lodash');
+var fs = require('fs');
+var esprima = require('esprima');
+var estraverse = require('estraverse');
+var escodegen = require('escodegen');
+
+//
+// Get the Generated angular application name
+//
+function getApplicationName(context) {
+    //APP NAME
+    var pkgPath = context.destinationPath('package.json');
+    var pkg = JSON.parse(context.readFileAsString(pkgPath));
+    return pkg.name + "App";
+}
+
+var checkAngularModule = function (moduleName) {
+   //CHECK IF moduleName IS AVAILABLE
+        var path = this.destinationPath('app/scripts/app.js');
+        var file = this.readFileAsString(path);
+        //PARSE FILE
+        var astCode = esprima.parse(file);
+        var installedModule = false;
+        estraverse.traverse(astCode, {
+            enter: function (node) {
+                if (node.type === 'Literal' && node.value === moduleName) {
+                    console.log("Module found.");
+                    installedModule = true;
+                    this.break();
+                }
+            }
+        });
+        return installedModule;
+};
+
+var addAngularModule = function (moduleName) {
+    if (!checkAngularModule.call(this,moduleName)) {
+    //ANGULAR MODULES
+        this.log('Writing angular modules (app.js).');
+        var path = this.destinationPath('app/scripts/app.js');
+        var file = this.readFileAsString(path);
+        //PARSE FILE
+        var astCode = esprima.parse(file);
+        //ANGULAR MODULE
+        var angularModule= {
+            type: "Literal",
+            value: moduleName,
+            raw: "'" + moduleName + "'"
+        };
+        //APP NAME
+        var appName = getApplicationName(this);
+        //REPLACE JS
+        var moduleCode = estraverse.replace(astCode, {
+            enter: function (node, parent) {
+                if (node.type === 'Literal' && node.value === appName) {
+                    parent.arguments[1].elements.unshiftIfNotExist(angularModule, function (e) {
+                        return e.type === angularModule.type && e.value === angularModule.value;
+                    });
+                    this.break();
+                }
+            }
+        });
+        var finalCode = escodegen.generate(moduleCode);
+        fs.writeFileSync(path, finalCode);
+    } else {
+        this.log ("Module already installed");
+    }
+};
+
+var addViewAndControllerFiles = function () {
+    this.fs.copyTpl(
+        this.templatePath('/app/views/view/view.html'),
+        this.destinationPath('/app/views/' + this.viewName + '/' + this.viewName + '.html'),
+        this
+    );
+    this.fs.copyTpl(
+        this.templatePath('/app/scripts/controllers/view-controller.js'),
+        this.destinationPath('/app/scripts/controllers/' + this.controllerScript),
+        this
+    );
+};
+
+var addControllerScriptToIndex = function () {
+    var indexPath = this.destinationPath('app/index.html');
+    var index = this.readFileAsString(indexPath);
+    var indexHTML = cheerio.load(index);
+
+    //CHECK IF EXISTS
+    var seen = false;
+    for (var i = 0; i < indexHTML('script').length; i++) {
+        if (indexHTML('script').get()[i].attribs.src === 'scripts/controllers/' + this.controllerScript) {
+            seen = true;
+        }
+    }
+    if (!seen) {
+        var controllerJS = '\n<script src="scripts/controllers/' + this.controllerScript + '"></script>\n';
+        indexHTML(controllerJS).insertAfter(indexHTML('script').get()[indexHTML('script').length - 1]);
+    }
+    fs.writeFileSync(indexPath, indexHTML.html());
+
+};
+
+var addLinkToNavBar = function () {
+    var indexPath = this.destinationPath('app/index.html');
+    var index = this.readFileAsString(indexPath);
+    var indexHTML = cheerio.load(index);
+    //ADD LINK
+    var findlink = indexHTML('*[ui-sref="' + this.viewName + '"]');
+    if (_.isEmpty(findlink)) {
+        var navLink = '<li data-ng-class="{active: $state.includes(\'' + this.viewName + '\')}"><a ui-sref="' + this.viewName + '">' + this.viewName + '</a></li>';
+        indexHTML('ul.nav.navbar-nav').append(navLink);
+    }
+    fs.writeFileSync(indexPath, indexHTML.html());
+
+    //STATES
+    //TODO - USE ESPRIMA FOR JS PARSING
+    var hook = '$stateProvider',
+        path = this.destinationPath('app/scripts/states/app-states.js'),
+        file = this.readFileAsString(path),
+        insert = ".state('" + this.viewName + "', {url: '/" + this.viewName + "',templateUrl: 'views/" + this.viewName + "/" + this.viewName + ".html',controller: '" + this.controllerName + "'})";
+
+    if (file.indexOf(insert) === -1) {
+        var pos = file.lastIndexOf(hook) + hook.length;
+        var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
+        fs.writeFileSync(path, output);
+    }
+};
+
+var addViewAndController = function () {
+    this.viewName = this.name;
+    this.controllerScript = this.name + '-controller.js';
+    this.controllerName = this.name + 'Controller';
+    addLinkToNavBar.call(this);
+    addControllerScriptToIndex.call(this);
+    addViewAndControllerFiles.call(this);
+};
 
 function checkVersion() {
     var notifier = updateNotifier({
@@ -59,17 +196,13 @@ Array.prototype.unshiftIfNotExist = function (element, comparer) {
         this.unshift(element);
     }
 };
-//
-// Get the Generated angular application name
-//
-function getApplicationName(context) {
-    //APP NAME
-    var pkgPath = context.destinationPath('package.json');
-    var pkg = JSON.parse(context.readFileAsString(pkgPath));
-    return pkg.name + "App";
-}
 
 module.exports = {
     checkVersion: checkVersion,
-    getApplicationName: getApplicationName
+    getApplicationName: getApplicationName,
+    addLinkToNavBar: addLinkToNavBar,
+    addControllerScriptToIndex: addControllerScriptToIndex,
+    addViewAndController: addViewAndController,
+    addAngularModule:addAngularModule,
+    checkAngularModule:checkAngularModule
 };

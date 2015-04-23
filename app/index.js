@@ -239,6 +239,7 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'bower_components/ng-grid/build/ng-grid.min.js',
                 'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
+                'bower_components/angular-animate/angular-animate.min.js',
                 'bower_components/angular-xeditable/dist/js/xeditable.js',
                 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
                 'bower_components/angular-route/angular-route.min.js',
