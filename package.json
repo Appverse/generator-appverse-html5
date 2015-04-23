@@ -1,6 +1,6 @@
 {
   "name": "generator-appverse-html5",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "Appverse HTML 5 generator",
   "license": "http://appverse.org/legal/appverse-license/",
   "main": "app/index.js",
