@@ -1,34 +1,43 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var request = require('request');
-var syncrequest = require('sync-request');
 var utils = require('../utils.js');
 var fs = require('fs');
-var pkg = require('../package.json');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
         utils.checkVersion();
-        this.themeprompts = [];
+
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - Bootstrap Theme subgenerator.');
         this.conflicter.force = true;
         this.log(" Getting themes from http://bootswatch.com ");
-        var res = syncrequest('GET', 'http://api.bootswatch.com/3/');
-        this.remotethemes = JSON.parse(res.body.toString());
+        this.themeprompts = [];
+        this.remotethemes = {};
         var prompts = {
             type: 'list',
             name: 'themes',
             message: "Select bootswatch theme:",
             choices: []
         };
-        this.remotethemes.themes.forEach(function (entry) {
-            var option = entry.name;
-            prompts.choices.push(option);
-        });
-        this.themeprompts.push(prompts);
+        var done = this.async();
+
+        request('http://api.bootswatch.com/3', function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                this.remotethemes = JSON.parse(body.toString());
+                this.remotethemes.themes.forEach(function (entry) {
+                    var option = entry.name;
+                    prompts.choices.push(option);
+                });
+                this.themeprompts.push(prompts);
+                done();
+            } else {
+                console.log("Connection error.");
+            }
+        }.bind(this));
+
     },
     prompting: function () {
         var done = this.async();
@@ -44,10 +53,10 @@ module.exports = yeoman.generators.Base.extend({
                     return myArray[i];
                 }
             }
-        };
+        }
         var theme = search(this.selectedTheme, this.remotethemes.themes);
         request(theme.scss, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode === 200) {
                 console.log("Rewriting bootswatch.scss");
                 fs.writeFileSync('app/styles/theme/_bootswatch.scss', body);
                 console.log("Done.");
@@ -57,7 +66,7 @@ module.exports = yeoman.generators.Base.extend({
         });
 
         request(theme.scssVariables, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
+            if (!error && response.statusCode === 200) {
                 console.log("Rewriting variables.scss");
                 fs.writeFileSync('app/styles/theme/_variables.scss', body);
                 console.log("Done.");
