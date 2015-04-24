@@ -79,7 +79,11 @@ angular.module('App.Controllers')
                     $scope.<%=viewName%>.some(function (element, index) {
                         if (element.id === item.id) {
                             $scope.<%=viewName%>[index] = item;
-                            $scope.gridOptions.ngGrid.rowCache[index].clone.entity = item; //Refresh bug in ng-grid
+
+                            var rowCache = $scope.gridOptions.ngGrid.rowCache[index]; //Refresh bug in ng-grid
+                            rowCache.clone.entity = item;
+                            rowCache.entity = item;
+
                             return true;
                         }
                     });
