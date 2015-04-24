@@ -191,7 +191,7 @@ module.exports = yeoman.generators.Base.extend({
         });
 
         if (this.mockServer) {
-            this.npmInstall(['json-server'], {
+            this.npmInstall(['json-server@0.6.10'], {
                 'saveDev': true
             });
         }
