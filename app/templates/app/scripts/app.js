@@ -2,7 +2,7 @@
 
 angular.module('App.Controllers', []);
 
-angular.module('<%=appName%>App', ['ngAnimate','appverse.router', 'App.Controllers','appverse'])
+angular.module('<%=appName%>App', ['ngAnimate','ui.bootstrap','appverse.router', 'App.Controllers','appverse'])
 
 .run(['$log',
     function ($log) {

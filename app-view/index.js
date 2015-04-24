@@ -33,6 +33,12 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'The View name'
         });
 
+        this.argument('menu', {
+            required: false,
+            type: String,
+            desc: 'The Dropdown menu name'
+        });
+
         utils.checkVersion();
         this.log('You called the AppverseHtml5 View subgenerator with the argument ' + this.name + '.');
     },

@@ -41,34 +41,34 @@ function getApplicationName(context) {
 }
 
 var checkAngularModule = function (moduleName) {
-   //CHECK IF moduleName IS AVAILABLE
-        var path = this.destinationPath('app/scripts/app.js');
-        var file = this.readFileAsString(path);
-        //PARSE FILE
-        var astCode = esprima.parse(file);
-        var installedModule = false;
-        estraverse.traverse(astCode, {
-            enter: function (node) {
-                if (node.type === 'Literal' && node.value === moduleName) {
-                    console.log("Module found.");
-                    installedModule = true;
-                    this.break();
-                }
+    //CHECK IF moduleName IS AVAILABLE
+    var path = this.destinationPath('app/scripts/app.js');
+    var file = this.readFileAsString(path);
+    //PARSE FILE
+    var astCode = esprima.parse(file);
+    var installedModule = false;
+    estraverse.traverse(astCode, {
+        enter: function (node) {
+            if (node.type === 'Literal' && node.value === moduleName) {
+                console.log("Module found.");
+                installedModule = true;
+                this.break();
             }
-        });
-        return installedModule;
+        }
+    });
+    return installedModule;
 };
 
 var addAngularModule = function (moduleName) {
-    if (!checkAngularModule.call(this,moduleName)) {
-    //ANGULAR MODULES
+    if (!checkAngularModule.call(this, moduleName)) {
+        //ANGULAR MODULES
         this.log('Writing angular modules (app.js).');
         var path = this.destinationPath('app/scripts/app.js');
         var file = this.readFileAsString(path);
         //PARSE FILE
         var astCode = esprima.parse(file);
         //ANGULAR MODULE
-        var angularModule= {
+        var angularModule = {
             type: "Literal",
             value: moduleName,
             raw: "'" + moduleName + "'"
@@ -89,7 +89,21 @@ var addAngularModule = function (moduleName) {
         var finalCode = escodegen.generate(moduleCode);
         fs.writeFileSync(path, finalCode);
     } else {
-        this.log ("Module already installed");
+        this.log("Module already installed");
+    }
+};
+
+var addRouteState = function () {
+    //STATES
+    var hook = '$stateProvider',
+        path = this.destinationPath('app/scripts/states/app-states.js'),
+        file = this.readFileAsString(path),
+        insert = ".state('" + this.viewName + "', {url: '/" + this.viewName + "',templateUrl: 'views/" + this.viewName + "/" + this.viewName + ".html',controller: '" + this.controllerName + "'})";
+
+    if (file.indexOf(insert) === -1) {
+        var pos = file.lastIndexOf(hook) + hook.length;
+        var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
+        fs.writeFileSync(path, output);
     }
 };
 
@@ -137,18 +151,34 @@ var addLinkToNavBar = function () {
         indexHTML('ul.nav.navbar-nav').append(navLink);
     }
     fs.writeFileSync(indexPath, indexHTML.html());
+    addRouteState.call(this);
+};
 
-    //STATES
-    //TODO - USE ESPRIMA FOR JS PARSING
-    var hook = '$stateProvider',
-        path = this.destinationPath('app/scripts/states/app-states.js'),
-        file = this.readFileAsString(path),
-        insert = ".state('" + this.viewName + "', {url: '/" + this.viewName + "',templateUrl: 'views/" + this.viewName + "/" + this.viewName + ".html',controller: '" + this.controllerName + "'})";
-
-    if (file.indexOf(insert) === -1) {
-        var pos = file.lastIndexOf(hook) + hook.length;
-        var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
-        fs.writeFileSync(path, output);
+//add dropdown menu
+var addDropDownOption = function () {
+    var indexPath = this.destinationPath('app/index.html');
+    var index = this.readFileAsString(indexPath);
+    var indexHTML = cheerio.load(index);
+    //ADD LINK
+    var findlink = indexHTML('*[ui-sref="' + this.viewName + '"]');
+    if (_.isEmpty(findlink)) {
+        var findDropdown = indexHTML('a.dropdown-toggle').filter(function () {
+            return indexHTML(this).text() === this.menu;
+        });
+        //FIND THE DROPDOWN
+        this.log(" findDropdown " + findDropdown);
+        if (findDropdown) {
+            //EXISTS
+            var navLink = '<li data-ng-class="{active: $state.includes(\'' + this.viewName + '\')}"><a ui-sref="' + this.viewName + '">' + this.viewName + '</a></li>';
+            indexHTML('li.dropdown > ul.dropdown-menu').append(navLink);
+        } else {
+            //NOT EXISTS
+            var htmlCode = '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">' + this.menu + '<span class="caret"></span></a>' +
+                ' <ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + this.viewName + '\')}"><a ui-sref="' + this.viewName + '">' + this.viewName + '</a></li></ul></li>';
+            indexHTML('ul.nav.navbar-nav').append(htmlCode);
+        }
+        fs.writeFileSync(indexPath, indexHTML.html());
+        addRouteState.call(this);
     }
 };
 
@@ -156,7 +186,11 @@ var addViewAndController = function () {
     this.viewName = this.name;
     this.controllerScript = this.name + '-controller.js';
     this.controllerName = this.name + 'Controller';
-    addLinkToNavBar.call(this);
+    if (_.isEmpty(this.menu)) {
+        addLinkToNavBar.call(this);
+    } else {
+        addDropDownOption.call(this);
+    }
     addControllerScriptToIndex.call(this);
     addViewAndControllerFiles.call(this);
 };
@@ -181,6 +215,8 @@ Array.prototype.inArray = function (comparer) {
     return false;
 };
 
+
+
 // adds an element to the array if it does not already exist using a comparer
 // function
 Array.prototype.pushIfNotExist = function (element, comparer) {
@@ -203,6 +239,7 @@ module.exports = {
     addLinkToNavBar: addLinkToNavBar,
     addControllerScriptToIndex: addControllerScriptToIndex,
     addViewAndController: addViewAndController,
-    addAngularModule:addAngularModule,
-    checkAngularModule:checkAngularModule
+    addAngularModule: addAngularModule,
+    checkAngularModule: checkAngularModule,
+    addDropDownOption: addDropDownOption
 };
