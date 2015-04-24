@@ -81,8 +81,8 @@ angular.module('App.Controllers')
                             $scope.<%=viewName%>[index] = item;
 
                             var rowCache = $scope.gridOptions.ngGrid.rowCache[index]; //Refresh bug in ng-grid
-                            rowCache.clone.entity = journal;
-                            rowCache.entity = journal;
+                            rowCache.clone.entity = item;
+                            rowCache.entity = item;
 
                             return true;
                         }
