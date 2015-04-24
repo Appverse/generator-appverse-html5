@@ -37,6 +37,12 @@ Execute grunt to test it:
 ```bash
 grunt server
 ```
+or
+
+```bash
+grunt server:open 
+```
+to auto open your default browser with the application.
 
 #### From sources
 * Get sources from [GitHub](https://github.com/appverse/generator-appverse-html5)
@@ -63,6 +69,21 @@ Can add a MOCK REST Server (json-server).
 ```bash
 yo appverse-html5:rest
 ```
+
+Mock server adds two new grunt tasks:
+
+```bash
+$ grunt mockserver
+```
+
+Runs the application using the mock JSON server as REST backend, and:
+
+```bash
+$ grunt mockserver:open
+```
+
+Runs the application using the mock JSON server as REST backend and open the default browser.
+
 
 * Cache   
 
