@@ -79,7 +79,7 @@ module.exports = yeoman.generators.Base.extend({
 
     configuring: function () {
         //ADD NG_GRID ANGULAR
-        utils.addAngularModule.call(this,'appverse.rest');
+        utils.addAngularModule.call(this, 'appverse.rest');
     },
     writing: function () {
         var restJS = '\n  \t<!-- REST MODULE --> \n' +
@@ -186,7 +186,7 @@ module.exports = yeoman.generators.Base.extend({
     installingDeps: function () {
         //TODO - TEMP  APPROACH - PENDING APPVERSE
         this.bowerInstall("lodash");
-        this.npmInstall(['grunt-connect-proxy'], {
+        this.npmInstall(['grunt-connect-proxy@0.1.10'], {
             'saveDev': true
         });
 

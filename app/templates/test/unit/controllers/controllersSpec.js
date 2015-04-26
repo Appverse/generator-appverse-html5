@@ -1,21 +1,17 @@
-//
-// test/unit/controllers/controllersSpec.js
-//
-describe("Unit: Testing Controllers", function() {
+'use strict';
 
-  beforeEach(App = angular.mock.module('<%=appName%>App'));
+describe("Unit: Testing Controllers", function () {
 
-  it('should have a homeController controller', function() {
-    expect(App.homeController).not.to.equal(null);
-  });
+    beforeEach(angular.mock.module('App.Controllers'));
 
-  it('should have a properly working homeController controller', inject(function($rootScope, $controller) {
-    var searchTestAtr = 'cars';
+    it('should have a properly working homeController controller', angular.mock.inject(function ($rootScope, $controller) {
 
-    var $scope = $rootScope.$new();
-    var ctrl = $controller('homeController', {
-      $scope : $scope
-    });
-  }));
+        var scope = $rootScope.$new();
+        $controller('homeController', {
+            $scope: scope
+        });
+
+        expect(scope.greeting).toEqual('Welcome');
+    }));
 
 });

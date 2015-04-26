@@ -1,4 +1,5 @@
-"use strict";
+/*jshint node:true */
+'use strict';
 
 var sharedConfig = require('./karma-shared.conf');
 
@@ -7,8 +8,11 @@ module.exports = function (config) {
 
     conf.coverageReporter.dir += 'e2e';
 
+    conf.browsers = ['Chrome'];
+
     conf.files = [
-        'app/scripts/**',
+        'app/bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
+        'app/scripts/**/*.js',
         'test/e2e/**/*.js'
     ];
 

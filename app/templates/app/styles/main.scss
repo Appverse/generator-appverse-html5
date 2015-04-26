@@ -1,85 +1,9 @@
+/*
+http://getbootstrap.com/components/#navbar-fixed-top
+The fixed navbar will overlay your other content, unless you add padding to the top of the <body>. Try out your own values or use our snippet below. Tip: By default, the navbar is 50px high.
+Make sure to include this after the core Bootstrap CSS.
+*/
 
 body {
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: #333;
+    padding-top: 70px;
 }
-
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 900px;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 30px;
-    background-color: #F79608;
-    border-radius: 6px;
-    padding: 60px;
-}
-
-.hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
-}
-/*** Start of venturocket-angular-slider ***/
-/* Slider: in IE10/11 an annoying tooltip will show up unless you add the following css */
-
-::-ms-tooltip {
-    display: none;
-}
-
-slider {
-    display: block;
-    position: relative;
-    height: 20px;
-    width: 300px;
-}
-
-slider span.bar {
-    height: 50%;
-    z-index: 0;
-    background: #ace;
-    left: 0;
-    top: 25%;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-slider span.bar.selection {
-    background: #0a0;
-    opacity: 0.5;
-}
-
-slider span.bar.unselected {
-    width: auto;
-    background: #a00;
-    opacity: 0.5;
-}
-
-slider span.pointer {
-    cursor: pointer;
-    width: 20px;
-    top: 0;
-    bottom: 0;
-    background-color: #00a;
-    border-radius: 20px;
-}
-
-slider span.bubble {
-    font-size: 1.2em;
-    line-height: 1.4em;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-align: center;
-    text-shadow: none;
-    top: -1.3em;
-    cursor: pointer;
-}
-
-slider span.bubble.selection {
-    top: 1.1em;
-}
-
-slider span.bubble.limit {
-    top: -1.1em;
-}
-/*** End of venturocket-angular-slider ***/
