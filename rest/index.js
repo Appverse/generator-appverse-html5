@@ -193,7 +193,7 @@ module.exports = yeoman.generators.Base.extend({
             npmDependencies.push('json-server@0.6.10');
         }
 
-        this.npmInstall([npmDependencies], {
+        this.npmInstall(npmDependencies, {
             saveDev: true
         });
     },
