@@ -162,20 +162,20 @@ var addDropDownOption = function () {
     //ADD LINK
     var findlink = indexHTML('*[ui-sref="' + this.viewName + '"]');
     if (_.isEmpty(findlink)) {
-        var findDropdown = indexHTML('a.dropdown-toggle').filter(function () {
-            return indexHTML(this).text() === this.menu;
-        });
+        var findDropdown = indexHTML("a.dropdown-toggle:contains('" + this.menu + "')");
         //FIND THE DROPDOWN
-        this.log(" findDropdown " + findDropdown);
-        if (findDropdown) {
-            //EXISTS
-            var navLink = '<li data-ng-class="{active: $state.includes(\'' + this.viewName + '\')}"><a ui-sref="' + this.viewName + '">' + this.viewName + '</a></li>';
-            indexHTML('li.dropdown > ul.dropdown-menu').append(navLink);
-        } else {
+        if (_.isEmpty(findDropdown)) {
+            this.log(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
             //NOT EXISTS
-            var htmlCode = '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown">' + this.menu + '<span class="caret"></span></a>' +
-                ' <ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + this.viewName + '\')}"><a ui-sref="' + this.viewName + '">' + this.viewName + '</a></li></ul></li>';
+            var htmlCode = '<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + this.viewName + '\')}"><a ui-sref="' + this.viewName + '">' + this.viewName + '</a></li></ul></li>';
+            this.log(" Adding new option " + this.viewName + " to dropdown menu. ");
             indexHTML('ul.nav.navbar-nav').append(htmlCode);
+        } else {
+            this.log(" Dropdown menu found. ");
+            //EXISTS
+            this.log(" Adding new option " + this.viewName + " to dropdown menu. ");
+            var navLink = '<li data-ng-class="{active: $state.includes(\'' + this.viewName + '\')}"><a ui-sref="' + this.viewName + '">' + this.viewName + '</a></li>';
+            indexHTML(findDropdown).next().append(navLink);
         }
         fs.writeFileSync(indexPath, indexHTML.html());
         addRouteState.call(this);
