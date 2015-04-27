@@ -1,6 +1,6 @@
-//
-// test/e2e/routesSpec.js
-//
+/*jshint node:true */
+'use strict';
+
 describe("E2E: Testing Routes", function () {
 
     beforeEach(function () {

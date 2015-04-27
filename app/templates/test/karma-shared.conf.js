@@ -1,9 +1,10 @@
+/*jshint node:true */
 'use strict';
 
 module.exports = function () {
     return {
         basePath: '../',
-        frameworks: ['mocha'],
+        frameworks: ['jasmine'],
 
         // coverage reporter generates the coverage
         reporters: ['progress', 'coverage'],
@@ -12,16 +13,16 @@ module.exports = function () {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul)
-            'app/scripts/{*!(api)/*.js,!(app).js}': 'coverage'
+            'app/scripts/**/*.js': 'coverage'
         },
 
         // optionally, configure the reporter
         coverageReporter: {
             type: 'lcov',
-            dir: 'test/coverage/'
+            dir: 'test/coverage/',
+            includeAllSources: true
         },
 
-        browsers: ['Chrome'],
         autoWatch: true,
 
         // these are default values anyway
@@ -48,7 +49,7 @@ module.exports = function () {
             'app/bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
             'app/bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
 
-            'app/bower_components/lodash/dist/lodash.underscore.min.js',
+            'app/bower_components/lodash/lodash.min.js',
             'app/bower_components/restangular/dist/restangular.min.js',
             'app/bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.js',
 
@@ -67,11 +68,6 @@ module.exports = function () {
             'app/scripts/app.js',
             'app/scripts/controllers/*.js',
             'app/scripts/states/*.js',
-
-            //Test-Specific Code
-            'node_modules/chai/chai.js',
-            'test/lib/chai-should.js',
-            'test/lib/chai-expect.js'
         ]
     };
 };
