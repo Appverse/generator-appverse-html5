@@ -1,5 +1,3 @@
-/*jshint node:true */
-
 'use strict';
 // Run some tasks in parallel to speed up build process
 
@@ -12,6 +10,7 @@ module.exports = {
             ],
     dist: [
                 'coffee',
-                'sass'
+                'sass',
+                'imagemin'
             ]
 };
