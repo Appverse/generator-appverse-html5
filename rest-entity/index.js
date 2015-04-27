@@ -33,14 +33,21 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'The entity name'
         });
 
-        this.log('You called the AppverseHtml5 Entity REST subgenerator.' + this.entity);
+        this.argument('menu', {
+            required: false,
+            type: String,
+            desc: 'The Dropdown menu name'
+        });
+
+
+        this.log('You called the AppverseHtml5 Entity REST subgenerator. Entity: ' + this.entity);
         utils.checkVersion();
-        this.restModule = utils.checkAngularModule.call(this,'appverse.rest');
+        this.restModule = utils.checkAngularModule.call(this, 'appverse.rest');
         this.name = this.entity;
     },
     configuring: function () {
         //ADD NG_GRID ANGULAR
-        utils.addAngularModule.call(this,'ngGrid');
+        utils.addAngularModule.call(this, 'ngGrid');
     },
     writing: {
         writeCode: function () {
@@ -60,7 +67,6 @@ module.exports = yeoman.generators.Base.extend({
                     fs.writeFileSync('api/' + this.name + '.json', JSON.stringify(mockentity));
                 }
             } else {
-                console.log("REST module not found.");
                 console.log("Execute 'yo appverse-html5:rest' to add the REST module to the project.");
             }
         }

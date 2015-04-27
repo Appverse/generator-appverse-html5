@@ -7,6 +7,7 @@
 
     angular.module('<%=appName%>App', [
         'ngAnimate',
+        'ui.bootstrap',
         'appverse.router',
         'App.Controllers',
         'appverse'
