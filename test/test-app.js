@@ -38,6 +38,7 @@ describe('appverse-html5:app', function () {
                 'skip-install': true
             })
             .withPrompts({
+                appName: "testApp",
                 bootstrapTheme: false
             })
             .withGenerators(deps)

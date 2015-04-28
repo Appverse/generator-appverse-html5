@@ -19,7 +19,7 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 
-/*jshint node:true*/
+/*jshint -W069 */
 
 'use strict';
 var yeoman = require('yeoman-generator');
@@ -53,22 +53,23 @@ module.exports = yeoman.generators.Base.extend({
 
     },
     installingDeps: function () {
-        this.npmInstall(['grunt-node-webkit-builder'], {
-            'saveDev': true
-        });
-        this.npmInstall(['node-webkit-builder'], {
-            'saveDev': true
-        });
-        this.npmInstall(['nodewebkit'], {
-            'saveDev': true
-        });
+        if (!this.options['skip-install']) {
+            this.npmInstall(['grunt-node-webkit-builder'], {
+                'saveDev': true
+            });
+            this.npmInstall(['node-webkit-builder'], {
+                'saveDev': true
+            });
+            this.npmInstall(['nodewebkit'], {
+                'saveDev': true
+            });
+        }
     },
     end: function () {
-        console.log("\n Your application is ready to use node-webkit.");
-        console.log("\n Execute: 'npm start' to run your dist with webkit.");
-        console.log("\n Execute: 'grunt nodewebkit' to package the dist application as an executable package.");
-        console.log("\n Execute: 'grunt nodewebkit:dist' to create the dist and packe the application as an executable package.");
-        console.log("Package will be created under 'webkitbuilds' folder.");
-
+        this.log("\n Your application is ready to use node-webkit.");
+        this.log("\n Execute: 'npm start' to run your dist with webkit.");
+        this.log("\n Execute: 'grunt nodewebkit' to package the dist application as an executable package.");
+        this.log("\n Execute: 'grunt nodewebkit:dist' to create the dist and packe the application as an executable package.");
+        this.log("Package will be created under 'webkitbuilds' folder.");
     }
 });

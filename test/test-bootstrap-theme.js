@@ -24,14 +24,14 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fs = require('fs-extra');
+var fse = require('fs-extra');
 
 describe('appverse-html5:bootstrap-theme', function () {
     before(function (done) {
 
         helpers.run(path.join(__dirname, '../bootstrap-theme'))
             .inDir(path.join(os.tmpdir(), './testApp-bootstrap-theme'), function (dir) {
-                fs.copySync(path.join(__dirname, '../app/templates'), dir);
+                fse.copySync(path.join(__dirname, '../app/templates'), dir);
             })
             .withPrompts({
                 themes: "Cerulean"

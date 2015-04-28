@@ -23,14 +23,14 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-var fs = require('fs-extra');
 var os = require('os');
+var fse = require('fs-extra');
 
 describe('appverse-html5:detection', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../detection'))
             .inDir(path.join(os.tmpdir(), './testApp-detection'), function (dir) {
-                fs.copySync(path.join(__dirname, '../app/templates'), dir);
+                fse.copySync(path.join(__dirname, '../app/templates'), dir);
             })
             .on('end', done);
     });

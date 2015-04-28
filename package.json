@@ -1,22 +1,22 @@
 {
-  "name": "generator-appverse-html5",
+    "name": "generator-appverse-html5",
     "version": "0.10.0",
-  "description": "Appverse HTML 5 generator",
-  "license": "http://appverse.org/legal/appverse-license/",
-  "main": "app/index.js",
-  "repository": "appverse/generator-appverse-html5",
-  "author": {
-    "name": "Appverse",
-    "email": "github@appverse.org",
-    "url": "http://appverse.org"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
-  "scripts": {
-    "test": "mocha"
-  },
-  "files": [
+    "description": "Appverse HTML 5 generator",
+    "license": "http://appverse.org/legal/appverse-license/",
+    "main": "app/index.js",
+    "repository": "appverse/generator-appverse-html5",
+    "author": {
+        "name": "Appverse",
+        "email": "github@appverse.org",
+        "url": "http://appverse.org"
+    },
+    "engines": {
+        "node": ">=0.10.0"
+    },
+    "scripts": {
+        "test": "istanbul cover node_modules/mocha/bin/_mocha"
+    },
+    "files": [
     "app",
     "translate",
     "qr",
@@ -34,33 +34,34 @@
     "webkit",
     "imagemin"
   ],
-  "keywords": [
+    "keywords": [
     "yeoman-generator",
     "appverse-html5-generator",
     "scaffold",
     "generator",
     "framework"
   ],
-  "dependencies": {
-    "chalk": "0.5.1",
-    "cheerio": "^0.19.0",
-    "escodegen": "^1.6.1",
-    "esprima": "2.1.0",
-    "estraverse": "3.1.0",
-    "grunt": "0.4.5",
-    "inquirer": "^0.8.2",
-    "insight": "0.4.3",
-    "lodash": "^3.6.0",
-    "request": "^2.53.0",
-    "shelljs": "0.3.0",
-    "underscore.string": "2.3.3",
-    "update-notifier": "^0.3.1",
-    "urllib-sync": "^1.0.1",
-    "yeoman-generator": "^0.18.0",
-    "yosay": "^0.3.0"
-  },
-  "devDependencies": {
-    "fs-extra": "^0.18.2",
-    "mocha": "*"
-  }
+    "dependencies": {
+        "chalk": "0.5.1",
+        "cheerio": "^0.19.0",
+        "escodegen": "^1.6.1",
+        "esprima": "2.1.0",
+        "estraverse": "3.1.0",
+        "grunt": "0.4.5",
+        "inquirer": "^0.8.2",
+        "insight": "0.4.3",
+        "lodash": "^3.6.0",
+        "request": "^2.53.0",
+        "shelljs": "0.3.0",
+        "underscore.string": "2.3.3",
+        "update-notifier": "^0.3.1",
+        "urllib-sync": "^1.0.1",
+        "yeoman-generator": "^0.18.0",
+        "yosay": "^0.3.0"
+    },
+    "devDependencies": {
+        "fs-extra": "^0.18.2",
+        "istanbul": "^0.3.13",
+        "mocha": "*"
+    }
 }

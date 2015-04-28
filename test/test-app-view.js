@@ -24,22 +24,64 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fs = require('fs-extra');
+var fse = require('fs-extra');
 
 describe('appverse-html5:app-view', function () {
-    before(function (done) {
-        helpers.run(path.join(__dirname, '../app-view'))
-            .inDir(path.join(os.tmpdir(), './testApp-view'), function (dir) {
-                fs.copySync(path.join(__dirname, '../app/templates'), dir);
-            })
-            .withArguments('myView')
-            .on('end', done);
+
+    describe('when called with only one argument', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../app-view'))
+                .inDir(path.join(os.tmpdir(), './testApp'), function (dir) {
+                    fse.copySync(path.join(__dirname, '../app/templates'), dir);
+                })
+                .withArguments('myView')
+                .on('end', done);
+        });
+
+        it('should create a new state in the menu bar', function () {
+            assert.file([
+                'app/views/myview/myview.html',
+                'app/scripts/controllers/myview-controller.js'
+            ]);
+        });
     });
 
-    it('creates files', function () {
-        assert.file([
-            'app/views/myview/myview.html',
-            'app/scripts/controllers/myview-controller.js'
-        ]);
+    describe('when called with two arguments', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../app-view'))
+                .inDir(path.join(os.tmpdir(), './testApp'), function (dir) {
+                    fse.copySync(path.join(__dirname, '../app/templates'), dir);
+                })
+                .withArguments('myView myDropdown')
+                .on('end', done);
+        });
+
+        it('should create a new state inside a new dropdown', function () {
+            assert.file([
+                'app/views/myview/myview.html',
+                'app/scripts/controllers/myview-controller.js'
+            ]);
+        });
+    });
+
+    describe('when called with an existing dropdown', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../app-view'))
+                .inDir(path.join(os.tmpdir(), './testApp'), function (dir) {
+                    fse.copySync(path.join(__dirname, '../app/templates'), dir);
+                })
+                .withArguments('myView2 myDropdown')
+                .on('ready', function (generator) {
+                    //                    generator.name = 'myView';//                    generator.menu = 'myDropdown';
+                })
+                .on('end', done);
+        });
+
+        it('should create a new state inside the existing dropdown', function () {
+            assert.file([
+                'app/views/myview2/myview2.html',
+                'app/scripts/controllers/myview2-controller.js'
+            ]);
+        });
     });
 });

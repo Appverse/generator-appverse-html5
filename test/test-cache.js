@@ -24,14 +24,14 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fs = require('fs-extra');
+var fse = require('fs-extra');
 
 describe('appverse-html5:cache', function () {
     before(function (done) {
 
         helpers.run(path.join(__dirname, '../cache'))
             .inDir(path.join(os.tmpdir(), './testApp-cache'), function (dir) {
-                fs.copySync(path.join(__dirname, '../app/templates'), dir);
+                fse.copySync(path.join(__dirname, '../app/templates'), dir);
             })
             .on('end', done);
     });

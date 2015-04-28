@@ -23,18 +23,24 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
+var os = require('os');
+var fse = require('fs-extra');
 
-xdescribe('AppverseHtml5:translate', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../translate'))
-      .withArguments('name', '--force')
-      .withOptions({ 'skip-install': true })
-      .on('end', done);
-  });
+describe('appverse-html5:translate', function () {
+    before(function (done) {
+        helpers.run(path.join(__dirname, '../translate'))
+            .inDir(path.join(os.tmpdir(), './testApp'), function (dir) {
+                fse.copySync(path.join(__dirname, '../app/templates'), dir);
+            })
+            .on('end', done);
+    });
 
-  it('creates files', function () {
-    assert.file([
-      'somefile.js'
-    ]);
-  });
+    it('includes scripts', function () {
+        assert.fileContent('app/index.html',
+            'src="bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"');
+    });
+
+    it('adds dependency to the main app module', function () {
+        assert.fileContent('app/scripts/app.js', 'appverse.translate');
+    });
 });
