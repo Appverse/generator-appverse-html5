@@ -186,16 +186,16 @@ module.exports = yeoman.generators.Base.extend({
     installingDeps: function () {
         //TODO - TEMP  APPROACH - PENDING APPVERSE
         this.bowerInstall("lodash");
-        this.npmInstall(['grunt-connect-proxy@0.1.10'], {
-            'saveDev': true
-        });
+
+        var npmDependencies = ['grunt-connect-proxy@0.1.10'];
 
         if (this.mockServer) {
-            this.npmInstall(['json-server@0.6.10'], {
-                'saveDev': true
-            });
+            npmDependencies.push('json-server@0.6.10');
         }
 
+        this.npmInstall(npmDependencies, {
+            saveDev: true
+        });
     },
     end: function () {
 
