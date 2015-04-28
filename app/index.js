@@ -155,7 +155,7 @@ module.exports = yeoman.generators.Base.extend({
                     type: "confirm",
                     name: "bootstrapTheme",
                     message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
-                    default: true
+                    default: false
                 }, {
                     type: "confirm",
                     name: "webkit",
@@ -230,8 +230,7 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/angular/angular.min.js',
                 'bower_components/angular-touch/angular-touch.min.js',
                 'bower_components/modernizr/modernizr.js',
-                'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
-                'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js',
+                'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.min.js',
                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'bower_components/ng-grid/build/ng-grid.min.js',
                 'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
@@ -293,6 +292,10 @@ module.exports = yeoman.generators.Base.extend({
                 this.templatePath('sonar-project.properties'),
                 this.destinationPath('sonar-project.properties'),
                 this
+            );
+            this.fs.copy(
+                this.templatePath('/app/views/theme.html'),
+                this.destinationPath('/app/views/theme.html')
             );
             this.fs.copyTpl(
                 this.templatePath('/app/views/home.html'),

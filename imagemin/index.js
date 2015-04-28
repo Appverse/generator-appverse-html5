@@ -92,7 +92,9 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     end: function () {
-        this.log("\n Your application is ready to use imagemin.");
-        this.log("\n Execute: 'grunt dist' to create the dist folder with all the images optimized.");
+        if (this.imagemin) {
+            this.log("\n Your application is ready to use imagemin.");
+            this.log("\n Execute: 'grunt dist' to create the dist folder with all the images optimized.");
+    }
     }
 });

@@ -1,4 +1,3 @@
-
 //////////////////////////////////////////////////
 // The main module configuration section shows  //
 // how to define when (redirects) and otherwise //
@@ -27,7 +26,7 @@ angular.module('<%=appName%>App')
 
 
                 // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
-                .otherwise('/home');
+                    .otherwise('/home');
 
 
                 //////////////////////////
@@ -45,10 +44,17 @@ angular.module('<%=appName%>App')
                 // Home //
                 //////////
 
-                .state("home", {
+                    .state("home", {
                     // Use a url of "/" to set a states as the "index".
                     url: "/home",
                     templateUrl: 'views/home.html'
+
+                })
+
+                .state("theme", {
+                    // Use a url of "/" to set a states as the "index".
+                    url: "/theme",
+                    templateUrl: 'views/theme.html'
 
                 })
 
