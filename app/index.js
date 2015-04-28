@@ -75,7 +75,7 @@ module.exports = yeoman.generators.Base.extend({
     },
     prompting: function () {
         var done = this.async();
-        console.log(chalk.bgBlack.cyan('\n' +
+        this.log(chalk.bgBlack.cyan('\n' +
             '                 __    __                    \n' +
             '   __ _ _ __  _ _\\ \\  / /__ _ __ ___  ___    \n' +
             '  / _| | |_ \\| |_ \\ \\/ / _ | |__/ __|/ _ \\   \n' +
@@ -167,7 +167,7 @@ module.exports = yeoman.generators.Base.extend({
                     message: "Configure your WebSocket Server URL? ",
                     default: "http://127.0.0.1:3000",
                     when: function (answers) {
-                        return answers.coreOptions.indexOf('appServerPush') !== -1;
+                        return answers.coreOptions && answers.coreOptions.indexOf('appServerPush') !== -1;
                     }
                 }
             ];

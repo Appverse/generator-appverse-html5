@@ -23,18 +23,23 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
+var os = require('os');
+var fs = require('fs-extra');
 
-describe('AppverseHtml5:app-view', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../app-view'))
-      .withArguments('name', '--force')
-      .withOptions({ 'skip-install': true })
-      .on('end', done);
-  });
+describe('appverse-html5:app-view', function () {
+    before(function (done) {
+        helpers.run(path.join(__dirname, '../app-view'))
+            .inDir(path.join(os.tmpdir(), './testApp-view'), function (dir) {
+                fs.copySync(path.join(__dirname, '../app/templates'), dir);
+            })
+            .withArguments('myView')
+            .on('end', done);
+    });
 
-  it('creates files', function () {
-    assert.file([
-      'somefile.js'
-    ]);
-  });
+    it('creates files', function () {
+        assert.file([
+            'app/views/myview/myview.html',
+            'app/scripts/controllers/myview-controller.js'
+        ]);
+    });
 });

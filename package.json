@@ -60,6 +60,7 @@
     "yosay": "^0.3.0"
   },
   "devDependencies": {
+    "fs-extra": "^0.18.2",
     "mocha": "*"
   }
 }

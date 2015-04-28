@@ -4,6 +4,10 @@
     "eqeqeq": true,
     "forin": true,
     "futurehostile": true,
+    "globals": {
+        "xdescribe": false,
+        "before": false
+    },
     "immed": true,
     "indent": 4,
     "latedef": "nofunc",
@@ -18,5 +22,6 @@
     "unused": true,
     "esnext": true,
     "strict": true,
-    "node":true
+    "node": true,
+    "jasmine": true
 }

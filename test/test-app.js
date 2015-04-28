@@ -26,22 +26,30 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 
 describe('appverse-html5:app', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(os.tmpdir(), './temp-test'))
-      .withOptions({ 'skip-install': true })
-      .withPrompt({
-        someOption: true
-      })
-      .on('end', done);
-  });
+    before(function (done) {
 
-  it('creates files', function () {
-    assert.file([
-      'bower.json',
-      'package.json',
-      '.editorconfig',
-      '.jshintrc'
-    ]);
-  });
+        var deps = [
+            [helpers.createDummyGenerator(), 'appverse-html5:imagemin']
+        ];
+
+        helpers.run(path.join(__dirname, '../app'))
+            .inDir(path.join(os.tmpdir(), './testApp'))
+            .withOptions({
+                'skip-install': true
+            })
+            .withPrompts({
+                bootstrapTheme: false
+            })
+            .withGenerators(deps)
+            .on('end', done);
+    });
+
+    it('creates files', function () {
+        assert.file([
+          'bower.json',
+          'package.json',
+          '.editorconfig',
+          '.jshintrc'
+        ]);
+    });
 });

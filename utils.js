@@ -200,11 +200,12 @@ function checkVersion() {
         pkg: pkg,
         updateCheckInterval: 1000 // Interval to check for updates.
     });
-    if (notifier.update) {
+
+    if (notifier && notifier.update) {
         console.log(chalk.cyan('Update available: ') + chalk.bold.green(notifier.update.latest) + chalk.gray(' \(current ') + chalk.bold.gray(notifier.update.current) + chalk.gray('\)'));
         console.log(chalk.cyan('run ' + chalk.bold.white('npm update -g generator-appverse-html5') + chalk.cyan(' to update \n')));
     }
-};
+}
 
 // check if an element exists in array using a comparer function
 // comparer : function(currentElement)

@@ -24,7 +24,7 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 
-describe('AppverseHtml5:translate', function () {
+xdescribe('AppverseHtml5:translate', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../translate'))
       .withArguments('name', '--force')

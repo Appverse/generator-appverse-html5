@@ -34,7 +34,7 @@ module.exports = yeoman.generators.Base.extend({
                 this.themeprompts.push(prompts);
                 done();
             } else {
-                console.log("Connection error.");
+                this.log("Connection error.");
             }
         }.bind(this));
 
@@ -57,22 +57,22 @@ module.exports = yeoman.generators.Base.extend({
         var theme = search(this.selectedTheme, this.remotethemes.themes);
         request(theme.scss, function (error, response, body) {
             if (!error && response.statusCode === 200) {
-                console.log("Rewriting bootswatch.scss");
+                this.log("Rewriting bootswatch.scss");
                 fs.writeFileSync('app/styles/theme/_bootswatch.scss', body);
-                console.log("Done.");
+                this.log("Done.");
             } else {
-                console.log("Connection error.");
+                this.log("Connection error.");
             }
-        });
+        }.bind(this));
 
         request(theme.scssVariables, function (error, response, body) {
             if (!error && response.statusCode === 200) {
-                console.log("Rewriting variables.scss");
+                this.log("Rewriting variables.scss");
                 fs.writeFileSync('app/styles/theme/_variables.scss', body);
-                console.log("Done.");
+                this.log("Done.");
             } else {
-                console.log("Connection error.");
+                this.log("Connection error.");
             }
-        });
+        }.bind(this));
     }
 });

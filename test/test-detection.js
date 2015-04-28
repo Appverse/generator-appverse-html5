@@ -23,18 +23,25 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
+var fs = require('fs-extra');
+var os = require('os');
 
-describe('AppverseHtml5:detection', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../detection'))
-      .withArguments('name', '--force')
-      .withOptions({ 'skip-install': true })
-      .on('end', done);
-  });
+describe('appverse-html5:detection', function () {
+    before(function (done) {
+        helpers.run(path.join(__dirname, '../detection'))
+            .inDir(path.join(os.tmpdir(), './testApp-detection'), function (dir) {
+                fs.copySync(path.join(__dirname, '../app/templates'), dir);
+            })
+            .on('end', done);
+    });
 
-  it('creates files', function () {
-    assert.file([
-      'somefile.js'
-    ]);
-  });
+    it('includes scripts', function () {
+        assert.fileContent('app/index.html',
+            'src="bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js"');
+    });
+
+    it('adds dependency to the main app module', function () {
+        assert.fileContent('app/scripts/app.js', 'appverse.detection');
+    });
+
 });

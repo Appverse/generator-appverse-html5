@@ -184,25 +184,27 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     installingDeps: function () {
-        //TODO - TEMP  APPROACH - PENDING APPVERSE
-        this.bowerInstall("lodash");
+        if (!this.options['skip-install']) {
+            //TODO - TEMP  APPROACH - PENDING APPVERSE
+            this.bowerInstall("lodash");
 
-        var npmDependencies = ['grunt-connect-proxy@0.1.10'];
+            var npmDependencies = ['grunt-connect-proxy@0.1.10'];
 
-        if (this.mockServer) {
-            npmDependencies.push('json-server@0.6.10');
+            if (this.mockServer) {
+                npmDependencies.push('json-server@0.6.10');
+            }
+
+            this.npmInstall(npmDependencies, {
+                saveDev: true
+            });
         }
-
-        this.npmInstall(npmDependencies, {
-            saveDev: true
-        });
     },
     end: function () {
 
         if (this.mockServer) {
-            console.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
-            console.log("Put your .json files into the api folder to serve them automatically with the Mock server");
-            console.log("The Mock server will route all your entities using REST URL patterns.");
+            this.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
+            this.log("Put your .json files into the api folder to serve them automatically with the Mock server");
+            this.log("The Mock server will route all your entities using REST URL patterns.");
         }
     }
 });
