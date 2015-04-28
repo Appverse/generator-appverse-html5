@@ -44,7 +44,7 @@ module.exports = yeoman.generators.Base.extend({
             required: false
         });
         // And you can then access it later on this way; e.g. CamelCased
-        if (typeof this.applicationName != 'undefined') {
+        if (typeof this.applicationName !== 'undefined') {
             this.applicationName = slug.slugify(this.applicationName);
             this.interactiveMode = false;
             this.log(
@@ -91,82 +91,77 @@ module.exports = yeoman.generators.Base.extend({
         );
         utils.checkVersion();
 
+        var prompts;
 
         if (this.interactiveMode) {
-            var prompts = [
+            prompts = [
                 {
                     name: 'appName',
                     message: 'What is your app\'s name ?  ' +
                         '\n Application name cannot contain special characters or a blank space. ' +
                         '\n Name will be slug if needed.  ',
                     default: slug.slugify(this.appname)
-        },
-                {
+                }, {
                     type: 'checkbox',
                     name: 'coreOptions',
                     message: "Select core modules. \n You can add the modules later executing the subgenerators",
                     choices: [
-                          new inquirer.Separator(),
+                        new inquirer.Separator(),
                         {
                             name: 'Logging',
                             value: 'appLogging',
                             checked: false
-                    },
-                        {
+                        }, {
                             name: 'Cache',
                             value: 'appCache',
                             checked: false
-                    },
-                        {
+                        }, {
                             name: 'Performance',
                             value: 'appPerformance',
                             checked: false
-                    }, {
+                        }, {
                             name: 'Detection',
                             value: 'appDetection',
                             checked: false
-                    },
+                        },
                         new inquirer.Separator(),
                         {
                             name: 'REST',
                             value: 'appRest',
                             checked: false
-                    }, {
+                        }, {
                             name: 'Server Push',
                             value: 'appServerPush',
                             checked: false
-                    },
-                          new inquirer.Separator(),
+                        },
+                        new inquirer.Separator(),
                         {
                             name: 'Security',
                             value: 'appSecurity',
                             checked: false
-                    },
+                        },
                         new inquirer.Separator(),
                         {
                             name: 'Translate',
                             value: 'appTranslate',
                             checked: false
-                    },
-                        {
+                        }, {
                             name: 'QR',
                             value: 'appQR',
                             checked: false
-                    }
-                ]
-                },
-                {
+                        }
+                    ]
+                }, {
                     type: "confirm",
                     name: "bootstrapTheme",
                     message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
-                    default: true
-             }, {
+                    default: false
+                }, {
                     type: "confirm",
                     name: "webkit",
                     message: "Do you want to package your application as a desktop application using Node-Webkit?",
                     default: false
-             },
-                {
+                }, {
                     type: "input",
                     name: "spushBaseUrl",
                     message: "Configure your WebSocket Server URL? ",
@@ -174,14 +169,15 @@ module.exports = yeoman.generators.Base.extend({
                     when: function (answers) {
                         return answers.coreOptions.indexOf('appServerPush') !== -1;
                     }
-                            }];
+                }
+            ];
         } else {
-            var prompts = [];
+            prompts = [];
         }
 
         this.prompt(prompts, function (props) {
             function hasFeature(options, feat) {
-                if (typeof options != 'undefined') {
+                if (typeof options !== 'undefined') {
                     return options.indexOf(feat) !== -1;
                 } else {
                     return false;
@@ -234,8 +230,7 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/angular/angular.min.js',
                 'bower_components/angular-touch/angular-touch.min.js',
                 'bower_components/modernizr/modernizr.js',
-                'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
-                'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/collapse.js',
+                'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.min.js',
                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'bower_components/ng-grid/build/ng-grid.min.js',
                 'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
@@ -297,6 +292,10 @@ module.exports = yeoman.generators.Base.extend({
                 this.templatePath('sonar-project.properties'),
                 this.destinationPath('sonar-project.properties'),
                 this
+            );
+            this.fs.copy(
+                this.templatePath('/app/views/theme.html'),
+                this.destinationPath('/app/views/theme.html')
             );
             this.fs.copyTpl(
                 this.templatePath('/app/views/home.html'),
@@ -398,11 +397,15 @@ module.exports = yeoman.generators.Base.extend({
                 options: {}
             });
         }
+
         if (this.webkit) {
             this.composeWith('appverse-html5:webkit', {
                 options: {}
             });
         }
+
+        this.composeWith('appverse-html5:imagemin');
+
         this.installDependencies({
             skipInstall: this.options['skip-install']
         });

@@ -5,8 +5,8 @@ module.exports = {
         files: [{
             expand: true,
             cwd: '<%= paths.app %>',
-            src: 'styles/images/**/*.{jpg,jpeg,svg,gif,png}',
+            src: 'styles/images/**/*',
             dest: '<%= paths.dist %>'
-                }]
+        }]
     }
 };

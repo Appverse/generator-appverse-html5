@@ -1,25 +1,33 @@
-'use strict';
+/*global AppInit:false*/
 
-angular.module('App.Controllers', []);
+(function () {
+    'use strict';
 
-angular.module('<%=appName%>App', ['ngAnimate','appverse.router', 'App.Controllers','appverse'])
+    angular.module('App.Controllers', []);
 
-.run(['$log',
-    function ($log) {
+    angular.module('<%=appName%>App', [
+        'ngAnimate',
+        'ui.bootstrap',
+        'appverse.router',
+        'App.Controllers',
+        'appverse'
+    ]).run(function ($log) {
         $log.debug('<%=appName%>App run');
-    }]);
+    });
 
-AppInit.setConfig({
+    AppInit.setConfig({
 
-    // Application general environment
-    // Overrides defaults and mobile settings
-    environment: {},
+        // Application general environment
+        // Overrides defaults and mobile settings
+        environment: {},
 
-    // Settings to use when Appverse Mobile is loaded
-    // Will override environment values
-    appverseMobile: {},
+        // Settings to use when Appverse Mobile is loaded
+        // Will override environment values
+        appverseMobile: {},
 
-    //Settings to use when mobile browser is detected
-    // Will override environment values
-    mobileBrowser: {}
-});
+        //Settings to use when mobile browser is detected
+        // Will override environment values
+        mobileBrowser: {}
+    });
+
+})();
