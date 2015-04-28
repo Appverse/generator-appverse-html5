@@ -73,6 +73,9 @@
                 <li data-ng-class="{ active: $state.includes('home') }">
                     <a ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
                 </li>
+                <li data-ng-class="{ active: $state.includes('theme') }">
+                    <a ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
+                </li>
             </ul>
         </div>
 
@@ -85,6 +88,25 @@
          explicitly named views are targeted.
      -->
     <div ui-view class="myslide" autoscroll="false"></div>
+
+    <footer class="footer clearfix">
+        <hr>
+        <div class="col-md-2 col-md-offset-5">
+
+            <ul class="list-inline">
+                <li><a href="http://appverse.org/">Appverse.org</a>
+                </li>
+                <li><a href="https://twitter.com/appversed">Twitter</a>
+                </li>
+                <li><a href="https://github.com/Appverse">GitHub</a>
+                </li>
+                <li><a href="https://www.npmjs.com/~appverse">NPM</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </footer>
 
 </body>
 
