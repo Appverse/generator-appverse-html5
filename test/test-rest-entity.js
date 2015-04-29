@@ -34,6 +34,9 @@ describe('appverse-html5:rest-entity', function () {
                 fse.copySync(path.join(__dirname, '../app/templates'), dir);
             })
             .withArguments('testEntity')
+            .on('ready', function (generator) {
+                require('../utils').addAngularModule.call(generator, 'appverse.rest');
+            })
             .on('end', done);
     });
 

@@ -18,7 +18,6 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-
 'use strict';
 var updateNotifier = require('update-notifier');
 var pkg = require('./package.json');
@@ -50,7 +49,7 @@ var checkAngularModule = function (moduleName) {
     estraverse.traverse(astCode, {
         enter: function (node) {
             if (node.type === 'Literal' && node.value === moduleName) {
-                console.log("Module found.");
+                this.log("Module found.");
                 installedModule = true;
                 this.break();
             }
