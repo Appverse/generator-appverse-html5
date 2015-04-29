@@ -51,10 +51,11 @@ describe('appverse-html5:app-view', function () {
     describe('when called with two arguments', function () {
         before(function (done) {
             helpers.run(path.join(__dirname, '../app-view'))
-                .inDir(path.join(os.tmpdir(), './testApp-view2'), function (dir) {
-                    fse.copySync(path.join(__dirname, '../app/templates'), dir);
-                })
+                .inDir(path.join(os.tmpdir(), 'testApp-view2'))
                 .withArguments('myView myDropdown')
+                .on('ready', function (generator) {
+                    fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
+                })
                 .on('end', done);
         });
 
@@ -73,11 +74,10 @@ describe('appverse-html5:app-view', function () {
     describe('when called with an existing dropdown', function () {
         before(function (done) {
             helpers.run(path.join(__dirname, '../app-view'))
-                .inDir(path.join(os.tmpdir(), './testApp-view3'), function (dir) {
-                    fse.copySync(path.join(__dirname, '../app/templates'), dir);
-                })
+                .inDir(path.join(os.tmpdir(), './testApp-view3'))
                 .withArguments('myView2 myDropdown')
                 .on('ready', function (generator) {
+                    fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
                     generator.name = 'myView3';
                     generator.menu = 'myDropdown3';
                     require('../utils').addViewAndController.call(generator);

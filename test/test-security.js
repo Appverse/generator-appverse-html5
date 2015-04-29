@@ -29,11 +29,12 @@ var fse = require('fs-extra');
 describe('appverse-html5:security', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../security'))
-            .inDir(path.join(os.tmpdir(), './testApp'), function (dir) {
-                fse.copySync(path.join(__dirname, '../app/templates'), dir);
-            })
+            .inDir(path.join(os.tmpdir(), 'testApp-security'))
             .withOptions({
                 'skip-install': true
+            })
+            .on('ready', function (generator) {
+                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });

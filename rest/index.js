@@ -170,8 +170,8 @@ module.exports = yeoman.generators.Base.extend({
         var finalCode = escodegen.generate(configCode);
         fs.writeFileSync(path, finalCode);
 
-        this.template('config/connect.js', 'config/connect.js');
-        this.template('tasks/server.js', 'tasks/server.js');
+        this.template('config/connect.js');
+        this.template('tasks/server.js');
 
         if (this.mockServer) {
             if (!fs.existsSync("tasks")) {
@@ -180,7 +180,7 @@ module.exports = yeoman.generators.Base.extend({
             if (!fs.existsSync("api")) {
                 fs.mkdirSync("api");
             }
-            this.template('tasks/mockserverTask.js', 'tasks/mockserverTask.js');
+            this.template('tasks/mockserverTask.js');
         }
     },
     installingDeps: function () {

@@ -29,8 +29,9 @@ var fse = require('fs-extra');
 describe('appverse-html5:performance', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../performance'))
-            .inDir(path.join(os.tmpdir(), './testApp-performance'), function (dir) {
-                fse.copySync(path.join(__dirname, '../app/templates'), dir);
+            .inDir(path.join(os.tmpdir(), 'testApp-performance'))
+            .on('ready', function (generator) {
+                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });

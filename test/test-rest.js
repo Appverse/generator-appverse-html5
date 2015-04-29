@@ -29,11 +29,12 @@ var fse = require('fs-extra');
 describe('appverse-html5:rest', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../rest'))
-            .inDir(path.join(os.tmpdir(), './testApp'), function (dir) {
-                fse.copySync(path.join(__dirname, '../app/templates'), dir);
-            })
+            .inDir(path.join(os.tmpdir(), 'testApp-rest'))
             .withOptions({
                 'skip-install': true
+            })
+            .on('ready', function (generator) {
+                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });
@@ -45,6 +46,10 @@ describe('appverse-html5:rest', function () {
 
     it('adds dependency to the main app module', function () {
         assert.fileContent('app/scripts/app.js', 'appverse.rest');
+    });
+
+    it('should modify the connect configuration', function () {
+        assert.fileContent('config/connect.js', "context: '/api'");
     });
 
 });

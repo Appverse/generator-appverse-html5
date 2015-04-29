@@ -30,8 +30,9 @@ describe('appverse-html5:cache', function () {
     before(function (done) {
 
         helpers.run(path.join(__dirname, '../cache'))
-            .inDir(path.join(os.tmpdir(), './testApp-cache'), function (dir) {
-                fse.copySync(path.join(__dirname, '../app/templates'), dir);
+            .inDir(path.join(os.tmpdir(), 'testApp-cache'))
+            .on('ready', function (generator) {
+                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });

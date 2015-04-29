@@ -30,11 +30,12 @@ describe('appverse-html5:bootstrap-theme', function () {
     before(function (done) {
 
         helpers.run(path.join(__dirname, '../bootstrap-theme'))
-            .inDir(path.join(os.tmpdir(), './testApp-bootstrap-theme'), function (dir) {
-                fse.copySync(path.join(__dirname, '../app/templates'), dir);
-            })
+            .inDir(path.join(os.tmpdir(), 'testApp-bootstrap-theme'))
             .withPrompts({
                 themes: "Cerulean"
+            })
+            .on('ready', function (generator) {
+                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });

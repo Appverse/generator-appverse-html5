@@ -62,7 +62,8 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('config/imagemin.js'),
             this.destinationPath('config/imagemin.js')
         );
-
+    },
+    install: function () {
         if (!this.options['skip-install']) {
 
             this.npmInstall([
@@ -95,6 +96,6 @@ module.exports = yeoman.generators.Base.extend({
         if (this.imagemin) {
             this.log("\n Your application is ready to use imagemin.");
             this.log("\n Execute: 'grunt dist' to create the dist folder with all the images optimized.");
-    }
+        }
     }
 });
