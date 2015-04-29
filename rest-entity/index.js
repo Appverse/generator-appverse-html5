@@ -40,7 +40,7 @@ module.exports = yeoman.generators.Base.extend({
 
 
         this.log('You called the AppverseHtml5 Entity REST subgenerator. Entity: ' + this.entity);
-        utils.checkVersion();
+        utils.checkVersion.call(this);
         this.restModule = utils.checkAngularModule.call(this, 'appverse.rest');
         this.name = this.entity;
     },
@@ -62,8 +62,9 @@ module.exports = yeoman.generators.Base.extend({
                     var mockentity = [{
                         id: 0,
                         name: "mockname"
-                }];
-                    fs.writeFileSync('api/' + this.name + '.json', JSON.stringify(mockentity));
+                    }];
+
+                    fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(mockentity));
                 }
             } else {
                 this.log("Execute 'yo appverse-html5:rest' to add the REST module to the project.");

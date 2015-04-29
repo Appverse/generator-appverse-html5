@@ -26,7 +26,7 @@ var utils = require('../utils.js');
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion();
+        utils.checkVersion.call(this);
     },
     initializing: function () {
         this.log('You called the AppverseHtml5 Imagemin subgenerator.');

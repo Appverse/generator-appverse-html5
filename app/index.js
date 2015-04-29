@@ -89,7 +89,7 @@ module.exports = yeoman.generators.Base.extend({
         this.log(
             'Welcome to the ' + chalk.bgBlack.cyan('Appverse Html5') + ' generator! \n'
         );
-        utils.checkVersion();
+        utils.checkVersion.call(this);
 
         var prompts;
 

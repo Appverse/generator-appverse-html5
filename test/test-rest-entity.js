@@ -30,18 +30,24 @@ describe('appverse-html5:rest-entity', function () {
     before(function (done) {
 
         helpers.run(path.join(__dirname, '../rest-entity'))
-            .inDir(path.join(os.tmpdir(), './testApp'), function (dir) {
+            .inDir(path.join(os.tmpdir(), './testApp-rest-entity'), function (dir) {
                 fse.copySync(path.join(__dirname, '../app/templates'), dir);
             })
             .withArguments('testEntity')
             .on('ready', function (generator) {
                 require('../utils').addAngularModule.call(generator, 'appverse.rest');
+
+                var pkgPath = generator.destinationPath('package.json');
+                generator.pkg = JSON.parse(generator.readFileAsString(pkgPath));
+                generator.pkg.devDependencies['json-server'] = '';
+                fse.writeFileSync('package.json', JSON.stringify(generator.pkg));
+                fse.mkdirSync(generator.destinationPath('api'));
             })
             .on('end', done);
     });
 
     it('includes scripts', function () {
-        assert.noFile('api/testEntity.json');
+        assert.file('api/testEntity.json');
     });
 
 });

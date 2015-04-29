@@ -56,7 +56,6 @@ module.exports = yeoman.generators.Base.extend({
         if (file.indexOf(insert) === -1) {
             var pos = file.lastIndexOf(hook) + hook.length;
             var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
-            //this.writeFileFromString(path, output);
             fs.writeFileSync(path, output);
         }
 
