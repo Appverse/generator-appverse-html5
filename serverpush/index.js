@@ -18,6 +18,7 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
+/*jshint -W069*/
 'use strict';
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
@@ -36,7 +37,7 @@ module.exports = yeoman.generators.Base.extend({
             defaults: 'http://127.0.0.1:3000'
         });
         this.spushBaseUrl = this.options['spushBaseUrl'];
-        utils.checkVersion();
+        utils.checkVersion.call(this);
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - ServerPush subgenerator.');

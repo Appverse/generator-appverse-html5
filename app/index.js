@@ -22,13 +22,10 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
-
-var path = require('path');
 var slug = require("underscore.string");
 var utils = require('../utils.js');
 var pkg = require('../package.json');
 var inquirer = require('inquirer');
-
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -75,7 +72,7 @@ module.exports = yeoman.generators.Base.extend({
     },
     prompting: function () {
         var done = this.async();
-        console.log(chalk.bgBlack.cyan('\n' +
+        this.log(chalk.bgBlack.cyan('\n' +
             '                 __    __                    \n' +
             '   __ _ _ __  _ _\\ \\  / /__ _ __ ___  ___    \n' +
             '  / _| | |_ \\| |_ \\ \\/ / _ | |__/ __|/ _ \\   \n' +
@@ -89,7 +86,7 @@ module.exports = yeoman.generators.Base.extend({
         this.log(
             'Welcome to the ' + chalk.bgBlack.cyan('Appverse Html5') + ' generator! \n'
         );
-        utils.checkVersion();
+        utils.checkVersion.call(this);
 
         var prompts;
 
@@ -167,7 +164,7 @@ module.exports = yeoman.generators.Base.extend({
                     message: "Configure your WebSocket Server URL? ",
                     default: "http://127.0.0.1:3000",
                     when: function (answers) {
-                        return answers.coreOptions.indexOf('appServerPush') !== -1;
+                        return answers.coreOptions && answers.coreOptions.indexOf('appServerPush') !== -1;
                     }
                 }
             ];
@@ -224,7 +221,7 @@ module.exports = yeoman.generators.Base.extend({
     writing: {
         writeIndex: function () {
             this.log('Writing the index.html... ');
-            this.indexFile = this.readFileAsString(path.join(this.sourceRoot(), 'app/index.html'));
+            this.indexFile = this.readFileAsString(this.templatePath('app/index.html'));
             this.indexFile = this.engine(this.indexFile, this);
             var js = ['bower_components/jquery/dist/jquery.min.js',
                 'bower_components/angular/angular.min.js',
@@ -248,7 +245,7 @@ module.exports = yeoman.generators.Base.extend({
             var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
             Array.prototype.push.apply(js, appsJS);
             this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
-            this.write('app/index.html', this.indexFile);
+            this.write(this.destinationPath('app/index.html'), this.indexFile);
         },
         files: function () {
             this.fs.copyTpl(
@@ -350,7 +347,9 @@ module.exports = yeoman.generators.Base.extend({
         }
         if (this.appCache) {
             this.composeWith('appverse-html5:cache', {
-                options: {}
+                options: {
+                    'skip-install': this.options['skip-install']
+                }
             });
         }
         if (this.appLogging) {
@@ -404,7 +403,11 @@ module.exports = yeoman.generators.Base.extend({
             });
         }
 
-        this.composeWith('appverse-html5:imagemin');
+        this.composeWith('appverse-html5:imagemin', {
+            options: {
+                'skip-install': this.options['skip-install']
+            }
+        });
 
         this.installDependencies({
             skipInstall: this.options['skip-install']

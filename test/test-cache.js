@@ -23,18 +23,26 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
+var os = require('os');
+var fse = require('fs-extra');
 
-describe('AppverseHtml5:cache', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../cache'))
-      .withArguments('name', '--force')
-      .withOptions({ 'skip-install': true })
-      .on('end', done);
-  });
+describe('appverse-html5:cache', function () {
+    before(function (done) {
 
-  it('creates files', function () {
-    assert.file([
-      'somefile.js'
-    ]);
-  });
+        helpers.run(path.join(__dirname, '../cache'))
+            .inDir(path.join(os.tmpdir(), 'testApp-cache'))
+            .on('ready', function (generator) {
+                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
+            })
+            .on('end', done);
+    });
+
+    it('includes scripts', function () {
+        assert.fileContent('app/index.html', 'src="bower_components/angular-cache/dist/angular-cache.min.js"');
+        assert.fileContent('app/index.html', 'src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"');
+    });
+
+    it('adds dependency to the main app module', function () {
+        assert.fileContent('app/scripts/app.js', 'appverse.cache');
+    });
 });

@@ -34,7 +34,7 @@ var utils = require('../utils.js');
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion();
+        utils.checkVersion.call(this);
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - REST subgenerator.');
@@ -170,8 +170,8 @@ module.exports = yeoman.generators.Base.extend({
         var finalCode = escodegen.generate(configCode);
         fs.writeFileSync(path, finalCode);
 
-        this.template('config/connect.js', 'config/connect.js');
-        this.template('tasks/server.js', 'tasks/server.js');
+        this.template('config/connect.js');
+        this.template('tasks/server.js');
 
         if (this.mockServer) {
             if (!fs.existsSync("tasks")) {
@@ -180,29 +180,31 @@ module.exports = yeoman.generators.Base.extend({
             if (!fs.existsSync("api")) {
                 fs.mkdirSync("api");
             }
-            this.template('tasks/mockserverTask.js', 'tasks/mockserverTask.js');
+            this.template('tasks/mockserverTask.js');
         }
     },
     installingDeps: function () {
-        //TODO - TEMP  APPROACH - PENDING APPVERSE
-        this.bowerInstall("lodash");
+        if (!this.options['skip-install']) {
+            //TODO - TEMP  APPROACH - PENDING APPVERSE
+            this.bowerInstall("lodash");
 
-        var npmDependencies = ['grunt-connect-proxy@0.1.10'];
+            var npmDependencies = ['grunt-connect-proxy@0.1.10'];
 
-        if (this.mockServer) {
-            npmDependencies.push('json-server@0.6.10');
+            if (this.mockServer) {
+                npmDependencies.push('json-server@0.6.10');
+            }
+
+            this.npmInstall(npmDependencies, {
+                saveDev: true
+            });
         }
-
-        this.npmInstall(npmDependencies, {
-            saveDev: true
-        });
     },
     end: function () {
 
         if (this.mockServer) {
-            console.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
-            console.log("Put your .json files into the api folder to serve them automatically with the Mock server");
-            console.log("The Mock server will route all your entities using REST URL patterns.");
+            this.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
+            this.log("Put your .json files into the api folder to serve them automatically with the Mock server");
+            this.log("The Mock server will route all your entities using REST URL patterns.");
         }
     }
 });

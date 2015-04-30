@@ -14,7 +14,7 @@
         "node": ">=0.10.0"
     },
     "scripts": {
-        "test": "mocha"
+        "test": "istanbul cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
     },
     "files": [
     "app",
@@ -60,6 +60,8 @@
         "yosay": "^0.3.0"
     },
     "devDependencies": {
+        "fs-extra": "^0.18.2",
+        "istanbul": "^0.3.13",
         "mocha": "*"
     }
 }

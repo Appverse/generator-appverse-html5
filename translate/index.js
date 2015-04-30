@@ -20,7 +20,6 @@
  */
 'use strict';
 var yeoman = require('yeoman-generator');
-var path = require('path');
 var fs = require('fs');
 
 module.exports = yeoman.generators.Base.extend({
