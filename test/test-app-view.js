@@ -52,7 +52,7 @@ describe('appverse-html5:app-view', function () {
         before(function (done) {
             helpers.run(path.join(__dirname, '../app-view'))
                 .inDir(path.join(os.tmpdir(), 'testApp-view2'))
-                .withArguments('myView myDropdown')
+                .withArguments('myView2 myDropdown')
                 .on('ready', function (generator) {
                     fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
                 })
@@ -61,11 +61,11 @@ describe('appverse-html5:app-view', function () {
 
         it('should create a new state inside a new dropdown', function () {
             assert.file([
-                'app/views/myView/myView.html',
-                'app/scripts/controllers/myView-controller.js'
+                'app/views/myView2/myView2.html',
+                'app/scripts/controllers/myView2-controller.js'
             ]);
 
-            assert.fileContent('app/index.html', '<a ui-sref="myView">myView</a></li></ul></li></ul>');
+            assert.fileContent('app/index.html', '<a ui-sref="myView2">myView2</a></li></ul></li></ul>');
 
             assert.fileContent('app/index.html', 'myDropdown<span class="caret"></span></a><ul class="dropdown-menu">');
         });
@@ -87,10 +87,10 @@ describe('appverse-html5:app-view', function () {
 
         it('should create a new state inside the existing dropdown', function () {
             assert.file([
-                'app/views/myview2/myview2.html',
-                'app/scripts/controllers/myview2-controller.js',
-                'app/views/myview2/myview2.html',
-                'app/scripts/controllers/myview2-controller.js'
+                'app/views/myView2/myView2.html',
+                'app/scripts/controllers/myView3-controller.js',
+                'app/views/myView3/myView3.html',
+                'app/scripts/controllers/myView3-controller.js'
             ]);
         });
     });
