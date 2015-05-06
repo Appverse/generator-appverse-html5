@@ -84,7 +84,6 @@ module.exports = yeoman.generators.Base.extend({
     writing: function () {
         var restJS = '\n  \t<!-- REST MODULE --> \n' +
             '\t<script src="bower_components/lodash/lodash.min.js"></script> \n' +
-            '\t<script src="bower_components/angular-resource/angular-resource.min.js"></script> \n' +
             '\t<script src="bower_components/restangular/dist/restangular.min.js"></script> \n' +
             '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script> \n';
 
@@ -185,8 +184,6 @@ module.exports = yeoman.generators.Base.extend({
     },
     installingDeps: function () {
         if (!this.options['skip-install']) {
-            //TODO - TEMP  APPROACH - PENDING APPVERSE
-            this.bowerInstall("lodash");
 
             var npmDependencies = ['grunt-connect-proxy@0.1.10'];
 
@@ -195,7 +192,8 @@ module.exports = yeoman.generators.Base.extend({
             }
 
             this.npmInstall(npmDependencies, {
-                saveDev: true
+                saveDev: true,
+                saveExact: true
             });
         }
     },
