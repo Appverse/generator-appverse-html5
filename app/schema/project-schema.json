@@ -1,0 +1,201 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://appverse.org",
+    "type": "object",
+    "properties": {
+        "project": {
+            "id": "http://appverse.org/project",
+            "type": "string"
+        },
+        "components": {
+            "id": "http://appverse.org/components",
+            "type": "object",
+            "properties": {
+                "serverpush": {
+                    "id": "http://appverse.org/components/serverpush",
+                    "type": "boolean"
+                },
+                "rest": {
+                    "id": "http://appverse.org/components/rest",
+                    "type": "boolean"
+                },
+                "cache": {
+                    "id": "http://appverse.org/components/cache",
+                    "type": "boolean"
+                },
+                "logging": {
+                    "id": "http://appverse.org/components/logging",
+                    "type": "boolean"
+                },
+                "performance": {
+                    "id": "http://appverse.org/components/performance",
+                    "type": "boolean"
+                },
+                "detection": {
+                    "id": "http://appverse.org/components/detection",
+                    "type": "boolean"
+                },
+                "qr": {
+                    "id": "http://appverse.org/components/qr",
+                    "type": "boolean"
+                },
+                "translate": {
+                    "id": "http://appverse.org/components/translate",
+                    "type": "boolean"
+                }
+            }
+        },
+        "theme": {
+            "id": "http://appverse.org/theme",
+            "type": "object",
+            "properties": {
+                "bootswatch": {
+                    "id": "http://appverse.org/theme/bootswatch",
+                    "type": "boolean"
+                }
+            }
+        },
+        "build": {
+            "id": "http://appverse.org/build",
+            "type": "object",
+            "properties": {
+                "imagemin": {
+                    "id": "http://appverse.org/build/imagemin",
+                    "type": "boolean"
+                },
+                "coffee": {
+                    "id": "http://appverse.org/build/coffee",
+                    "type": "boolean"
+                }
+            }
+        },
+        "package": {
+            "id": "http://appverse.org/package",
+            "type": "object",
+            "properties": {
+                "webkit": {
+                    "id": "http://appverse.org/package/webkit",
+                    "type": "boolean"
+                },
+                "mobile": {
+                    "id": "http://appverse.org/package/mobile",
+                    "type": "boolean"
+                }
+            }
+        },
+        "config": {
+            "id": "http://appverse.org/config",
+            "type": "object",
+            "properties": {
+                "rest": {
+                    "id": "http://appverse.org/config/rest",
+                    "type": "object",
+                    "properties": {
+                        "backend": {
+                            "id": "http://appverse.org/config/rest/backend",
+                            "type": "object",
+                            "properties": {
+                                "host": {
+                                    "id": "http://appverse.org/config/rest/backend/host",
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "id": "http://appverse.org/config/rest/backend/port",
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "mock": {
+                            "id": "http://appverse.org/config/rest/mock",
+                            "type": "object",
+                            "properties": {
+                                "host": {
+                                    "id": "http://appverse.org/config/rest/mock/host",
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "id": "http://appverse.org/config/rest/mock/port",
+                                    "type": "integer"
+                                }
+                            }
+                        },
+                        "crud": {
+                            "id": "http://appverse.org/config/rest/crud",
+                            "type": "array",
+                            "items": {
+                                "id": "http://appverse.org/config/rest/crud/2",
+                                "type": "object",
+                                "properties": {
+                                    "entity": {
+                                        "id": "http://appverse.org/config/rest/crud/2/entity",
+                                        "type": "string"
+                                    },
+                                    "menu": {
+                                        "id": "http://appverse.org/config/rest/crud/2/menu",
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "serverpush": {
+                    "id": "http://appverse.org/config/serverpush",
+                    "type": "object",
+                    "properties": {
+                        "serverURL": {
+                            "id": "http://appverse.org/config/serverpush/serverURL",
+                            "type": "string"
+                        }
+                    }
+                },
+                "theme": {
+                    "id": "http://appverse.org/config/theme",
+                    "type": "object",
+                    "properties": {
+                        "name": {
+                            "id": "http://appverse.org/config/theme/name",
+                            "type": "string"
+                        }
+                    }
+                },
+                "package": {
+                    "id": "http://appverse.org/config/package",
+                    "type": "object",
+                    "properties": {
+                        "webkit": {
+                            "id": "http://appverse.org/config/package/webkit",
+                            "type": "object",
+                            "properties": {
+                                "plattform": {
+                                    "id": "http://appverse.org/config/package/webkit/plattform",
+                                    "type": "array",
+                                    "items": {
+                                        "id": "http://appverse.org/config/package/webkit/plattform/2",
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        },
+                        "mobile": {
+                            "id": "http://appverse.org/config/package/mobile",
+                            "type": "array",
+                            "items": {
+                                "id": "http://appverse.org/config/package/mobile/2",
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+    "project",
+    "components",
+    "theme",
+    "build",
+    "package",
+    "config"
+  ]
+}

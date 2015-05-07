@@ -134,7 +134,7 @@ var addControllerScriptToIndex = function () {
         }
     }
     if (!seen) {
-        var controllerJS = '\n<script src="scripts/controllers/' + this.controllerScript + '"></script>\n';
+        var controllerJS = '<script src="scripts/controllers/' + this.controllerScript + '"></script>';
         indexHTML(controllerJS).insertAfter(indexHTML('script').get()[indexHTML('script').length - 1]);
     }
     fs.writeFileSync(indexPath, indexHTML.html());

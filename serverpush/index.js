@@ -26,28 +26,53 @@ var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
+var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        //SERVERPUSH_CONFIG
-        this.option('spushBaseUrl', {
-            desc: 'Server Push server base URL',
-            type: String,
-            defaults: 'http://127.0.0.1:3000'
-        });
-        this.spushBaseUrl = this.options['spushBaseUrl'];
         utils.checkVersion.call(this);
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - ServerPush subgenerator.');
         this.conflicter.force = true;
+        this.option('config', {
+            desc: 'JSON COnfiguration',
+            type: Object
+        });
+        this.serverpush = this.options['config'];
+        if (!_.isUndefined(this.serverpush)) {
+            this.interactiveMode = false;
+            this.spushBaseUrl = this.serverpush.serverURL;
+        }
+    },
+    prompting: function () {
+        var done = this.async();
+        var prompts;
+        if (this.interactiveMode) {
+            prompts = [
+                {
+                    type: "input",
+                    name: "spushBaseUrl",
+                    message: "Configure your Server URL? ",
+                    default: "http://127.0.0.1:3000",
+             }
+
+        ];
+        } else {
+            prompts = [];
+        }
+        this.prompt(prompts, function (props) {
+            this.spushBaseUrl = props.spushBaseUrl;
+            done();
+        }.bind(this));
     },
 
+
     writing: function () {
-        var sPushJS = '\n \t<!-- SERVER PUSH MODULE --> \n' +
-            '\t<script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>\n' +
-            '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
+        var sPushJS = '<!-- SERVER PUSH MODULE -->' +
+            '<script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>' +
+            '<script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);

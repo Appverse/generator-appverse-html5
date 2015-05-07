@@ -28,8 +28,8 @@ module.exports = yeoman.generators.Base.extend({
         this.conflicter.force = true;
     },
     writing: function () {
-        var restJS = '\n  \t<!-- DETECTION MODULE --> \n' +
-            '\t <script src="bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js"></script>';
+        var restJS = '<!-- DETECTION MODULE -->' +
+            '<script src="bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);

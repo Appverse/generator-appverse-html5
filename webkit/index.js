@@ -25,6 +25,7 @@
 var yeoman = require('yeoman-generator');
 var utils = require('../utils.js');
 var fs = require('fs');
+var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -34,12 +35,21 @@ module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.log('You called the AppverseHtml5 Node-Webkit subgenerator.');
         this.conflicter.force = true;
+        this.option('config', {
+            desc: 'JSON COnfiguration',
+            type: Object
+        });
+        this.package.webkit = this.options['config'];
+        if (_.isUndefined(this.package.webkit)) {
+            this.package.webkit.plattform = ['win', 'linux', 'osx'];
+        }
     },
 
     writing: function () {
-        this.fs.copy(
+        this.fs.copyTpl(
             this.templatePath('config/nodewebkit.js'),
-            this.destinationPath('config/nodewebkit.js')
+            this.destinationPath('config/nodewebkit.js'),
+            this
         );
         this.fs.copy(
             this.templatePath('tasks/webkit.js'),

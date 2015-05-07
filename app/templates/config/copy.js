@@ -21,7 +21,7 @@ module.exports = {
                     ]
                 }, {
             expand: true,
-            cwd: '<%=paths.app%>/bower_components/bootstrap-sass-official/assets/fonts/bootstrap',
+            cwd: '<%=paths.app%>/bower_components/bootstrap-sass/assets/fonts/bootstrap',
             dest: '<%=paths.dist%>/fonts',
             src: '**/*'
                 }, {
@@ -60,7 +60,7 @@ module.exports = {
     },
     fonts: {
         expand: true,
-        cwd: '<%=paths.app%>/bower_components/bootstrap-sass-official/assets/fonts/bootstrap',
+        cwd: '<%=paths.app%>/bower_components/bootstrap-sass/assets/fonts/bootstrap',
         dest: '.tmp/fonts',
         src: '**/*'
     }

@@ -30,10 +30,12 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     writing: function () {
-        var securityJS = '\n \t<!-- SECURITY MODULE --> \n' +
-            '\t<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>\n' +
-            '\t<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script> \n' +
-            '\t<script src="bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"></script>';
+        var securityJS = '<!-- SECURITY MODULE -->' +
+            '<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>' +
+            '<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>' +
+            '<script src="bower_components/angular-resource/angular-resource.min.js"></script>' +
+            '<script src="bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"></script>';
+
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
@@ -64,7 +66,7 @@ module.exports = yeoman.generators.Base.extend({
     },
     install: function () {
         if (!this.options['skip-install']) {
-            this.bowerInstall(["appverse-web-html5-security#~0.4.0"], {
+            this.bowerInstall(["appverse-web-html5-security#~0.5.0"], {
                 save: true
             });
         }

@@ -26,48 +26,51 @@ var slug = require("underscore.string");
 var utils = require('../utils.js');
 var pkg = require('../package.json');
 var inquirer = require('inquirer');
+var _ = require('lodash');
+var fs = require('fs');
+var ZSchema = require("z-schema");
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
-
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        this.interactiveMode = true;
-        // This makes `appname` an argument.
-        this.argument('applicationName', {
+        // This makes `config` a required argument.
+        this.argument('jsonfile', {
             type: String,
             required: false
         });
-        // And you can then access it later on this way; e.g. CamelCased
-        if (typeof this.applicationName !== 'undefined') {
-            this.applicationName = slug.slugify(this.applicationName);
+        if (!_.isUndefined(this.jsonfile)) {
             this.interactiveMode = false;
-            this.log(
-                'Setting interactive mode off!'
-            );
-        }
-        // This method adds support for a `--cache` flag
-        this.option('cache');
-        this.option('detection');
-        this.option('logging');
-        this.option('performance');
-        this.option('qr');
-        this.option('translate');
-        this.option('serverpush');
-        this.option('security');
-        this.option('rest');
-        this.option('all');
-
-        if (this.interactiveMode) {
-            if (this.options.cache || this.options.detection || this.options.logging || this.options.performance || this.options.qr || this.options.translate || this.options.serverpush || this.options.security || this.options.rest || this.options.all) {
-                this.applicationName = slug.slugify(this.appname);
-                this.interactiveMode = false;
-                this.log(
-                    'Setting interactive mode off!'
-                );
+            this.schema = JSON.parse(fs.readFileSync(this.templatePath('../schema/project-schema.json'), 'utf-8'));
+            this.project = JSON.parse(fs.readFileSync(this.jsonfile, 'utf8'));
+            var validator = new ZSchema();
+            var valid = validator.validate(this.project, this.schema);
+            if (!valid) {
+                this.log("Sorry. Not a valid JSON project! ");
+                this.log("Check the project-schema.json for a valid JSON file. \n");
+                this.log(JSON.stringify(this.schema));
+                process.exit();
             }
+            this.log('Setting interactive mode off!');
+            this.appName = slug.slugify(this.project.project);
+            this.appBootstrapSelector = this.project.theme.bootswatch;
+            this.appTranslate = this.project.components.translate;
+            this.appQR = this.project.components.qr;
+            this.appRest = this.project.components.rest;
+            this.appPerformance = this.project.components.performance;
+            this.appSecurity = this.project.components.security;
+            this.appServerPush = this.project.components.serverpush;
+            this.appCache = this.project.components.cache;
+            this.appLogging = this.project.components.logging;
+            this.appDetection = this.project.components.detection;
+            this.appWebkit = this.project.package.webkit;
+            this.appImagemin = this.project.build.imagemin;
+            this.env.options.appPath = this.options.appPath || 'app';
+            this.config.set('appPath', this.env.options.appPath);
+        } else {
+            this.interactiveMode = true;
         }
     },
     prompting: function () {
@@ -87,9 +90,7 @@ module.exports = yeoman.generators.Base.extend({
             'Welcome to the ' + chalk.bgBlack.cyan('Appverse Html5') + ' generator! \n'
         );
         utils.checkVersion.call(this);
-
         var prompts;
-
         if (this.interactiveMode) {
             prompts = [
                 {
@@ -159,14 +160,11 @@ module.exports = yeoman.generators.Base.extend({
                     message: "Do you want to package your application as a desktop application using Node-Webkit?",
                     default: false
                 }, {
-                    type: "input",
-                    name: "spushBaseUrl",
-                    message: "Configure your WebSocket Server URL? ",
-                    default: "http://127.0.0.1:3000",
-                    when: function (answers) {
-                        return answers.coreOptions && answers.coreOptions.indexOf('appServerPush') !== -1;
-                    }
-                }
+                    type: "confirm",
+                    name: "imagemin",
+                    message: "Do you want to install Image compression (imagemin)?",
+                    default: false
+             }
             ];
         } else {
             prompts = [];
@@ -182,10 +180,7 @@ module.exports = yeoman.generators.Base.extend({
             }
             if (prompts.length > 0) {
                 this.appName = slug.slugify(props.appName);
-                this.bootstrapSelector = props.bootstrapTheme;
-                this.webkit = props.webkit;
                 var coreOptions = props.coreOptions;
-
                 // manually deal with the response, get back and store the results.
                 // we change a bit this way of doing to automatically do this in the self.prompt() method.
                 this.appTranslate = hasFeature(coreOptions, 'appTranslate');
@@ -200,19 +195,9 @@ module.exports = yeoman.generators.Base.extend({
                 this.appDetection = hasFeature(coreOptions, 'appDetection');
                 this.env.options.appPath = this.options.appPath || 'app';
                 this.config.set('appPath', this.env.options.appPath);
-            } else {
-                this.appName = slug.slugify(this.applicationName);
-                this.appTranslate = this.options.translate || this.options.all;
-                this.appQR = this.options.qr || this.options.all;
-                this.appRest = this.options.rest || this.options.all;
-                this.appPerformance = this.options.performance || this.options.all;
-                this.appSecurity = this.options.security || this.options.all;
-                this.appServerPush = this.options.serverpush || this.options.all;
-                this.appCache = this.options.cache || this.options.all;
-                this.appLogging = this.options.logging || this.options.all;
-                this.appDetection = this.options.detection || this.options.all;
-                this.env.options.appPath = this.options.appPath || 'app';
-                this.config.set('appPath', this.env.options.appPath);
+                this.appBootstrapSelector = props.bootstrapTheme;
+                this.appWebkit = props.webkit;
+                this.appImagemin = props.imagemin;
             }
             done();
         }.bind(this));
@@ -227,20 +212,17 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/angular/angular.min.js',
                 'bower_components/angular-touch/angular-touch.min.js',
                 'bower_components/modernizr/modernizr.js',
-                'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.min.js',
+                'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
                 'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                 'bower_components/ng-grid/build/ng-grid.min.js',
                 'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
                 'bower_components/angular-animate/angular-animate.min.js',
                 'bower_components/angular-xeditable/dist/js/xeditable.js',
                 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
-                'bower_components/angular-route/angular-route.min.js',
-                'bower_components/angular-resource/angular-resource.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
                 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js'
             ];
-
             //APP FILES
             var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
             Array.prototype.push.apply(js, appsJS);
@@ -340,7 +322,7 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     install: function () {
-        if (this.bootstrapSelector) {
+        if (this.appBootstrapSelector) {
             this.composeWith('appverse-html5:bootstrap-theme', {
                 options: {}
             });
@@ -360,13 +342,15 @@ module.exports = yeoman.generators.Base.extend({
 
         if (this.appRest) {
             this.composeWith('appverse-html5:rest', {
-                options: {}
+                options: {
+                    'config': this.project.config.rest
+                }
             });
         }
         if (this.appServerPush) {
             this.composeWith('appverse-html5:serverpush', {
                 options: {
-                    spushBaseUrl: this.spushBaseUrl
+                    'config': this.project.config.serverpush
                 }
             });
         }
@@ -397,18 +381,20 @@ module.exports = yeoman.generators.Base.extend({
             });
         }
 
-        if (this.webkit) {
+        if (this.appWebkit) {
             this.composeWith('appverse-html5:webkit', {
-                options: {}
+                options: {
+                    'config': this.project.config.package.webkit
+                }
             });
         }
-
-        this.composeWith('appverse-html5:imagemin', {
-            options: {
-                'skip-install': this.options['skip-install']
-            }
-        });
-
+        if (this.appImagemin) {
+            this.composeWith('appverse-html5:imagemin', {
+                options: {
+                    'skip-install': this.options['skip-install']
+                }
+            });
+        }
         this.installDependencies({
             skipInstall: this.options['skip-install']
         });
@@ -416,6 +402,9 @@ module.exports = yeoman.generators.Base.extend({
     end: function () {
         this.log("Finish! Execute 'grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page.");
         this.log(" or just execute 'grunt server' to start the server.");
+        if (!this.interactiveMode) {
+            process.exit();
+        }
     },
 
 });

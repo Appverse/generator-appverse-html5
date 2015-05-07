@@ -4,7 +4,7 @@
 module.exports = {
     options: {
         sourceMap: true,
-        includePaths: ['<%=paths.app%>/bower_components/bootstrap-sass-official/assets/stylesheets']
+        includePaths: ['<%=paths.app%>/bower_components/bootstrap-sass/assets/stylesheets']
     },
     server: {
         files: [{

@@ -29,9 +29,9 @@ module.exports = yeoman.generators.Base.extend({
         this.conflicter.force = true;
     },
     writing: function () {
-        var restJS = '\n  \t<!-- CACHE MODULE --> \n' +
-            '\t<script src="bower_components/angular-cache/dist/angular-cache.min.js"></script> \n' +
-            '\t <script src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"></script>';
+        var restJS = '<!-- CACHE MODULE -->' +
+            '<script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>' +
+            '<script src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);

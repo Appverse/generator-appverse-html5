@@ -32,27 +32,7 @@ module.exports = yeoman.generators.Base.extend({
         this.log('You called the AppverseHtml5 Imagemin subgenerator.');
         this.conflicter.force = true;
     },
-    prompting: function () {
-        var done = this.async();
-        var prompts = [
-            {
-                type: "confirm",
-                name: "imagemin",
-                message: "Do you want to install imagemin?",
-                default: false
-            }
-        ];
-        this.prompt(prompts, function (props) {
-            this.imagemin = props.imagemin;
-            done();
-        }.bind(this));
-    },
     writing: function () {
-
-        if (!this.imagemin) {
-            return;
-        }
-
         this.fs.copy(
             this.templatePath('config/concurrent.js'),
             this.destinationPath('config/concurrent.js')
@@ -64,11 +44,6 @@ module.exports = yeoman.generators.Base.extend({
         );
     },
     install: function () {
-
-        if (!this.imagemin || this.options['skip-install']) {
-            return;
-        }
-
         this.npmInstall([
                 'download@3.3.0',
                 'bin-build@2.1.1',
@@ -96,9 +71,6 @@ module.exports = yeoman.generators.Base.extend({
 
     },
     end: function () {
-        if (!this.imagemin) {
-            return;
-        }
         this.log("\n Your application is ready to use imagemin.");
         this.log("\n Execute: 'grunt dist' to create the dist folder with all the images optimized.");
     }

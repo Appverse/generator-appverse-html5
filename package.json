@@ -50,14 +50,17 @@
         "grunt": "0.4.5",
         "inquirer": "^0.8.2",
         "insight": "0.4.3",
+        "install": "^0.1.8",
         "lodash": "^3.6.0",
+        "npm": "^2.9.0",
         "request": "^2.53.0",
         "shelljs": "0.3.0",
         "underscore.string": "2.3.3",
         "update-notifier": "^0.3.1",
         "urllib-sync": "^1.0.1",
         "yeoman-generator": "^0.18.0",
-        "yosay": "^0.3.0"
+        "yosay": "^0.3.0",
+        "z-schema": "^3.9.4"
     },
     "devDependencies": {
         "fs-extra": "^0.18.2",

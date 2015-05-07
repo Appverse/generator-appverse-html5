@@ -28,7 +28,7 @@ var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
-
+var _ = require('lodash');
 
 
 module.exports = yeoman.generators.Base.extend({
@@ -39,35 +39,55 @@ module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.log('You called the Appverse Html5 - REST subgenerator.');
         this.conflicter.force = true;
+        //REST_CONFIG
+        this.option('config', {
+            desc: 'JSON COnfiguration',
+            type: Object
+        });
+        this.rest = this.options['config'];
+        if (!_.isUndefined(this.rest)) {
+            this.interactiveMode = false;
+            this.restBaseUrl = this.rest.backend.host;
+            this.restBaseUrlPort = this.rest.backend.port;
+            this.mockServer = this.rest.mock.host;
+            this.mockServerPort = this.rest.mock.port;
+        } else {
+            this.interactiveMode = true;
+        }
     },
     prompting: function () {
         var done = this.async();
-        var prompts = [
-            {
-                type: "input",
-                name: "restBaseUrl",
-                message: "Configure your REST backend URL",
-                default: "http://127.0.0.1"
+        var prompts;
+        if (this.interactiveMode) {
+            prompts = [
+                {
+                    type: "input",
+                    name: "restBaseUrl",
+                    message: "Configure your REST backend URL",
+                    default: "http://127.0.0.1"
              }, {
-                type: "input",
-                name: "restBaseUrlPort",
-                message: "Configure your REST backend URL Port",
-                default: "8000"
+                    type: "input",
+                    name: "restBaseUrlPort",
+                    message: "Configure your REST backend URL Port",
+                    default: "8000"
              }, {
-                type: "confirm",
-                name: "mockServer",
-                message: "Do you want a REST MOCK Server (json-server)?",
-                default: true
+                    type: "confirm",
+                    name: "mockServer",
+                    message: "Do you want a REST MOCK Server (json-server)?",
+                    default: true
              }, {
-                type: "input",
-                name: "mockServerPort",
-                message: "Configure your REST MOCK server PORT? ",
-                default: "8888",
-                when: function (answers) {
-                    return answers.mockServer;
-                }
+                    type: "input",
+                    name: "mockServerPort",
+                    message: "Configure your REST MOCK server PORT? ",
+                    default: "8888",
+                    when: function (answers) {
+                        return answers.mockServer;
+                    }
             }
         ];
+        } else {
+            prompts = [];
+        }
         this.prompt(prompts, function (props) {
             this.restBaseUrl = props.restBaseUrl;
             this.restBaseUrlPort = props.restBaseUrlPort;
@@ -75,18 +95,18 @@ module.exports = yeoman.generators.Base.extend({
             this.mockServerPort = props.mockServerPort;
             done();
         }.bind(this));
+
     },
 
     configuring: function () {
-        //ADD NG_GRID ANGULAR
+        //ADD ANGULAR MODULE
         utils.addAngularModule.call(this, 'appverse.rest');
     },
     writing: function () {
-        var restJS = '\n  \t<!-- REST MODULE --> \n' +
-            '\t<script src="bower_components/lodash/lodash.min.js"></script> \n' +
-            '\t<script src="bower_components/angular-resource/angular-resource.min.js"></script> \n' +
-            '\t<script src="bower_components/restangular/dist/restangular.min.js"></script> \n' +
-            '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script> \n';
+        var restJS = '<!-- REST MODULE -->' +
+            '<script src="bower_components/lodash/lodash.min.js"></script>' +
+            '<script src="bower_components/restangular/dist/restangular.min.js"></script>' +
+            '<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script>';
 
 
         var indexPath = this.destinationPath('app/index.html');
@@ -183,24 +203,18 @@ module.exports = yeoman.generators.Base.extend({
             this.template('tasks/mockserverTask.js');
         }
     },
-    installingDeps: function () {
-        if (!this.options['skip-install']) {
-            //TODO - TEMP  APPROACH - PENDING APPVERSE
-            this.bowerInstall("lodash");
-
-            var npmDependencies = ['grunt-connect-proxy@0.1.10'];
-
-            if (this.mockServer) {
-                npmDependencies.push('json-server@0.6.10');
-            }
-
-            this.npmInstall(npmDependencies, {
-                saveDev: true
-            });
+    install: function () {
+        var npmDependencies = ['grunt-connect-proxy@0.1.10'];
+        if (this.mockServer) {
+            npmDependencies.push('json-server@0.6.10');
         }
+        this.npmInstall(npmDependencies, {
+            saveDev: true,
+            saveExact: true
+        });
     },
     end: function () {
-
+        this.log('Finish!');
         if (this.mockServer) {
             this.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
             this.log("Put your .json files into the api folder to serve them automatically with the Mock server");
