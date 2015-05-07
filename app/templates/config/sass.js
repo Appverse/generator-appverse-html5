@@ -1,3 +1,4 @@
+/*jshint node:true*/
 'use strict';
 
 // Compiles Sass to CSS and generates necessary files if requested
