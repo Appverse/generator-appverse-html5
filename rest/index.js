@@ -30,7 +30,6 @@ var escodegen = require('escodegen');
 var utils = require('../utils.js');
 var _ = require('lodash');
 
-
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
@@ -108,7 +107,6 @@ module.exports = yeoman.generators.Base.extend({
             '<script src="bower_components/restangular/dist/restangular.min.js"></script>' +
             '<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script>';
 
-
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
         var indexTag = 'app-states.js"></script>';
@@ -175,8 +173,6 @@ module.exports = yeoman.generators.Base.extend({
                }]
             }
         };
-
-
         var configCode = estraverse.replace(astCode, {
             enter: function (node, parent) {
                 if (node.type === 'Identifier' && node.name === 'environment') {
@@ -203,7 +199,7 @@ module.exports = yeoman.generators.Base.extend({
             this.template('tasks/mockserverTask.js');
         }
     },
-    install: function () {
+    installingDeps: function () {
         var npmDependencies = ['grunt-connect-proxy@0.1.10'];
         if (this.mockServer) {
             npmDependencies.push('json-server@0.6.10');
