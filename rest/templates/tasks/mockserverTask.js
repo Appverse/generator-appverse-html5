@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 
         grunt.log.writeln('Reading MOCK - JSON directory. Loading al the JSON files to the MockServer database.');
 
-        var apiFolder = path.join(__dirname, "api");
+        var apiFolder = path.join(__dirname, "../api");
         if (!fs.existsSync(apiFolder)) {
             fs.mkdirSync(apiFolder);
         }
