@@ -30,12 +30,20 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     writing: function () {
+<<<<<<< HEAD
         var securityJS = '<!-- SECURITY MODULE -->' +
             '<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>' +
             '<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>' +
             '<script src="bower_components/angular-resource/angular-resource.min.js"></script>' +
             '<script src="bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"></script>';
 
+=======
+        var securityJS = '\n \t<!-- SECURITY MODULE --> \n' +
+            '\t<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>\n' +
+            '\t<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script> \n' +
+            '\t<script src="bower_components/angular-resource/angular-resource.min.js"></script> \n' +
+            '\t<script src="bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"></script>';
+>>>>>>> develop
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
