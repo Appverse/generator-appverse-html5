@@ -42,6 +42,10 @@
                 "translate": {
                     "id": "http://appverse.org/components/translate",
                     "type": "boolean"
+                },
+                "security": {
+                    "id": "http://appverse.org/components/security",
+                    "type": "boolean"
                 }
             }
         },

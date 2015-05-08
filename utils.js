@@ -28,6 +28,8 @@ var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
+var request = require('request');
+var extend = require('xtend');
 
 //
 // Get the Generated angular application name
@@ -242,6 +244,24 @@ Array.prototype.unshiftIfNotExist = function (element, comparer) {
     }
 };
 
+
+var readJSONFileOrUrl = function (url, callback) {
+    if (/^https?:/.test(url)) {
+        request(url, function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                callback(null, JSON.parse(body.toString()));
+            } else {
+                callback(error, null);
+            }
+        });
+    }
+    if (!fs.existsSync(url)) {
+        callback("Wrong Path. I can't find a JSON file there!", null);
+    }
+
+    callback(null, JSON.parse(fs.readFileSync(this.jsonfile, 'utf8')));
+};
+
 module.exports = {
     checkVersion: checkVersion,
     getApplicationName: getApplicationName,
@@ -250,5 +270,6 @@ module.exports = {
     addViewAndController: addViewAndController,
     addAngularModule: addAngularModule,
     checkAngularModule: checkAngularModule,
-    addDropDownOption: addDropDownOption
+    addDropDownOption: addDropDownOption,
+    readJSONFileOrUrl: readJSONFileOrUrl
 };

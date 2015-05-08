@@ -30,45 +30,53 @@ var _ = require('lodash');
 var fs = require('fs');
 var ZSchema = require("z-schema");
 
+
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        // This makes `config` a required argument.
+        // This makes `config` an argument.
         this.argument('jsonfile', {
             type: String,
             required: false
         });
         if (!_.isUndefined(this.jsonfile)) {
             this.interactiveMode = false;
-            this.schema = JSON.parse(fs.readFileSync(this.templatePath('../schema/project-schema.json'), 'utf-8'));
-            this.project = JSON.parse(fs.readFileSync(this.jsonfile, 'utf8'));
-            var validator = new ZSchema();
-            var valid = validator.validate(this.project, this.schema);
-            if (!valid) {
-                this.log("Sorry. Not a valid JSON project! ");
-                this.log("Check the project-schema.json for a valid JSON file. \n");
-                this.log(JSON.stringify(this.schema));
-                process.exit();
-            }
-            this.log('Setting interactive mode off!');
-            this.appName = slug.slugify(this.project.project);
-            this.appBootstrapSelector = this.project.theme.bootswatch;
-            this.appTranslate = this.project.components.translate;
-            this.appQR = this.project.components.qr;
-            this.appRest = this.project.components.rest;
-            this.appPerformance = this.project.components.performance;
-            this.appSecurity = this.project.components.security;
-            this.appServerPush = this.project.components.serverpush;
-            this.appCache = this.project.components.cache;
-            this.appLogging = this.project.components.logging;
-            this.appDetection = this.project.components.detection;
-            this.appWebkit = this.project.package.webkit;
-            this.appImagemin = this.project.build.imagemin;
-            this.env.options.appPath = this.options.appPath || 'app';
-            this.config.set('appPath', this.env.options.appPath);
+            utils.readJSONFileOrUrl(this.jsonfile, function (error, data) {
+                if (!error) {
+                    this.project = data;
+                    var validator = new ZSchema();
+                    this.schema = JSON.parse(fs.readFileSync(this.templatePath('../schema/project-schema.json'), 'utf-8'));
+                    var valid = validator.validate(this.project, this.schema);
+                    if (!valid) {
+                        this.log("Sorry. Not a valid JSON project! ");
+                        this.log("Check the project-schema.json for a valid JSON file. \n");
+                        this.log(JSON.stringify(this.schema));
+                        process.exit();
+                    }
+                    this.log('Setting interactive mode off!');
+                    this.appName = slug.slugify(this.project.project);
+                    this.appBootstrapSelector = this.project.theme.bootswatch;
+                    this.appTranslate = this.project.components.translate;
+                    this.appQR = this.project.components.qr;
+                    this.appRest = this.project.components.rest;
+                    this.appPerformance = this.project.components.performance;
+                    this.appSecurity = this.project.components.security;
+                    this.appServerPush = this.project.components.serverpush;
+                    this.appCache = this.project.components.cache;
+                    this.appLogging = this.project.components.logging;
+                    this.appDetection = this.project.components.detection;
+                    this.appWebkit = this.project.package.webkit;
+                    this.appImagemin = this.project.build.imagemin;
+                    this.env.options.appPath = this.options.appPath || 'app';
+                    this.config.set('appPath', this.env.options.appPath);
+                } else {
+                    this.log(error);
+                    process.exit();
+                }
+            }.bind(this));
         } else {
             this.interactiveMode = true;
         }
@@ -322,6 +330,9 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     install: function () {
+        var project = this.project || {
+            config: {}
+        };
         if (this.appBootstrapSelector) {
             this.composeWith('appverse-html5:bootstrap-theme', {
                 options: {}
@@ -343,14 +354,15 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appRest) {
             this.composeWith('appverse-html5:rest', {
                 options: {
-                    'config': this.project.config.rest
+                    config: project.config.rest,
+                    'skip-install': this.options['skip-install']
                 }
             });
         }
         if (this.appServerPush) {
             this.composeWith('appverse-html5:serverpush', {
                 options: {
-                    'config': this.project.config.serverpush
+                    config: project.config.serverpush
                 }
             });
         }
@@ -384,7 +396,7 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appWebkit) {
             this.composeWith('appverse-html5:webkit', {
                 options: {
-                    'config': this.project.config.package.webkit
+                    config: project.config.package.webkit
                 }
             });
         }

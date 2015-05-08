@@ -31,8 +31,8 @@ describe('appverse-html5:app-view', function () {
     describe('when called with only one argument', function () {
         before(function (done) {
             helpers.run(path.join(__dirname, '../app-view'))
-                .inDir(path.join(os.tmpdir(), './testApp-view'), function (dir) {
-                    fse.copySync(path.join(__dirname, '../app/templates'), dir);
+                .on('ready', function (generator) {
+                    fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
                 })
                 .withArguments('myView')
                 .on('end', done);

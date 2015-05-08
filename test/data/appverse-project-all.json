@@ -1,0 +1,70 @@
+{
+    "project": "myTestProject",
+    "components": {
+        "serverpush": true,
+        "rest": true,
+        "cache": true,
+        "logging": true,
+        "performance": true,
+        "detection": true,
+        "qr": true,
+        "translate": true,
+        "security": false
+    },
+    "theme": {
+        "bootswatch": true
+    },
+    "build": {
+        "imagemin": true,
+        "coffee": true
+    },
+    "package": {
+        "webkit": true,
+        "mobile": true
+    },
+    "config": {
+        "rest": {
+            "backend": {
+                "host": "mybackendhost",
+                "port": 8080
+            },
+            "mock": {
+                "host": "127.0.0.1",
+                "port": 9888
+            },
+            "crud": [
+                {
+                    "entity": "Users",
+                    "menu": "Admin"
+        },
+                {
+                    "entity": "Roles",
+                    "menu": "Admin"
+        },
+                {
+                    "entity": "Contacts"
+        }
+      ]
+        },
+        "serverpush": {
+            "serverURL": "127.0.0.1"
+        },
+        "theme": {
+            "name": "Cerulean"
+        },
+        "package": {
+            "webkit": {
+                "plattform": [
+          "win",
+          "linux",
+          "osx"
+        ]
+            },
+            "mobile": [
+        "ios",
+        "android",
+        "win"
+      ]
+        }
+    }
+}

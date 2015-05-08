@@ -36,7 +36,7 @@ describe('appverse-html5:app', function () {
 
             helpers.run(path.join(__dirname, '../app'))
                 .inDir(path.join(os.tmpdir(), 'testApp1'))
-                .withArguments('testApp1')
+                .withArguments(path.join(__dirname, 'data/appverse-project-rest.json'))
                 .withOptions({
                     'skip-install': true
                 })

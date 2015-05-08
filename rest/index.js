@@ -48,8 +48,13 @@ module.exports = yeoman.generators.Base.extend({
             this.interactiveMode = false;
             this.restBaseUrl = this.rest.backend.host;
             this.restBaseUrlPort = this.rest.backend.port;
-            this.mockServer = this.rest.mock.host;
-            this.mockServerPort = this.rest.mock.port;
+            if (!_.isUndefined(this.rest.mock)) {
+                this.mockServer = true;
+                this.mockServerHost = this.rest.mock.host;
+                this.mockServerPort = this.rest.mock.port;
+            } else {
+                this.mockServer = false;
+            }
         } else {
             this.interactiveMode = true;
         }
@@ -206,7 +211,8 @@ module.exports = yeoman.generators.Base.extend({
         }
         this.npmInstall(npmDependencies, {
             saveDev: true,
-            saveExact: true
+            saveExact: true,
+            skipInstall: this.options['skip-install']
         });
     },
     end: function () {
