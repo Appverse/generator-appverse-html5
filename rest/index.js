@@ -28,8 +28,7 @@ var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
-
-
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -82,11 +81,11 @@ module.exports = yeoman.generators.Base.extend({
         utils.addAngularModule.call(this, 'appverse.rest');
     },
     writing: function () {
-        var restJS = '\n  \t<!-- REST MODULE --> \n' +
-            '\t<script src="bower_components/lodash/lodash.min.js"></script> \n' +
-            '\t<script src="bower_components/restangular/dist/restangular.min.js"></script> \n' +
-            '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script> \n';
-
+        var restJS = os.EOL +
+            '    <!-- REST MODULE -->' + os.EOL +
+            '    <script src="bower_components/lodash/lodash.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/restangular/dist/restangular.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);

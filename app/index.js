@@ -26,6 +26,7 @@ var slug = require("underscore.string");
 var utils = require('../utils.js');
 var pkg = require('../package.json');
 var inquirer = require('inquirer');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -243,7 +244,7 @@ module.exports = yeoman.generators.Base.extend({
             var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
             Array.prototype.push.apply(js, appsJS);
             this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
-            this.write(this.destinationPath('app/index.html'), this.indexFile);
+            this.write(this.destinationPath('app/index.html'), this.indexFile.replace(/>\n/g, '>' + os.EOL));
         },
         files: function () {
             this.fs.copyTpl(

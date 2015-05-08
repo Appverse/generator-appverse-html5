@@ -1,3 +1,4 @@
+/*jshint node:true */
 'use strict';
 
 module.exports = function (grunt) {
@@ -20,6 +21,13 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('server:dist', [
+        'dist',
+        'connect:dist',
+        'watch'
+    ]);
+
+    grunt.registerTask('server:dist:open', [
+        'dist',
         'connect:dist',
         'open:dist',
         'watch'

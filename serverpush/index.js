@@ -26,6 +26,7 @@ var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -45,9 +46,10 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     writing: function () {
-        var sPushJS = '\n \t<!-- SERVER PUSH MODULE --> \n' +
-            '\t<script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>\n' +
-            '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
+        var sPushJS = os.EOL +
+            '    <!-- SERVER PUSH MODULE -->' + os.EOL +
+            '    <script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);

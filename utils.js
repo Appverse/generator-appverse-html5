@@ -28,6 +28,7 @@ var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
+var os = require('os');
 
 //
 // Get the Generated angular application name
@@ -134,7 +135,7 @@ var addControllerScriptToIndex = function () {
         }
     }
     if (!seen) {
-        var controllerJS = '\n<script src="scripts/controllers/' + this.controllerScript + '"></script>\n';
+        var controllerJS = os.EOL + '    <script src="scripts/controllers/' + this.controllerScript + '"></script>';
         indexHTML(controllerJS).insertAfter(indexHTML('script').get()[indexHTML('script').length - 1]);
     }
     fs.writeFileSync(indexPath, indexHTML.html());
