@@ -23,18 +23,21 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
+var os = require('os');
+var fse = require('fs-extra');
 
-describe('AppverseHtml5:serverpush', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../serverpush'))
-      .withArguments('name', '--force')
-      .withOptions({ 'skip-install': true })
-      .on('end', done);
-  });
+describe('appverse-html5:serverpush', function () {
+    before(function (done) {
+        helpers.run(path.join(__dirname, '../serverpush'))
+            .inDir(path.join(os.tmpdir(), 'testApp-servepush'))
+            .on('ready', function (generator) {
+                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
+            })
+            .on('end', done);
+    });
 
-  it('creates files', function () {
-    assert.file([
-      'somefile.js'
-    ]);
-  });
+    it('includes scripts', function () {
+        assert.fileContent('app/index.html',
+            'src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"');
+    });
 });

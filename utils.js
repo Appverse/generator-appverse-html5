@@ -18,7 +18,6 @@
  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  POSSIBILITY OF SUCH DAMAGE.
  */
-
 'use strict';
 var updateNotifier = require('update-notifier');
 var pkg = require('./package.json');
@@ -47,10 +46,12 @@ var checkAngularModule = function (moduleName) {
     //PARSE FILE
     var astCode = esprima.parse(file);
     var installedModule = false;
+    var generator = this;
+
     estraverse.traverse(astCode, {
         enter: function (node) {
             if (node.type === 'Literal' && node.value === moduleName) {
-                console.log("Module found.");
+                generator.log("Module found.");
                 installedModule = true;
                 this.break();
             }
@@ -195,14 +196,20 @@ var addViewAndController = function () {
     addViewAndControllerFiles.call(this);
 };
 
-function checkVersion() {
+var checkVersion = function () {
+
+    if (this.options['skip-install']) {
+        return;
+    }
+
     var notifier = updateNotifier({
         pkg: pkg,
         updateCheckInterval: 1000 // Interval to check for updates.
     });
-    if (notifier.update) {
-        console.log(chalk.cyan('Update available: ') + chalk.bold.green(notifier.update.latest) + chalk.gray(' \(current ') + chalk.bold.gray(notifier.update.current) + chalk.gray('\)'));
-        console.log(chalk.cyan('run ' + chalk.bold.white('npm update -g generator-appverse-html5') + chalk.cyan(' to update \n')));
+
+    if (notifier && notifier.update) {
+        this.log(chalk.cyan('Update available: ') + chalk.bold.green(notifier.update.latest) + chalk.gray(' \(current ') + chalk.bold.gray(notifier.update.current) + chalk.gray('\)'));
+        this.log(chalk.cyan('run ' + chalk.bold.white('npm update -g generator-appverse-html5') + chalk.cyan(' to update \n')));
     }
 };
 
@@ -210,7 +217,9 @@ function checkVersion() {
 // comparer : function(currentElement)
 Array.prototype.inArray = function (comparer) {
     for (var i = 0; i < this.length; i++) {
-        if (comparer(this[i])) return true;
+        if (comparer(this[i])) {
+            return true;
+        }
     }
     return false;
 };

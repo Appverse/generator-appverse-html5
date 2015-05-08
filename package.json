@@ -1,6 +1,6 @@
 {
     "name": "generator-appverse-html5",
-    "version": "0.10.0",
+    "version": "0.11.0",
     "description": "Appverse HTML 5 generator",
     "license": "http://appverse.org/legal/appverse-license/",
     "main": "app/index.js",
@@ -11,10 +11,11 @@
         "url": "http://appverse.org"
     },
     "engines": {
-        "node": ">=0.10.0"
+        "node": ">=0.10.0",
+        "npm": ">=1.4.5"
     },
     "scripts": {
-        "test": "mocha"
+        "test": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
     },
     "files": [
     "app",
@@ -60,6 +61,8 @@
         "yosay": "^0.3.0"
     },
     "devDependencies": {
+        "fs-extra": "^0.18.2",
+        "istanbul": "^0.3.13",
         "mocha": "*"
     }
 }

@@ -26,7 +26,7 @@ var utils = require('../utils.js');
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion();
+        utils.checkVersion.call(this);
     },
     initializing: function () {
         this.log('You called the AppverseHtml5 Imagemin subgenerator.');
@@ -62,6 +62,12 @@ module.exports = yeoman.generators.Base.extend({
             this.templatePath('config/imagemin.js'),
             this.destinationPath('config/imagemin.js')
         );
+    },
+    install: function () {
+
+        if (!this.imagemin || this.options['skip-install']) {
+            return;
+        }
 
         this.npmInstall([
                 'download@3.3.0',
@@ -87,11 +93,13 @@ module.exports = yeoman.generators.Base.extend({
             ], {
             saveDev: true
         });
+
     },
     end: function () {
-        if (this.imagemin) {
-            console.log("\n Your application is ready to use imagemin.");
-            console.log("\n Execute: 'grunt dist' to create the dist folder with all the images optimized.");
+        if (!this.imagemin) {
+            return;
         }
+        this.log("\n Your application is ready to use imagemin.");
+        this.log("\n Execute: 'grunt dist' to create the dist folder with all the images optimized.");
     }
 });

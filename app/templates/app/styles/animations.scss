@@ -16,6 +16,9 @@
 }
 
 /* Slide */
+body{
+    overflow-x: hidden; //To avoid horizontal scrollbar on animation
+}
 .myslide.ng-enter,
 .myslide.ng-leave {
     position: absolute;

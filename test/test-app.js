@@ -26,22 +26,137 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 
 describe('appverse-html5:app', function () {
-  before(function (done) {
-    helpers.run(path.join(__dirname, '../app'))
-      .inDir(path.join(os.tmpdir(), './temp-test'))
-      .withOptions({ 'skip-install': true })
-      .withPrompt({
-        someOption: true
-      })
-      .on('end', done);
-  });
 
-  it('creates files', function () {
-    assert.file([
-      'bower.json',
-      'package.json',
-      '.editorconfig',
-      '.jshintrc'
-    ]);
-  });
+    describe('when called with an argument', function () {
+        before(function (done) {
+
+            var deps = [
+                [helpers.createDummyGenerator(), 'appverse-html5:imagemin']
+            ];
+
+            helpers.run(path.join(__dirname, '../app'))
+                .inDir(path.join(os.tmpdir(), 'testApp1'))
+                .withArguments('testApp1')
+                .withOptions({
+                    'skip-install': true
+                })
+                .withPrompts({
+                    bootstrapTheme: false
+                })
+                .withGenerators(deps)
+                .on('end', done);
+        });
+
+        it('should create files with defaults', function () {
+            assert.file([
+                'bower.json',
+                'package.json',
+                '.editorconfig',
+                '.jshintrc'
+            ]);
+
+            assert.fileContent('bower.json', 'testapp1');
+        });
+    });
+
+    describe('when called without an argument and serverpush prompt', function () {
+        before(function (done) {
+
+            var deps = [
+                [helpers.createDummyGenerator(), 'appverse-html5:serverpush'],
+                [helpers.createDummyGenerator(), 'appverse-html5:imagemin']
+            ];
+
+            helpers.run(path.join(__dirname, '../app'))
+                .inDir(path.join(os.tmpdir(), 'testApp4'))
+                .withOptions({
+                    'skip-install': true
+                })
+                .withPrompts({
+                    appName: "testApp4",
+                    coreOptions: [
+                        'appServerPush'
+                    ]
+                })
+                .withGenerators(deps)
+                .on('end', done);
+        });
+
+        it('should create files with defaults and call serverpush subgenerator', function () {
+            assert.file([
+                'bower.json',
+                'package.json',
+                '.editorconfig',
+                '.jshintrc'
+            ]);
+
+            assert.fileContent('bower.json', 'testapp4');
+        });
+    });
+
+    describe('when called without an argument', function () {
+        before(function (done) {
+
+            var deps = [
+            [helpers.createDummyGenerator(), 'appverse-html5:imagemin']
+        ];
+
+            helpers.run(path.join(__dirname, '../app'))
+                .inDir(path.join(os.tmpdir(), 'testApp2'))
+                .withOptions({
+                    'skip-install': true
+                })
+                .withPrompts({
+                    appName: "testApp2",
+                    bootstrapTheme: false
+                })
+                .withGenerators(deps)
+                .on('end', done);
+        });
+
+        it('should create files with promts answers', function () {
+            assert.file([
+                'bower.json',
+                'package.json',
+                '.editorconfig',
+                '.jshintrc'
+            ]);
+
+            assert.fileContent('bower.json', 'testapp2');
+        });
+    });
+
+    describe('when called without argument and --cache option', function () {
+        before(function (done) {
+
+            var deps = [
+                [helpers.createDummyGenerator(), 'appverse-html5:cache'],
+                [helpers.createDummyGenerator(), 'appverse-html5:imagemin']
+            ];
+
+            helpers.run(path.join(__dirname, '../app'))
+                .inDir(path.join(os.tmpdir(), 'testApp3'))
+                .withOptions({
+                    cache: true,
+                    'skip-install': true
+                })
+                .withPrompts({
+                    appName: "testApp3",
+                    bootstrapTheme: false
+                })
+                .withGenerators(deps)
+                .on('end', done);
+        });
+
+        it('should create files with defaults and call cache subgenerator', function () {
+            assert.file([
+                'bower.json',
+                'package.json',
+                '.editorconfig',
+                '.jshintrc'
+            ]);
+
+            assert.fileContent('bower.json', 'testapp3');
+        });
+    });
 });

@@ -7,7 +7,7 @@ var fs = require('fs');
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion();
+        utils.checkVersion.call(this);
 
     },
     initializing: function () {
@@ -34,7 +34,7 @@ module.exports = yeoman.generators.Base.extend({
                 this.themeprompts.push(prompts);
                 done();
             } else {
-                console.log("Connection error.");
+                this.log("Connection error.");
             }
         }.bind(this));
 
@@ -47,6 +47,8 @@ module.exports = yeoman.generators.Base.extend({
         }.bind(this));
     },
     writing: function () {
+        var done = this.async();
+
         function search(nameKey, myArray) {
             for (var i = 0; i < myArray.length; i++) {
                 if (myArray[i].name === nameKey) {
@@ -55,24 +57,36 @@ module.exports = yeoman.generators.Base.extend({
             }
         }
         var theme = search(this.selectedTheme, this.remotethemes.themes);
+
+        var requestsDone = 0;
+
+        var incrementRequestsDone = function () {
+            requestsDone += 1;
+            if (requestsDone === 2) {
+                done();
+            }
+        };
+
         request(theme.scss, function (error, response, body) {
             if (!error && response.statusCode === 200) {
-                console.log("Rewriting bootswatch.scss");
-                fs.writeFileSync('app/styles/theme/_bootswatch.scss', body);
-                console.log("Done.");
+                this.log("Rewriting bootswatch.scss");
+                fs.writeFileSync(this.destinationPath('app/styles/theme/_bootswatch.scss'), body);
+                this.log("Done.");
             } else {
-                console.log("Connection error.");
+                this.log("Connection error.");
             }
-        });
+            incrementRequestsDone();
+        }.bind(this));
 
         request(theme.scssVariables, function (error, response, body) {
             if (!error && response.statusCode === 200) {
-                console.log("Rewriting variables.scss");
-                fs.writeFileSync('app/styles/theme/_variables.scss', body);
-                console.log("Done.");
+                this.log("Rewriting variables.scss");
+                fs.writeFileSync(this.destinationPath('./app/styles/theme/_variables.scss'), body);
+                this.log("Done.");
             } else {
-                console.log("Connection error.");
+                this.log("Connection error.");
             }
-        });
+            incrementRequestsDone();
+        }.bind(this));
     }
 });
