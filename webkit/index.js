@@ -25,35 +25,67 @@
 var yeoman = require('yeoman-generator');
 var utils = require('../utils.js');
 var fs = require('fs');
+var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
         utils.checkVersion.call(this);
+        //CONFIG
+        this.option('interactiveMode');
+        this.log("WEB --> " + this.options['interactiveMode']);
+        if (!_.isUndefined(this.options['interactiveMode'])) {
+            this.log(this.options['interactiveMode']);
+            this.interactiveMode = this.options['interactiveMode'];
+        } else {
+            this.interactiveMode = true;
+        }
     },
     initializing: function () {
-        this.log('You called the AppverseHtml5 Node-Webkit subgenerator.');
         this.conflicter.force = true;
     },
-
+    prompting: function () {
+        var done = this.async();
+        var prompts = [];
+        if (this.interactiveMode) {
+            prompts = [{
+                type: "confirm",
+                name: "webkit",
+                message: "Do you want to package your application as a desktop application using Node-Webkit?",
+                default: false
+        }];
+        } else {
+            prompts = [];
+        }
+        this.prompt(prompts, function (answers) {
+            if (prompts.length > 0) {
+                this.webkit = answers.webkit;
+            } else {
+                this.webkit = false;
+            }
+            done();
+        }.bind(this));
+    },
     writing: function () {
-        this.fs.copy(
-            this.templatePath('config/nodewebkit.js'),
-            this.destinationPath('config/nodewebkit.js')
-        );
-        this.fs.copy(
-            this.templatePath('tasks/webkit.js'),
-            this.destinationPath('tasks/webkit.js')
-        );
+        if (this.webkit) {
+            this.fs.copy(
+                this.templatePath('config/nodewebkit.js'),
+                this.destinationPath('config/nodewebkit.js')
+            );
+            this.fs.copy(
+                this.templatePath('tasks/webkit.js'),
+                this.destinationPath('tasks/webkit.js')
+            );
 
-        var packagePath = this.destinationPath('package.json');
-        var pkg = require(packagePath);
-        pkg.scripts["start"] = "nodewebkit ./dist";
-        fs.writeFileSync(packagePath, JSON.stringify(pkg));
+            var packagePath = this.destinationPath('package.json');
+            var pkg = require(packagePath);
+            pkg.scripts["start"] = "nodewebkit ./dist";
+            fs.writeFileSync(packagePath, JSON.stringify(pkg));
+        }
 
     },
     installingDeps: function () {
-        if (!this.options['skip-install']) {
+        if (this.webkit) {
             this.npmInstall(['grunt-node-webkit-builder'], {
                 'saveDev': true
             });
@@ -66,10 +98,12 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     end: function () {
-        this.log("\n Your application is ready to use node-webkit.");
-        this.log("\n Execute: 'npm start' to run your dist with webkit.");
-        this.log("\n Execute: 'grunt nodewebkit' to package the dist application as an executable package.");
-        this.log("\n Execute: 'grunt nodewebkit:dist' to create the dist and packe the application as an executable package.");
-        this.log("Package will be created under 'webkitbuilds' folder.");
+        if (this.webkit) {
+            this.log("\n Your application is ready to use node-webkit.");
+            this.log("\n Execute: 'npm start' to run your dist with webkit.");
+            this.log("\n Execute: 'grunt nodewebkit' to package the dist application as an executable package.");
+            this.log("\n Execute: 'grunt nodewebkit:dist' to create the dist and packe the application as an executable package.");
+            this.log("Package will be created under 'webkitbuilds' folder.");
+        }
     }
 });

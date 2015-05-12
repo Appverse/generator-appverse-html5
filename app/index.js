@@ -26,11 +26,11 @@ var slug = require("underscore.string");
 var utils = require('../utils.js');
 var pkg = require('../package.json');
 var inquirer = require('inquirer');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
-
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
@@ -153,19 +153,6 @@ module.exports = yeoman.generators.Base.extend({
                     name: "bootstrapTheme",
                     message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
                     default: false
-                }, {
-                    type: "confirm",
-                    name: "webkit",
-                    message: "Do you want to package your application as a desktop application using Node-Webkit?",
-                    default: false
-                }, {
-                    type: "input",
-                    name: "spushBaseUrl",
-                    message: "Configure your WebSocket Server URL? ",
-                    default: "http://127.0.0.1:3000",
-                    when: function (answers) {
-                        return answers.coreOptions && answers.coreOptions.indexOf('appServerPush') !== -1;
-                    }
                 }
             ];
         } else {
@@ -183,7 +170,6 @@ module.exports = yeoman.generators.Base.extend({
             if (prompts.length > 0) {
                 this.appName = slug.slugify(props.appName);
                 this.bootstrapSelector = props.bootstrapTheme;
-                this.webkit = props.webkit;
                 var coreOptions = props.coreOptions;
 
                 // manually deal with the response, get back and store the results.
@@ -218,12 +204,11 @@ module.exports = yeoman.generators.Base.extend({
         }.bind(this));
 
     },
-    writing: {
-        writeIndex: function () {
-            this.log('Writing the index.html... ');
-            this.indexFile = this.readFileAsString(this.templatePath('app/index.html'));
-            this.indexFile = this.engine(this.indexFile, this);
-            var js = ['bower_components/jquery/dist/jquery.min.js',
+    writing: function () {
+
+        this.indexFile = this.readFileAsString(this.templatePath('app/index.html'));
+        this.indexFile = this.engine(this.indexFile, this);
+        var js = ['bower_components/jquery/dist/jquery.min.js',
                 'bower_components/angular/angular.min.js',
                 'bower_components/angular-touch/angular-touch.min.js',
                 'bower_components/modernizr/modernizr.js',
@@ -238,182 +223,162 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js'
             ];
+        //APP FILES
+        var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
+        Array.prototype.push.apply(js, appsJS);
+        this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
+        this.write(this.destinationPath('app/index.html'), this.indexFile.replace(/>\n/g, '>' + os.EOL));
 
-            //APP FILES
-            var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
-            Array.prototype.push.apply(js, appsJS);
-            this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
-            this.write(this.destinationPath('app/index.html'), this.indexFile);
-        },
-        files: function () {
-            this.fs.copyTpl(
-                this.templatePath('package.json'),
-                this.destinationPath('package.json'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('bower.json'),
-                this.destinationPath('bower.json'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('.editorconfig'),
-                this.destinationPath('.editorconfig'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('.jshintrc'),
-                this.destinationPath('.jshintrc'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('README.md'),
-                this.destinationPath('README.md'),
-                this
-            );
-            this.fs.copy(
-                this.templatePath('.bowerrc'),
-                this.destinationPath('.bowerrc')
-            );
-            this.fs.copy(
-                this.templatePath('Gruntfile.js'),
-                this.destinationPath('Gruntfile.js')
-            );
-            this.fs.copy(
-                this.templatePath('LICENSE.md'),
-                this.destinationPath('LICENSE.md')
-            );
-            this.fs.copyTpl(
-                this.templatePath('sonar-project.properties'),
-                this.destinationPath('sonar-project.properties'),
-                this
-            );
-            this.fs.copy(
-                this.templatePath('/app/views/theme.html'),
-                this.destinationPath('/app/views/theme.html')
-            );
-            this.fs.copyTpl(
-                this.templatePath('/app/views/home.html'),
-                this.destinationPath('/app/views/home.html'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('/app/scripts/controllers/home-controller.js'),
-                this.destinationPath('/app/scripts/controllers/home-controller.js'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('/app/scripts/states/app-states.js'),
-                this.destinationPath('/app/scripts/states/app-states.js'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('/app/scripts/app.js'),
-                this.destinationPath('/app/scripts/app.js'),
-                this
-            );
+        this.fs.copyTpl(
+            this.templatePath('package.json'),
+            this.destinationPath('package.json'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('bower.json'),
+            this.destinationPath('bower.json'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('.editorconfig'),
+            this.destinationPath('.editorconfig'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('.jshintrc'),
+            this.destinationPath('.jshintrc'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('README.md'),
+            this.destinationPath('README.md'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('.bowerrc'),
+            this.destinationPath('.bowerrc')
+        );
+        this.fs.copy(
+            this.templatePath('Gruntfile.js'),
+            this.destinationPath('Gruntfile.js')
+        );
+        this.fs.copy(
+            this.templatePath('LICENSE.md'),
+            this.destinationPath('LICENSE.md')
+        );
+        this.fs.copyTpl(
+            this.templatePath('sonar-project.properties'),
+            this.destinationPath('sonar-project.properties'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('/app/views/theme.html'),
+            this.destinationPath('/app/views/theme.html')
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/views/home.html'),
+            this.destinationPath('/app/views/home.html'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/controllers/home-controller.js'),
+            this.destinationPath('/app/scripts/controllers/home-controller.js'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/states/app-states.js'),
+            this.destinationPath('/app/scripts/states/app-states.js'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/app.js'),
+            this.destinationPath('/app/scripts/app.js'),
+            this
+        );
 
-            //paths starting with "/" cause problems on UNIX based OS like OSX
-            this.fs.copy(
-                this.templatePath('test'),
-                this.destinationPath('test')
-            );
+        //paths starting with "/" cause problems on UNIX based OS like OSX
+        this.fs.copy(
+            this.templatePath('test'),
+            this.destinationPath('test')
+        );
 
-            this.fs.copy(
-                this.templatePath('app/styles'),
-                this.destinationPath('app/styles')
-            );
+        this.fs.copy(
+            this.templatePath('app/styles'),
+            this.destinationPath('app/styles')
+        );
 
-            this.fs.copy(
-                this.templatePath('config'),
-                this.destinationPath('config')
-            );
+        this.fs.copy(
+            this.templatePath('config'),
+            this.destinationPath('config')
+        );
 
-            this.fs.copy(
-                this.templatePath('tasks'),
-                this.destinationPath('tasks')
-            );
+        this.fs.copy(
+            this.templatePath('tasks'),
+            this.destinationPath('tasks')
+        );
 
-        }
     },
-
     install: function () {
-        if (this.bootstrapSelector) {
-            this.composeWith('appverse-html5:bootstrap-theme', {
-                options: {}
-            });
-        }
         if (this.appCache) {
-            this.composeWith('appverse-html5:cache', {
-                options: {
-                    'skip-install': this.options['skip-install']
-                }
-            });
+            this.composeWith('appverse-html5:cache', {});
         }
         if (this.appLogging) {
-            this.composeWith('appverse-html5:logging', {
-                options: {}
-            });
+            this.composeWith('appverse-html5:logging', {});
         }
 
         if (this.appRest) {
             this.composeWith('appverse-html5:rest', {
-                options: {}
-            });
-        }
-        if (this.appServerPush) {
-            this.composeWith('appverse-html5:serverpush', {
                 options: {
-                    spushBaseUrl: this.spushBaseUrl
+                    interactiveMode: this.interactiveMode
                 }
             });
         }
+        if (this.appServerPush) {
+            this.composeWith('appverse-html5:serverpush', {});
+        }
         if (this.appTranslate) {
-            this.composeWith('appverse-html5:translate', {
-                options: {}
-            });
+            this.composeWith('appverse-html5:translate', {});
         }
         if (this.appSecurity) {
-            this.composeWith('appverse-html5:security', {
-                options: {}
-            });
+            this.composeWith('appverse-html5:security', {});
         }
         if (this.appDetection) {
-            this.composeWith('appverse-html5:detection', {
-                options: {}
-            });
+            this.composeWith('appverse-html5:detection', {});
         }
         if (this.appPerformance) {
-            this.composeWith('appverse-html5:performance', {
-                options: {}
-            });
+            this.composeWith('appverse-html5:performance', {});
         }
 
         if (this.appQR) {
-            this.composeWith('appverse-html5:qr', {
-                options: {}
+            this.composeWith('appverse-html5:qr', {});
+        }
+        if (this.bootstrapSelector) {
+            this.composeWith('appverse-html5:bootstrap-theme', {
+                options: {
+                    interactiveMode: this.interactiveMode
+                }
             });
         }
 
-        if (this.webkit) {
-            this.composeWith('appverse-html5:webkit', {
-                options: {}
-            });
-        }
-
+        this.composeWith('appverse-html5:webkit', {
+            options: {
+                interactiveMode: this.interactiveMode
+            }
+        });
         this.composeWith('appverse-html5:imagemin', {
             options: {
-                'skip-install': this.options['skip-install']
+                interactiveMode: this.interactiveMode
             }
         });
 
         this.installDependencies({
             skipInstall: this.options['skip-install']
         });
+
     },
     end: function () {
         this.log("Finish! Execute 'grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page.");
         this.log(" or just execute 'grunt server' to start the server.");
-    },
+    }
 
 });
