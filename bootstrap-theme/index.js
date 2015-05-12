@@ -11,9 +11,7 @@ module.exports = yeoman.generators.Base.extend({
 
     },
     initializing: function () {
-        this.log('You called the Appverse Html5 - Bootstrap Theme subgenerator.');
         this.conflicter.force = true;
-        this.log(" Getting themes from http://bootswatch.com ");
         this.themeprompts = [];
         this.remotethemes = {};
         var prompts = {
@@ -23,7 +21,7 @@ module.exports = yeoman.generators.Base.extend({
             choices: []
         };
         var done = this.async();
-
+        this.log(" Getting themes from http://bootswatch.com ");
         request('http://api.bootswatch.com/3', function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 this.remotethemes = JSON.parse(body.toString());

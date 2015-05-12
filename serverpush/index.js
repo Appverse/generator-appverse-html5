@@ -31,20 +31,29 @@ var os = require('os');
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        //SERVERPUSH_CONFIG
-        this.option('spushBaseUrl', {
-            desc: 'Server Push server base URL',
-            type: String,
-            defaults: 'http://127.0.0.1:3000'
-        });
-        this.spushBaseUrl = this.options['spushBaseUrl'];
         utils.checkVersion.call(this);
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - ServerPush subgenerator.');
         this.conflicter.force = true;
+        this.spushBaseUrl = '';
     },
 
+    prompting: function () {
+        var done = this.async();
+        var prompts = [{
+            type: "input",
+            name: "spushBaseUrl",
+            message: "Configure your Server Push URL? ",
+            default: "http://127.0.0.1:3000"
+
+        }];
+        this.prompt(prompts, function (props) {
+            this.spushBaseUrl = props.spushBaseUrl;
+            done();
+        }.bind(this));
+
+    },
     writing: function () {
         var sPushJS = os.EOL +
             '    <!-- SERVER PUSH MODULE -->' + os.EOL +
@@ -62,39 +71,14 @@ module.exports = yeoman.generators.Base.extend({
         }
         if (output.length > index.length) {
             fs.writeFileSync(indexPath, output);
-            this.log('Writing index.html by the Server Push generator');
         }
-    },
-    projectFiles: function () {
-        //ANGULAR MODULES
-        this.log('Writing angular modules (app.js) by the Rest generator');
-        var path = this.destinationPath('app/scripts/app.js');
-        var file = this.readFileAsString(path);
 
-        //PARSE FILE
-        var astCode = esprima.parse(file);
 
-        //ANGULAR REST MODULE
-        var appverseServerPush = {
-            type: "Literal",
-            value: "appverse.serverPush",
-            raw: "'appverse.serverPush'"
-        };
+        //ANGULAR MODULE
+        utils.addAngularModule.call(this, 'appverse.serverPush');
 
         //APP NAME
         var appName = utils.getApplicationName(this);
-
-        //REPLACE JS
-        var moduleCode = estraverse.replace(astCode, {
-            enter: function (node, parent) {
-                if (node.type === 'Literal' && node.value === appName) {
-                    parent.arguments[1].elements.unshiftIfNotExist(appverseServerPush, function (e) {
-                        return e.type === appverseServerPush.type && e.value === appverseServerPush.value;
-                    });
-                    this.break();
-                }
-            }
-        });
 
         var config = {
             type: 'Property',
@@ -126,6 +110,11 @@ module.exports = yeoman.generators.Base.extend({
             }
         };
 
+        //CONFIG
+        var path = this.destinationPath('app/scripts/app.js');
+        var file = this.readFileAsString(path);
+        //PARSE FILE
+        var moduleCode = esprima.parse(file);
         var configCode = estraverse.replace(moduleCode, {
             enter: function (node, parent) {
                 if (node.type === 'Identifier' && node.name === 'environment') {
