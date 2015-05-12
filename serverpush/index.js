@@ -27,11 +27,23 @@ var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
 var os = require('os');
+var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
         utils.checkVersion.call(this);
+        //CONFIG
+        this.option('interactiveMode', {
+            desc: 'Allow prompts',
+            type: Boolean,
+            defaults: false
+        });
+        if (!_.isUndefined(this.options['interactiveMode'])) {
+            this.interactiveMode = this.options['interactiveMode'];
+        } else {
+            this.interactiveMode = true;
+        }
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - ServerPush subgenerator.');
@@ -41,15 +53,24 @@ module.exports = yeoman.generators.Base.extend({
 
     prompting: function () {
         var done = this.async();
-        var prompts = [{
-            type: "input",
-            name: "spushBaseUrl",
-            message: "Configure your Server Push URL? ",
-            default: "http://127.0.0.1:3000"
+        var prompts = [];
+        if (this.interactiveMode) {
+            prompts = [{
+                type: "input",
+                name: "spushBaseUrl",
+                message: "Configure your Server Push URL? ",
+                default: "http://127.0.0.1:3000"
 
         }];
+        } else {
+            prompts = [];
+        }
         this.prompt(prompts, function (props) {
-            this.spushBaseUrl = props.spushBaseUrl;
+            if (prompts.length > 0) {
+                this.spushBaseUrl = props.spushBaseUrl;
+            } else {
+                this.spushBaseUrl = "http://127.0.0.1:3000";
+            }
             done();
         }.bind(this));
 
@@ -127,6 +148,5 @@ module.exports = yeoman.generators.Base.extend({
         });
         var finalCode = escodegen.generate(configCode);
         fs.writeFileSync(path, finalCode);
-
     }
 });

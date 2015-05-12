@@ -327,7 +327,11 @@ module.exports = yeoman.generators.Base.extend({
         }
 
         if (this.appRest) {
-            this.composeWith('appverse-html5:rest', {});
+            this.composeWith('appverse-html5:rest', {
+                options: {
+                    interactiveMode: this.interactiveMode
+                }
+            });
         }
         if (this.appServerPush) {
             this.composeWith('appverse-html5:serverpush', {});
@@ -349,10 +353,24 @@ module.exports = yeoman.generators.Base.extend({
             this.composeWith('appverse-html5:qr', {});
         }
         if (this.bootstrapSelector) {
-            this.composeWith('appverse-html5:bootstrap-theme', {});
+            this.composeWith('appverse-html5:bootstrap-theme', {
+                options: {
+                    interactiveMode: this.interactiveMode
+                }
+            });
         }
-        this.composeWith('appverse-html5:webkit', {});
-        this.composeWith('appverse-html5:imagemin', {});
+
+        this.composeWith('appverse-html5:webkit', {
+            options: {
+                interactiveMode: this.interactiveMode
+            }
+        });
+        this.composeWith('appverse-html5:imagemin', {
+            options: {
+                interactiveMode: this.interactiveMode
+            }
+        });
+
         this.installDependencies({
             skipInstall: this.options['skip-install']
         });

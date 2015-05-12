@@ -25,25 +25,44 @@
 var yeoman = require('yeoman-generator');
 var utils = require('../utils.js');
 var fs = require('fs');
+var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
         utils.checkVersion.call(this);
+        //CONFIG
+        this.option('interactiveMode');
+        this.log("WEB --> " + this.options['interactiveMode']);
+        if (!_.isUndefined(this.options['interactiveMode'])) {
+            this.log(this.options['interactiveMode']);
+            this.interactiveMode = this.options['interactiveMode'];
+        } else {
+            this.interactiveMode = true;
+        }
     },
     initializing: function () {
         this.conflicter.force = true;
     },
     prompting: function () {
         var done = this.async();
-        var prompts = [{
-            type: "confirm",
-            name: "webkit",
-            message: "Do you want to package your application as a desktop application using Node-Webkit?",
-            default: false
+        var prompts = [];
+        if (this.interactiveMode) {
+            prompts = [{
+                type: "confirm",
+                name: "webkit",
+                message: "Do you want to package your application as a desktop application using Node-Webkit?",
+                default: false
         }];
+        } else {
+            prompts = [];
+        }
         this.prompt(prompts, function (answers) {
-            this.webkit = answers.webkit;
+            if (prompts.length > 0) {
+                this.webkit = answers.webkit;
+            } else {
+                this.webkit = false;
+            }
             done();
         }.bind(this));
     },

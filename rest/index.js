@@ -29,6 +29,7 @@ var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
 var os = require('os');
+var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -38,41 +39,66 @@ module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.log('You called the Appverse Html5 - REST subgenerator.');
         this.conflicter.force = true;
+        //CONFIG
+        this.option('interactiveMode', {
+            desc: 'Allow prompts',
+            type: Boolean,
+            defaults: false
+        });
+        if (!_.isUndefined(this.options['interactiveMode'])) {
+            this.interactiveMode = this.options['interactiveMode'];
+        } else {
+            this.interactiveMode = true;
+        }
+
     },
     prompting: function () {
         var done = this.async();
-        var prompts = [
-            {
-                type: "input",
-                name: "restBaseUrl",
-                message: "Configure your REST backend URL",
-                default: "http://127.0.0.1"
+        var prompts = [];
+        if (this.interactiveMode) {
+            prompts = [
+                {
+                    type: "input",
+                    name: "restBaseUrl",
+                    message: "Configure your REST backend URL",
+                    default: "http://127.0.0.1"
              }, {
-                type: "input",
-                name: "restBaseUrlPort",
-                message: "Configure your REST backend URL Port",
-                default: "8000"
+                    type: "input",
+                    name: "restBaseUrlPort",
+                    message: "Configure your REST backend URL Port",
+                    default: "8000"
              }, {
-                type: "confirm",
-                name: "mockServer",
-                message: "Do you want a REST MOCK Server (json-server)?",
-                default: true
+                    type: "confirm",
+                    name: "mockServer",
+                    message: "Do you want a REST MOCK Server (json-server)?",
+                    default: true
              }, {
-                type: "input",
-                name: "mockServerPort",
-                message: "Configure your REST MOCK server PORT? ",
-                default: "8888",
-                when: function (answers) {
-                    return answers.mockServer;
-                }
+                    type: "input",
+                    name: "mockServerPort",
+                    message: "Configure your REST MOCK server PORT? ",
+                    default: "8888",
+                    when: function (answers) {
+                        return answers.mockServer;
+                    }
             }
         ];
+        } else {
+            promts = [];
+        }
         this.prompt(prompts, function (props) {
-            this.restBaseUrl = props.restBaseUrl;
-            this.restBaseUrlPort = props.restBaseUrlPort;
-            this.mockServer = props.mockServer;
-            this.mockServerPort = props.mockServerPort;
+            if (prompts.length > 0) {
+                this.restBaseUrl = props.restBaseUrl;
+                this.restBaseUrlPort = props.restBaseUrlPort;
+                this.mockServer = props.mockServer;
+                this.mockServerPort = props.mockServerPort;
+            } else {
+                this.restBaseUrl = "http://127.0.0.1";
+                this.restBaseUrlPort = "8000";
+                this.mockServer = true;
+                this.mockServerPort = "8888";
+            }
             done();
+
         }.bind(this));
     },
 
@@ -182,22 +208,16 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     installingDeps: function () {
-        if (!this.options['skip-install']) {
-
-            var npmDependencies = ['grunt-connect-proxy@0.1.10'];
-
-            if (this.mockServer) {
-                npmDependencies.push('json-server@0.6.10');
-            }
-
-            this.npmInstall(npmDependencies, {
-                saveDev: true,
-                saveExact: true
-            });
+        var npmDependencies = ['grunt-connect-proxy@0.1.10'];
+        if (this.mockServer) {
+            npmDependencies.push('json-server@0.6.10');
         }
+        this.npmInstall(npmDependencies, {
+            saveDev: true,
+            saveExact: true
+        });
     },
     end: function () {
-
         if (this.mockServer) {
             this.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
             this.log("Put your .json files into the api folder to serve them automatically with the Mock server");

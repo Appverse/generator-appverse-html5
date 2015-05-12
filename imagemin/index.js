@@ -22,6 +22,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var utils = require('../utils.js');
+var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -30,19 +31,39 @@ module.exports = yeoman.generators.Base.extend({
     },
     initializing: function () {
         this.conflicter.force = true;
+        //CONFIG
+        this.option('interactiveMode', {
+            desc: 'Allow prompts',
+            type: Boolean,
+            defaults: false
+        });
+        if (!_.isUndefined(this.options['interactiveMode'])) {
+            this.interactiveMode = this.options['interactiveMode'];
+        } else {
+            this.interactiveMode = true;
+        }
     },
     prompting: function () {
         var done = this.async();
-        var prompts = [
-            {
-                type: "confirm",
-                name: "imagemin",
-                message: "Do you want to install imagemin?",
-                default: false
+        var prompts = [];
+        if (this.interactiveMode) {
+            prompts = [
+                {
+                    type: "confirm",
+                    name: "imagemin",
+                    message: "Do you want to install imagemin?",
+                    default: false
             }
         ];
+        } else {
+            prompts = [];
+        }
         this.prompt(prompts, function (props) {
-            this.imagemin = props.imagemin;
+            if (prompts.length > 0) {
+                this.imagemin = props.imagemin;
+            } else {
+                this.imagemin = false;
+            }
             done();
         }.bind(this));
     },
