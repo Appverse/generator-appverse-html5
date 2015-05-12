@@ -23,11 +23,13 @@
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
 var os = require('os');
+var utils = require('../utils.js');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.log('You called the AppverseHtml5 Security subgenerator.');
         this.conflicter.force = true;
+        utils.checkVersion.call(this);
     },
 
     writing: function () {
@@ -54,23 +56,13 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     projectFiles: function () {
-        //ANGULAR MODULES
-        var hook = '\'App.Controllers\'',
-            path = this.destinationPath('app/scripts/app.js'),
-            file = this.readFileAsString(path),
-            insert = ", 'appverse.security'";
-        if (file.indexOf(insert) === -1) {
-            var pos = file.lastIndexOf(hook) + hook.length;
-            var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
-            fs.writeFileSync(path, output);
-        }
+        //ANGULAR MODULE
+        utils.addAngularModule.call(this, 'appverse.security');
     },
     install: function () {
-        if (!this.options['skip-install']) {
-            this.bowerInstall(["appverse-web-html5-security#~0.5.0"], {
-                save: true
-            });
-        }
+        this.bowerInstall(["appverse-web-html5-security#~0.5.0"], {
+            save: true
+        });
     }
 
 });

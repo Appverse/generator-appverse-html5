@@ -243,6 +243,14 @@ Array.prototype.unshiftIfNotExist = function (element, comparer) {
     }
 };
 
+var arraySearch = function search(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].name === nameKey) {
+            return myArray[i];
+        }
+    }
+};
+
 module.exports = {
     checkVersion: checkVersion,
     getApplicationName: getApplicationName,
@@ -251,5 +259,6 @@ module.exports = {
     addViewAndController: addViewAndController,
     addAngularModule: addAngularModule,
     checkAngularModule: checkAngularModule,
-    addDropDownOption: addDropDownOption
+    addDropDownOption: addDropDownOption,
+    arraySearch: arraySearch
 };
