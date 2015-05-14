@@ -33,7 +33,7 @@ module.exports = yeoman.generators.Base.extend({
         utils.checkVersion.call(this);
         //CONFIG
         this.option('interactiveMode');
-        this.log("WEB --> " + this.options['interactiveMode']);
+
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.log(this.options['interactiveMode']);
             this.interactiveMode = this.options['interactiveMode'];

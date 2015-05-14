@@ -371,6 +371,12 @@ module.exports = yeoman.generators.Base.extend({
             }
         });
 
+        this.composeWith('appverse-html5:mobile', {
+            options: {
+                interactiveMode: this.interactiveMode
+            }
+        });
+
         this.installDependencies({
             skipInstall: this.options['skip-install']
         });
