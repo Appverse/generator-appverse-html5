@@ -4,44 +4,64 @@
 ### generator-appverse-html5 
 
 This is a Yeoman Generator for Appverse - HTML5
- 
-* Install yeoman if it is not installed previously.
+
+Requirements
+-------------
+**Nodejs** and **NPM** package manager must be installed.
+
+* Install **bower** and **grunt-cli**.
 
 ```bash
-npm install -g yo
+    $ npm install -g bower grunt-cli
 ```
+ 
+* Install **yeoman** if it is not installed previously.
+
+```bash
+    $ npm install -g yo
+```
+
+Installing 
+-------------
 
 * Install the Appverse HTML5 generator NPM package. 
 
 ```bash
-npm install -g generator-appverse-html5
+    $ npm install -g generator-appverse-html5
 ```
 
-* Create a new project using the generator-appverse-html5
+Running 
+-------------
+
+* Create a new project using the **generator-appverse-html5**
+
+Create a directoy:
 
 ```bash
-mkdir testApp
+    $ mkdir testApp
 ```
 
 ```bash
-cd testApp
+    $ cd testApp
 ```
+Execute the generator:
 
 ```bash
-yo appverse-html5
+    $ yo appverse-html5
 ```
 
-Yeoman will generate a boilerplate project with Appverse - HTML5. 
+Yeoman will generate a boilerplate project with **Appverse - HTML5**. 
 Execute grunt to test it:
 
 ```bash
-grunt server
+    $ grunt server
 ```
 or
 
 ```bash
-grunt server:open 
+    $ grunt server:open 
 ```
+
 to auto open your default browser with the application.
 
 #### From sources
@@ -50,36 +70,38 @@ to auto open your default browser with the application.
 * Link the package 
 
 ```bash
-npm link
+    $ npm link
 ```
 
 That will create a symlink to your npm cache. 
 Now you can execute the generator:
 
 ```bash
-yo appverse-html5
+    $ yo appverse-html5
 ```
 
 ### Sub-generators
+------------------
+Later on you can add any of the Appverse modules to your project running the subgenerators.
 
 * REST 
 Add the Appverse REST module to the project. 
-Can add a MOCK REST Server (json-server).
+It can add a MOCK REST Server ([json-server](https://github.com/typicode/json-server))
 
 ```bash
-yo appverse-html5:rest
+    $ yo appverse-html5:rest
 ```
 
 Mock server adds two new grunt tasks:
 
 ```bash
-$ grunt mockserver
+    $ grunt mockserver
 ```
 
 Runs the application using the mock JSON server as REST backend, and:
 
 ```bash
-$ grunt mockserver:open
+    $ grunt mockserver:open
 ```
 
 Runs the application using the mock JSON server as REST backend and open the default browser.
@@ -88,54 +110,62 @@ Runs the application using the mock JSON server as REST backend and open the def
 * Cache   
 
 ```bash
-yo appverse-html5:cache 
+    $ yo appverse-html5:cache 
 ```
 
 * Detection  
 
 ```bash
-yo appverse-html5:detection 
+    $ yo appverse-html5:detection 
 ```
 
 * Performance
 
 ```bash
-yo appverse-html5:performance    
+    $ yo appverse-html5:performance    
 ```
 * Logging   
 
 ```bash 
-yo appverse-html5:logging 
+    $ yo appverse-html5:logging 
 ```
 
 * Server Push 
 
 ```bash 
-yo appverse-html5:serverpush    
+    $ yo appverse-html5:serverpush    
 ```
 
 * Translation  
 
 ```bash 
-yo appverse-html5:translate
+    $ yo appverse-html5:translate
 ```
 
 * Security  
 
 ```bash 
-yo appverse-html5:security
+    $ yo appverse-html5:security
 ```
 
 * QR  
 
 ```bash
-yo appverse-html5:qr
+    $ yo appverse-html5:qr
 ```
 
 * Add a new view  
+Execute the app-view subgenerator with the view name as argument. The subgenerator will create the HTML view and the JS controller. 
+A new option in the navigation bar will be created as well. 
 
 ```bash
-yo appverse-html5:app-view $viewname
+    $ yo appverse-html5:app-view $viewname
+```
+
+The second argument will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
+
+```bash
+    $ yo appverse-html5:app-view $viewname $dropdownmenu
 ```
 
 * Add a new REST entity  
@@ -145,30 +175,57 @@ It will create:
   * A view to manage the Rest entity
   * A controller for the view
   * A MOCK JSON file if the MOCK REST server was selected.
+  * A new option in the navigation bar.
 
 ```bash
-yo appverse-html5:rest-entity $entityname
+    $ yo appverse-html5:rest-entity $entityname
 ```
+
+The second argument will add or update a dropdown menu.
+
+```bash
+    $ yo appverse-html5:rest-entity $entityname $dropdownmenu
+```
+
 
 * Node-Webkit 
 Add Node-Webkit support to the project.
 
 ```bash
-yo appverse-html5:webkit
+    $ yo appverse-html5:webkit
 ```
 
 Package your application with Grunt as an executable file. 
 
 ```bash
-grunt nodewebkit:dist
+    $ grunt nodewebkit:dist
 ``` 
 
 Start your application using the Node-Webkit browser
 
 ```bash
-npm start 
+    $ npm start 
 ```
 
+* Mobile
+Add Mobile builds to your project with grunt.
+   * Configure your build server and credentials. 
+   
+```bash
+    $ yo appverse-html5:mobile
+```
+
+Execute: 
+
+```bash
+    $ grunt dist:mobile
+``` 
+
+The **grunt taks** will:
+  * Create your mobile bundle
+  * Upload the result to the build server
+  * Download the package from the build server for each plattform. (Android, iOS or Windows Phone)
+  
 
 ### Bootstrap theme selector 
 The Appverse HTML5 generator allows to select a bootstrap theme from [Bootswatch](http://bootswatch.com) using the [Bootswatch API](https://bootswatch.com/help/)
@@ -177,10 +234,10 @@ The Appverse HTML5 generator allows to select a bootstrap theme from [Bootswatch
 * It will apply the selected Bootswatch theme to the generated project.
 
 #### Subgenerator
-* Bootstrap theme selector from bootswatch.com
+* Bootstrap theme selector from [Bootswatch](http://bootswatch.com)
 
 ```bash
-yo appverse-html5:bootstrap-theme
+    $ yo appverse-html5:bootstrap-theme
 ```
 
 ### Arguments and options
@@ -190,19 +247,19 @@ It's possible to call the gerenetor using arguments and skipping prompts.
 * The first argument is the application name. 
 
 ```bash
-yo appverse-html5 myWeb
+    $ yo appverse-html5 myWeb
 ```
 
 * Sub-generator are optional arguments 
 
 ```bash
-yo appverse-html5 myWeb --cache --rest
+    $ yo appverse-html5 myWeb --cache --rest
 ```
 
 or 
 
 ```bash
-yo appverse-html5 --cache --rest
+    $ yo appverse-html5 --cache --rest
 ```
 
 and the name will be set by default with the current folder name. 
@@ -210,59 +267,18 @@ and the name will be set by default with the current folder name.
 * Generate the project calling all sub-generators.
 
 ```bash
-yo appverse-html5 myWeb --all
+    $ yo appverse-html5 myWeb --all
 ```
 
 #### Skip install
 Add the skip-install argument to skip npm and bower install process. 
 
 ```bash
-yo appverse-html5 myWeb --skip-install
+    $ yo appverse-html5 myWeb --skip-install
 ```
 
-
+## Appverse Showcase
 [Appverse HTML5 Showcase](https://appverse.gftlabs.com/showcase-html5/#/home)
-
-> [Yeoman](http://yeoman.io) generator
-
-
-## Getting Started
-
-### What is Yeoman?
-
-Trick question. It's not a thing. It's this guy:
-
-![](http://i.imgur.com/JHaAlBJ.png)
-
-Basically, he wears a top hat, lives in your computer, and waits for you to tell him what kind of application you wish to create.
-
-Not every new computer comes with a Yeoman pre-installed. He lives in the [npm](https://npmjs.org) package repository. You only have to ask for him once, then he packs up and moves into your hard drive. *Make sure you clean up, he likes new and shiny things.*
-
-```bash
-npm install -g yo
-```
-
-### Yeoman Generators
-
-Yeoman travels light. He didn't pack any generators when he moved in. You can think of a generator like a plug-in. You get to choose what type of application you wish to create, such as a Backbone application or even a Chrome extension.
-
-To install generator-appverse-html5 from npm, run:
-
-```bash
-npm install -g generator-appverse-html5
-```
-
-Finally, initiate the generator:
-
-```bash
-yo appverse-html5
-```
-
-### Getting To Know Yeoman
-
-Yeoman has a heart of gold. He's a person with feelings and opinions, but he's very easy to work with. If you think he's too opinionated, he can be easily convinced.
-
-If you'd like to get to know Yeoman better and meet some of his friends, [Grunt](http://gruntjs.com) and [Bower](http://bower.io), check out the complete [Getting Started Guide](https://github.com/yeoman/yeoman/wiki/Getting-Started).
 
 
 ## License
