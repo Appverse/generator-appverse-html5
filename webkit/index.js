@@ -87,13 +87,16 @@ module.exports = yeoman.generators.Base.extend({
     installingDeps: function () {
         if (this.webkit) {
             this.npmInstall(['grunt-node-webkit-builder'], {
-                'saveDev': true
+                'saveDev': true,
+                'saveExact': true
             });
             this.npmInstall(['node-webkit-builder'], {
-                'saveDev': true
+                'saveDev': true,
+                'saveExact': true
             });
             this.npmInstall(['nodewebkit'], {
-                'saveDev': true
+                'saveDev': true,
+                'saveExact': true
             });
         }
     },

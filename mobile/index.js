@@ -50,9 +50,9 @@ module.exports = yeoman.generators.Base.extend({
         this.appName = utils.getApplicationName(this);
         this.mobile = {
             builder: {
-                hostname: 'https://builder.gft.com',
-                username: 'unity',
-                password: 'unity2011'
+                hostname: 'https://yourhostname',
+                username: 'username',
+                password: 'password'
             }
         };
     },
@@ -72,7 +72,7 @@ module.exports = yeoman.generators.Base.extend({
                     type: "input",
                     name: "hostname",
                     message: "Mobile Builder Host name",
-                    default: "builder.gft.com",
+                    default: "https://yourhostname",
                     when: function (answers) {
                         return answers.mobile;
                     }
@@ -80,7 +80,7 @@ module.exports = yeoman.generators.Base.extend({
                     type: "input",
                     name: "username",
                     message: "User name",
-                    default: "unity",
+                    default: "username",
                     when: function (answers) {
                         return answers.mobile;
                     }
@@ -88,7 +88,7 @@ module.exports = yeoman.generators.Base.extend({
                     type: "input",
                     name: "password",
                     message: "Password ",
-                    default: "unity2011",
+                    default: "password",
                     when: function (answers) {
                         return answers.mobile;
                     }
@@ -99,74 +99,83 @@ module.exports = yeoman.generators.Base.extend({
         }
 
         this.prompt(prompts, function (props) {
-            if (prompts.length > 0 && props.mobile) {
-                this.mobile.builder.hostname = props.hostname;
-                this.mobile.builder.username = props.username;
-                this.mobile.builder.password = props.password;
+            if (prompts.length > 0) {
+                this.mobile = props.mobile;
+                if (this.mobile) {
+                    this.mobile.builder.hostname = props.hostname;
+                    this.mobile.builder.username = props.username;
+                    this.mobile.builder.password = props.password;
+                }
+            } else {
+                this.mobile = true;
             }
             done();
 
         }.bind(this));
     },
     writing: function () {
-        this.fs.copy(
-            this.templatePath('tasks'),
-            this.destinationPath('tasks')
-        );
-        this.fs.copyTpl(
-            this.templatePath('tasks/mobile.js'),
-            this.destinationPath('tasks/mobile.js'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('config'),
-            this.destinationPath('config')
-        );
-        this.fs.copyTpl(
-            this.templatePath('config/http_upload.js'),
-            this.destinationPath('config/http_upload.js'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('mobile-builder-bundle'),
-            this.destinationPath('mobile-builder-bundle')
-        );
-        this.fs.copyTpl(
-            this.templatePath('mobile-builder-bundle/build.properties'),
-            this.destinationPath('mobile-builder-bundle/build.properties'),
-            this
-        );
-
+        if (this.mobile) {
+            this.fs.copy(
+                this.templatePath('tasks'),
+                this.destinationPath('tasks')
+            );
+            this.fs.copyTpl(
+                this.templatePath('tasks/mobile.js'),
+                this.destinationPath('tasks/mobile.js'),
+                this
+            );
+            this.fs.copy(
+                this.templatePath('config'),
+                this.destinationPath('config')
+            );
+            this.fs.copyTpl(
+                this.templatePath('config/http_upload.js'),
+                this.destinationPath('config/http_upload.js'),
+                this
+            );
+            this.fs.copy(
+                this.templatePath('mobile-builder-bundle'),
+                this.destinationPath('mobile-builder-bundle')
+            );
+            this.fs.copyTpl(
+                this.templatePath('mobile-builder-bundle/build.properties'),
+                this.destinationPath('mobile-builder-bundle/build.properties'),
+                this
+            );
+        }
     },
 
     conflicts: function () {
-        var moreoptions = 'var _ = require (\'lodash\'); ' + os.EOL +
-            ' var mobileDistDownloader = require(\'./tasks/grunt-helpers/download-mobile-dist\');' + os.EOL +
-            ' grunt.config.set(\'paths.mobileDist\', \'dist/mobile\'); ' + os.EOL +
-            ' grunt.config.set(\'mobileBuilder.hostname\',\'' + this.mobile.builder.hostname + '\'); ' + os.EOL +
-            ' grunt.config.set(\'mobileBuilder.username\',\'' + this.mobile.builder.username + '\'); ' + os.EOL +
-            ' grunt.config.set(\'mobileBuilder.password\',\'' + this.mobile.builder.password + '\'); ' + os.EOL + '}; ';
+        if (this.mobile) {
+            var moreoptions = 'var _ = require (\'lodash\'); ' + os.EOL +
+                ' var mobileDistDownloader = require(\'./tasks/grunt-helpers/download-mobile-dist\');' + os.EOL +
+                ' grunt.config.set(\'paths.mobileDist\', \'dist/mobile\'); ' + os.EOL +
+                ' grunt.config.set(\'mobileBuilder.hostname\',\'' + this.mobile.builder.hostname + '\'); ' + os.EOL +
+                ' grunt.config.set(\'mobileBuilder.username\',\'' + this.mobile.builder.username + '\'); ' + os.EOL +
+                ' grunt.config.set(\'mobileBuilder.password\',\'' + this.mobile.builder.password + '\'); ' + os.EOL + '}; ';
 
-        //I can not use this method to append JS code to the Grunfile.js
-        //this.gruntfile.prependJavaScript(moreoptions);
-        //
-        //Do it 'by hand' at the ent of the file
-        var indexPath = this.destinationPath('Gruntfile.js');
-        var index = this.readFileAsString(indexPath);
-        var indexTag = '};';
-        var output = index;
-        var pos;
-        if (index.indexOf("paths.mobileDist") === -1) {
-            pos = index.lastIndexOf(indexTag) + indexTag.length;
-            output = [index.slice(0, pos - 2), moreoptions, index.slice(pos)].join('');
-        }
-        if (output.length > index.length) {
-            fs.writeFileSync(indexPath, output);
-            this.log('Writing Gruntfile.js');
+            //I can not use this method to append JS code to the Grunfile.js
+            //this.gruntfile.prependJavaScript(moreoptions);
+            //
+            //Do it 'by hand' at the ent of the file
+            var indexPath = this.destinationPath('Gruntfile.js');
+            var index = this.readFileAsString(indexPath);
+            var indexTag = '};';
+            var output = index;
+            var pos;
+            if (index.indexOf("paths.mobileDist") === -1) {
+                pos = index.lastIndexOf(indexTag) + indexTag.length;
+                output = [index.slice(0, pos - 2), moreoptions, index.slice(pos)].join('');
+            }
+            if (output.length > index.length) {
+                fs.writeFileSync(indexPath, output);
+                this.log('Writing Gruntfile.js');
+            }
         }
     },
     installDeps: function () {
-        this.npmInstall([
+        if (this.mobile) {
+            this.npmInstall([
             'lodash',
             'promise',
             'plist',
@@ -174,8 +183,9 @@ module.exports = yeoman.generators.Base.extend({
             'grunt-http-upload',
             'grunt-replace',
         ], {
-            saveDev: true
-        });
+                saveDev: true
+            });
+        }
     },
     end: function () {
         this.log('Finish.');
