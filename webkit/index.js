@@ -33,7 +33,7 @@ module.exports = yeoman.generators.Base.extend({
         utils.checkVersion.call(this);
         //CONFIG
         this.option('interactiveMode');
-        this.log("WEB --> " + this.options['interactiveMode']);
+
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.log(this.options['interactiveMode']);
             this.interactiveMode = this.options['interactiveMode'];
@@ -87,13 +87,16 @@ module.exports = yeoman.generators.Base.extend({
     installingDeps: function () {
         if (this.webkit) {
             this.npmInstall(['grunt-node-webkit-builder'], {
-                'saveDev': true
+                'saveDev': true,
+                'saveExact': true
             });
             this.npmInstall(['node-webkit-builder'], {
-                'saveDev': true
+                'saveDev': true,
+                'saveExact': true
             });
             this.npmInstall(['nodewebkit'], {
-                'saveDev': true
+                'saveDev': true,
+                'saveExact': true
             });
         }
     },
