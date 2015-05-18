@@ -378,13 +378,25 @@ module.exports = yeoman.generators.Base.extend({
         });
 
         this.installDependencies({
-            skipInstall: this.options['skip-install']
+            skipInstall: this.options['skip-install'],
+            callback: function () {
+                // Emit a new event - dependencies installed
+                this.emit('dependenciesInstalled');
+            }.bind(this)
         });
+
+        // Now you can bind to the dependencies installed event
+        this.on('dependenciesInstalled', function () {
+            this.spawnCommand('grunt', ['list']);
+        });
+
 
     },
     end: function () {
-        this.log("Finish! Execute 'grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page.");
-        this.log(" or just execute 'grunt server' to start the server.");
+        this.log(os.EOL + "Finish!");
+        this.log(os.EOL + "Execute '$ grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page");
+        this.log(" or just execute '$ grunt server' to start the server.");
+        this.log(os.EOL + "Check your Readme.md for available grunt tasks");
     }
 
 });
