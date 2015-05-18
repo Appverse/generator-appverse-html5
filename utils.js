@@ -30,6 +30,8 @@ var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var request = require('request');
 var extend = require('xtend');
+var os = require('os');
+
 
 //
 // Get the Generated angular application name
@@ -136,7 +138,7 @@ var addControllerScriptToIndex = function () {
         }
     }
     if (!seen) {
-        var controllerJS = '<script src="scripts/controllers/' + this.controllerScript + '"></script>';
+        var controllerJS = os.EOL + '    <script src="scripts/controllers/' + this.controllerScript + '"></script>';
         indexHTML(controllerJS).insertAfter(indexHTML('script').get()[indexHTML('script').length - 1]);
     }
     fs.writeFileSync(indexPath, indexHTML.html());
@@ -244,7 +246,6 @@ Array.prototype.unshiftIfNotExist = function (element, comparer) {
     }
 };
 
-
 var readJSONFileOrUrl = function (url, callback) {
     if (/^https?:/.test(url)) {
         request(url, function (error, response, body) {
@@ -261,6 +262,14 @@ var readJSONFileOrUrl = function (url, callback) {
 
     callback(null, JSON.parse(fs.readFileSync(this.jsonfile, 'utf8')));
 };
+var arraySearch = function search(nameKey, myArray) {
+    for (var i = 0; i < myArray.length; i++) {
+        if (myArray[i].name === nameKey) {
+            return myArray[i];
+        }
+    }
+
+};
 
 module.exports = {
     checkVersion: checkVersion,
@@ -271,5 +280,6 @@ module.exports = {
     addAngularModule: addAngularModule,
     checkAngularModule: checkAngularModule,
     addDropDownOption: addDropDownOption,
-    readJSONFileOrUrl: readJSONFileOrUrl
+    readJSONFileOrUrl: readJSONFileOrUrl,
+    arraySearch: arraySearch
 };
