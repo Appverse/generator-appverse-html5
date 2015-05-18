@@ -8,11 +8,12 @@ module.exports = function (grunt) {
     require('time-grunt')(grunt);
 
     var options = {
+        appName: require('./package.json').name,
         // Project settings
         paths: {
             // Configurable paths
             app: 'app',
-            dist: 'dist',
+            dist: 'dist/web',
             server: 'server',
             doc: 'doc'
         },

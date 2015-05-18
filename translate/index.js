@@ -21,6 +21,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -28,11 +29,12 @@ module.exports = yeoman.generators.Base.extend({
         this.conflicter.force = true;
     },
     writing: function () {
-        var translateJS = '\n \t<!-- TRANSLATE MODULE --> \n' +
-            '\t<script src="bower_components/angular-translate/angular-translate.min.js"></script> \n' +
-            '\t<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script> \n' +
-            '\t<script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script> \n' +
-            '\t<script src="bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"></script> \n';
+        var translateJS = os.EOL +
+            '    <!-- TRANSLATE MODULE -->' + os.EOL +
+            '    <script src="bower_components/angular-translate/angular-translate.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>' + os.EOL +
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
