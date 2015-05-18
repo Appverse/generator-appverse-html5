@@ -20,8 +20,10 @@
  */
 'use strict';
 var yeoman = require('yeoman-generator');
+
 var path = require('path');
 var fs = require('fs');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -30,9 +32,11 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     writing: function () {
-        var qrJS = '<!-- QR MODULE -->' +
-            '<script src="bower_components/qrcode/lib/qrcode.min.js"></script>' +
-            '<script src="bower_components/angular-qr/angular-qr.min.js"></script>';
+        var qrJS = os.EOL +
+            '    <!-- QR MODULE -->' + os.EOL +
+            '    <script src="bower_components/qrcode/lib/qrcode.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/angular-qr/angular-qr.min.js"></script>';
+
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
