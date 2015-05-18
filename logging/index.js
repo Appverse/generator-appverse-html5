@@ -21,6 +21,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -29,8 +30,9 @@ module.exports = yeoman.generators.Base.extend({
     },
 
     writing: function () {
-        var performanceJS = '<!-- LOGGING MODULE -->' +
-            '<script src="bower_components/appverse-web-html5-core/dist/appverse-logging/appverse-logging.min.js"></script>';
+        var performanceJS = os.EOL +
+            '    <!-- LOGGING MODULE -->' + os.EOL +
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-logging/appverse-logging.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
