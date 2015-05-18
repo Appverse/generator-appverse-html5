@@ -12,40 +12,33 @@ module.exports = yeoman.generators.Base.extend({
 
     },
     initializing: function () {
-        this.log('You called the Appverse Html5 - Bootstrap Theme subgenerator.');
         this.conflicter.force = true;
-        this.theme = this.options['config'];
-        if (!_.isUndefined(this.theme)) {
-            this.interactiveMode = false;
-        } else {
-            this.interactiveMode = true;
-        }
-        var prompts = {};
+
         this.themeprompts = [];
         this.remotethemes = {};
-        if (this.interactiveMode) {
-            this.log(" Getting themes from http://bootswatch.com ");
-            prompts = {
-                type: 'list',
-                name: 'themes',
-                message: "Select bootswatch theme:",
-                choices: []
-            };
-            var done = this.async();
-            request('http://api.bootswatch.com/3', function (error, response, body) {
-                if (!error && response.statusCode === 200) {
-                    this.remotethemes = JSON.parse(body.toString());
-                    this.remotethemes.themes.forEach(function (entry) {
-                        var option = entry.name;
-                        prompts.choices.push(option);
-                    });
-                    this.themeprompts.push(prompts);
-                    done();
-                } else {
-                    this.log("Connection error.");
-                }
-            }.bind(this));
-        }
+        var prompts = {
+            type: 'list',
+            name: 'themes',
+            message: "Select bootswatch theme:",
+            choices: []
+        };
+        var done = this.async();
+        this.log(" Getting themes from http://bootswatch.com ");
+        request('http://api.bootswatch.com/3', function (error, response, body) {
+            if (!error && response.statusCode === 200) {
+                this.remotethemes = JSON.parse(body.toString());
+                this.remotethemes.themes.forEach(function (entry) {
+                    var option = entry.name;
+                    prompts.choices.push(option);
+                });
+                this.themeprompts.push(prompts);
+                done();
+            } else {
+                this.log("Connection error.");
+            }
+        }.bind(this));
+
+
     },
     prompting: function () {
         var done = this.async();
