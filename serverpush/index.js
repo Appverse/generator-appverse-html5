@@ -26,16 +26,30 @@ var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var utils = require('../utils.js');
+
+var os = require('os');
 var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
         utils.checkVersion.call(this);
+        //CONFIG
+        this.option('interactiveMode', {
+            desc: 'Allow prompts',
+            type: Boolean,
+            defaults: false
+        });
+        if (!_.isUndefined(this.options['interactiveMode'])) {
+            this.interactiveMode = this.options['interactiveMode'];
+        } else {
+            this.interactiveMode = true;
+        }
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - ServerPush subgenerator.');
         this.conflicter.force = true;
+
         this.option('config', {
             desc: 'JSON COnfiguration',
             type: Object
@@ -45,6 +59,9 @@ module.exports = yeoman.generators.Base.extend({
             this.interactiveMode = false;
             this.spushBaseUrl = this.serverpush.serverURL;
         }
+
+        this.spushBaseUrl = '';
+
     },
     prompting: function () {
         var done = this.async();
@@ -69,98 +86,103 @@ module.exports = yeoman.generators.Base.extend({
     },
 
 
-    writing: function () {
-        var sPushJS = '<!-- SERVER PUSH MODULE -->' +
-            '<script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>' +
-            '<script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
+    prompting: function () {
+        var done = this.async();
+        var prompts = [];
+        if (this.interactiveMode) {
+            prompts = [{
+                type: "input",
+                name: "spushBaseUrl",
+                message: "Configure your Server Push URL? ",
+                default: "http://127.0.0.1:3000"
 
-        var indexPath = this.destinationPath('app/index.html');
-        var index = this.readFileAsString(indexPath);
-        var indexTag = 'app-states.js"></script>';
-        var output = index;
+        }];
+        } else {
+            prompts = [];
+        }
+        this.prompt(prompts, function (props) {
+            if (prompts.length > 0) {
+                this.spushBaseUrl = props.spushBaseUrl;
+            } else {
+                this.spushBaseUrl = "http://127.0.0.1:3000";
+            }
+            done();
+        }.bind(this));
 
-        if (index.indexOf("appverse-serverpush.js") === -1) {
-            var pos = index.lastIndexOf(indexTag) + indexTag.length;
-            output = [index.slice(0, pos), sPushJS, index.slice(pos)].join('');
-        }
-        if (output.length > index.length) {
-            fs.writeFileSync(indexPath, output);
-            this.log('Writing index.html by the Server Push generator');
-        }
     },
-    projectFiles: function () {
-        //ANGULAR MODULES
-        this.log('Writing angular modules (app.js) by the Rest generator');
-        var path = this.destinationPath('app/scripts/app.js');
-        var file = this.readFileAsString(path);
 
-        //PARSE FILE
-        var astCode = esprima.parse(file);
+    var sPushJS = os.EOL +
+        '    <!-- SERVER PUSH MODULE -->' + os.EOL +
+        '    <script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>' + os.EOL +
+        '    <script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
 
-        //ANGULAR REST MODULE
-        var appverseServerPush = {
-            type: "Literal",
-            value: "appverse.serverPush",
-            raw: "'appverse.serverPush'"
-        };
 
-        //APP NAME
-        var appName = utils.getApplicationName(this);
+    var indexPath = this.destinationPath('app/index.html');
+    var index = this.readFileAsString(indexPath);
+    var indexTag = 'app-states.js"></script>';
+    var output = index;
 
-        //REPLACE JS
-        var moduleCode = estraverse.replace(astCode, {
-            enter: function (node, parent) {
-                if (node.type === 'Literal' && node.value === appName) {
-                    parent.arguments[1].elements.unshiftIfNotExist(appverseServerPush, function (e) {
-                        return e.type === appverseServerPush.type && e.value === appverseServerPush.value;
-                    });
-                    this.break();
-                }
-            }
-        });
-
-        var config = {
-            type: 'Property',
-            key: {
-                type: 'Literal',
-                value: 'SERVERPUSH_CONFIG',
-                raw: 'SERVERPUSH_CONFIG'
-            },
-            computed: false,
-            value: {
-                type: 'ObjectExpression',
-                properties: [{
-                    type: 'Property',
-                    key: {
-                        type: 'Literal',
-                        value: 'BaseUrl',
-                        raw: 'BaseUrl'
-                    },
-                    computed: false,
-                    value: {
-                        type: 'Literal',
-                        value: this.spushBaseUrl,
-                        raw: this.spushBaseUrl
-                    },
-                    kind: 'init',
-                    method: false,
-                    shorthand: false
-               }]
-            }
-        };
-
-        var configCode = estraverse.replace(moduleCode, {
-            enter: function (node, parent) {
-                if (node.type === 'Identifier' && node.name === 'environment') {
-                    parent.value.properties.pushIfNotExist(config, function (e) {
-                        return e.type === config.type && e.key.value === config.key.value;
-                    });
-                    this.break();
-                }
-            }
-        });
-        var finalCode = escodegen.generate(configCode);
-        fs.writeFileSync(path, finalCode);
-
+    if (index.indexOf("appverse-serverpush.js") === -1) {
+        var pos = index.lastIndexOf(indexTag) + indexTag.length;
+        output = [index.slice(0, pos), sPushJS, index.slice(pos)].join('');
     }
+    if (output.length > index.length) {
+        fs.writeFileSync(indexPath, output);
+    }
+
+
+    //ANGULAR MODULE
+    utils.addAngularModule.call(this, 'appverse.serverPush');
+
+    //APP NAME
+    var appName = utils.getApplicationName(this);
+
+    var config = {
+        type: 'Property',
+        key: {
+            type: 'Literal',
+            value: 'SERVERPUSH_CONFIG',
+            raw: 'SERVERPUSH_CONFIG'
+        },
+        computed: false,
+        value: {
+            type: 'ObjectExpression',
+            properties: [{
+                type: 'Property',
+                key: {
+                    type: 'Literal',
+                    value: 'BaseUrl',
+                    raw: 'BaseUrl'
+                },
+                computed: false,
+                value: {
+                    type: 'Literal',
+                    value: this.spushBaseUrl,
+                    raw: this.spushBaseUrl
+                },
+                kind: 'init',
+                method: false,
+                shorthand: false
+               }]
+        }
+    };
+
+    //CONFIG
+    var path = this.destinationPath('app/scripts/app.js');
+    var file = this.readFileAsString(path);
+    //PARSE FILE
+    var moduleCode = esprima.parse(file);
+    var configCode = estraverse.replace(moduleCode, {
+        enter: function (node, parent) {
+            if (node.type === 'Identifier' && node.name === 'environment') {
+                parent.value.properties.pushIfNotExist(config, function (e) {
+                    return e.type === config.type && e.key.value === config.key.value;
+                });
+                this.break();
+            }
+        }
+    });
+    var finalCode = escodegen.generate(configCode);
+    fs.writeFileSync(path, finalCode);
+}
 });
