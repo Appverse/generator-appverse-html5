@@ -22,6 +22,7 @@
 
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -29,9 +30,10 @@ module.exports = yeoman.generators.Base.extend({
         this.conflicter.force = true;
     },
     writing: function () {
-        var restJS = '<!-- CACHE MODULE -->' +
-            '<script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>' +
-            '<script src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"></script>';
+        var restJS = os.EOL +
+            '    <!-- CACHE MODULE -->' + os.EOL +
+            '    <script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
