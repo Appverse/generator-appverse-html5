@@ -58,7 +58,11 @@ module.exports = yeoman.generators.Base.extend({
                 default: false
             }];
         } else {
-            this.webkit = this.options['config'].package.webkit || false;
+            if (!_.isUndefined(this.options['config'])) {
+                this.webkit = this.options['config'].package.webkit;
+            } else {
+                this.webkit = false;
+            }
             prompts = [];
         }
         this.prompt(prompts, function (answers) {
