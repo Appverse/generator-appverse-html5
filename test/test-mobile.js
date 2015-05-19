@@ -3,7 +3,7 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-
+/*
 describe('AppverseHtml5:generators\mobile', function () {
   before(function (done) {
     helpers.run(path.join(__dirname, '../generators\mobile'))
@@ -17,4 +17,4 @@ describe('AppverseHtml5:generators\mobile', function () {
       'somefile.js'
     ]);
   });
-});
+}); */

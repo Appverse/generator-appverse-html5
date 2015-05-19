@@ -23,13 +23,12 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var slug = require("underscore.string");
-var utils = require('../utils.js');
+var utils = require('../lib');
 var pkg = require('../package.json');
 var inquirer = require('inquirer');
 var _ = require('lodash');
 var fs = require('fs');
-var ZSchema = require("z-schema");
-
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -37,48 +36,89 @@ module.exports = yeoman.generators.Base.extend({
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        // This makes `config` an argument.
-        this.argument('jsonfile', {
+        this.interactiveMode = true;
+        // This makes `appname` an argument.
+        this.argument('applicationName', {
             type: String,
             required: false
         });
-        if (!_.isUndefined(this.jsonfile)) {
+
+        // This method adds support for a `--cache` flag (subgenerators)
+        this.option('cache');
+        this.option('detection');
+        this.option('logging');
+        this.option('performance');
+        this.option('qr');
+        this.option('translate');
+        this.option('serverpush');
+        this.option('security');
+        this.option('rest');
+
+        // This makes `all` an option. --all
+        this.option('all');
+
+        // And you can then access it later on this way; e.g. CamelCased
+        // Get the application name as argument to skip promtps and init all the variables
+        // false by default or --all
+        if (typeof this.applicationName !== 'undefined') {
+            this.applicationName = slug.slugify(this.applicationName);
+            this.appName = this.applicationName;
+            this.appTranslate = this.options.translate || this.options.all;
+            this.appQR = this.options.qr || this.options.all;
+            this.appRest = this.options.rest || this.options.all;
+            this.appPerformance = this.options.performance || this.options.all;
+            this.appSecurity = this.options.security || this.options.all;
+            this.appServerPush = this.options.serverpush || this.options.all;
+            this.appCache = this.options.cache || this.options.all;
+            this.appLogging = this.options.logging || this.options.all;
+            this.appDetection = this.options.detection || this.options.all;
+            this.env.options.appPath = this.options.appPath || 'app';
+            this.appBootstrapSelector = false || this.options.all;
+            this.config.set('appPath', this.env.options.appPath);
             this.interactiveMode = false;
-            utils.readJSONFileOrUrl(this.jsonfile, function (error, data) {
+            this.log('Setting interactive mode off!');
+        }
+
+        // This makes `project` an option. --project=project.json
+        // Get a JSON path or URL as value. The JSON defines the project and must validate against schema/appverse-project-schema.json
+        this.option('project', {
+            type: String,
+            required: false
+        });
+        this.project = this.options['project'];
+
+        if (!_.isUndefined(this.project)) {
+            this.interactiveMode = false;
+            utils.jsonutils.readJSONFileOrUrl(this.project, function (error, data) {
                 if (!error) {
-                    this.project = data;
-                    var validator = new ZSchema();
-                    this.schema = JSON.parse(fs.readFileSync(this.templatePath('../schema/project-schema.json'), 'utf-8'));
-                    var valid = validator.validate(this.project, this.schema);
-                    if (!valid) {
-                        this.log("Sorry. Not a valid JSON project! ");
-                        this.log("Check the project-schema.json for a valid JSON file. \n");
-                        this.log(JSON.stringify(this.schema));
-                        process.exit();
-                    }
-                    this.log('Setting interactive mode off!');
-                    this.appName = slug.slugify(this.project.project);
-                    this.appBootstrapSelector = this.project.theme.bootswatch;
-                    this.appTranslate = this.project.components.translate;
-                    this.appQR = this.project.components.qr;
-                    this.appRest = this.project.components.rest;
-                    this.appPerformance = this.project.components.performance;
-                    this.appSecurity = this.project.components.security;
-                    this.appServerPush = this.project.components.serverpush;
-                    this.appCache = this.project.components.cache;
-                    this.appLogging = this.project.components.logging;
-                    this.appDetection = this.project.components.detection;
-                    this.appWebkit = this.project.package.webkit;
-                    this.appImagemin = this.project.build.imagemin;
-                    this.env.options.appPath = this.options.appPath || 'app';
-                    this.config.set('appPath', this.env.options.appPath);
+                    this.jsonproject = data;
+                    utils.jsonutils.validateJson(this.jsonproject, function (error, data) {
+                        if (!error) {
+                            this.log('Setting interactive mode off!');
+                            this.appName = slug.slugify(this.jsonproject.project);
+                            this.appBootstrapSelector = this.jsonproject.theme.bootswatch;
+                            this.appTranslate = this.jsonproject.components.translate;
+                            this.appQR = this.jsonproject.components.qr;
+                            this.appRest = this.jsonproject.components.rest;
+                            this.appPerformance = this.jsonproject.components.performance;
+                            this.appSecurity = this.jsonproject.components.security;
+                            this.appServerPush = this.jsonproject.components.serverpush;
+                            this.appCache = this.jsonproject.components.cache;
+                            this.appLogging = this.jsonproject.components.logging;
+                            this.appDetection = this.jsonproject.components.detection;
+                            this.appBootstrapSelector = this.jsonproject.components.bootstrapTheme;
+                            this.env.options.appPath = this.options.appPath || 'app';
+                            this.config.set('appPath', this.env.options.appPath);
+                        } else {
+                            this.log(error);
+                            process.exit();
+                        }
+                    });
                 } else {
                     this.log(error);
                     process.exit();
                 }
             }.bind(this));
-        } else {
-            this.interactiveMode = true;
         }
     },
     prompting: function () {
@@ -97,7 +137,7 @@ module.exports = yeoman.generators.Base.extend({
         this.log(
             'Welcome to the ' + chalk.bgBlack.cyan('Appverse Html5') + ' generator! \n'
         );
-        utils.checkVersion.call(this);
+        utils.projectutils.checkVersion.call(this);
         var prompts;
         if (this.interactiveMode) {
             prompts = [
@@ -162,18 +202,8 @@ module.exports = yeoman.generators.Base.extend({
                     name: "bootstrapTheme",
                     message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
                     default: false
-                }, {
-                    type: "confirm",
-                    name: "webkit",
-                    message: "Do you want to package your application as a desktop application using Node-Webkit?",
-                    default: false
-                }, {
-                    type: "confirm",
-                    name: "imagemin",
-                    message: "Do you want to install Image compression (imagemin)?",
-                    default: false
-             }
-            ];
+                }
+                            ];
         } else {
             prompts = [];
         }
@@ -204,19 +234,15 @@ module.exports = yeoman.generators.Base.extend({
                 this.env.options.appPath = this.options.appPath || 'app';
                 this.config.set('appPath', this.env.options.appPath);
                 this.appBootstrapSelector = props.bootstrapTheme;
-                this.appWebkit = props.webkit;
-                this.appImagemin = props.imagemin;
             }
             done();
         }.bind(this));
 
     },
-    writing: {
-        writeIndex: function () {
-            this.log('Writing the index.html... ');
-            this.indexFile = this.readFileAsString(this.templatePath('app/index.html'));
-            this.indexFile = this.engine(this.indexFile, this);
-            var js = ['bower_components/jquery/dist/jquery.min.js',
+    writing: function () {
+        this.indexFile = this.readFileAsString(this.templatePath('app/index.html'));
+        this.indexFile = this.engine(this.indexFile, this);
+        var js = ['bower_components/jquery/dist/jquery.min.js',
                 'bower_components/angular/angular.min.js',
                 'bower_components/angular-touch/angular-touch.min.js',
                 'bower_components/modernizr/modernizr.js',
@@ -231,129 +257,115 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js'
             ];
-            //APP FILES
-            var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
-            Array.prototype.push.apply(js, appsJS);
-            this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
-            this.write(this.destinationPath('app/index.html'), this.indexFile);
-        },
-        files: function () {
-            this.fs.copyTpl(
-                this.templatePath('package.json'),
-                this.destinationPath('package.json'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('bower.json'),
-                this.destinationPath('bower.json'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('.editorconfig'),
-                this.destinationPath('.editorconfig'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('.jshintrc'),
-                this.destinationPath('.jshintrc'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('README.md'),
-                this.destinationPath('README.md'),
-                this
-            );
-            this.fs.copy(
-                this.templatePath('.bowerrc'),
-                this.destinationPath('.bowerrc')
-            );
-            this.fs.copy(
-                this.templatePath('Gruntfile.js'),
-                this.destinationPath('Gruntfile.js')
-            );
-            this.fs.copy(
-                this.templatePath('LICENSE.md'),
-                this.destinationPath('LICENSE.md')
-            );
-            this.fs.copyTpl(
-                this.templatePath('sonar-project.properties'),
-                this.destinationPath('sonar-project.properties'),
-                this
-            );
-            this.fs.copy(
-                this.templatePath('/app/views/theme.html'),
-                this.destinationPath('/app/views/theme.html')
-            );
-            this.fs.copyTpl(
-                this.templatePath('/app/views/home.html'),
-                this.destinationPath('/app/views/home.html'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('/app/scripts/controllers/home-controller.js'),
-                this.destinationPath('/app/scripts/controllers/home-controller.js'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('/app/scripts/states/app-states.js'),
-                this.destinationPath('/app/scripts/states/app-states.js'),
-                this
-            );
-            this.fs.copyTpl(
-                this.templatePath('/app/scripts/app.js'),
-                this.destinationPath('/app/scripts/app.js'),
-                this
-            );
 
-            //paths starting with "/" cause problems on UNIX based OS like OSX
-            this.fs.copy(
-                this.templatePath('test'),
-                this.destinationPath('test')
-            );
+        //APP FILES
+        var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
+        Array.prototype.push.apply(js, appsJS);
+        this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
+        this.write(this.destinationPath('app/index.html'), this.indexFile.replace(/>\n/g, '>' + os.EOL));
 
-            this.fs.copy(
-                this.templatePath('app/styles'),
-                this.destinationPath('app/styles')
-            );
+        this.fs.copyTpl(
+            this.templatePath('package.json'),
+            this.destinationPath('package.json'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('bower.json'),
+            this.destinationPath('bower.json'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('.editorconfig'),
+            this.destinationPath('.editorconfig'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('.jshintrc'),
+            this.destinationPath('.jshintrc'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('README.md'),
+            this.destinationPath('README.md'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('.bowerrc'),
+            this.destinationPath('.bowerrc')
+        );
+        this.fs.copy(
+            this.templatePath('Gruntfile.js'),
+            this.destinationPath('Gruntfile.js')
+        );
+        this.fs.copy(
+            this.templatePath('LICENSE.md'),
+            this.destinationPath('LICENSE.md')
+        );
+        this.fs.copyTpl(
+            this.templatePath('sonar-project.properties'),
+            this.destinationPath('sonar-project.properties'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('/app/views/theme.html'),
+            this.destinationPath('/app/views/theme.html')
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/views/home.html'),
+            this.destinationPath('/app/views/home.html'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/controllers/home-controller.js'),
+            this.destinationPath('/app/scripts/controllers/home-controller.js'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/states/app-states.js'),
+            this.destinationPath('/app/scripts/states/app-states.js'),
+            this
+        );
+        this.fs.copyTpl(
+            this.templatePath('/app/scripts/app.js'),
+            this.destinationPath('/app/scripts/app.js'),
+            this
+        );
 
-            this.fs.copy(
-                this.templatePath('config'),
-                this.destinationPath('config')
-            );
 
-            this.fs.copy(
-                this.templatePath('tasks'),
-                this.destinationPath('tasks')
-            );
+        //paths starting with "/" cause problems on UNIX based OS like OSX
+        this.fs.copy(
+            this.templatePath('test'),
+            this.destinationPath('test')
+        );
 
-        }
+        this.fs.copy(
+            this.templatePath('app/styles'),
+            this.destinationPath('app/styles')
+        );
+
+        this.fs.copy(
+            this.templatePath('config'),
+            this.destinationPath('config')
+        );
+
+        this.fs.copy(
+            this.templatePath('tasks'),
+            this.destinationPath('tasks')
+        );
+
     },
-
     install: function () {
-        var project = this.project || {
-            config: {}
-        };
-        if (this.appBootstrapSelector) {
-            this.composeWith('appverse-html5:bootstrap-theme', {
-                options: {}
-            });
-        }
         if (this.appCache) {
-            this.composeWith('appverse-html5:cache', {
-                options: {
-                    'skip-install': this.options['skip-install']
-                }
-            });
+            this.composeWith('appverse-html5:cache', {});
         }
         if (this.appLogging) {
-            this.composeWith('appverse-html5:logging', {
-                options: {}
-            });
+            this.composeWith('appverse-html5:logging', {});
         }
 
         if (this.appRest) {
             this.composeWith('appverse-html5:rest', {
                 options: {
+                    interactiveMode: this.interactiveMode,
                     config: project.config.rest,
                     'skip-install': this.options['skip-install']
                 }
@@ -362,61 +374,82 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appServerPush) {
             this.composeWith('appverse-html5:serverpush', {
                 options: {
-                    config: project.config.serverpush
-                }
-            });
-        }
-        if (this.appTranslate) {
-            this.composeWith('appverse-html5:translate', {
-                options: {}
-            });
-        }
-        if (this.appSecurity) {
-            this.composeWith('appverse-html5:security', {
-                options: {}
-            });
-        }
-        if (this.appDetection) {
-            this.composeWith('appverse-html5:detection', {
-                options: {}
-            });
-        }
-        if (this.appPerformance) {
-            this.composeWith('appverse-html5:performance', {
-                options: {}
-            });
-        }
-
-        if (this.appQR) {
-            this.composeWith('appverse-html5:qr', {
-                options: {}
-            });
-        }
-
-        if (this.appWebkit) {
-            this.composeWith('appverse-html5:webkit', {
-                options: {
-                    config: project.config.package.webkit
-                }
-            });
-        }
-        if (this.appImagemin) {
-            this.composeWith('appverse-html5:imagemin', {
-                options: {
+                    interactiveMode: this.interactiveMode,
+                    config: this.jsonproject.config.serverpush,
                     'skip-install': this.options['skip-install']
                 }
             });
         }
-        this.installDependencies({
-            skipInstall: this.options['skip-install']
+        if (this.appTranslate) {
+            this.composeWith('appverse-html5:translate', {});
+        }
+        if (this.appSecurity) {
+            this.composeWith('appverse-html5:security', {
+                'skip-install': this.options['skip-install']
+            });
+        }
+        if (this.appDetection) {
+            this.composeWith('appverse-html5:detection', {});
+        }
+        if (this.appPerformance) {
+            this.composeWith('appverse-html5:performance', {});
+        }
+        if (this.appQR) {
+            this.composeWith('appverse-html5:qr', {});
+        }
+
+
+        this.composeWith('appverse-html5:webkit', {
+            options: {
+                config: this.jsonproject,
+                interactiveMode: this.interactiveMode
+            }
         });
+
+        this.composeWith('appverse-html5:imagemin', {
+            options: {
+                interactiveMode: this.interactiveMode,
+                'skip-install': this.options['skip-install']
+            }
+        });
+
+        if (this.bootstrapSelector) {
+            this.composeWith('appverse-html5:bootstrap-theme', {
+                options: {
+                    interactiveMode: this.interactiveMode,
+                    'skip-install': this.options['skip-install']
+                }
+            });
+        }
+        this.composeWith('appverse-html5:mobile', {
+            options: {
+                interactiveMode: this.interactiveMode,
+                'skip-install': this.options['skip-install']
+            }
+        });
+
+        this.installDependencies({
+            skipInstall: this.options['skip-install'],
+            callback: function () {
+                // Emit a new event - dependencies installed
+                this.emit('dependenciesInstalled');
+            }.bind(this)
+        });
+
+        //Now you can bind to the dependencies installed event
+        this.on('dependenciesInstalled', function () {
+            this.spawnCommand('grunt', ['list']);
+        });
+
+
     },
     end: function () {
-        this.log("Finish! Execute 'grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page.");
-        this.log(" or just execute 'grunt server' to start the server.");
-        if (!this.interactiveMode) {
-            process.exit();
-        }
-    },
+        this.log(os.EOL + "Finish!" + os.EOL);
+        this.log(os.EOL + "Execute '$ grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page");
+        this.log(" or just execute '$ grunt server' to start the server." + os.EOL);
+        this.log("Check your Readme.md for available grunt tasks." + os.EOL);
+        process.exit();
+    }
+
 
 });

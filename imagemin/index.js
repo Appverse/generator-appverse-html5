@@ -21,57 +21,100 @@
 
 'use strict';
 var yeoman = require('yeoman-generator');
-var utils = require('../utils.js');
+var utils = require('../lib');
+var _ = require('lodash');
+var os = require('os');
+var fs = require('fs');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion.call(this);
+        utils.projectutils.checkVersion.call(this);
     },
     initializing: function () {
-        this.log('You called the AppverseHtml5 Imagemin subgenerator.');
         this.conflicter.force = true;
+        utils.projectutils.checkVersion.call(this);
+        //CONFIG
+        this.option('interactiveMode');
+        if (!_.isUndefined(this.options['interactiveMode'])) {
+            this.interactiveMode = this.options['interactiveMode'];
+        } else {
+            this.interactiveMode = true;
+        }
+    },
+
+    prompting: function () {
+        var done = this.async();
+        var prompts = [];
+        if (this.interactiveMode == true) {
+            prompts = [
+                {
+                    type: "confirm",
+                    name: "imagemin",
+                    message: "Do you want to install imagemin?",
+                    default: false
+            }
+        ];
+        } else {
+            prompts = [];
+        }
+        this.prompt(prompts, function (props) {
+            if (prompts.length > 0) {
+                this.imagemin = props.imagemin;
+            } else {
+                this.imagemin = false;
+            }
+            done();
+        }.bind(this));
     },
     writing: function () {
-        this.fs.copy(
-            this.templatePath('config/concurrent.js'),
-            this.destinationPath('config/concurrent.js')
-        );
+        if (this.imagemin) {
+            this.fs.copy(
+                this.templatePath('config/concurrent.js'),
+                this.destinationPath('config/concurrent.js')
+            );
 
-        this.fs.copy(
-            this.templatePath('config/imagemin.js'),
-            this.destinationPath('config/imagemin.js')
-        );
+            this.fs.copy(
+                this.templatePath('config/imagemin.js'),
+                this.destinationPath('config/imagemin.js')
+            );
+        }
     },
     install: function () {
-        this.npmInstall([
-                'download@3.3.0',
-                'bin-build@2.1.1',
-                'bin-wrapper@2.1.3',
-                'logalot@2.1.0',
-                'through2@0.6.5'
-            ], {
-            saveDev: true
-        });
-
-        this.npmInstall([
-                'gifsicle@2.0.1',
-                'jpegtran-bin@2.0.2',
-                'optipng-bin@2.0.4',
-                'pngquant-bin@2.0.3',
-                'imagemin-gifsicle@4.1.0',
-                'imagemin-jpegtran@4.1.0',
-                'imagemin-optipng@4.2.0',
-                'imagemin-pngquant@4.0.0',
-                'imagemin@3.1.0',
-                'grunt-contrib-imagemin@0.9.4'
-            ], {
-            saveDev: true
-        });
-
+        if (this.imagemin) {
+            var packagePath = this.destinationPath('package.json');
+            //this.npmInstall () is not working with skip-install
+            var pkg = require(packagePath);
+            pkg.devDependencies["download"] = "3.3.0";
+            pkg.devDependencies["bin-build"] = "2.1.1";
+            pkg.devDependencies["bin-wrapper"] = "2.1.3";
+            pkg.devDependencies["logalot"] = "2.1.0";
+            pkg.devDependencies["through2"] = "0.6.5";
+            pkg.devDependencies["gifsicle"] = "2.0.1";
+            pkg.devDependencies["jpegtran-bin"] = "2.0.2";
+            pkg.devDependencies["optipng-bin"] = "2.0.4";
+            pkg.devDependencies["pngquant-bin"] = "2.0.3";
+            pkg.devDependencies["imagemin-gifsicle"] = "4.1.0";
+            pkg.devDependencies["imagemin-jpegtran"] = "4.1.0";
+            pkg.devDependencies["imagemin-optipng"] = "4.2.0";
+            pkg.devDependencies["imagemin-pngquan"] = "4.0.0";
+            pkg.devDependencies["imagemin"] = "3.1.0";
+            pkg.devDependencies["grunt-contrib-imagemin"] = "0.9.4";
+            fs.writeFileSync(packagePath, JSON.stringify(pkg));
+        }
+    },
+    installingDeps: function () {
+        if (this.imagemin) {
+            this.installDependencies({
+                skipInstall: this.options['skip-install']
+            });
+        }
     },
     end: function () {
-        this.log("\n Your application is ready to use imagemin.");
-        this.log("\n Execute: 'grunt dist' to create the dist folder with all the images optimized.");
+        if (this.imagemin) {
+            this.log(os.EOL + "Your application is ready to use imagemin.");
+            this.log(os.EOL + " Execute: 'grunt dist' to create the dist folder with all the images optimized.");
+        }
+
     }
 });

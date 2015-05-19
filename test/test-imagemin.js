@@ -24,22 +24,25 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fse = require('fs-extra');
+var fs = require('fs-extra');
 
 describe('appverse-html5:imagemin', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../imagemin'))
-            .inDir(path.join(os.tmpdir(), 'testApp-imagemin'))
+            .inDir(path.join(os.tmpdir(), 'testApp-imagemin'), function (dir) {
+                fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+            })
             .withOptions({
                 'skip-install': true
             })
             .withPrompts({
                 imagemin: true
             })
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
-            })
             .on('end', done);
+    });
+
+    it('includes imagemin package.json', function () {
+        assert.fileContent('package.json', 'imagemin');
     });
 
     it('includes imagemin task to the dist task', function () {

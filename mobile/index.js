@@ -24,7 +24,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
-var utils = require('../utils.js');
+var utils = require('../lib');
 var os = require('os');
 var _ = require('lodash');
 
@@ -32,7 +32,7 @@ var _ = require('lodash');
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion.call(this);
+        utils.projectutils.checkVersion.call(this);
     },
     initializing: function () {
         this.conflicter.force = true;
@@ -47,7 +47,7 @@ module.exports = yeoman.generators.Base.extend({
         } else {
             this.interactiveMode = true;
         }
-        this.appName = utils.getApplicationName(this);
+        this.appName = utils.projectutils.getApplicationName(this);
         this.mobile = {
             builder: {
                 hostname: 'https://yourhostname',
@@ -107,7 +107,7 @@ module.exports = yeoman.generators.Base.extend({
                     this.mobile.builder.password = props.password;
                 }
             } else {
-                this.mobile = true;
+                this.mobile = false;
             }
             done();
 
@@ -173,21 +173,30 @@ module.exports = yeoman.generators.Base.extend({
             }
         }
     },
-    installDeps: function () {
+    dependencies: function () {
         if (this.mobile) {
-            this.npmInstall([
-            'lodash',
-            'promise',
-            'plist',
-            'grunt-contrib-compress',
-            'grunt-http-upload',
-            'grunt-replace',
-        ], {
-                saveDev: true
+            var packagePath = this.destinationPath('package.json');
+            //this.npmInstall () is not working with skip-install
+            var pkg = require(packagePath);
+            pkg.devDependencies["lodash"] = "3.8.0";
+            pkg.devDependencies["promise"] = "^7.0.1";
+            pkg.devDependencies["plist"] = "^1.1.0";
+            pkg.devDependencies["grunt-contrib-compress"] = "^0.13.0";
+            pkg.devDependencies["grunt-http-upload"] = "^0.1.8";
+            pkg.devDependencies["grunt-replace"] = "^0.9.2";
+            fs.writeFileSync(packagePath, JSON.stringify(pkg));
+        }
+    },
+    installingDeps: function () {
+        if (this.mobile) {
+            this.installDependencies({
+                skipInstall: this.options['skip-install']
             });
         }
     },
     end: function () {
-        this.log('Finish.');
+        if (this.mobile) {
+            this.log('Finish.');
+        }
     }
 });

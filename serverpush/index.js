@@ -25,8 +25,7 @@ var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
-var utils = require('../utils.js');
-
+var utils = require('../lib').projectutils;
 var os = require('os');
 var _ = require('lodash');
 
@@ -65,29 +64,6 @@ module.exports = yeoman.generators.Base.extend({
     },
     prompting: function () {
         var done = this.async();
-        var prompts;
-        if (this.interactiveMode) {
-            prompts = [
-                {
-                    type: "input",
-                    name: "spushBaseUrl",
-                    message: "Configure your Server URL? ",
-                    default: "http://127.0.0.1:3000",
-             }
-
-        ];
-        } else {
-            prompts = [];
-        }
-        this.prompt(prompts, function (props) {
-            this.spushBaseUrl = props.spushBaseUrl;
-            done();
-        }.bind(this));
-    },
-
-
-    prompting: function () {
-        var done = this.async();
         var prompts = [];
         if (this.interactiveMode) {
             prompts = [{
@@ -110,79 +86,79 @@ module.exports = yeoman.generators.Base.extend({
         }.bind(this));
 
     },
-
-    var sPushJS = os.EOL +
-        '    <!-- SERVER PUSH MODULE -->' + os.EOL +
-        '    <script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>' + os.EOL +
-        '    <script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
-
-
-    var indexPath = this.destinationPath('app/index.html');
-    var index = this.readFileAsString(indexPath);
-    var indexTag = 'app-states.js"></script>';
-    var output = index;
-
-    if (index.indexOf("appverse-serverpush.js") === -1) {
-        var pos = index.lastIndexOf(indexTag) + indexTag.length;
-        output = [index.slice(0, pos), sPushJS, index.slice(pos)].join('');
-    }
-    if (output.length > index.length) {
-        fs.writeFileSync(indexPath, output);
-    }
+    writing: function () {
+        var sPushJS = os.EOL +
+            '    <!-- SERVER PUSH MODULE -->' + os.EOL +
+            '    <script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
 
 
-    //ANGULAR MODULE
-    utils.addAngularModule.call(this, 'appverse.serverPush');
+        var indexPath = this.destinationPath('app/index.html');
+        var index = this.readFileAsString(indexPath);
+        var indexTag = 'app-states.js"></script>';
+        var output = index;
 
-    //APP NAME
-    var appName = utils.getApplicationName(this);
+        if (index.indexOf("appverse-serverpush.js") === -1) {
+            var pos = index.lastIndexOf(indexTag) + indexTag.length;
+            output = [index.slice(0, pos), sPushJS, index.slice(pos)].join('');
+        }
+        if (output.length > index.length) {
+            fs.writeFileSync(indexPath, output);
+        }
 
-    var config = {
-        type: 'Property',
-        key: {
-            type: 'Literal',
-            value: 'SERVERPUSH_CONFIG',
-            raw: 'SERVERPUSH_CONFIG'
-        },
-        computed: false,
-        value: {
-            type: 'ObjectExpression',
-            properties: [{
-                type: 'Property',
-                key: {
-                    type: 'Literal',
-                    value: 'BaseUrl',
-                    raw: 'BaseUrl'
-                },
-                computed: false,
-                value: {
-                    type: 'Literal',
-                    value: this.spushBaseUrl,
-                    raw: this.spushBaseUrl
-                },
-                kind: 'init',
-                method: false,
-                shorthand: false
+
+        //ANGULAR MODULE
+        utils.addAngularModule.call(this, 'appverse.serverPush');
+
+        //APP NAME
+        var appName = utils.getApplicationName(this);
+
+        var config = {
+            type: 'Property',
+            key: {
+                type: 'Literal',
+                value: 'SERVERPUSH_CONFIG',
+                raw: 'SERVERPUSH_CONFIG'
+            },
+            computed: false,
+            value: {
+                type: 'ObjectExpression',
+                properties: [{
+                    type: 'Property',
+                    key: {
+                        type: 'Literal',
+                        value: 'BaseUrl',
+                        raw: 'BaseUrl'
+                    },
+                    computed: false,
+                    value: {
+                        type: 'Literal',
+                        value: this.spushBaseUrl,
+                        raw: this.spushBaseUrl
+                    },
+                    kind: 'init',
+                    method: false,
+                    shorthand: false
                }]
-        }
-    };
-
-    //CONFIG
-    var path = this.destinationPath('app/scripts/app.js');
-    var file = this.readFileAsString(path);
-    //PARSE FILE
-    var moduleCode = esprima.parse(file);
-    var configCode = estraverse.replace(moduleCode, {
-        enter: function (node, parent) {
-            if (node.type === 'Identifier' && node.name === 'environment') {
-                parent.value.properties.pushIfNotExist(config, function (e) {
-                    return e.type === config.type && e.key.value === config.key.value;
-                });
-                this.break();
             }
-        }
-    });
-    var finalCode = escodegen.generate(configCode);
-    fs.writeFileSync(path, finalCode);
-}
+        };
+
+        //CONFIG
+        var path = this.destinationPath('app/scripts/app.js');
+        var file = this.readFileAsString(path);
+        //PARSE FILE
+        var moduleCode = esprima.parse(file);
+        var configCode = estraverse.replace(moduleCode, {
+            enter: function (node, parent) {
+                if (node.type === 'Identifier' && node.name === 'environment') {
+                    parent.value.properties.pushIfNotExist(config, function (e) {
+                        return e.type === config.type && e.key.value === config.key.value;
+                    });
+                    this.break();
+                }
+            }
+        });
+        var finalCode = escodegen.generate(configCode);
+        fs.writeFileSync(path, finalCode);
+    }
 });

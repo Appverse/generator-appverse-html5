@@ -24,15 +24,18 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fse = require('fs-extra');
+var fs = require('fs-extra');
 
 describe('appverse-html5:app-view', function () {
 
     describe('when called with only one argument', function () {
+
         before(function (done) {
             helpers.run(path.join(__dirname, '../app-view'))
-                .on('ready', function (generator) {
-                    fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
+                .inDir(path.join(os.tmpdir(), 'testApp-view'), function (dir) {
+                    fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+                    fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
+                    fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
                 .withArguments('myView')
                 .on('end', done);
@@ -49,49 +52,50 @@ describe('appverse-html5:app-view', function () {
     });
 
     describe('when called with two arguments', function () {
+
         before(function (done) {
             helpers.run(path.join(__dirname, '../app-view'))
-                .inDir(path.join(os.tmpdir(), 'testApp-view2'))
-                .withArguments('myView2 myDropdown')
-                .on('ready', function (generator) {
-                    fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
+                .inDir(path.join(os.tmpdir(), 'testApp-view2'), function (dir) {
+                    fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+                    fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
+                    fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
+                .withArguments('myView2 myDropdown')
                 .on('end', done);
         });
 
         it('should create a new state inside a new dropdown', function () {
             assert.file([
-                'app/views/myView2/myView2.html',
-                'app/scripts/controllers/myView2-controller.js'
-            ]);
+                 'app/views/myView2/myView2.html',
+                 'app/scripts/controllers/myView2-controller.js'
+             ]);
 
             assert.fileContent('app/index.html', '<a ui-sref="myView2">myView2</a></li></ul></li></ul>');
-
             assert.fileContent('app/index.html', 'myDropdown<span class="caret"></span></a><ul class="dropdown-menu">');
         });
     });
 
     describe('when called with an existing dropdown', function () {
+
         before(function (done) {
+            var utils = require('../lib').projectutils;
             helpers.run(path.join(__dirname, '../app-view'))
-                .inDir(path.join(os.tmpdir(), './testApp-view3'))
-                .withArguments('myView2 myDropdown')
-                .on('ready', function (generator) {
-                    fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
-                    generator.name = 'myView3';
-                    generator.menu = 'myDropdown3';
-                    require('../utils').addViewAndController.call(generator);
+                .inDir(path.join(os.tmpdir(), 'testApp-view3'), function (dir) {
+                    fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+                    fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
+                    fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
+                .withArguments('myView3 myDropdown')
                 .on('end', done);
         });
 
         it('should create a new state inside the existing dropdown', function () {
             assert.file([
-                'app/views/myView2/myView2.html',
-                'app/scripts/controllers/myView3-controller.js',
+                 'app/scripts/controllers/myView3-controller.js',
                 'app/views/myView3/myView3.html',
-                'app/scripts/controllers/myView3-controller.js'
-            ]);
+             ]);
+            assert.fileContent('app/index.html', '<a ui-sref="myView3">myView3</a></li></ul></li></ul>');
+            assert.fileContent('app/index.html', 'myDropdown<span class="caret"></span></a><ul class="dropdown-menu">');
         });
     });
 });

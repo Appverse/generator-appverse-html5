@@ -27,13 +27,14 @@ var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
-var utils = require('../utils.js');
+var utils = require('../lib');
+var os = require('os');
 var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion.call(this);
+        utils.projectutils.checkVersion.call(this);
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - REST subgenerator.');
@@ -59,9 +60,11 @@ module.exports = yeoman.generators.Base.extend({
             this.interactiveMode = true;
         }
     },
+
     prompting: function () {
         var done = this.async();
-        var prompts;
+        var prompts = [];
+
         if (this.interactiveMode) {
             prompts = [
                 {
@@ -93,24 +96,33 @@ module.exports = yeoman.generators.Base.extend({
             prompts = [];
         }
         this.prompt(prompts, function (props) {
-            this.restBaseUrl = props.restBaseUrl;
-            this.restBaseUrlPort = props.restBaseUrlPort;
-            this.mockServer = props.mockServer;
-            this.mockServerPort = props.mockServerPort;
+            if (prompts.length > 0) {
+                this.restBaseUrl = props.restBaseUrl;
+                this.restBaseUrlPort = props.restBaseUrlPort;
+                this.mockServer = props.mockServer;
+                this.mockServerPort = props.mockServerPort;
+            } else {
+                this.restBaseUrl = "http://127.0.0.1";
+                this.restBaseUrlPort = "8000";
+                this.mockServer = true;
+                this.mockServerPort = "8888";
+            }
             done();
+
         }.bind(this));
 
     },
 
     configuring: function () {
         //ADD ANGULAR MODULE
-        utils.addAngularModule.call(this, 'appverse.rest');
+        utils.projectutils.addAngularModule.call(this, 'appverse.rest');
     },
     writing: function () {
-        var restJS = '<!-- REST MODULE -->' +
-            '<script src="bower_components/lodash/lodash.min.js"></script>' +
-            '<script src="bower_components/restangular/dist/restangular.min.js"></script>' +
-            '<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script>';
+        var restJS = os.EOL +
+            '    <!-- REST MODULE -->' + os.EOL +
+            '    <script src="bower_components/lodash/lodash.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/restangular/dist/restangular.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
@@ -211,12 +223,14 @@ module.exports = yeoman.generators.Base.extend({
         }
         this.npmInstall(npmDependencies, {
             saveDev: true,
+            << << << < HEAD
             saveExact: true,
             skipInstall: this.options['skip-install']
         });
     },
+
+
     end: function () {
-        this.log('Finish!');
         if (this.mockServer) {
             this.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
             this.log("Put your .json files into the api folder to serve them automatically with the Mock server");

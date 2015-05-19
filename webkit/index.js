@@ -23,19 +23,18 @@
 
 'use strict';
 var yeoman = require('yeoman-generator');
-var utils = require('../utils.js');
+var utils = require('../lib');
 var fs = require('fs');
 var _ = require('lodash');
+var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion.call(this);
+        utils.projectutils.checkVersion.call(this);
         //CONFIG
         this.option('interactiveMode');
-
         if (!_.isUndefined(this.options['interactiveMode'])) {
-            this.log(this.options['interactiveMode']);
             this.interactiveMode = this.options['interactiveMode'];
         } else {
             this.interactiveMode = true;
@@ -47,15 +46,15 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'JSON COnfiguration',
             type: Object
         });
-        this.package.webkit = this.options['config'];
-        if (_.isUndefined(this.package.webkit)) {
-            this.package.webkit.plattform = ['win', 'linux', 'osx'];
+        this.project = this.options['config'];
+        if (!_.isUndefined(this.project)) {
+            this.project.package.webkit.plattform = ['win', 'linux', 'osx'];
         }
     },
     prompting: function () {
         var done = this.async();
         var prompts = [];
-        if (this.interactiveMode) {
+        if (this.interactiveMode == true) {
             prompts = [{
                 type: "confirm",
                 name: "webkit",
@@ -75,7 +74,6 @@ module.exports = yeoman.generators.Base.extend({
         }.bind(this));
     },
     writing: function () {
-
         if (this.webkit) {
             this.fs.copy(
                 this.templatePath('config/nodewebkit.js'),
@@ -85,37 +83,30 @@ module.exports = yeoman.generators.Base.extend({
                 this.templatePath('tasks/webkit.js'),
                 this.destinationPath('tasks/webkit.js')
             );
-
             var packagePath = this.destinationPath('package.json');
+            //this.npmInstall () is not working with skip-install
             var pkg = require(packagePath);
             pkg.scripts["start"] = "nodewebkit ./dist";
+            pkg.devDependencies["grunt-node-webkit-builder"] = "1.0.2";
+            pkg.devDependencies["node-webkit-builder"] = "1.0.11";
+            pkg.devDependencies["nodewebkit"] = "0.11.6";
             fs.writeFileSync(packagePath, JSON.stringify(pkg));
         }
-
     },
     installingDeps: function () {
         if (this.webkit) {
-            this.npmInstall(['grunt-node-webkit-builder'], {
-                'saveDev': true,
-                'saveExact': true
-            });
-            this.npmInstall(['node-webkit-builder'], {
-                'saveDev': true,
-                'saveExact': true
-            });
-            this.npmInstall(['nodewebkit'], {
-                'saveDev': true,
-                'saveExact': true
+            this.installDependencies({
+                skipInstall: this.options['skip-install']
             });
         }
     },
     end: function () {
         if (this.webkit) {
-            this.log("\n Your application is ready to use node-webkit.");
-            this.log("\n Execute: 'npm start' to run your dist with webkit.");
-            this.log("\n Execute: 'grunt nodewebkit' to package the dist application as an executable package.");
-            this.log("\n Execute: 'grunt nodewebkit:dist' to create the dist and packe the application as an executable package.");
-            this.log("Package will be created under 'webkitbuilds' folder.");
+            this.log(os.EOL + " Your application is ready to use node-webkit.");
+            this.log(os.EOL + " Execute: 'npm start' to run your dist with webkit.");
+            this.log(os.EOL + " Execute: 'grunt nodewebkit' to package the dist application as an executable package.");
+            this.log(os.EOL + " Execute: 'grunt nodewebkit:dist' to create the dist and packe the application as an executable package.");
+            this.log(os.EOL + " Package will be created under 'webkitbuilds' folder.");
         }
     }
 });

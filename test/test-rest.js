@@ -25,7 +25,7 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
-
+/*
 describe('appverse-html5:rest', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../rest'))
@@ -52,4 +52,4 @@ describe('appverse-html5:rest', function () {
         assert.fileContent('config/connect.js', "context: '/api'");
     });
 
-});
+});*/
