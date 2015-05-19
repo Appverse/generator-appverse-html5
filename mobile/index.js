@@ -42,6 +42,10 @@ module.exports = yeoman.generators.Base.extend({
             type: Boolean,
             defaults: false
         });
+        this.option('config', {
+            desc: 'JSON COnfiguration',
+            type: Object
+        });
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.interactiveMode = this.options['interactiveMode'];
         } else {
@@ -95,6 +99,16 @@ module.exports = yeoman.generators.Base.extend({
             }
         ];
         } else {
+            if (!_.isUndefined(this.options['config'])) {
+                this.mobile = this.options['config'].package.mobile;
+                if (this.mobile) {
+                    this.mobile.builder.hostname = this.options['config'].config.mobile.builder.hostname;
+                    this.mobile.builder.username = this.options['config'].config.mobile.builder.username;
+                    this.mobile.builder.password = this.options['config'].config.mobile.builder.password;
+                }
+            } else {
+                this.mobile = false;
+            }
             prompts = [];
         }
 
@@ -106,8 +120,6 @@ module.exports = yeoman.generators.Base.extend({
                     this.mobile.builder.username = props.username;
                     this.mobile.builder.password = props.password;
                 }
-            } else {
-                this.mobile = false;
             }
             done();
 

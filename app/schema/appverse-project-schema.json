@@ -126,20 +126,46 @@
                         "crud": {
                             "id": "http://appverse.org/config/rest/crud",
                             "type": "array",
-                            "items": {
-                                "id": "http://appverse.org/config/rest/crud/2",
-                                "type": "object",
-                                "properties": {
-                                    "entity": {
-                                        "id": "http://appverse.org/config/rest/crud/2/entity",
-                                        "type": "string"
-                                    },
-                                    "menu": {
-                                        "id": "http://appverse.org/config/rest/crud/2/menu",
-                                        "type": "string"
+                            "items": [
+                                {
+                                    "id": "http://appverse.org/config/rest/crud/0",
+                                    "type": "object",
+                                    "properties": {
+                                        "entity": {
+                                            "id": "http://appverse.org/config/rest/crud/0/entity",
+                                            "type": "string"
+                                        },
+                                        "menu": {
+                                            "id": "http://appverse.org/config/rest/crud/0/menu",
+                                            "type": "string"
+                                        }
                                     }
-                                }
-                            }
+                },
+                                {
+                                    "id": "http://appverse.org/config/rest/crud/1",
+                                    "type": "object",
+                                    "properties": {
+                                        "entity": {
+                                            "id": "http://appverse.org/config/rest/crud/1/entity",
+                                            "type": "string"
+                                        },
+                                        "menu": {
+                                            "id": "http://appverse.org/config/rest/crud/1/menu",
+                                            "type": "string"
+                                        }
+                                    }
+                },
+                                {
+                                    "id": "http://appverse.org/config/rest/crud/2",
+                                    "type": "object",
+                                    "properties": {
+                                        "entity": {
+                                            "id": "http://appverse.org/config/rest/crud/2/entity",
+                                            "type": "string"
+                                        }
+                                    }
+                }
+              ]
                         }
                     }
                 },
@@ -174,19 +200,45 @@
                                 "plattform": {
                                     "id": "http://appverse.org/config/package/webkit/plattform",
                                     "type": "array",
-                                    "items": {
-                                        "id": "http://appverse.org/config/package/webkit/plattform/2",
-                                        "type": "string"
-                                    }
+                                    "items": [
+                                        {
+                                            "id": "http://appverse.org/config/package/webkit/plattform/0",
+                                            "type": "string"
+                    },
+                                        {
+                                            "id": "http://appverse.org/config/package/webkit/plattform/1",
+                                            "type": "string"
+                    },
+                                        {
+                                            "id": "http://appverse.org/config/package/webkit/plattform/2",
+                                            "type": "string"
+                    }
+                  ]
                                 }
                             }
                         },
                         "mobile": {
                             "id": "http://appverse.org/config/package/mobile",
-                            "type": "array",
-                            "items": {
-                                "id": "http://appverse.org/config/package/mobile/2",
-                                "type": "string"
+                            "type": "object",
+                            "properties": {
+                                "builder": {
+                                    "id": "http://appverse.org/config/package/mobile/builder",
+                                    "type": "object",
+                                    "properties": {
+                                        "hostname": {
+                                            "id": "http://appverse.org/config/package/mobile/builder/hostname",
+                                            "type": "string"
+                                        },
+                                        "username": {
+                                            "id": "http://appverse.org/config/package/mobile/builder/username",
+                                            "type": "string"
+                                        },
+                                        "password": {
+                                            "id": "http://appverse.org/config/package/mobile/builder/password",
+                                            "type": "string"
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

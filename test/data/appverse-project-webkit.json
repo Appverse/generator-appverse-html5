@@ -60,11 +60,13 @@
           "osx"
         ]
             },
-            "mobile": [
-        "ios",
-        "android",
-        "win"
-      ]
+            "mobile": {
+                "builder": {
+                    "hostname": "http://hostname",
+                    "username": "username",
+                    "password": "password"
+                }
+            }
         }
     }
 }

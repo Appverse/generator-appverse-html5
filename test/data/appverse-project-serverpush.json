@@ -1,8 +1,8 @@
 {
     "project": "myTestProject",
     "components": {
-        "serverpush": false,
-        "rest": true,
+        "serverpush": true,
+        "rest": false,
         "cache": false,
         "logging": false,
         "performance": false,

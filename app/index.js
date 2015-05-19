@@ -43,37 +43,23 @@ module.exports = yeoman.generators.Base.extend({
             required: false
         });
 
-        // This method adds support for a `--cache` flag (subgenerators)
-        this.option('cache');
-        this.option('detection');
-        this.option('logging');
-        this.option('performance');
-        this.option('qr');
-        this.option('translate');
-        this.option('serverpush');
-        this.option('security');
-        this.option('rest');
-
-        // This makes `all` an option. --all
-        this.option('all');
-
         // And you can then access it later on this way; e.g. CamelCased
         // Get the application name as argument to skip promtps and init all the variables
         // false by default or --all
         if (typeof this.applicationName !== 'undefined') {
             this.applicationName = slug.slugify(this.applicationName);
             this.appName = this.applicationName;
-            this.appTranslate = this.options.translate || this.options.all;
-            this.appQR = this.options.qr || this.options.all;
-            this.appRest = this.options.rest || this.options.all;
-            this.appPerformance = this.options.performance || this.options.all;
-            this.appSecurity = this.options.security || this.options.all;
-            this.appServerPush = this.options.serverpush || this.options.all;
-            this.appCache = this.options.cache || this.options.all;
-            this.appLogging = this.options.logging || this.options.all;
-            this.appDetection = this.options.detection || this.options.all;
+            this.appTranslate = false;
+            this.appQR = false;
+            this.appRest = false;
+            this.appPerformance = false;
+            this.appSecurity = false;
+            this.appServerPush = false;
+            this.appCache = false;
+            this.appLogging = false;
+            this.appDetection = false;
             this.env.options.appPath = this.options.appPath || 'app';
-            this.appBootstrapSelector = false || this.options.all;
+            this.appBootstrapSelector = false;
             this.config.set('appPath', this.env.options.appPath);
             this.interactiveMode = false;
             this.log('Setting interactive mode off!');
@@ -384,7 +370,9 @@ module.exports = yeoman.generators.Base.extend({
         }
         if (this.appSecurity) {
             this.composeWith('appverse-html5:security', {
-                'skip-install': this.options['skip-install']
+                options: {
+                    'skip-install': this.options['skip-install']
+                }
             });
         }
         if (this.appDetection) {
@@ -396,7 +384,6 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appQR) {
             this.composeWith('appverse-html5:qr', {});
         }
-
 
         this.composeWith('appverse-html5:webkit', {
             options: {
