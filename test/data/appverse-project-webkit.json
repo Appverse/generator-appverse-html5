@@ -2,7 +2,7 @@
     "project": "myTestProject",
     "components": {
         "serverpush": false,
-        "rest": true,
+        "rest": false,
         "cache": false,
         "logging": false,
         "performance": false,
@@ -19,7 +19,7 @@
         "coffee": false
     },
     "package": {
-        "webkit": false,
+        "webkit": true,
         "mobile": false
     },
     "config": {
