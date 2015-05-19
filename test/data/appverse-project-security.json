@@ -2,14 +2,14 @@
     "project": "myTestProject",
     "components": {
         "serverpush": false,
-        "rest": true,
+        "rest": false,
         "cache": false,
         "logging": false,
         "performance": false,
         "detection": false,
         "qr": false,
         "translate": false,
-        "security": false
+        "security": true
     },
     "theme": {
         "bootswatch": false
