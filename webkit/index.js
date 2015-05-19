@@ -34,6 +34,10 @@ module.exports = yeoman.generators.Base.extend({
         utils.projectutils.checkVersion.call(this);
         //CONFIG
         this.option('interactiveMode');
+        this.option('config', {
+            desc: 'JSON COnfiguration',
+            type: Object
+        });
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.interactiveMode = this.options['interactiveMode'];
         } else {
@@ -42,14 +46,6 @@ module.exports = yeoman.generators.Base.extend({
     },
     initializing: function () {
         this.conflicter.force = true;
-        this.option('config', {
-            desc: 'JSON COnfiguration',
-            type: Object
-        });
-        this.project = this.options['config'];
-        if (!_.isUndefined(this.project)) {
-            this.project.package.webkit.plattform = ['win', 'linux', 'osx'];
-        }
     },
     prompting: function () {
         var done = this.async();
@@ -60,15 +56,14 @@ module.exports = yeoman.generators.Base.extend({
                 name: "webkit",
                 message: "Do you want to package your application as a desktop application using Node-Webkit?",
                 default: false
-        }];
+            }];
         } else {
+            this.webkit = this.options['config'].package.webkit || false;
             prompts = [];
         }
         this.prompt(prompts, function (answers) {
             if (prompts.length > 0) {
                 this.webkit = answers.webkit;
-            } else {
-                this.webkit = false;
             }
             done();
         }.bind(this));
