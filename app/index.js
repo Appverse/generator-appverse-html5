@@ -92,9 +92,8 @@ module.exports = yeoman.generators.Base.extend({
             utils.jsonutils.readJSONFileOrUrl(this.project, function (error, data) {
                 if (!error) {
                     this.jsonproject = data;
-                    utils.jsonutils.validateJson(this.jsonproject, function (error, data) {
+                    utils.jsonutils.validateJson(this.jsonproject, this.templatePath(), function (error, data) {
                         if (!error) {
-                            this.log('Setting interactive mode off!');
                             this.appName = slug.slugify(this.jsonproject.project);
                             this.appBootstrapSelector = this.jsonproject.theme.bootswatch;
                             this.appTranslate = this.jsonproject.components.translate;
@@ -113,7 +112,7 @@ module.exports = yeoman.generators.Base.extend({
                             this.log(error);
                             process.exit();
                         }
-                    });
+                    }.bind(this));
                 } else {
                     this.log(error);
                     process.exit();
@@ -366,7 +365,7 @@ module.exports = yeoman.generators.Base.extend({
             this.composeWith('appverse-html5:rest', {
                 options: {
                     interactiveMode: this.interactiveMode,
-                    config: project.config.rest,
+                    config: this.jsonproject,
                     'skip-install': this.options['skip-install']
                 }
             });
@@ -375,7 +374,7 @@ module.exports = yeoman.generators.Base.extend({
             this.composeWith('appverse-html5:serverpush', {
                 options: {
                     interactiveMode: this.interactiveMode,
-                    config: this.jsonproject.config.serverpush,
+                    config: this.jsonproject,
                     'skip-install': this.options['skip-install']
                 }
             });
@@ -402,13 +401,15 @@ module.exports = yeoman.generators.Base.extend({
         this.composeWith('appverse-html5:webkit', {
             options: {
                 config: this.jsonproject,
-                interactiveMode: this.interactiveMode
+                interactiveMode: this.interactiveMode,
+                'skip-install': this.options['skip-install']
             }
         });
 
         this.composeWith('appverse-html5:imagemin', {
             options: {
                 interactiveMode: this.interactiveMode,
+                config: this.jsonproject,
                 'skip-install': this.options['skip-install']
             }
         });
@@ -417,6 +418,7 @@ module.exports = yeoman.generators.Base.extend({
             this.composeWith('appverse-html5:bootstrap-theme', {
                 options: {
                     interactiveMode: this.interactiveMode,
+                    config: this.jsonproject,
                     'skip-install': this.options['skip-install']
                 }
             });
@@ -424,6 +426,7 @@ module.exports = yeoman.generators.Base.extend({
         this.composeWith('appverse-html5:mobile', {
             options: {
                 interactiveMode: this.interactiveMode,
+                config: this.jsonproject,
                 'skip-install': this.options['skip-install']
             }
         });
@@ -448,6 +451,7 @@ module.exports = yeoman.generators.Base.extend({
         this.log(os.EOL + "Execute '$ grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page");
         this.log(" or just execute '$ grunt server' to start the server." + os.EOL);
         this.log("Check your Readme.md for available grunt tasks." + os.EOL);
+        // event handler dependenciesInstalled fails with skip-install !!!
         process.exit();
     }
 

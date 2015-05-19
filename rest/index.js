@@ -39,6 +39,13 @@ module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.log('You called the Appverse Html5 - REST subgenerator.');
         this.conflicter.force = true;
+        //CONFIG
+        this.option('interactiveMode');
+        if (!_.isUndefined(this.options['interactiveMode'])) {
+            this.interactiveMode = this.options['interactiveMode'];
+        } else {
+            this.interactiveMode = true;
+        }
         //REST_CONFIG
         this.option('config', {
             desc: 'JSON COnfiguration',
@@ -47,17 +54,15 @@ module.exports = yeoman.generators.Base.extend({
         this.rest = this.options['config'];
         if (!_.isUndefined(this.rest)) {
             this.interactiveMode = false;
-            this.restBaseUrl = this.rest.backend.host;
-            this.restBaseUrlPort = this.rest.backend.port;
-            if (!_.isUndefined(this.rest.mock)) {
+            this.restBaseUrl = this.rest.config.rest.backend.host;
+            this.restBaseUrlPort = this.rest.config.rest.backend.port;
+            if (!_.isUndefined(this.rest.config.rest.mock)) {
                 this.mockServer = true;
-                this.mockServerHost = this.rest.mock.host;
-                this.mockServerPort = this.rest.mock.port;
+                this.mockServerHost = this.rest.config.rest.mock.host;
+                this.mockServerPort = this.rest.config.rest.mock.port;
             } else {
                 this.mockServer = false;
             }
-        } else {
-            this.interactiveMode = true;
         }
     },
 
@@ -217,19 +222,15 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     installingDeps: function () {
-        var npmDependencies = ['grunt-connect-proxy@0.1.10'];
+        var packagePath = this.destinationPath('package.json');
+        //this.npmInstall () is not working with skip-install
+        var pkg = require(packagePath);
+        pkg.devDependencies["grunt-connect-proxy"] = "0.1.10";
         if (this.mockServer) {
-            npmDependencies.push('json-server@0.6.10');
+            pkg.devDependencies["json-server"] = "0.6.10";
         }
-        this.npmInstall(npmDependencies, {
-            saveDev: true,
-            << << << < HEAD
-            saveExact: true,
-            skipInstall: this.options['skip-install']
-        });
+        fs.writeFileSync(packagePath, JSON.stringify(pkg));
     },
-
-
     end: function () {
         if (this.mockServer) {
             this.log("\n Execute 'grunt mockserver' to start you application on Mock mode.");
