@@ -25,7 +25,7 @@ var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
-var utils = require('../utils.js');
+var utils = require('../lib').projectutils;
 var os = require('os');
 var _ = require('lodash');
 
@@ -43,14 +43,26 @@ module.exports = yeoman.generators.Base.extend({
             this.interactiveMode = this.options['interactiveMode'];
         } else {
             this.interactiveMode = true;
+            this.spushBaseUrl = "http://127.0.0.1:3000";
         }
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - ServerPush subgenerator.');
         this.conflicter.force = true;
-        this.spushBaseUrl = '';
-    },
 
+        this.option('config', {
+            desc: 'JSON COnfiguration',
+            type: Object
+        });
+        this.serverpush = this.options['config'];
+        if (!_.isUndefined(this.serverpush)) {
+            this.interactiveMode = false;
+            this.spushBaseUrl = this.serverpush.components.serverpush.config.serverURL;
+        }
+
+        this.spushBaseUrl = '';
+
+    },
     prompting: function () {
         var done = this.async();
         var prompts = [];
@@ -68,8 +80,6 @@ module.exports = yeoman.generators.Base.extend({
         this.prompt(prompts, function (props) {
             if (prompts.length > 0) {
                 this.spushBaseUrl = props.spushBaseUrl;
-            } else {
-                this.spushBaseUrl = "http://127.0.0.1:3000";
             }
             done();
         }.bind(this));
@@ -80,6 +90,7 @@ module.exports = yeoman.generators.Base.extend({
             '    <!-- SERVER PUSH MODULE -->' + os.EOL +
             '    <script src="bower_components/socket.io-client/dist/socket.io.min.js"></script>' + os.EOL +
             '    <script src="bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"></script>';
+
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);

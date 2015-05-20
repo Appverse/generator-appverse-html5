@@ -20,18 +20,19 @@
  */
 'use strict';
 
-var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
+var fs = require('fs-extra');
+var path = require('path');
 var os = require('os');
-var fse = require('fs-extra');
 
 describe('appverse-html5:logging', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../logging'))
-            .inDir(path.join(os.tmpdir(), 'testApp-logging'))
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
+            .inDir(path.join(os.tmpdir(), 'testApp-logging'), function (dir) {
+                fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+                fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
+                fs.copySync(path.join(__dirname, '../app/templates/app/scripts/app.js'), path.join(dir, 'app/scripts/app.js'));
             })
             .on('end', done);
     });

@@ -25,23 +25,28 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
+var fs = require('fs');
 
 describe('appverse-html5:rest-entity', function () {
     before(function (done) {
-
         helpers.run(path.join(__dirname, '../rest-entity'))
-            .inDir(path.join(os.tmpdir(), 'testApp-rest-entity'))
-            .withArguments('testEntity')
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
-                require('../utils').addAngularModule.call(generator, 'appverse.rest');
+            .inDir(path.join(os.tmpdir(), 'testApp-rest-entity'), function (dir) {
+                fse.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+                fse.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
+                fse.copySync(path.join(__dirname, '../app/templates/app/scripts/app.js'), path.join(dir, 'app/scripts/app.js'));
+                fse.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
 
-                var pkgPath = generator.destinationPath('package.json');
-                generator.pkg = JSON.parse(generator.readFileAsString(pkgPath));
-                generator.pkg.devDependencies['json-server'] = '';
-                fse.writeFileSync(pkgPath, JSON.stringify(generator.pkg));
-                fse.mkdirSync(generator.destinationPath('api'));
+                var pkg = require(path.join(dir, 'package.json'));
+                pkg.devDependencies['json-server'] = "0.6.10";
+
+                fse.writeFileSync(path.join(dir, 'package.json'), JSON.stringify(pkg));
+                fse.mkdirSync(path.join(dir, 'api'));
             })
+            .on('ready', function (generator) {
+                require('../lib').projectutils.addAngularModule.call(generator, 'appverse.rest');
+
+            })
+            .withArguments('testEntity')
             .on('end', done);
     });
 

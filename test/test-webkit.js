@@ -29,12 +29,14 @@ var fse = require('fs-extra');
 describe('appverse-html5:webkit', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../webkit'))
-            .inDir(path.join(os.tmpdir(), 'testApp-webkit'))
+            .inDir(path.join(os.tmpdir(), 'testApp-webkit'), function (dir) {
+                fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+            })
+            .withPrompts({
+                webkit: true
+            })
             .withOptions({
                 'skip-install': true
-            })
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });
