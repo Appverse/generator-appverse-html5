@@ -1,66 +1,66 @@
 {
     "project": "myTestProject",
     "components": {
-        "serverpush": false,
-        "rest": true,
-        "cache": false,
-        "logging": false,
-        "performance": false,
-        "detection": false,
-        "qr": false,
-        "translate": false,
-        "security": false
+        "serverpush": {
+            "enabled": false,
+            "config": {
+                "serverURL": "127.0.0.1"
+            }
+        },
+        "rest": {
+            "enabled": true,
+            "config": {
+                "backend": {
+                    "host": "mybackendhost",
+                    "port": 8080
+                },
+                "mock": {
+                    "host": "127.0.0.1",
+                    "port": 9888
+                }
+            }
+        },
+        "cache": {
+            "enabled": false
+        },
+        "logging": {
+            "enabled": false
+        },
+        "performance": {
+            "enabled": false
+        },
+        "detection": {
+            "enabled": false
+        },
+        "qr": {
+            "enabled": false
+        },
+        "translate": {
+            "enabled": false
+        },
+        "security": {
+            "enabled": false
+        }
     },
     "theme": {
-        "bootswatch": false
+        "enabled": false,
+        "config": {
+            "scss": "http://bootswatch.com/cerulean/_bootswatch.scss",
+            "scssVariables": "http://bootswatch.com/cerulean/_variables.scss"
+        }
     },
     "build": {
-        "imagemin": false,
-        "coffee": false
+        "imagemin": {
+            "enabled": false
+        }
     },
     "package": {
-        "webkit": false,
-        "mobile": false
-    },
-    "config": {
-        "rest": {
-            "backend": {
-                "host": "mybackendhost",
-                "port": 8080
-            },
-            "mock": {
-                "host": "127.0.0.1",
-                "port": 9888
-            },
-            "crud": [
-                {
-                    "entity": "Users",
-                    "menu": "Admin"
+        "webkit": {
+            "enabled": false
         },
-                {
-                    "entity": "Roles",
-                    "menu": "Admin"
-        },
-                {
-                    "entity": "Contacts"
-        }
-      ]
-        },
-        "serverpush": {
-            "serverURL": "127.0.0.1"
-        },
-        "theme": {
-            "name": "Cerulean"
-        },
-        "package": {
-            "webkit": {
-                "plattform": [
-          "win",
-          "linux",
-          "osx"
-        ]
-            },
-            "mobile": {
+        "mobile": {
+            "enabled": false,
+            "config": {
                 "builder": {
                     "hostname": "http://hostname",
                     "username": "username",

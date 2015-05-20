@@ -1,6 +1,6 @@
 {
     "name": "generator-appverse-html5",
-    "version": "0.12.1",
+    "version": "0.13.1",
     "description": "Appverse HTML 5 generator",
     "license": "http://appverse.org/legal/appverse-license/",
     "main": "app/index.js",
@@ -29,7 +29,7 @@
     "logging",
     "serverpush",
     "security",
-    "utils.js",
+    "lib",
     "bootstrap-theme",
     "rest-entity",
     "webkit",

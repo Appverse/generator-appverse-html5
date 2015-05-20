@@ -41,6 +41,12 @@ module.exports = yeoman.generators.Base.extend({
         } else {
             this.interactiveMode = true;
         }
+        if (!_.isUndefined(this.options['config'])) {
+            this.imagemin = this.options['config'].build.imagemin.enabled;
+            this.interactiveMode = false;
+       } else {
+    this.imagemin = false;
+}
     },
 
     prompting: function () {
@@ -61,8 +67,6 @@ module.exports = yeoman.generators.Base.extend({
         this.prompt(prompts, function (props) {
             if (prompts.length > 0) {
                 this.imagemin = props.imagemin;
-            } else {
-                this.imagemin = false;
             }
             done();
         }.bind(this));
@@ -97,7 +101,7 @@ module.exports = yeoman.generators.Base.extend({
             pkg.devDependencies["imagemin-gifsicle"] = "4.1.0";
             pkg.devDependencies["imagemin-jpegtran"] = "4.1.0";
             pkg.devDependencies["imagemin-optipng"] = "4.2.0";
-            pkg.devDependencies["imagemin-pngquan"] = "4.0.0";
+            pkg.devDependencies["imagemin-pngquant"] = "4.0.0";
             pkg.devDependencies["imagemin"] = "3.1.0";
             pkg.devDependencies["grunt-contrib-imagemin"] = "0.9.4";
             fs.writeFileSync(packagePath, JSON.stringify(pkg));

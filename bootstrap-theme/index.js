@@ -11,11 +11,20 @@ module.exports = yeoman.generators.Base.extend({
         utils.projectutils.checkVersion.call(this);
         //CONFIG
         this.option('interactiveMode');
+        this.option('config');
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.interactiveMode = this.options['interactiveMode'];
-            this.log('Interactive Mode :: ' + this.interactiveMode);
         } else {
             this.interactiveMode = true;
+        }
+        if (!_.isUndefined(this.options['config'])) {
+            this.bootstrapTheme = this.options['config'].theme.enabled;
+            this.interactiveMode = false;
+            if (this.bootstrapTheme) {
+                this.theme = {};
+                this.theme.scss = this.options['config'].theme.config.scss;
+                this.theme.scssVariables = this.options['config'].theme.config.scssVariables;
+            }
         }
     },
     initializing: function () {
@@ -23,7 +32,7 @@ module.exports = yeoman.generators.Base.extend({
         this.themeprompts = [];
         this.remotethemes = {};
         var prompts = [];
-        if (this.interactiveMode = true) {
+        if (this.interactiveMode == true) {
             prompts = {
                 type: 'list',
                 name: 'themes',
@@ -72,28 +81,28 @@ module.exports = yeoman.generators.Base.extend({
             }
         },
         theme: function () {
-            if (this.interactiveMode == true) {
+            if (this.interactiveMode == true || this.bootstrapTheme == true) {
                 var done = this.async();
                 request(this.theme.scss, function (error, response, body) {
                     if (!error && response.statusCode === 200) {
-                        this.log("Rewriting bootswatch.scss");
-                        fs.writeFileSync(this.destinationPath('app/styles/theme/_bootswatch.scss'), body);
+                        this.log("Rewriting _theme.scss");
+                        fs.writeFileSync(this.destinationPath('app/styles/theme/_theme.scss'), body);
                     } else {
-                        this.log("Bootswatch Connection error.");
+                        this.log("Connection error.");
                     }
                     done();
                 }.bind(this));
             }
         },
         variables: function () {
-            if (this.interactiveMode == true) {
+            if (this.interactiveMode == true || this.bootstrapTheme == true) {
                 var done = this.async();
                 request(this.theme.scssVariables, function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         this.log("Rewriting variables.scss");
                         fs.writeFileSync(this.destinationPath('./app/styles/theme/_variables.scss'), body);
                     } else {
-                        this.log("Bootswatch Connection error.");
+                        this.log("Connection error.");
                     }
                     done();
                 }.bind(this));

@@ -2,13 +2,13 @@
     "project": "myTestProject",
     "components": {
         "serverpush": {
-            "enabled": true,
+            "enabled": false,
             "config": {
                 "serverURL": "127.0.0.1"
             }
         },
         "rest": {
-            "enabled": true,
+            "enabled": false,
             "config": {
                 "backend": {
                     "host": "mybackendhost",
@@ -21,45 +21,45 @@
             }
         },
         "cache": {
-            "enabled": true
+            "enabled": false
         },
         "logging": {
-            "enabled": true
+            "enabled": false
         },
         "performance": {
-            "enabled": true
+            "enabled": false
         },
         "detection": {
-            "enabled": true
+            "enabled": false
         },
         "qr": {
-            "enabled": true
+            "enabled": false
         },
         "translate": {
-            "enabled": true
+            "enabled": false
         },
         "security": {
-            "enabled": true
+            "enabled": false
         }
     },
     "theme": {
         "enabled": true,
         "config": {
-            "scss": "http://bootswatch.com/cerulean/_bootswatch.scss",
-            "scssVariables": "http://bootswatch.com/cerulean/_variables.scss"
+            "scss": "http://bootswatch.com/flatly/_bootswatch.scss",
+            "scssVariables": "http://bootswatch.com/flatly/_variables.scss"
         }
     },
     "build": {
         "imagemin": {
-            "enabled": true
+            "enabled": false
         }
     },
     "package": {
         "webkit": {
-            "enabled": true
+            "enabled": false
         },
         "mobile": {
-            "enabled": true,
+            "enabled": false,
             "config": {
                 "builder": {
                     "hostname": "http://hostname",

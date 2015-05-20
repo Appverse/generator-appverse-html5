@@ -81,17 +81,16 @@ module.exports = yeoman.generators.Base.extend({
                     utils.jsonutils.validateJson(this.jsonproject, this.templatePath(), function (error, data) {
                         if (!error) {
                             this.appName = slug.slugify(this.jsonproject.project);
-                            this.appBootstrapSelector = this.jsonproject.theme.bootswatch;
-                            this.appTranslate = this.jsonproject.components.translate;
-                            this.appQR = this.jsonproject.components.qr;
-                            this.appRest = this.jsonproject.components.rest;
-                            this.appPerformance = this.jsonproject.components.performance;
-                            this.appSecurity = this.jsonproject.components.security;
-                            this.appServerPush = this.jsonproject.components.serverpush;
-                            this.appCache = this.jsonproject.components.cache;
-                            this.appLogging = this.jsonproject.components.logging;
-                            this.appDetection = this.jsonproject.components.detection;
-                            this.appBootstrapSelector = this.jsonproject.components.bootstrapTheme;
+                            this.appTranslate = this.jsonproject.components.translate.enabled;
+                            this.appQR = this.jsonproject.components.qr.enabled;
+                            this.appRest = this.jsonproject.components.rest.enabled;
+                            this.appPerformance = this.jsonproject.components.performance.enabled;
+                            this.appSecurity = this.jsonproject.components.security.enabled;
+                            this.appServerPush = this.jsonproject.components.serverpush.enabled;
+                            this.appCache = this.jsonproject.components.cache.enabled;
+                            this.appLogging = this.jsonproject.components.logging.enabled;
+                            this.appDetection = this.jsonproject.components.detection.enabled;
+                            this.appBootstrapSelector = this.jsonproject.theme.enabled;
                             this.env.options.appPath = this.options.appPath || 'app';
                             this.config.set('appPath', this.env.options.appPath);
                         } else {
@@ -401,7 +400,7 @@ module.exports = yeoman.generators.Base.extend({
             }
         });
 
-        if (this.bootstrapSelector) {
+        if (this.appBootstrapSelector) {
             this.composeWith('appverse-html5:bootstrap-theme', {
                 options: {
                     interactiveMode: this.interactiveMode,

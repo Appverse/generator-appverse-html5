@@ -2,240 +2,400 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "id": "http://appverse.org",
     "type": "object",
+    "title": "Root schema.",
+    "description": "An explanation about the puropose of this instance described by this schema.",
+    "name": "/",
     "properties": {
         "project": {
             "id": "http://appverse.org/project",
-            "type": "string"
+            "type": "string",
+            "title": "Project schema.",
+            "description": "An explanation about the puropose of this instance described by this schema.",
+            "name": "project",
+            "default": "myTestProject"
         },
         "components": {
             "id": "http://appverse.org/components",
             "type": "object",
+            "title": "Components schema.",
+            "description": "An explanation about the puropose of this instance described by this schema.",
+            "name": "components",
             "properties": {
                 "serverpush": {
                     "id": "http://appverse.org/components/serverpush",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Serverpush schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "serverpush",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/serverpush/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        },
+                        "config": {
+                            "id": "http://appverse.org/components/serverpush/config",
+                            "type": "object",
+                            "title": "Config schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "config",
+                            "properties": {
+                                "serverURL": {
+                                    "id": "http://appverse.org/components/serverpush/config/serverURL",
+                                    "type": "string",
+                                    "title": "ServerURL schema.",
+                                    "description": "An explanation about the puropose of this instance described by this schema.",
+                                    "name": "serverURL",
+                                    "default": "127.0.0.1"
+                                }
+                            }
+                        }
+                    }
                 },
                 "rest": {
                     "id": "http://appverse.org/components/rest",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Rest schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "rest",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/rest/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        },
+                        "config": {
+                            "id": "http://appverse.org/components/rest/config",
+                            "type": "object",
+                            "title": "Config schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "config",
+                            "properties": {
+                                "backend": {
+                                    "id": "http://appverse.org/components/rest/config/backend",
+                                    "type": "object",
+                                    "title": "Backend schema.",
+                                    "description": "An explanation about the puropose of this instance described by this schema.",
+                                    "name": "backend",
+                                    "properties": {
+                                        "host": {
+                                            "id": "http://appverse.org/components/rest/config/backend/host",
+                                            "type": "string",
+                                            "title": "Host schema.",
+                                            "description": "An explanation about the puropose of this instance described by this schema.",
+                                            "name": "host",
+                                            "default": "mybackendhost"
+                                        },
+                                        "port": {
+                                            "id": "http://appverse.org/components/rest/config/backend/port",
+                                            "type": "integer",
+                                            "title": "Port schema.",
+                                            "description": "An explanation about the puropose of this instance described by this schema.",
+                                            "name": "port",
+                                            "default": 8080
+                                        }
+                                    }
+                                },
+                                "mock": {
+                                    "id": "http://appverse.org/components/rest/config/mock",
+                                    "type": "object",
+                                    "title": "Mock schema.",
+                                    "description": "An explanation about the puropose of this instance described by this schema.",
+                                    "name": "mock",
+                                    "properties": {
+                                        "host": {
+                                            "id": "http://appverse.org/components/rest/config/mock/host",
+                                            "type": "string",
+                                            "title": "Host schema.",
+                                            "description": "An explanation about the puropose of this instance described by this schema.",
+                                            "name": "host",
+                                            "default": "127.0.0.1"
+                                        },
+                                        "port": {
+                                            "id": "http://appverse.org/components/rest/config/mock/port",
+                                            "type": "integer",
+                                            "title": "Port schema.",
+                                            "description": "An explanation about the puropose of this instance described by this schema.",
+                                            "name": "port",
+                                            "default": 9888
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 "cache": {
                     "id": "http://appverse.org/components/cache",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Cache schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "cache",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/cache/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 },
                 "logging": {
                     "id": "http://appverse.org/components/logging",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Logging schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "logging",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/logging/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 },
                 "performance": {
                     "id": "http://appverse.org/components/performance",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Performance schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "performance",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/performance/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 },
                 "detection": {
                     "id": "http://appverse.org/components/detection",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Detection schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "detection",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/detection/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 },
                 "qr": {
                     "id": "http://appverse.org/components/qr",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Qr schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "qr",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/qr/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 },
                 "translate": {
                     "id": "http://appverse.org/components/translate",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Translate schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "translate",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/translate/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 },
                 "security": {
                     "id": "http://appverse.org/components/security",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Security schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "security",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/components/security/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 }
             }
         },
         "theme": {
             "id": "http://appverse.org/theme",
             "type": "object",
+            "title": "Theme schema.",
+            "description": "An explanation about the puropose of this instance described by this schema.",
+            "name": "theme",
             "properties": {
-                "bootswatch": {
-                    "id": "http://appverse.org/theme/bootswatch",
-                    "type": "boolean"
+                "enabled": {
+                    "id": "http://appverse.org/theme/enabled",
+                    "type": "boolean",
+                    "title": "Enabled schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "enabled",
+                    "default": false
+                },
+                "config": {
+                    "id": "http://appverse.org/theme/config",
+                    "type": "object",
+                    "title": "Config schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "config",
+                    "properties": {
+                        "scss": {
+                            "id": "http://appverse.org/theme/config/scss",
+                            "type": "string",
+                            "title": "Scss schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "scss",
+                            "default": "http://bootswatch.com/cerulean/_bootswatch.scss"
+                        },
+                        "scssVariables": {
+                            "id": "http://appverse.org/theme/config/scssVariables",
+                            "type": "string",
+                            "title": "ScssVariables schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "scssVariables",
+                            "default": "http://bootswatch.com/cerulean/_variables.scss"
+                        }
+                    }
                 }
             }
         },
         "build": {
             "id": "http://appverse.org/build",
             "type": "object",
+            "title": "Build schema.",
+            "description": "An explanation about the puropose of this instance described by this schema.",
+            "name": "build",
             "properties": {
                 "imagemin": {
                     "id": "http://appverse.org/build/imagemin",
-                    "type": "boolean"
-                },
-                "coffee": {
-                    "id": "http://appverse.org/build/coffee",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Imagemin schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "imagemin",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/build/imagemin/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 }
             }
         },
         "package": {
             "id": "http://appverse.org/package",
             "type": "object",
+            "title": "Package schema.",
+            "description": "An explanation about the puropose of this instance described by this schema.",
+            "name": "package",
             "properties": {
                 "webkit": {
                     "id": "http://appverse.org/package/webkit",
-                    "type": "boolean"
+                    "type": "object",
+                    "title": "Webkit schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "webkit",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://appverse.org/package/webkit/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
+                        }
+                    }
                 },
                 "mobile": {
                     "id": "http://appverse.org/package/mobile",
-                    "type": "boolean"
-                }
-            }
-        },
-        "config": {
-            "id": "http://appverse.org/config",
-            "type": "object",
-            "properties": {
-                "rest": {
-                    "id": "http://appverse.org/config/rest",
                     "type": "object",
+                    "title": "Mobile schema.",
+                    "description": "An explanation about the puropose of this instance described by this schema.",
+                    "name": "mobile",
                     "properties": {
-                        "backend": {
-                            "id": "http://appverse.org/config/rest/backend",
-                            "type": "object",
-                            "properties": {
-                                "host": {
-                                    "id": "http://appverse.org/config/rest/backend/host",
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "id": "http://appverse.org/config/rest/backend/port",
-                                    "type": "integer"
-                                }
-                            }
+                        "enabled": {
+                            "id": "http://appverse.org/package/mobile/enabled",
+                            "type": "boolean",
+                            "title": "Enabled schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "enabled",
+                            "default": false
                         },
-                        "mock": {
-                            "id": "http://appverse.org/config/rest/mock",
+                        "config": {
+                            "id": "http://appverse.org/package/mobile/config",
                             "type": "object",
-                            "properties": {
-                                "host": {
-                                    "id": "http://appverse.org/config/rest/mock/host",
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "id": "http://appverse.org/config/rest/mock/port",
-                                    "type": "integer"
-                                }
-                            }
-                        },
-                        "crud": {
-                            "id": "http://appverse.org/config/rest/crud",
-                            "type": "array",
-                            "items": [
-                                {
-                                    "id": "http://appverse.org/config/rest/crud/0",
-                                    "type": "object",
-                                    "properties": {
-                                        "entity": {
-                                            "id": "http://appverse.org/config/rest/crud/0/entity",
-                                            "type": "string"
-                                        },
-                                        "menu": {
-                                            "id": "http://appverse.org/config/rest/crud/0/menu",
-                                            "type": "string"
-                                        }
-                                    }
-                },
-                                {
-                                    "id": "http://appverse.org/config/rest/crud/1",
-                                    "type": "object",
-                                    "properties": {
-                                        "entity": {
-                                            "id": "http://appverse.org/config/rest/crud/1/entity",
-                                            "type": "string"
-                                        },
-                                        "menu": {
-                                            "id": "http://appverse.org/config/rest/crud/1/menu",
-                                            "type": "string"
-                                        }
-                                    }
-                },
-                                {
-                                    "id": "http://appverse.org/config/rest/crud/2",
-                                    "type": "object",
-                                    "properties": {
-                                        "entity": {
-                                            "id": "http://appverse.org/config/rest/crud/2/entity",
-                                            "type": "string"
-                                        }
-                                    }
-                }
-              ]
-                        }
-                    }
-                },
-                "serverpush": {
-                    "id": "http://appverse.org/config/serverpush",
-                    "type": "object",
-                    "properties": {
-                        "serverURL": {
-                            "id": "http://appverse.org/config/serverpush/serverURL",
-                            "type": "string"
-                        }
-                    }
-                },
-                "theme": {
-                    "id": "http://appverse.org/config/theme",
-                    "type": "object",
-                    "properties": {
-                        "name": {
-                            "id": "http://appverse.org/config/theme/name",
-                            "type": "string"
-                        }
-                    }
-                },
-                "package": {
-                    "id": "http://appverse.org/config/package",
-                    "type": "object",
-                    "properties": {
-                        "webkit": {
-                            "id": "http://appverse.org/config/package/webkit",
-                            "type": "object",
-                            "properties": {
-                                "plattform": {
-                                    "id": "http://appverse.org/config/package/webkit/plattform",
-                                    "type": "array",
-                                    "items": [
-                                        {
-                                            "id": "http://appverse.org/config/package/webkit/plattform/0",
-                                            "type": "string"
-                    },
-                                        {
-                                            "id": "http://appverse.org/config/package/webkit/plattform/1",
-                                            "type": "string"
-                    },
-                                        {
-                                            "id": "http://appverse.org/config/package/webkit/plattform/2",
-                                            "type": "string"
-                    }
-                  ]
-                                }
-                            }
-                        },
-                        "mobile": {
-                            "id": "http://appverse.org/config/package/mobile",
-                            "type": "object",
+                            "title": "Config schema.",
+                            "description": "An explanation about the puropose of this instance described by this schema.",
+                            "name": "config",
                             "properties": {
                                 "builder": {
-                                    "id": "http://appverse.org/config/package/mobile/builder",
+                                    "id": "http://appverse.org/package/mobile/config/builder",
                                     "type": "object",
+                                    "title": "Builder schema.",
+                                    "description": "An explanation about the puropose of this instance described by this schema.",
+                                    "name": "builder",
                                     "properties": {
                                         "hostname": {
-                                            "id": "http://appverse.org/config/package/mobile/builder/hostname",
-                                            "type": "string"
+                                            "id": "http://appverse.org/package/mobile/config/builder/hostname",
+                                            "type": "string",
+                                            "title": "Hostname schema.",
+                                            "description": "An explanation about the puropose of this instance described by this schema.",
+                                            "name": "hostname",
+                                            "default": "http://hostname"
                                         },
                                         "username": {
-                                            "id": "http://appverse.org/config/package/mobile/builder/username",
-                                            "type": "string"
+                                            "id": "http://appverse.org/package/mobile/config/builder/username",
+                                            "type": "string",
+                                            "title": "Username schema.",
+                                            "description": "An explanation about the puropose of this instance described by this schema.",
+                                            "name": "username",
+                                            "default": "username"
                                         },
                                         "password": {
-                                            "id": "http://appverse.org/config/package/mobile/builder/password",
-                                            "type": "string"
+                                            "id": "http://appverse.org/package/mobile/config/builder/password",
+                                            "type": "string",
+                                            "title": "Password schema.",
+                                            "description": "An explanation about the puropose of this instance described by this schema.",
+                                            "name": "password",
+                                            "default": "password"
                                         }
                                     }
                                 }
@@ -251,7 +411,6 @@
     "components",
     "theme",
     "build",
-    "package",
-    "config"
+    "package"
   ]
 }

@@ -27,7 +27,8 @@ module.exports = function (grunt) {
                 "resizable": true
             }
         };
-        fs.writeFileSync(__dirname + '/../dist/package.json', JSON.stringify(pkgKit));
+        grunt.log.writeln("Writing manifest to: " + grunt.config.get('paths.dist'));
+        fs.writeFileSync(path.join(__dirname, '/../' + grunt.config.get('paths.dist') + '/package.json'), JSON.stringify(pkgKit));
     });
 
     grunt.registerTask('nodewebkit:dist', [

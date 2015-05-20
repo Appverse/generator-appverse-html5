@@ -45,21 +45,25 @@ module.exports = yeoman.generators.Base.extend({
             this.interactiveMode = this.options['interactiveMode'];
         } else {
             this.interactiveMode = true;
+            this.restBaseUrl = "http://127.0.0.1";
+            this.restBaseUrlPort = "8000";
+            this.mockServer = true;
+            this.mockServerPort = "8888";
         }
         //REST_CONFIG
         this.option('config', {
             desc: 'JSON COnfiguration',
             type: Object
         });
-        this.rest = this.options['config'];
-        if (!_.isUndefined(this.rest)) {
+        this.projectjson = this.options['config'];
+        if (!_.isUndefined(this.projectjson)) {
             this.interactiveMode = false;
-            this.restBaseUrl = this.rest.config.rest.backend.host;
-            this.restBaseUrlPort = this.rest.config.rest.backend.port;
-            if (!_.isUndefined(this.rest.config.rest.mock)) {
+            this.restBaseUrl = this.projectjson.components.rest.config.backend.host;
+            this.restBaseUrlPort = this.projectjson.components.rest.config.backend.port;
+            if (!_.isUndefined(this.projectjson.components.rest.config.mock)) {
                 this.mockServer = true;
-                this.mockServerHost = this.rest.config.rest.mock.host;
-                this.mockServerPort = this.rest.config.rest.mock.port;
+                this.mockServerHost = this.projectjson.components.rest.config.mock.host;
+                this.mockServerPort = this.projectjson.components.rest.config.mock.port;
             } else {
                 this.mockServer = false;
             }
@@ -106,11 +110,6 @@ module.exports = yeoman.generators.Base.extend({
                 this.restBaseUrlPort = props.restBaseUrlPort;
                 this.mockServer = props.mockServer;
                 this.mockServerPort = props.mockServerPort;
-            } else {
-                this.restBaseUrl = "http://127.0.0.1";
-                this.restBaseUrlPort = "8000";
-                this.mockServer = true;
-                this.mockServerPort = "8888";
             }
             done();
 

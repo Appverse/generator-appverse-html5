@@ -43,6 +43,12 @@ module.exports = yeoman.generators.Base.extend({
         } else {
             this.interactiveMode = true;
         }
+        if (!_.isUndefined(this.options['config'])) {
+            this.webkit = this.options['config'].package.webkit.enabled;
+            this.interactiveMode = false;
+        } else {
+            this.webkit = false;
+        }
     },
     initializing: function () {
         this.conflicter.force = true;
@@ -58,11 +64,6 @@ module.exports = yeoman.generators.Base.extend({
                 default: false
             }];
         } else {
-            if (!_.isUndefined(this.options['config'])) {
-                this.webkit = this.options['config'].package.webkit;
-            } else {
-                this.webkit = false;
-            }
             prompts = [];
         }
         this.prompt(prompts, function (answers) {
@@ -85,7 +86,7 @@ module.exports = yeoman.generators.Base.extend({
             var packagePath = this.destinationPath('package.json');
             //this.npmInstall () is not working with skip-install
             var pkg = require(packagePath);
-            pkg.scripts["start"] = "nodewebkit ./dist";
+            pkg.scripts["start"] = "nodewebkit ./dist/web";
             pkg.devDependencies["grunt-node-webkit-builder"] = "1.0.2";
             pkg.devDependencies["node-webkit-builder"] = "1.0.11";
             pkg.devDependencies["nodewebkit"] = "0.11.6";

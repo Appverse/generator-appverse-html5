@@ -43,6 +43,7 @@ module.exports = yeoman.generators.Base.extend({
             this.interactiveMode = this.options['interactiveMode'];
         } else {
             this.interactiveMode = true;
+            this.spushBaseUrl = "http://127.0.0.1:3000";
         }
     },
     initializing: function () {
@@ -56,7 +57,7 @@ module.exports = yeoman.generators.Base.extend({
         this.serverpush = this.options['config'];
         if (!_.isUndefined(this.serverpush)) {
             this.interactiveMode = false;
-            this.spushBaseUrl = this.serverpush.serverURL;
+            this.spushBaseUrl = this.serverpush.components.serverpush.config.serverURL;
         }
 
         this.spushBaseUrl = '';
@@ -79,8 +80,6 @@ module.exports = yeoman.generators.Base.extend({
         this.prompt(prompts, function (props) {
             if (prompts.length > 0) {
                 this.spushBaseUrl = props.spushBaseUrl;
-            } else {
-                this.spushBaseUrl = "http://127.0.0.1:3000";
             }
             done();
         }.bind(this));

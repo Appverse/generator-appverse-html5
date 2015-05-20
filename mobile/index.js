@@ -46,19 +46,28 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'JSON COnfiguration',
             type: Object
         });
+        this.builder = {
+            hostname: 'https://yourhostname',
+            username: 'username',
+            password: 'password'
+        };
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.interactiveMode = this.options['interactiveMode'];
         } else {
             this.interactiveMode = true;
         }
-        this.appName = utils.projectutils.getApplicationName(this);
-        this.mobile = {
-            builder: {
-                hostname: 'https://yourhostname',
-                username: 'username',
-                password: 'password'
+        if (!_.isUndefined(this.options['config'])) {
+            this.mobile = this.options['config'].package.mobile.enabled;
+            if (this.mobile) {
+                this.builder.hostname = this.options['config'].package.mobile.config.builder.hostname;
+                this.builder.username = this.options['config'].package.mobile.config.builder.username;
+                this.builder.password = this.options['config'].package.mobile.config.builder.password;
             }
-        };
+        } else {
+            this.mobile = false;
+        }
+        this.appName = utils.projectutils.getApplicationName(this);
+
     },
 
     prompting: function () {
@@ -99,16 +108,6 @@ module.exports = yeoman.generators.Base.extend({
             }
         ];
         } else {
-            if (!_.isUndefined(this.options['config'])) {
-                this.mobile = this.options['config'].package.mobile;
-                if (this.mobile) {
-                    this.mobile.builder.hostname = this.options['config'].config.mobile.builder.hostname;
-                    this.mobile.builder.username = this.options['config'].config.mobile.builder.username;
-                    this.mobile.builder.password = this.options['config'].config.mobile.builder.password;
-                }
-            } else {
-                this.mobile = false;
-            }
             prompts = [];
         }
 
@@ -116,9 +115,9 @@ module.exports = yeoman.generators.Base.extend({
             if (prompts.length > 0) {
                 this.mobile = props.mobile;
                 if (this.mobile) {
-                    this.mobile.builder.hostname = props.hostname;
-                    this.mobile.builder.username = props.username;
-                    this.mobile.builder.password = props.password;
+                    this.builder.hostname = props.hostname;
+                    this.builder.username = props.username;
+                    this.builder.password = props.password;
                 }
             }
             done();
@@ -162,9 +161,9 @@ module.exports = yeoman.generators.Base.extend({
             var moreoptions = 'var _ = require (\'lodash\'); ' + os.EOL +
                 ' var mobileDistDownloader = require(\'./tasks/grunt-helpers/download-mobile-dist\');' + os.EOL +
                 ' grunt.config.set(\'paths.mobileDist\', \'dist/mobile\'); ' + os.EOL +
-                ' grunt.config.set(\'mobileBuilder.hostname\',\'' + this.mobile.builder.hostname + '\'); ' + os.EOL +
-                ' grunt.config.set(\'mobileBuilder.username\',\'' + this.mobile.builder.username + '\'); ' + os.EOL +
-                ' grunt.config.set(\'mobileBuilder.password\',\'' + this.mobile.builder.password + '\'); ' + os.EOL + '}; ';
+                ' grunt.config.set(\'mobileBuilder.hostname\',\'' + this.builder.hostname + '\'); ' + os.EOL +
+                ' grunt.config.set(\'mobileBuilder.username\',\'' + this.builder.username + '\'); ' + os.EOL +
+                ' grunt.config.set(\'mobileBuilder.password\',\'' + this.builder.password + '\'); ' + os.EOL + '}; ';
 
             //I can not use this method to append JS code to the Grunfile.js
             //this.gruntfile.prependJavaScript(moreoptions);
