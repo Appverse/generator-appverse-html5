@@ -434,9 +434,14 @@ module.exports = yeoman.generators.Base.extend({
     },
     end: function () {
         this.log(os.EOL + "Finish!" + os.EOL);
-        this.log(os.EOL + "Execute '$ grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page");
-        this.log(" or just execute '$ grunt server' to start the server." + os.EOL);
-        this.log("Check your Readme.md for available grunt tasks." + os.EOL);
+        if (this.options['skip-install']) {
+            this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");
+            this.log("Execute 'grunt list' to report the available grunt tasks into the Readme.md file." + os.EOL);
+        } else {
+            this.log(os.EOL + "Execute '$ grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page");
+            this.log(" or just execute '$ grunt server' to start the server." + os.EOL);
+            this.log("Check your Readme.md for available grunt tasks." + os.EOL);
+        }
         // event handler dependenciesInstalled fails with skip-install !!!
         process.exit();
     }
