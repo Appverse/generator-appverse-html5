@@ -30,7 +30,7 @@ describe('appverse-html5:webkit', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../webkit'))
             .inDir(path.join(os.tmpdir(), 'testApp-webkit'), function (dir) {
-                fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+                fse.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
             })
             .withPrompts({
                 webkit: true
