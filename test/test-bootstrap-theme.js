@@ -40,7 +40,7 @@ describe('appverse-html5:bootstrap-theme', function () {
     });
 
     it('Overwrite files in theme folder with Cerulean files', function () {
-        assert.fileContent('app/styles/theme/_bootswatch.scss', 'Cerulean');
+        assert.fileContent('app/styles/theme/_theme.scss', 'Cerulean');
         assert.fileContent('app/styles/theme/_variables.scss', 'Cerulean');
     });
 
