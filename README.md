@@ -237,7 +237,7 @@ The Appverse HTML5 generator allows to select a bootstrap theme from [Bootswatch
 * Bootstrap theme selector from [Bootswatch](http://bootswatch.com)
 
 ```bash
-    $ yo appverse-html5:bootstrap-theme
+    $ yo appverse-html5:bootstrap-theme    
 ```
 
 ### Arguments and options
@@ -250,32 +250,124 @@ It's possible to call the gerenetor using arguments and skipping prompts.
     $ yo appverse-html5 myWeb
 ```
 
-* Sub-generator are optional arguments 
+### Project JSON - Schema 
+It's possible to call the gerenetor using a JSON defition as argument. That will skip prompting by the generator. 
+The JSON could be a file or URL. 
 
 ```bash
-    $ yo appverse-html5 myWeb --cache --rest
+    $ yo appverse-html5 --project=myProject.json 
 ```
 
-or 
+The JSON definition must be a valid definition.
+The generator will perform a JSON validation using the [appverse-html5 project definition JSON schema](https://raw.githubusercontent.com/Appverse/generator-appverse-html5/master/app/schema/appverse-project-schema.json)
 
-```bash
-    $ yo appverse-html5 --cache --rest
+####Example 
+This is an example of JSON a project file, selecting all the avaliable options for the generator. 
+
+```json
+{
+    "project": "myTestProject",
+    "components": {
+        "serverpush": {
+            "enabled": true,
+            "config": {
+                "serverURL": "127.0.0.1"
+            }
+        },
+        "rest": {
+            "enabled": true,
+            "config": {
+                "backend": {
+                    "host": "mybackendhost",
+                    "port": 8080
+                },
+                "mock": {
+                    "host": "127.0.0.1",
+                    "port": 9888
+                }
+            }
+        },
+        "cache": {
+            "enabled": true
+        },
+        "logging": {
+            "enabled": true
+        },
+        "performance": {
+            "enabled": true
+        },
+        "detection": {
+            "enabled": true
+        },
+        "qr": {
+            "enabled": true
+        },
+        "translate": {
+            "enabled": true
+        },
+        "security": {
+            "enabled": true
+        }
+    },
+    "theme": {
+        "enabled": true,
+        "config": {
+            "scss": "http://bootswatch.com/cerulean/_bootswatch.scss",
+            "scssVariables": "http://bootswatch.com/cerulean/_variables.scss"
+        }
+    },
+    "build": {
+        "imagemin": {
+            "enabled": true
+        }
+    },
+    "package": {
+        "webkit": {
+            "enabled": true
+        },
+        "mobile": {
+            "enabled": true,
+            "config": {
+                "builder": {
+                    "hostname": "http://hostname",
+                    "username": "username",
+                    "password": "password"
+                }
+            }
+        }
+    }
+}
+
 ```
 
-and the name will be set by default with the current folder name. 
 
-* Generate the project calling all sub-generators.
-
-```bash
-    $ yo appverse-html5 myWeb --all
-```
 
 #### Skip install
 Add the skip-install argument to skip npm and bower install process. 
 
 ```bash
-    $ yo appverse-html5 myWeb --skip-install
+    $ yo appverse-html5 --skip-install  
 ```
+
+```bash
+    $ yo appverse-html5 --project=myProject.json --skip-install  
+```
+
+```bash
+    $ yo appverse-html5 myWeb --skip-install    
+```
+
+The generator will execute 'grunt list' tasks when finish to report all the available grunt tasks into the README.md of the generated project. 
+If --skip-install was used, 'grunt list' wont be executed, as it needs node_modules. 
+
+```bash
+    $ npm install 
+```
+
+```bash
+    $ grunt list
+```
+
 
 ## Appverse Showcase
 [Appverse HTML5 Showcase](https://appverse.gftlabs.com/showcase-html5/#/home)

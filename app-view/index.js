@@ -20,7 +20,7 @@
  */
 'use strict';
 var yeoman = require('yeoman-generator');
-var utils = require('../utils.js');
+var utils = require('../lib').projectutils;
 var _ = require('lodash');
 
 
@@ -40,7 +40,6 @@ module.exports = yeoman.generators.Base.extend({
         });
 
         utils.checkVersion.call(this);
-        this.log('You called the AppverseHtml5 View subgenerator with the argument ' + this.name + '.');
     },
     writing: {
         files: function () {

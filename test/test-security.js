@@ -24,17 +24,15 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fse = require('fs-extra');
-
+var fs = require('fs-extra');
 describe('appverse-html5:security', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../security'))
-            .inDir(path.join(os.tmpdir(), 'testApp-security'))
+            .inDir(path.join(os.tmpdir(), 'testApp-security'), function (dir) {
+                fs.copySync(path.join(__dirname, '../app/templates'), dir);
+            })
             .withOptions({
                 'skip-install': true
-            })
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });

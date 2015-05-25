@@ -22,10 +22,13 @@
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
 var os = require('os');
+var utils = require('../lib');
+
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.log('You called the AppverseHtml5 Detection subgenerator.');
         this.conflicter.force = true;
+        utils.projectutils.checkVersion.call(this);
     },
     writing: function () {
         var restJS = os.EOL +

@@ -24,15 +24,16 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fse = require('fs-extra');
+var fs = require('fs-extra');
 
 describe('appverse-html5:cache', function () {
     before(function (done) {
 
         helpers.run(path.join(__dirname, '../cache'))
-            .inDir(path.join(os.tmpdir(), 'testApp-cache'))
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
+            .inDir(path.join(os.tmpdir(), 'testApp-cache'), function (dir) {
+                fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+                fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
+                fs.copySync(path.join(__dirname, '../app/templates/app/scripts/app.js'), path.join(dir, 'app/scripts/app.js'));
             })
             .on('end', done);
     });
@@ -45,4 +46,5 @@ describe('appverse-html5:cache', function () {
     it('adds dependency to the main app module', function () {
         assert.fileContent('app/scripts/app.js', 'appverse.cache');
     });
+
 });

@@ -27,34 +27,53 @@ var fs = require('fs');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
-var utils = require('../utils.js');
+var utils = require('../lib');
 var os = require('os');
 var _ = require('lodash');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion.call(this);
+        utils.projectutils.checkVersion.call(this);
     },
     initializing: function () {
         this.log('You called the Appverse Html5 - REST subgenerator.');
         this.conflicter.force = true;
         //CONFIG
-        this.option('interactiveMode', {
-            desc: 'Allow prompts',
-            type: Boolean,
-            defaults: false
-        });
+        this.option('interactiveMode');
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.interactiveMode = this.options['interactiveMode'];
         } else {
             this.interactiveMode = true;
+            this.restBaseUrl = "http://127.0.0.1";
+            this.restBaseUrlPort = "8000";
+            this.mockServer = true;
+            this.mockServerPort = "8888";
         }
-
+        //REST_CONFIG
+        this.option('config', {
+            desc: 'JSON COnfiguration',
+            type: Object
+        });
+        this.projectjson = this.options['config'];
+        if (!_.isUndefined(this.projectjson)) {
+            this.interactiveMode = false;
+            this.restBaseUrl = this.projectjson.components.rest.config.backend.host;
+            this.restBaseUrlPort = this.projectjson.components.rest.config.backend.port;
+            if (!_.isUndefined(this.projectjson.components.rest.config.mock)) {
+                this.mockServer = true;
+                this.mockServerHost = this.projectjson.components.rest.config.mock.host;
+                this.mockServerPort = this.projectjson.components.rest.config.mock.port;
+            } else {
+                this.mockServer = false;
+            }
+        }
     },
+
     prompting: function () {
         var done = this.async();
         var prompts = [];
+
         if (this.interactiveMode) {
             prompts = [
                 {
@@ -83,7 +102,7 @@ module.exports = yeoman.generators.Base.extend({
             }
         ];
         } else {
-            promts = [];
+            prompts = [];
         }
         this.prompt(prompts, function (props) {
             if (prompts.length > 0) {
@@ -91,20 +110,16 @@ module.exports = yeoman.generators.Base.extend({
                 this.restBaseUrlPort = props.restBaseUrlPort;
                 this.mockServer = props.mockServer;
                 this.mockServerPort = props.mockServerPort;
-            } else {
-                this.restBaseUrl = "http://127.0.0.1";
-                this.restBaseUrlPort = "8000";
-                this.mockServer = true;
-                this.mockServerPort = "8888";
             }
             done();
 
         }.bind(this));
+
     },
 
     configuring: function () {
-        //ADD NG_GRID ANGULAR
-        utils.addAngularModule.call(this, 'appverse.rest');
+        //ADD ANGULAR MODULE
+        utils.projectutils.addAngularModule.call(this, 'appverse.rest');
     },
     writing: function () {
         var restJS = os.EOL +
@@ -179,8 +194,6 @@ module.exports = yeoman.generators.Base.extend({
                }]
             }
         };
-
-
         var configCode = estraverse.replace(astCode, {
             enter: function (node, parent) {
                 if (node.type === 'Identifier' && node.name === 'environment') {
@@ -208,14 +221,14 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     installingDeps: function () {
-        var npmDependencies = ['grunt-connect-proxy@0.1.10'];
+        var packagePath = this.destinationPath('package.json');
+        //this.npmInstall () is not working with skip-install
+        var pkg = require(packagePath);
+        pkg.devDependencies["grunt-connect-proxy"] = "0.1.10";
         if (this.mockServer) {
-            npmDependencies.push('json-server@0.6.10');
+            pkg.devDependencies["json-server"] = "0.6.10";
         }
-        this.npmInstall(npmDependencies, {
-            saveDev: true,
-            saveExact: true
-        });
+        fs.writeFileSync(packagePath, JSON.stringify(pkg));
     },
     end: function () {
         if (this.mockServer) {

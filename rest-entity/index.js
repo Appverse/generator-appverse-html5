@@ -20,7 +20,7 @@
  */
 'use strict';
 var yeoman = require('yeoman-generator');
-var utils = require('../utils.js');
+var utils = require('../lib').projectutils;
 var fs = require('fs');
 var _ = require('lodash');
 
@@ -38,8 +38,6 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'The Dropdown menu name'
         });
 
-
-        this.log('You called the AppverseHtml5 Entity REST subgenerator. Entity: ' + this.entity);
         utils.checkVersion.call(this);
         this.restModule = utils.checkAngularModule.call(this, 'appverse.rest');
         this.name = this.entity;

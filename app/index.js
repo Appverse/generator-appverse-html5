@@ -23,9 +23,11 @@
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var slug = require("underscore.string");
-var utils = require('../utils.js');
+var utils = require('../lib');
 var pkg = require('../package.json');
 var inquirer = require('inquirer');
+var _ = require('lodash');
+var fs = require('fs');
 var os = require('os');
 
 module.exports = yeoman.generators.Base.extend({
@@ -40,34 +42,67 @@ module.exports = yeoman.generators.Base.extend({
             type: String,
             required: false
         });
+
         // And you can then access it later on this way; e.g. CamelCased
+        // Get the application name as argument to skip promtps and init all the variables
+        // false by default or --all
         if (typeof this.applicationName !== 'undefined') {
             this.applicationName = slug.slugify(this.applicationName);
+            this.appName = this.applicationName;
+            this.appTranslate = false;
+            this.appQR = false;
+            this.appRest = false;
+            this.appPerformance = false;
+            this.appSecurity = false;
+            this.appServerPush = false;
+            this.appCache = false;
+            this.appLogging = false;
+            this.appDetection = false;
+            this.env.options.appPath = this.options.appPath || 'app';
+            this.appBootstrapSelector = false;
+            this.config.set('appPath', this.env.options.appPath);
             this.interactiveMode = false;
-            this.log(
-                'Setting interactive mode off!'
-            );
+            this.log('Setting interactive mode off!');
         }
-        // This method adds support for a `--cache` flag
-        this.option('cache');
-        this.option('detection');
-        this.option('logging');
-        this.option('performance');
-        this.option('qr');
-        this.option('translate');
-        this.option('serverpush');
-        this.option('security');
-        this.option('rest');
-        this.option('all');
 
-        if (this.interactiveMode) {
-            if (this.options.cache || this.options.detection || this.options.logging || this.options.performance || this.options.qr || this.options.translate || this.options.serverpush || this.options.security || this.options.rest || this.options.all) {
-                this.applicationName = slug.slugify(this.appname);
-                this.interactiveMode = false;
-                this.log(
-                    'Setting interactive mode off!'
-                );
-            }
+        // This makes `project` an option. --project=project.json
+        // Get a JSON path or URL as value. The JSON defines the project and must validate against schema/appverse-project-schema.json
+        this.option('project', {
+            type: String,
+            required: false
+        });
+        this.project = this.options['project'];
+
+        if (!_.isUndefined(this.project)) {
+            this.interactiveMode = false;
+            utils.jsonutils.readJSONFileOrUrl(this.project, function (error, data) {
+                if (!error) {
+                    this.jsonproject = data;
+                    utils.jsonutils.validateJson(this.jsonproject, this.templatePath(), function (error, data) {
+                        if (!error) {
+                            this.appName = slug.slugify(this.jsonproject.project);
+                            this.appTranslate = this.jsonproject.components.translate.enabled;
+                            this.appQR = this.jsonproject.components.qr.enabled;
+                            this.appRest = this.jsonproject.components.rest.enabled;
+                            this.appPerformance = this.jsonproject.components.performance.enabled;
+                            this.appSecurity = this.jsonproject.components.security.enabled;
+                            this.appServerPush = this.jsonproject.components.serverpush.enabled;
+                            this.appCache = this.jsonproject.components.cache.enabled;
+                            this.appLogging = this.jsonproject.components.logging.enabled;
+                            this.appDetection = this.jsonproject.components.detection.enabled;
+                            this.appBootstrapSelector = this.jsonproject.theme.enabled;
+                            this.env.options.appPath = this.options.appPath || 'app';
+                            this.config.set('appPath', this.env.options.appPath);
+                        } else {
+                            this.log(error);
+                            process.exit();
+                        }
+                    }.bind(this));
+                } else {
+                    this.log(error);
+                    process.exit();
+                }
+            }.bind(this));
         }
     },
     prompting: function () {
@@ -86,10 +121,8 @@ module.exports = yeoman.generators.Base.extend({
         this.log(
             'Welcome to the ' + chalk.bgBlack.cyan('Appverse Html5') + ' generator! \n'
         );
-        utils.checkVersion.call(this);
-
+        utils.projectutils.checkVersion.call(this);
         var prompts;
-
         if (this.interactiveMode) {
             prompts = [
                 {
@@ -154,7 +187,7 @@ module.exports = yeoman.generators.Base.extend({
                     message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
                     default: false
                 }
-            ];
+                            ];
         } else {
             prompts = [];
         }
@@ -169,9 +202,7 @@ module.exports = yeoman.generators.Base.extend({
             }
             if (prompts.length > 0) {
                 this.appName = slug.slugify(props.appName);
-                this.bootstrapSelector = props.bootstrapTheme;
                 var coreOptions = props.coreOptions;
-
                 // manually deal with the response, get back and store the results.
                 // we change a bit this way of doing to automatically do this in the self.prompt() method.
                 this.appTranslate = hasFeature(coreOptions, 'appTranslate');
@@ -186,26 +217,13 @@ module.exports = yeoman.generators.Base.extend({
                 this.appDetection = hasFeature(coreOptions, 'appDetection');
                 this.env.options.appPath = this.options.appPath || 'app';
                 this.config.set('appPath', this.env.options.appPath);
-            } else {
-                this.appName = slug.slugify(this.applicationName);
-                this.appTranslate = this.options.translate || this.options.all;
-                this.appQR = this.options.qr || this.options.all;
-                this.appRest = this.options.rest || this.options.all;
-                this.appPerformance = this.options.performance || this.options.all;
-                this.appSecurity = this.options.security || this.options.all;
-                this.appServerPush = this.options.serverpush || this.options.all;
-                this.appCache = this.options.cache || this.options.all;
-                this.appLogging = this.options.logging || this.options.all;
-                this.appDetection = this.options.detection || this.options.all;
-                this.env.options.appPath = this.options.appPath || 'app';
-                this.config.set('appPath', this.env.options.appPath);
+                this.appBootstrapSelector = props.bootstrapTheme;
             }
             done();
         }.bind(this));
 
     },
     writing: function () {
-
         this.indexFile = this.readFileAsString(this.templatePath('app/index.html'));
         this.indexFile = this.engine(this.indexFile, this);
         var js = ['bower_components/jquery/dist/jquery.min.js',
@@ -223,6 +241,7 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js'
             ];
+
         //APP FILES
         var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
         Array.prototype.push.apply(js, appsJS);
@@ -296,6 +315,7 @@ module.exports = yeoman.generators.Base.extend({
             this
         );
 
+
         //paths starting with "/" cause problems on UNIX based OS like OSX
         this.fs.copy(
             this.templatePath('test'),
@@ -329,18 +349,30 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appRest) {
             this.composeWith('appverse-html5:rest', {
                 options: {
-                    interactiveMode: this.interactiveMode
+                    interactiveMode: this.interactiveMode,
+                    config: this.jsonproject,
+                    'skip-install': this.options['skip-install']
                 }
             });
         }
         if (this.appServerPush) {
-            this.composeWith('appverse-html5:serverpush', {});
+            this.composeWith('appverse-html5:serverpush', {
+                options: {
+                    interactiveMode: this.interactiveMode,
+                    config: this.jsonproject,
+                    'skip-install': this.options['skip-install']
+                }
+            });
         }
         if (this.appTranslate) {
             this.composeWith('appverse-html5:translate', {});
         }
         if (this.appSecurity) {
-            this.composeWith('appverse-html5:security', {});
+            this.composeWith('appverse-html5:security', {
+                options: {
+                    'skip-install': this.options['skip-install']
+                }
+            });
         }
         if (this.appDetection) {
             this.composeWith('appverse-html5:detection', {});
@@ -348,32 +380,40 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appPerformance) {
             this.composeWith('appverse-html5:performance', {});
         }
-
         if (this.appQR) {
             this.composeWith('appverse-html5:qr', {});
-        }
-        if (this.bootstrapSelector) {
-            this.composeWith('appverse-html5:bootstrap-theme', {
-                options: {
-                    interactiveMode: this.interactiveMode
-                }
-            });
         }
 
         this.composeWith('appverse-html5:webkit', {
             options: {
-                interactiveMode: this.interactiveMode
-            }
-        });
-        this.composeWith('appverse-html5:imagemin', {
-            options: {
-                interactiveMode: this.interactiveMode
+                config: this.jsonproject,
+                interactiveMode: this.interactiveMode,
+                'skip-install': this.options['skip-install']
             }
         });
 
+        this.composeWith('appverse-html5:imagemin', {
+            options: {
+                interactiveMode: this.interactiveMode,
+                config: this.jsonproject,
+                'skip-install': this.options['skip-install']
+            }
+        });
+
+        if (this.appBootstrapSelector) {
+            this.composeWith('appverse-html5:bootstrap-theme', {
+                options: {
+                    interactiveMode: this.interactiveMode,
+                    config: this.jsonproject,
+                    'skip-install': this.options['skip-install']
+                }
+            });
+        }
         this.composeWith('appverse-html5:mobile', {
             options: {
-                interactiveMode: this.interactiveMode
+                interactiveMode: this.interactiveMode,
+                config: this.jsonproject,
+                'skip-install': this.options['skip-install']
             }
         });
 
@@ -385,7 +425,7 @@ module.exports = yeoman.generators.Base.extend({
             }.bind(this)
         });
 
-        // Now you can bind to the dependencies installed event
+        //Now you can bind to the dependencies installed event
         this.on('dependenciesInstalled', function () {
             this.spawnCommand('grunt', ['list']);
         });
@@ -393,10 +433,18 @@ module.exports = yeoman.generators.Base.extend({
 
     },
     end: function () {
-        this.log(os.EOL + "Finish!");
-        this.log(os.EOL + "Execute '$ grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page");
-        this.log(" or just execute '$ grunt server' to start the server.");
-        this.log(os.EOL + "Check your Readme.md for available grunt tasks");
+        this.log(os.EOL + "Finish!" + os.EOL);
+        if (this.options['skip-install']) {
+            this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");
+            this.log("Execute 'grunt list' to report the available grunt tasks into the Readme.md file." + os.EOL);
+        } else {
+            this.log(os.EOL + "Execute '$ grunt server:open' to see the results. That will starts the nodejs server and will open your browser with the home page");
+            this.log(" or just execute '$ grunt server' to start the server." + os.EOL);
+            this.log("Check your Readme.md for available grunt tasks." + os.EOL);
+        }
+        // event handler dependenciesInstalled fails with skip-install !!!
+        process.exit();
     }
+
 
 });

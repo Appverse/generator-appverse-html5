@@ -24,14 +24,14 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fse = require('fs-extra');
+var fs = require('fs-extra');
 
 describe('appverse-html5:qr', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../qr'))
-            .inDir(path.join(os.tmpdir(), 'testApp-qr'))
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
+            .inDir(path.join(os.tmpdir(), 'testApp-qr'), function (dir) {
+                fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
+                fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
             })
             .on('end', done);
     });

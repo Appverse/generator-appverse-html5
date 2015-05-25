@@ -24,7 +24,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
-var utils = require('../utils.js');
+var utils = require('../lib');
 var os = require('os');
 var _ = require('lodash');
 
@@ -32,7 +32,7 @@ var _ = require('lodash');
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-        utils.checkVersion.call(this);
+        utils.projectutils.checkVersion.call(this);
     },
     initializing: function () {
         this.conflicter.force = true;
@@ -42,19 +42,32 @@ module.exports = yeoman.generators.Base.extend({
             type: Boolean,
             defaults: false
         });
+        this.option('config', {
+            desc: 'JSON COnfiguration',
+            type: Object
+        });
+        this.builder = {
+            hostname: 'https://yourhostname',
+            username: 'username',
+            password: 'password'
+        };
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.interactiveMode = this.options['interactiveMode'];
         } else {
             this.interactiveMode = true;
         }
-        this.appName = utils.getApplicationName(this);
-        this.mobile = {
-            builder: {
-                hostname: 'https://yourhostname',
-                username: 'username',
-                password: 'password'
+        if (!_.isUndefined(this.options['config'])) {
+            this.mobile = this.options['config'].package.mobile.enabled;
+            if (this.mobile) {
+                this.builder.hostname = this.options['config'].package.mobile.config.builder.hostname;
+                this.builder.username = this.options['config'].package.mobile.config.builder.username;
+                this.builder.password = this.options['config'].package.mobile.config.builder.password;
             }
-        };
+        } else {
+            this.mobile = false;
+        }
+        this.appName = utils.projectutils.getApplicationName(this);
+
     },
 
     prompting: function () {
@@ -102,12 +115,10 @@ module.exports = yeoman.generators.Base.extend({
             if (prompts.length > 0) {
                 this.mobile = props.mobile;
                 if (this.mobile) {
-                    this.mobile.builder.hostname = props.hostname;
-                    this.mobile.builder.username = props.username;
-                    this.mobile.builder.password = props.password;
+                    this.builder.hostname = props.hostname;
+                    this.builder.username = props.username;
+                    this.builder.password = props.password;
                 }
-            } else {
-                this.mobile = true;
             }
             done();
 
@@ -150,9 +161,9 @@ module.exports = yeoman.generators.Base.extend({
             var moreoptions = 'var _ = require (\'lodash\'); ' + os.EOL +
                 ' var mobileDistDownloader = require(\'./tasks/grunt-helpers/download-mobile-dist\');' + os.EOL +
                 ' grunt.config.set(\'paths.mobileDist\', \'dist/mobile\'); ' + os.EOL +
-                ' grunt.config.set(\'mobileBuilder.hostname\',\'' + this.mobile.builder.hostname + '\'); ' + os.EOL +
-                ' grunt.config.set(\'mobileBuilder.username\',\'' + this.mobile.builder.username + '\'); ' + os.EOL +
-                ' grunt.config.set(\'mobileBuilder.password\',\'' + this.mobile.builder.password + '\'); ' + os.EOL + '}; ';
+                ' grunt.config.set(\'mobileBuilder.hostname\',\'' + this.builder.hostname + '\'); ' + os.EOL +
+                ' grunt.config.set(\'mobileBuilder.username\',\'' + this.builder.username + '\'); ' + os.EOL +
+                ' grunt.config.set(\'mobileBuilder.password\',\'' + this.builder.password + '\'); ' + os.EOL + '}; ';
 
             //I can not use this method to append JS code to the Grunfile.js
             //this.gruntfile.prependJavaScript(moreoptions);
@@ -173,21 +184,30 @@ module.exports = yeoman.generators.Base.extend({
             }
         }
     },
-    installDeps: function () {
+    dependencies: function () {
         if (this.mobile) {
-            this.npmInstall([
-            'lodash',
-            'promise',
-            'plist',
-            'grunt-contrib-compress',
-            'grunt-http-upload',
-            'grunt-replace',
-        ], {
-                saveDev: true
+            var packagePath = this.destinationPath('package.json');
+            //this.npmInstall () is not working with skip-install
+            var pkg = require(packagePath);
+            pkg.devDependencies["lodash"] = "3.8.0";
+            pkg.devDependencies["promise"] = "^7.0.1";
+            pkg.devDependencies["plist"] = "^1.1.0";
+            pkg.devDependencies["grunt-contrib-compress"] = "^0.13.0";
+            pkg.devDependencies["grunt-http-upload"] = "^0.1.8";
+            pkg.devDependencies["grunt-replace"] = "^0.9.2";
+            fs.writeFileSync(packagePath, JSON.stringify(pkg));
+        }
+    },
+    installingDeps: function () {
+        if (this.mobile) {
+            this.installDependencies({
+                skipInstall: this.options['skip-install']
             });
         }
     },
     end: function () {
-        this.log('Finish.');
+        if (this.mobile) {
+            this.log('Finish.');
+        }
     }
 });
