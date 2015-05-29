@@ -19,36 +19,47 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 'use strict';
-var yeoman = require('yeoman-generator');
-var utils = require('../lib').projectutils;
-var _ = require('lodash');
 
+/*
+ * Pay attention to injection of dependencies (factories, entities and Angular objects).
+ */
+angular.module('App.Controllers')
 
-module.exports = yeoman.generators.Base.extend({
-    initializing: function () {
-        this.conflicter.force = true;
-        this.argument('name', {
-            required: true,
-            type: String,
-            desc: 'The View name'
-        });
-        this.option('menu', {
-            required: false,
-            type: String,
-            desc: 'The Dropdown menu name'
-        });
-        if (!_.isUndefined(this.options['menu'])) {
-            this.menu = this.options['menu'];
+.controller('<%=viewName%>-modal-controller',
+    function ($scope, $modalInstance, item) {
+        $scope.item = item;
+        if (item) {
+            $scope.title = 'Edit <%=viewName%>';
+        } else {
+            $scope.title = 'New <%=viewName%>';
         }
-        utils.checkVersion.call(this);
-    },
-    writing: {
-        files: function () {
-            if (!_.isUndefined(this.name)) {
-                utils.addViewAndController.call(this);
-            }
+        $scope.ok = function (item) {
+            $modalInstance.close(item);
+        };
+        $scope.cancel = function () {
+            $modalInstance.close();
+        };
 
-        }
-    }
+        <% for (var key in model) {
+         var type = model[key].type;
+         if (type == 'string' && (model[key].format == 'date-time' || model[key].format == 'date')) { %>
+             $scope.openCalendar = function($event) {
+                 $event.preventDefault();
+                 $event.stopPropagation();
+                 $scope.opened = true;
+             };
 
-});
+             $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+             $scope.format = $scope.formats[0];
+             $scope.today = function() {
+                  $scope.item.<%=key%> = new Date();
+            };
+            $scope.dateOptions = {
+              formatYear: 'yy',
+              startingDay: 1
+            };
+    <%   }
+       }
+    %>
+
+    });

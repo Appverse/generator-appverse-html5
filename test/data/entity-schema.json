@@ -1,0 +1,51 @@
+ {
+     "name": "currency.model.Currency",
+     "description": "rest.description.currency",
+     "links": [],
+     "properties": {
+         "id": {
+             "type": "string",
+             "description": "rest.description.currency.id",
+             "required": false
+         },
+         "symbol": {
+             "type": "string",
+             "description": "rest.description.currency.symbol",
+             "required": false
+         },
+          "updated": {
+             "type": "string",
+             "description": "rest.description.currency.updated",
+             "required": false,
+             "format": "date-time"
+         },
+         "code": {
+             "type": "integer",
+             "description": "rest.description.currency.code",
+             "required": false
+         },
+         "name": {
+             "type": "string",
+             "description": "rest.description.currency.name",
+             "required": false
+         },
+         "active": {
+             "type": "boolean",
+             "description": "rest.description.currency.active",
+             "required": false
+         },
+         "country": {
+             "type": "string",
+             "description": "rest.description.currency.country",
+             "enum": [
+                  "FR",
+                  "SP",
+                  "IT",
+                  "US"
+                ],
+             "required": false
+         }
+
+     }
+ }
+
