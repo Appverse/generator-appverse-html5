@@ -60,7 +60,8 @@ describe('appverse-html5:app-view', function () {
                     fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
                     fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
-                .withArguments('myView2 myDropdown')
+                .withArguments('myView2')
+                .withOptions({ menu: 'myDropdown' })
                 .on('end', done);
         });
 
@@ -85,7 +86,8 @@ describe('appverse-html5:app-view', function () {
                     fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
                     fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
-                .withArguments('myView3 myDropdown')
+                .withArguments('myView3')
+                .withOptions({ menu: 'myDropdown' })
                 .on('end', done);
         });
 
