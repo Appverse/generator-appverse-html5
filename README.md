@@ -162,10 +162,10 @@ A new option in the navigation bar will be created as well.
     $ yo appverse-html5:app-view $viewname
 ```
 
-The second argument will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
+The menu option will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
 
 ```bash
-    $ yo appverse-html5:app-view $viewname $dropdownmenu
+    $ yo appverse-html5:app-view $viewname --menu=$dropdownmenu
 ```
 
 * Add a new REST entity  
@@ -181,10 +181,22 @@ It will create:
     $ yo appverse-html5:rest-entity $entityname
 ```
 
-The second argument will add or update a dropdown menu.
+The menu option will add or update a dropdown menu.
 
 ```bash
-    $ yo appverse-html5:rest-entity $entityname $dropdownmenu
+    $ yo appverse-html5:rest-entity $entityname --menu=$dropdownmenu
+```
+
+The schema option will be used to generate the entity form (add and edit)
+
+```bash
+    $ yo appverse-html5:rest-entity $entityname --schema=$url or path to json-schema
+```
+
+The rows options will be used to generate mock data.
+
+```bash
+    $ yo appverse-html5:rest-entity $entityname --schema=$json-schema --rows=$n
 ```
 
 
