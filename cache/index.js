@@ -23,18 +23,19 @@
 var yeoman = require('yeoman-generator');
 var fs = require('fs');
 var os = require('os');
-var utils = require('../lib');
+var utils = require('../lib').projectutils;
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
-        utils.projectutils.checkVersion.call(this);
+        utils.checkVersion.call(this);
     },
     writing: function () {
         var restJS = os.EOL +
             '    <!-- CACHE MODULE -->' + os.EOL +
             '    <script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>' + os.EOL +
-            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"></script>';
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"></script>' + os.EOL +
+            '    <script src="bower_components/angular-resource/angular-resource.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
         var index = this.readFileAsString(indexPath);
@@ -51,16 +52,17 @@ module.exports = yeoman.generators.Base.extend({
             this.log('Writing index.html by the Cache generator.');
         }
 
-        //ANGULAR MODULES
-        var hook = '\'App.Controllers\'',
-            path = this.destinationPath('app/scripts/app.js'),
-            file = this.readFileAsString(path),
-            insert = ", 'appverse.cache'";
-        if (file.indexOf(insert) === -1) {
-            pos = file.lastIndexOf(hook) + hook.length;
-            output = [file.slice(0, pos), insert, file.slice(pos)].join('');
-            //this.writeFileFromString(path, output);
-            fs.writeFileSync(path, output);
-        }
+        //ADD ANGULAR MODULE
+        utils.addAngularModule.call(this, 'appverse.cache');
+
+        //BOWER
+         var bower = require(this.destinationPath('bower.json'));
+        bower.dependencies['angular-resource'] = '~1.4.0';
+        fs.writeFileSync(this.destinationPath('bower.json'), JSON.stringify(bower));
+    },
+    install: function () {
+         this.installDependencies({
+            skipInstall: this.options['skip-install']
+        });
     }
 });
