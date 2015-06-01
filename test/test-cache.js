@@ -34,6 +34,7 @@ describe('appverse-html5:cache', function () {
                 fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
                 fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
                 fs.copySync(path.join(__dirname, '../app/templates/app/scripts/app.js'), path.join(dir, 'app/scripts/app.js'));
+                fs.copySync(path.join(__dirname, '../app/templates/bower.json'), path.join(dir, 'bower.json'));
             })
             .on('end', done);
     });
