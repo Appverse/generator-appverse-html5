@@ -63,12 +63,15 @@ angular.module('App.Controllers')
         };
 
         $scope.deleteItem = function (item) {
-            item.remove().then(function () {
-                var index = $scope.<%=_.capitalize(viewName)%> .indexOf(item);
-                if (index > -1) {
-                    $scope.<%=_.capitalize(viewName)%> .splice(index, 1);
-                }
-            });
+            var deleteUser = confirm('Are you sure you want to delete?');
+             if (deleteUser) {
+                 item.remove().then(function () {
+                    var index = $scope.<%=_.capitalize(viewName)%> .indexOf(item);
+                    if (index > -1) {
+                        $scope.<%=_.capitalize(viewName)%> .splice(index, 1);
+                    }
+                });
+             }
         };
 
         $scope.editItem = function (item) {
