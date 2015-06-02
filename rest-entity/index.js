@@ -22,6 +22,7 @@
 var yeoman = require('yeoman-generator');
 var utils = require('../lib').projectutils;
 var jsonutils = require('../lib').jsonutils;
+var arrayutils = require('../lib').arrayutils;
 var fs = require('fs');
 var _ = require('lodash');
 var jsf = require('json-schema-faker');
@@ -89,15 +90,15 @@ module.exports = yeoman.generators.Base.extend({
                     if (!_.isUndefined(this.options['schema'])) {
                         jsonutils.readJSONSchemaFileOrUrl(this.options['schema'], function (error, data) {
                             if (!error) {
-                                this.model = data.properties;
+                                this.model = data;
                                 //MOCK N ROWS
                                 if (!_.isUndefined(this.options['rows'])) {
                                     for (var i = 0; i < this.options['rows']; i++) {
-                                        this.mockentity.push(jsf(this.model));
+                                        this.mockentity.push(jsf(this.model.properties));
                                     }
                                 } else {
                                     //MOCK ONE ROW
-                                    this.mockentity.push(jsf(this.model));
+                                    this.mockentity.push(jsf(this.model.properties));
                                 }
                             }
                         }.bind(this));
@@ -121,8 +122,8 @@ module.exports = yeoman.generators.Base.extend({
                                 }
                             }
                             //MOCK ONE ROW
-                        this.model = this.mockmodel.properties;
-                        this.mockentity.push(jsf(this.model));
+                        this.model = this.mockmodel;
+                        this.mockentity.push(jsf(this.model.properties));
                     }
                     // MOCK API
                     this.log('Writing api/' + this.entity + '.json');

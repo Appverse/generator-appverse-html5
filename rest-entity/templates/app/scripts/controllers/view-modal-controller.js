@@ -40,9 +40,10 @@ angular.module('App.Controllers')
             $modalInstance.close();
         };
 
-        <% for (var key in model) {
-         var type = model[key].type;
-         if (type == 'string' && (model[key].format == 'date-time' || model[key].format == 'date')) { %>
+        <%  var fields=model.properties;
+         for (var key in fields) {
+         var type = fields[key].type;
+         if (type == 'string' && (fields[key].format == 'date-time' || fields[key].format == 'date')) { %>
              $scope.openCalendar = function($event) {
                  $event.preventDefault();
                  $event.stopPropagation();

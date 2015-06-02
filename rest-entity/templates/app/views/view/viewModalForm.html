@@ -1,62 +1,76 @@
-<div ng-controller="<%= _.capitalize(viewName) %>Controller">
+<div ng-controller="<%=_.capitalize(viewName)%>Controller">
     <div class="modal-header">
         <h3 class="modal-title">{{title}}</h3>
     </div>
     <div class="modal-body">
-       <form class="form-horizontal"  name="<%= _.capitalize(viewName) %>Form">
-                <% for (var key in model) {
-                      var type = model[key].type;
-                      if (type == 'string' && model[key].enum) { %>
-                      <div class="form-group">
-                          <label class="col-sm-2" for='<%=key%>'><%=_.capitalize(key)%></label>
-                           <div class="col-sm-10">
-                              <select class="form-control" ng-model='item.<%=key%>'>
-                               <% for (var i = 0; i < model[key].enum.length; i++ ) {  %>
-                                    <option value='<%=model[key].enum[i]%>'><%=model[key].enum[i]%></option>
-                                <%  } %>
-                              </select>
-                          </div>
-                        </div>
-                      <% } else if (type == 'string' && (model[key].format == 'date-time' || model[key].format == 'date')) { %>
-                          <div class="form-group">
-                              <label class="col-sm-2"  for='<%=key%>'><%=_.capitalize(key)%></label>
-                                <div class="col-md-6">
-                                    <p class="input-group">
-                                     <input type="text" class="form-control" ng-model='item.<%=key%>' datepicker-popup="{{format}}" ng-model='item.<%=key%>' is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-                                    <span class="input-group-btn">
-                                       <button type="button" class="btn btn-default" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                      </span>
-                                    </p>
-                                </div>
-                          </div>
-                      <%  } else if (type == 'integer' || type == 'number') { %>
-                             <div class="form-group">
-                              <label class="col-sm-2" for='<%=key%>'><%=_.capitalize(key)%></label>
-                                   <div class="col-sm-10">
-                                     <input type='number' class="form-control  ng-touched" id='<%=key%>' ng-model='item.<%=key%>' ng-disabled="false">
-                                   </div>
-                              </div>
-                       <%  }  else if (type == 'boolean') { %>
-                         <div class="col-sm-offset-2 col-sm-10">
-                             <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" ng-model='item.<%=key%>'><%=_.capitalize(key)%>
-                                </label>
-                            </div>
-                        </div>
-                     <% } else { %>
-                         <div class="form-group">
-                        <label class="col-sm-2" for='<%=key%>'><%=_.capitalize(key)%></label>
-                           <div class="col-sm-10">
-                               <input type='text' class="form-control  ng-touched" id='<%=key%>' ng-model='item.<%=key%>' ng-disabled="false">
-                            </div>
-                      </div>
-                    <% } %>
-                <% } %>
-        </form>
+        <form class="form-horizontal" name="<%=_.capitalize(viewName)%>Form">
+            <% var fields=model.properties;
+               for (var key in fields) {
+               var type=fields[key].type;
+               if (type=='string' && fields[key].enum) { %>
+                <div class="form-group">
+                    <label class="col-sm-2" for='<%=key%>'>
+                        <%=_.capitalize(key)%>
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model='item.<%=key%>' <% if (fields[key].required==true) { %>required><% } else if (_.lastIndexOf(model.required, key) >= 0) { %>required><% } else { %>><% } %>
+                    </div>
+                    <% for (var i=0 ; i < fields[key].enum.length; i++ ) { %>
+                        <option value='<%=fields[key].enum[i]%>'>
+                            <%=fields[key].enum[i]%>
+                        </option>
+                        <% } %>
+                        </select>
+                </div>
     </div>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-action" ng-click="ok(item)" ng-disabled="!<%= _.capitalize(viewName) %>Form.$valid">{{item.id?'Save':'Add'}}</button>
-        <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+    <% } else if (type=='string' && (fields[key].format=='date-time' || fields[key].format=='date' )) { %>
+        <div class="form-group">
+            <label class="col-sm-2" for='<%=key%>'>
+                <%=_.capitalize(key)%>
+            </label>
+            <div class="col-md-6">
+                <p class="input-group">
+                    <input type="text" class="form-control" ng-model='item.<%=key%>' datepicker-popup="{{format}}" ng-model='item.<%=key%>' is-open="opened" close-text="Close" datepicker-options="dateOptions" <% if (fields[key].required==true) { %>ng-required="true"><% } else if (_.lastIndexOf(model.required, key) >= 0) { %>ng-required="true"><% } else { %>ng-required="false"><% } %>
+                    <span class="input-group-btn">
+                       <button type="button" class="btn btn-default" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <% } else if (type=='integer' || type=='number' ) { %>
+            <div class="form-group">
+                <label class="col-sm-2" for='<%=key%>'>
+                    <%=_.capitalize(key)%>
+                </label>
+                <div class="col-sm-10">
+                    <input type='number' class="form-control  ng-touched" id='<%=key%>' ng-model='item.<%=key%>' ng-disabled="false" <% if (fields[key].required==true) { %>required><% } else if (_.lastIndexOf(model.required, key)>=0) { %>required><% } else { %>><% } %>
+                </div>
+            </div>
+
+<% } else if (type=='boolean' ) { %>
+    <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model='item.<%=key%>'>
+                <%=_.capitalize(key)%>
+            </label>
+        </div>
     </div>
-</div>
+    <% } else { %>
+        <div class="form-group">
+            <label class="col-sm-2" for='<%=key%>'>
+                <%=_.capitalize(key)%>
+            </label>
+            <div class="col-sm-10">
+                <input type='text' class="form-control  ng-touched" id='<%=key%>' ng-model='item.<%=key%>' ng-disabled="false" <% if (fields[key].required==true) { %>required><% } else if (_.lastIndexOf(model.required, key)>=0) { %>required><% } else { %>><% } %>
+            </div>
+        </div>
+        <% } %>
+            <% } %>
+                </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-action" ng-click="ok(item)" ng-disabled="!<%= _.capitalize(viewName) %>Form.$valid">{{item.id?'Save':'Add'}}</button>
+                    <button type="submit" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+                </div>
+                </div>
