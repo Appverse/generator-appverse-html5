@@ -5,34 +5,30 @@
      "properties": {
          "id": {
              "type": "string",
-             "description": "rest.description.currency.id",
-             "required": false
+             "description": "rest.description.currency.id"
          },
          "symbol": {
              "type": "string",
-             "description": "rest.description.currency.symbol",
-             "required": false
+             "description": "rest.description.currency.symbol"
          },
           "updated": {
              "type": "string",
              "description": "rest.description.currency.updated",
-             "required": false,
              "format": "date-time"
          },
          "code": {
              "type": "integer",
              "description": "rest.description.currency.code",
-             "required": true
+              "maximum": 5,
+              "minimum": 1
          },
          "name": {
              "type": "string",
-             "description": "rest.description.currency.name",
-             "required": true
+             "description": "rest.description.currency.name"
          },
          "active": {
              "type": "boolean",
-             "description": "rest.description.currency.active",
-             "required": false
+             "description": "rest.description.currency.active"
          },
          "country": {
              "type": "string",
@@ -42,10 +38,9 @@
                   "SP",
                   "IT",
                   "US"
-                ],
-             "required": false
+                ]
          }
-
-     }
+     },
+     "required": ["code"]
  }
 

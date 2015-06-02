@@ -43,7 +43,7 @@
                     <%=_.capitalize(key)%>
                 </label>
                 <div class="col-sm-10">
-                    <input type='number' class="form-control  ng-touched" id='<%=key%>' ng-model='item.<%=key%>' ng-disabled="false" <% if (fields[key].required==true) { %>required><% } else if (_.lastIndexOf(model.required, key)>=0) { %>required><% } else { %>><% } %>
+                    <input type='number' class="form-control  ng-touched" id='<%=key%>' ng-model='item.<%=key%>' ng-disabled="false"<% if (fields[key].maximum){ %> max='<%=fields[key].maximum%>' <% } %><% if (fields[key].minimum){ %> min='<%=fields[key].minimum%>' <% } %><% if (fields[key].required==true) { %>required><% } else if (_.lastIndexOf(model.required, key)>=0) { %>required><% } else { %>><% } %>
                 </div>
             </div>
 
