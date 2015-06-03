@@ -54,13 +54,17 @@ angular.module('App.Controllers')
         $scope.gridOptions = {
             data: '<%=viewName%>',
             columnDefs: 'columns',
-            rowHeight: 34,
+            rowHeight: 48,
             filterOptions: {
                 filterText: "",
                 useExternalFilter: false
             },
-            multiSelect: false
+            multiSelect: false,
+            showFooter: true,
+            footerRowHeight: 48,
+            footerTemplate: '<div class="ngTotalSelectContainer pull-right"><div class="ngFooterTotalItems" ng-class="{\'ngNoMultiSelect\': !multiSelect}" ><span class="ngLabel">{{i18n.ngTotalItemsLabel}} {{maxRows()}}</span><span ng-show="filterText.length > 0" class="ngLabel"> ({{i18n.ngShowingItemsLabel}} {{totalFilteredItemsLength()}})</span></div><div class="ngFooterSelectedItems" ng-show="multiSelect"><span class="ngLabel">{{i18n.ngSelectedItemsLabel}} {{selectedItems.length}}</span></div></div>'
         };
+
 
         $scope.deleteItem = function (item) {
             var deleteUser = confirm('Are you sure you want to delete?');
