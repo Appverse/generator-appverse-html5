@@ -26,7 +26,7 @@
              "type": "string",
              "description": "rest.description.currency.name",
              "maxLength": 20,
-             "minLength": 1
+             "minLength": 5
          },
          "active": {
              "type": "boolean",
@@ -45,4 +45,3 @@
      },
      "required": ["code", "updated","symbol","country"]
  }
-

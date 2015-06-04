@@ -43,11 +43,13 @@ angular.module('App.Controllers')
         <%  var fields=model.properties;
          for (var key in fields) {
          var type = fields[key].type;
+
          if (type == 'string' && (fields[key].format == 'date-time' || fields[key].format == 'date')) { %>
+             $scope.datepicker = {opened : false};
              $scope.openCalendar = function($event) {
                  $event.preventDefault();
                  $event.stopPropagation();
-                 $scope.opened = true;
+                 $scope.datepicker.opened = true;
              };
 
              $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
