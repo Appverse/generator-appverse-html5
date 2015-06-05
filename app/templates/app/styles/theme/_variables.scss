@@ -187,6 +187,22 @@ $table-bg-active:               #f1f1f1;
 $table-border-color:            #dbdbdb;
 
 
+//==NG-GRID
+//## Customizes the `ng-grid` component with basic values.
+//** Padding for `<th>`s and `<td>`s.
+$ng-grid-cell-padding:            15px;
+
+//** Default background color used for all tables.
+$ng-grid-bg:                      #fff;
+//** Background color used for `.table-striped`.
+$ng-grid-bg-accent:               #f9f9f9;
+//** Background color used for `.table-hover`.
+$ng-grid-bg-hover:                #f5f5f5;
+$ng-grid-bg-active:               #f1f1f1;
+
+//** Border color for table and cell borders.
+$ng-grid-border-color:            #dbdbdb;
+
 //== Buttons
 //
 //## For each of Bootstrap's buttons, define text, background and border color.

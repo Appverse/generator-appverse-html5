@@ -1,4 +1,4 @@
-/*
+ /*
  Copyright (c) 2015 GFT Appverse, S.L., Sociedad Unipersonal.
  This Source Code Form is subject to the terms of the Appverse Public License
  Version 2.0 (“APL v2.0”). If a copy of the APL was not distributed with this
@@ -21,69 +21,78 @@
 'use strict';
 
 /*
- * Controller <%=controllerName%> for <%=viewName%>.
+ * Controller Currencies4Controller for Currencies4.
  * Pay attention to injection of dependencies (factories, entities and Angular objects).
  */
 angular.module('App.Controllers')
 
 .controller('<%=controllerName%>',
-    function ($scope, Restangular, $log) {
+    function ($scope, Restangular, $log, $modal) {
         $log.debug('<%=controllerName%>');
+        $scope.name = '<%=_.capitalize(viewName)%>';
+        $scope.columns = [];
+        $scope.<%=_.capitalize(viewName)%> = [];
         $scope.base<%=_.capitalize(viewName)%> = Restangular.all('<%=viewName%>');
-        $scope.<%=viewName%>=$scope.base<%=_.capitalize(viewName)%>.getList().$object;
-        $scope.gridOptions = {
-            data: '<%=viewName%>',
-            columnDefs: [{
-                field: 'id',
-                displayName: 'Id',
-                width: 40
-                }, {
-                field: 'name',
-                displayName: 'Name'
-                }, {
+        $scope.base<%=_.capitalize(viewName)%>.getList().then(function (items) {
+            $scope.<%=_.capitalize(viewName)%> = items;
+            for (var key in items[0].plain()) {
+                $scope.columns.push({
+                    field: key,
+                    displayName: key,
+                    resizable: true
+                });
+            }
+            $scope.columns.push({
                 displayName: '',
                 cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text><button ng-click="editItem(row.entity)" class="btn btn-xs btn-primary glyphicon glyphicon-pencil"></button>&nbsp;<button ng-click="deleteItem(row.entity)" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></span></div>',
                 sortable: false,
-                width: 70
-                }],
-            rowHeight: 34,
+                width: 100,
+                minWidth: 100
+            });
+        });
+
+        $scope.gridOptions = {
+            data: '<%=viewName%>',
+            columnDefs: 'columns',
+            rowHeight: 48,
             filterOptions: {
                 filterText: "",
                 useExternalFilter: false
             },
-            multiSelect: false
+            multiSelect: false,
+            showFooter: true,
+            footerRowHeight: 48,
+            footerTemplate: '<div class="ngTotalSelectContainer pull-right"><div class="ngFooterTotalItems" ng-class="{\'ngNoMultiSelect\': !multiSelect}" ><span class="ngLabel">{{i18n.ngTotalItemsLabel}} {{maxRows()}}</span><span ng-show="filterText.length > 0" class="ngLabel"> ({{i18n.ngShowingItemsLabel}} {{totalFilteredItemsLength()}})</span></div><div class="ngFooterSelectedItems" ng-show="multiSelect"><span class="ngLabel">{{i18n.ngSelectedItemsLabel}} {{selectedItems.length}}</span></div></div>'
         };
 
+
         $scope.deleteItem = function (item) {
-            item.remove().then(function () {
-                var index = $scope.<%=viewName%>.indexOf(item);
-                if (index > -1) {
-                    $scope.<%=viewName%>.splice(index, 1);
-                }
-            });
+            var deleteUser = confirm('Are you sure you want to delete?');
+             if (deleteUser) {
+                 item.remove().then(function () {
+                    var index = $scope.<%=_.capitalize(viewName)%> .indexOf(item);
+                    if (index > -1) {
+                        $scope.<%=_.capitalize(viewName)%> .splice(index, 1);
+                    }
+                });
+             }
         };
 
         $scope.editItem = function (item) {
             $scope.newItem = Restangular.copy(item);
-        };
-
-        $scope.cancel = function () {
-            $scope.newItem = {};
-            $scope.<%=viewName%>Form.$setPristine();
+            $scope.open(item);
         };
 
         $scope.post = function (item) {
             if (item.id !== undefined) {
                 item.put().then(function () {
 
-                    $scope.<%=viewName%>.some(function (element, index) {
+                    $scope.<%=_.capitalize(viewName)%>.some(function (element, index) {
                         if (element.id === item.id) {
-                            $scope.<%=viewName%>[index] = item;
-
+                            $scope.<%=_.capitalize(viewName)%>[index] = item;
                             var rowCache = $scope.gridOptions.ngGrid.rowCache[index]; //Refresh bug in ng-grid
                             rowCache.clone.entity = item;
                             rowCache.entity = item;
-
                             return true;
                         }
                     });
@@ -93,11 +102,38 @@ angular.module('App.Controllers')
                     $scope.<%=viewName%>.push(responseData);
                 });
             }
-
-            $scope.cancel();
         };
 
         $scope.filter<%=_.capitalize(viewName)%> = function () {
-            $scope.gridOptions.filterOptions.filterText = 'Name:' + $scope.filterText;
+            $scope.gridOptions.filterOptions.filterText = $scope.filterText;
         };
+
+        //MODAL FORM
+        $scope.animationsEnabled = true;
+
+        $scope.open = function (item) {
+            var modalInstance = $modal.open({
+                animation: $scope.animationsEnabled,
+                templateUrl: 'views/<%=viewName%>/<%=viewName%>ModalForm.html',
+                controller: '<%=viewName%>-modal-controller',
+                resolve: {
+                    item: function () {
+                        return item;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                if (selectedItem) {
+                    $scope.post(selectedItem);
+                }
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.toggleAnimation = function () {
+            $scope.animationsEnabled = !$scope.animationsEnabled;
+        };
+
     });

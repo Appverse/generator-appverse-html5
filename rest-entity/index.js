@@ -21,8 +21,14 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var utils = require('../lib').projectutils;
+var jsonutils = require('../lib').jsonutils;
+var arrayutils = require('../lib').arrayutils;
 var fs = require('fs');
 var _ = require('lodash');
+var jsf = require('json-schema-faker');
+var cheerio = require('cheerio');
+
+var writeFiles = function () {}
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -32,38 +38,111 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'The entity name'
         });
 
-        this.argument('menu', {
+        this.option('menu', {
             required: false,
             type: String,
             desc: 'The Dropdown menu name'
         });
 
+        this.option('schema', {
+            required: false,
+            type: String,
+            desc: 'The Dropdown menu name'
+        });
+
+        this.option('rows', {
+            required: false,
+            type: Number,
+            desc: 'Generate mock objects'
+        });
+
         utils.checkVersion.call(this);
         this.restModule = utils.checkAngularModule.call(this, 'appverse.rest');
         this.name = this.entity;
+        if (!_.isUndefined(this.options['menu'])) {
+            this.menu = this.options['menu'];
+        }
+
     },
     configuring: function () {
         //ADD NG_GRID ANGULAR
         utils.addAngularModule.call(this, 'ngGrid');
+        if (this.restModule) {
+            if (!_.isUndefined(this.name)) {
+                var done = this.async();
+                //ADD FILES: VIEW.HTML and CONTROLLER.JS
+                utils.addViewAndController.call(this);
+                done();
+            }
+        }
     },
     writing: {
         writeCode: function () {
             if (this.restModule) {
-                if (!_.isUndefined(this.name)) {
-                    utils.addViewAndController.call(this);
-                }
                 //CHECK IF MOCK SERVER IS PRESENT
                 var pkgPath = this.destinationPath('package.json');
                 this.pkg = JSON.parse(this.readFileAsString(pkgPath));
+                //MOCKSERVER ?
                 if (!_.isUndefined(this.pkg.devDependencies['json-server'])) {
-                    //WRITE MOCK JSON
-                    var mockentity = [{
-                        id: 0,
-                        name: "mockname"
-                    }];
-
-                    fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(mockentity));
+                    this.mockentity = [];
+                    this.model = {};
+                    //SCHEMA ?
+                    if (!_.isUndefined(this.options['schema'])) {
+                        jsonutils.readJSONSchemaFileOrUrl(this.options['schema'], function (error, data) {
+                            if (!error) {
+                                this.model = data;
+                                //MOCK N ROWS
+                                if (!_.isUndefined(this.options['rows'])) {
+                                    for (var i = 0; i < this.options['rows']; i++) {
+                                        this.mockentity.push(jsf(this.model.properties));
+                                    }
+                                } else {
+                                    //MOCK ONE ROW
+                                    this.mockentity.push(jsf(this.model.properties));
+                                }
+                            }
+                        }.bind(this));
+                    } else {
+                        //MOCK SCHEMA
+                        this.mockmodel = {
+                                name: this.name,
+                                description: this.name,
+                                links: [],
+                                properties: {
+                                    id: {
+                                        type: "integer",
+                                        description: "id",
+                                        required: false
+                                    },
+                                    name: {
+                                        type: "string",
+                                        description: "name",
+                                        required: false
+                                    },
+                                }
+                            }
+                            //MOCK ONE ROW
+                        this.model = this.mockmodel;
+                        this.mockentity.push(jsf(this.model.properties));
+                    }
+                    // MOCK API
+                    this.log('Writing api/' + this.entity + '.json');
+                    fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
                 }
+                //MODAL FORM
+                this.fs.copyTpl(
+                    this.templatePath('/app/views/view/viewModalForm.html'),
+                    this.destinationPath('/app/views/' + this.name + '/' + this.name + 'ModalForm.html'),
+                    this
+                );
+                this.controllerScript = this.name + '-modal-controller.js';
+                this.fs.copyTpl(
+                    this.templatePath('/app/scripts/controllers/view-modal-controller.js'),
+                    this.destinationPath('/app/scripts/controllers/' + this.controllerScript),
+                    this
+                );
+                //ADD SCRIPT TO INDEX.HTML
+                utils.addControllerScriptToIndex.call(this);
             } else {
                 this.log("Execute 'yo appverse-html5:rest' to add the REST module to the project.");
             }

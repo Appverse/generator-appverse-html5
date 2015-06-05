@@ -366,7 +366,9 @@
         &.info{
             td{
                 background-color: #cadfed !important;
-                &:hover{
+            }
+            &:hover{
+                td{
                     background-color: darken(#cadfed, 5%) !important;
                 }
             }
@@ -374,7 +376,9 @@
         &.danger{
             td{
                 background-color: #fcebe8 !important;
-                &:hover{
+            }
+            &:hover{
+                td{
                     background-color: darken(#fcebe8, 5%) !important;
                 }
             }
@@ -382,7 +386,9 @@
         &.success{
             td{
                 background-color: #ecfce8 !important;
-                &:hover{
+            }
+            &:hover{
+                td{
                     background-color: darken(#ecfce8, 5%) !important;
                 }
             }
@@ -390,11 +396,43 @@
         &.warning{
             td{
                 background-color: #fdf5cb !important;
-                &:hover{
+            }
+            &:hover{
+                td{
                     background-color: darken(#fdf5cb, 5%) !important;
                 }
             }
         }
+    }
+}
+
+/*NG-GRID STYLES*/
+.ngGrid{
+    border-radius:5px;
+    &.gridStyle{
+        border:none;
+        background-color:$ng-grid-bg;
+    }
+    .ngTopPanel{
+        background-color:transparent;
+    }
+    .ngHeaderCell{
+        text-transform: uppercase;
+        color:#a6a6a6;
+        font-weight: 200;
+        background-color:transparent;
+        border-bottom:2px solid $ng-grid-border-color;
+    }
+    .ngRow{
+        background-color:transparent;
+        .ngCell{
+            color:#606060;
+            background-color:transparent;
+            border-bottom:1px solid $ng-grid-border-color;
+        }
+    }
+    .ngVerticalBar{
+        display:none;
     }
 }
 

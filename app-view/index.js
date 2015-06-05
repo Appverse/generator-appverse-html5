@@ -32,13 +32,14 @@ module.exports = yeoman.generators.Base.extend({
             type: String,
             desc: 'The View name'
         });
-
-        this.argument('menu', {
+        this.option('menu', {
             required: false,
             type: String,
             desc: 'The Dropdown menu name'
         });
-
+        if (!_.isUndefined(this.options['menu'])) {
+            this.menu = this.options['menu'];
+        }
         utils.checkVersion.call(this);
     },
     writing: {
