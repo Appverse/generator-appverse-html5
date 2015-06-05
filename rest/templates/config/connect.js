@@ -28,19 +28,20 @@ module.exports = {
                 var directory = options.directory || options.base[options.base.length - 1];
                 middlewares.push(connect.directory(directory));
                 return middlewares;
-            },
-            proxies: [
-                {
-                    context: '/api',
-                    host: "<%= restBaseUrl %>",
-                    port: <%= restBaseUrlPort %> ,
-                    https: false,
-                    rewrite: {
-                        '^/api': ''
-                    }
+            }
+        },
+        proxies: [
+            {
+                context: '/api',
+                host: "<%= restBaseUrl %>",
+                port: <%= restBaseUrlPort %> ,
+                https: false,
+                rewrite: {
+                    '^/api': ''
+                }
                     }
              ]
-        }
+
     },
     <%
     if (mockServer) { %>
@@ -77,6 +78,7 @@ module.exports = {
                     }
                     }
              ]
+
         }, <%
     } %>
     test: {
