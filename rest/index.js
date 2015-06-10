@@ -222,13 +222,18 @@ module.exports = yeoman.generators.Base.extend({
     },
     installingDeps: function () {
         var packagePath = this.destinationPath('package.json');
-        //this.npmInstall () is not working with skip-install
+
         var pkg = require(packagePath);
         pkg.devDependencies["grunt-connect-proxy"] = "0.1.10";
         if (this.mockServer) {
             pkg.devDependencies["json-server"] = "0.6.10";
         }
         fs.writeFileSync(packagePath, JSON.stringify(pkg));
+
+        this.installDependencies({
+            skipInstall: this.options['skip-install']
+        });
+
     },
     end: function () {
         if (this.mockServer) {
