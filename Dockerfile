@@ -6,6 +6,8 @@ ADD . generator-appverse-html5
 
 WORKDIR generator-appverse-html5
 
+RUN npm install
+
 RUN npm test
 
 CMD ["http-server", "generator-appverse-html5/coverage"]
