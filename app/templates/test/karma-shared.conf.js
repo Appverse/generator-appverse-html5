@@ -7,7 +7,7 @@ module.exports = function () {
         frameworks: ['jasmine'],
 
         // coverage reporter generates the coverage
-        reporters: ['progress', 'coverage'],
+        reporters: ['progress', 'coverage', 'junit'],
 
         preprocessors: {
             // source files, that you wanna generate coverage for
@@ -21,6 +21,10 @@ module.exports = function () {
             type: 'lcov',
             dir: 'test/coverage/',
             includeAllSources: true
+        },
+
+        junitReporter: {
+            outputFile: 'test/unit/test-results.xml'
         },
 
         autoWatch: true,
