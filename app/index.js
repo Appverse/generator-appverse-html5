@@ -351,7 +351,7 @@ module.exports = yeoman.generators.Base.extend({
                 options: {
                     interactiveMode: this.interactiveMode,
                     config: this.jsonproject,
-                    'skip-install': this.options['skip-install']
+                    'skip-install': false
                 }
             });
         }
