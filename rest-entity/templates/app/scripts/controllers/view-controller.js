@@ -31,10 +31,10 @@
          $log.debug('<%=controllerName%>');
          $scope.name = '<%=_.capitalize(viewName)%>';
          $scope.columns = [];
-         $scope. <%= _.capitalize(viewName) %> = [];
-         $scope.base <%= _.capitalize(viewName) %> = Restangular.all('<%=viewName%>');
-         $scope.base <%= _.capitalize(viewName) %> .getList().then(function (items) {
-             $scope. <%= _.capitalize(viewName) %> = items;
+         $scope.<%=_.capitalize(viewName)%> = [];
+         $scope.base<%=_.capitalize(viewName)%> = Restangular.all('<%=viewName%>');
+         $scope.base<%=_.capitalize(viewName)%>.getList().then(function (items) {
+             $scope.<%=_.capitalize(viewName)%> = items;
              for (var key in items[0].plain()) {
                  $scope.columns.push({
                      field: key,
@@ -70,9 +70,9 @@
              var deleteUser = confirm('Are you sure you want to delete?');
              if (deleteUser) {
                  item.remove().then(function () {
-                     var index = $scope. <%= _.capitalize(viewName) %> .indexOf(item);
+                     var index = $scope.<%=_.capitalize(viewName)%>.indexOf(item);
                      if (index > -1) {
-                         $scope. <%= _.capitalize(viewName) %> .splice(index, 1);
+                         $scope.<%=_.capitalize(viewName)%>.splice(index, 1);
                      }
                  });
              }
@@ -87,9 +87,9 @@
              if (item.id !== undefined) {
                  item.put().then(function () {
 
-                     $scope. <%= _.capitalize(viewName) %> .some(function (element, index) {
+                     $scope.<%= _.capitalize(viewName)%>.some(function (element, index) {
                          if (element.id === item.id) {
-                             $scope. <%= _.capitalize(viewName) %> [index] = item;
+                             $scope.<%=_.capitalize(viewName)%>[index] = item;
                              var rowCache = $scope.gridOptions.ngGrid.rowCache[index]; //Refresh bug in ng-grid
                              rowCache.clone.entity = item;
                              rowCache.entity = item;
@@ -98,13 +98,13 @@
                      });
                  });
              } else {
-                 $scope.base <%= _.capitalize(viewName) %> .post(item).then(function (responseData) {
-                     $scope. <%= viewName %> .push(responseData);
+                 $scope.base<%= _.capitalize(viewName)%>.post(item).then(function (responseData) {
+                     $scope.<%=_.capitalize(viewName)%>.push(responseData);
                  });
              }
          };
 
-         $scope.filter <%= _.capitalize(viewName) %> = function () {
+         $scope.filter<%=_.capitalize(viewName)%> = function () {
              $scope.gridOptions.filterOptions.filterText = $scope.filterText;
          };
 
