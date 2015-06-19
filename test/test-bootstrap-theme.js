@@ -26,22 +26,78 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fs = require('fs-extra');
 
+
 describe('appverse-html5:bootstrap-theme', function () {
-    before(function (done) {
+    describe('Theme by default', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../bootstrap-theme'))
+                .inDir(path.join(os.tmpdir(), 'testApp-bootstrap'), function (dir) {
+                    fs.copySync(path.join(__dirname, '../app/templates'), dir);
+                })
+                .withOptions({
+                    config: {
+                        theme: {
+                            enabled: false,
+                            config: {
+                                scss: "http://bootswatch.com/flatly/_bootswatch.scss",
+                                scssVariables: "http://bootswatch.com/flatly/_variables.scss"
+                            }
+                        }
+                    }
+                })
+                .on('end', done);
+        });
 
-        helpers.run(path.join(__dirname, '../bootstrap-theme'))
-            .inDir(path.join(os.tmpdir(), 'testApp-bootstrap'), function (dir) {
-                fs.copySync(path.join(__dirname, '../app/templates'), dir);
-            })
-            .withPrompts({
-                themes: "Cerulean"
-            })
-            .on('end', done);
+        it('Appverse theme by default', function () {
+            assert.fileContent('app/styles/theme/_theme.scss', 'Appverse');
+            assert.fileContent('app/styles/theme/_variables.scss', 'Appverse');
+        });
     });
 
-    it('Overwrite files in theme folder with Cerulean files', function () {
-        assert.fileContent('app/styles/theme/_theme.scss', 'Cerulean');
-        assert.fileContent('app/styles/theme/_variables.scss', 'Cerulean');
-    });
+    describe('Set Theme by config', function () {
+        before(function (done) {
 
+            helpers.run(path.join(__dirname, '../bootstrap-theme'))
+                .inDir(path.join(os.tmpdir(), 'testApp2-bootstrap'), function (dir) {
+                    fs.copySync(path.join(__dirname, '../app/templates'), dir);
+                })
+                .withOptions({
+                    config: {
+                        theme: {
+                            enabled: true,
+                            config: {
+                                scss: "http://bootswatch.com/flatly/_bootswatch.scss",
+                                scssVariables: "http://bootswatch.com/flatly/_variables.scss"
+                            }
+                        }
+                    }
+                })
+                .on('end', done);
+        });
+
+        it('Appverse theme by default', function () {
+
+            assert.fileContent('app/styles/theme/_theme.scss', 'Flatly');
+            assert.fileContent('app/styles/theme/_variables.scss', 'Flatly');
+        });
+    });
+    describe('Set Theme by config', function () {
+        before(function (done) {
+
+            helpers.run(path.join(__dirname, '../bootstrap-theme'))
+                .inDir(path.join(os.tmpdir(), 'testApp3-bootstrap'), function (dir) {
+                    fs.copySync(path.join(__dirname, '../app/templates'), dir);
+                })
+                .withPrompts({
+                    themes: "Cerulean"
+                })
+                .on('end', done);
+        });
+
+        it('Appverse theme by default', function () {
+
+            assert.fileContent('app/styles/theme/_theme.scss', 'Cerulean');
+            assert.fileContent('app/styles/theme/_variables.scss', 'Cerulean');
+        });
+    });
 });
