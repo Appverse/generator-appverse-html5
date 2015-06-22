@@ -8,6 +8,8 @@ ENV HOME /home/yeoman
 
 ENV LANG en_US.UTF-8
 
+ENV APP_ARGS generated
+
 RUN mkdir src && chown yeoman:yeoman src && npm i -g yo bower grunt-cli && chown -R yeoman: ~/.npm && chown -R yeoman: /usr/local/lib/node_modules
 
 RUN git config --global url."https://".insteadOf git://
@@ -20,6 +22,7 @@ RUN npm install && npm link && mkdir /home/yeoman/generated && chmod 777 /home/y
 
 WORKDIR /home/yeoman/generated
 
-RUN yo appverse-html5 generated && pwd && ls -la
+RUN yo appverse-html5 $APP_ARGS
 
 CMD ["grunt", "karma:unit"]
+
