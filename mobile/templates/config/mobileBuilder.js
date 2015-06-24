@@ -3,7 +3,7 @@
  module.exports = function (grunt) {
      return {
          options: {
-             url: 'https://' + '<%= mobileBuilder.host %>' + '/builder/service_5_0',
+             url: '<%= mobileBuilder.host %>' + '/builder/service_5_0',
              method: 'POST',
              rejectUnauthorized: false,
              headers: {
