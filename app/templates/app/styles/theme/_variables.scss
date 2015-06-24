@@ -90,6 +90,11 @@ $link-hover-decoration: underline;
     src: local('RobotoCondensed Bold'), local('RobotoCondensed-Bold'), url('./theme/fonts/RobotoCondensed-Bold.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
+}
 //## Font, line-height, and color for body text, headings, and more.
 $font-family-sans-serif: Roboto,
 sans-serif;
