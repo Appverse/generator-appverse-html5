@@ -21,6 +21,11 @@ RUN npm install && npm link && mkdir /home/yeoman/generated && chmod 777 /home/y
 WORKDIR /home/yeoman/generated
 
 # ENV Variables are not supported on buld and adding the generation on the CMD is too slow... 
-RUN yo appverse-html5 generated && yo appverse-html5:app-view view && yo appverse-html5:app-view subview --menu=menu && grunt karma:unit
+RUN yo appverse-html5 --project=/home/yeoman/src/generator-appverse-html5/test/data/appverse-project-rest.json 
+RUN yo appverse-html5:app-view view && yo appverse-html5:app-view subview --menu=menu 
+RUN yo appverse-html5:rest-entity entity 
+RUN yo appverse-html5:rest-entity subentity --menu=menu 
+RUN yo appverse-html5:rest-entity subentity --menu=menu --schema=/home/yeoman/src/generator-appverse-html5/test/data/entity-schema.json --rows=100
+RUN grunt karma:unit
 
 CMD grunt server
