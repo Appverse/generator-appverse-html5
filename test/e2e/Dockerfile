@@ -22,7 +22,9 @@ RUN npm install && npm link && mkdir /home/yeoman/generated && chmod 777 /home/y
 
 WORKDIR /home/yeoman/generated
 
-RUN yo appverse-html5 $APP_ARGS
+RUN yo appverse-html5 $APP_ARGS 
 
-CMD ["grunt", "karma:unit"]
+RUN grunt karma:unit
+
+CMD ["grunt", "server"]
 
