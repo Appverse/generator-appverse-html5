@@ -1,8 +1,8 @@
 {
     "name": "generator-appverse-html5",
-    "version": "0.14.7",
+    "version": "0.15.0",
     "description": "Appverse HTML 5 generator",
-    "license": "http://appverse.org/legal/appverse-license/",
+    "license": "MIT",
     "main": "app/index.js",
     "repository": "appverse/generator-appverse-html5",
     "author": {
@@ -39,11 +39,16 @@
     "keywords": [
     "yeoman",
     "appverse",
+    "bootstrap",
     "yeoman-generator",
     "appverse-html5-generator",
     "scaffold",
     "generator",
-    "framework"
+    "framework",
+    "ui",
+    "angular",
+    "bower",
+    "grunt"
   ],
     "dependencies": {
         "chalk": "0.5.1",

@@ -1,24 +1,65 @@
-
 /* Fade */
-.fade-enter-setup,
-.fade-leave-setup {
-  transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
+/* make keyframes that tell the start state and the end state of our object */
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-.fade-enter-setup,
-.fade-leave-setup.fade-leave-start {
-  opacity: 0;
+@-moz-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-.fade-leave-setup,
-.fade-enter-setup.fade-enter-start {
-  opacity: 1;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
+.fade-in {
+    opacity: 0;
+    /* make things invisible upon start */
+
+    -webkit-animation: fadeIn ease-in 1;
+    /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+
+    -moz-animation: fadeIn ease-in 1;
+    animation: fadeIn ease-in 1;
+    -webkit-animation-fill-mode: forwards;
+    /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+
+    -moz-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-duration: 0.5s;
+    -moz-animation-duration: 0.5s;
+    animation-duration: 0.5s;
+}
+
+.ng-enter {
+    animation: fadeIn 1s;
+}
+
+.ng-leave {
+    animation: fadeOut 1s;
+}
 /* Slide */
-body{
+
+body {
     overflow-x: hidden; //To avoid horizontal scrollbar on animation
 }
+
 .myslide.ng-enter,
 .myslide.ng-leave {
     position: absolute;

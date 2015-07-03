@@ -19,7 +19,11 @@
 
     <!-- build:css styles/vendor.css -->
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/ng-grid/ng-grid.min.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/ng-grid/ng-grid.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-select/dist/select.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angularjs-slider/dist/rzslider.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/selectize/dist/css/selectize.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-chart.js/dist/angular-chart.css">
     <!-- endbuild -->
 
     <!-- build:css(.tmp) styles/styles.css -->
@@ -71,10 +75,16 @@
                  will set the links to 'active' if, for example on the first link, 'contacts' or any of
                  its descendant states are activated. -->
                 <li data-ng-class="{ active: $state.includes('home') }">
-                    <a ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
+                    <a angular-ripple ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
                 </li>
                 <li data-ng-class="{ active: $state.includes('theme') }">
-                    <a ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
+                    <a angular-ripple ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
+                </li>
+                 <li data-ng-class="{ active: $state.includes('components') }">
+                    <a angular-ripple ui-sref="components"><i class="glyphicon glyphicon-book"></i> Components</a>
+                </li>
+                 <li data-ng-class="{ active: $state.includes('charts') }">
+                    <a angular-ripple ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
                 </li>
             </ul>
         </div>
@@ -87,26 +97,9 @@
          It will be populate by its immediate children's templates/views unless otherwise
          explicitly named views are targeted.
      -->
-    <div ui-view class="myslide" autoscroll="false"></div>
-
-    <footer class="footer clearfix">
-        <hr>
-        <div class="col-md-2 col-md-offset-5">
-
-            <ul class="list-inline">
-                <li><a href="http://appverse.org/">Appverse.org</a>
-                </li>
-                <li><a href="https://twitter.com/appversed">Twitter</a>
-                </li>
-                <li><a href="https://github.com/Appverse">GitHub</a>
-                </li>
-                <li><a href="https://www.npmjs.com/~appverse">NPM</a>
-                </li>
-            </ul>
-        </div>
+    <div ui-view class="fade-in" autoscroll="false"></div>
 
 
-    </footer>
 
 </body>
 
