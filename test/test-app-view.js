@@ -47,7 +47,7 @@ describe('appverse-html5:app-view', function () {
                 'app/scripts/controllers/myView-controller.js'
             ]);
 
-            assert.fileContent('app/index.html', '<a ui-sref="myView">myView</a>');
+            assert.fileContent('app/index.html', '<a angular-ripple="" ui-sref="myView">myView</a>');
         });
     });
 
@@ -71,7 +71,7 @@ describe('appverse-html5:app-view', function () {
                  'app/scripts/controllers/myView2-controller.js'
              ]);
 
-            assert.fileContent('app/index.html', '<a ui-sref="myView2">myView2</a></li></ul></li></ul>');
+            assert.fileContent('app/index.html', '<a angular-ripple="" ui-sref="myView2">myView2</a></li></ul></li></ul>');
             assert.fileContent('app/index.html', 'myDropdown<span class="caret"></span></a><ul class="dropdown-menu">');
         });
     });
@@ -96,7 +96,7 @@ describe('appverse-html5:app-view', function () {
                  'app/scripts/controllers/myView3-controller.js',
                 'app/views/myView3/myView3.html',
              ]);
-            assert.fileContent('app/index.html', '<a ui-sref="myView3">myView3</a></li></ul></li></ul>');
+            assert.fileContent('app/index.html', '<a angular-ripple="" ui-sref="myView3">myView3</a></li></ul></li></ul>');
             assert.fileContent('app/index.html', 'myDropdown<span class="caret"></span></a><ul class="dropdown-menu">');
         });
     });
