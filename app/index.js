@@ -50,7 +50,7 @@ module.exports = yeoman.generators.Base.extend({
             this.applicationName = slug.slugify(this.applicationName);
             this.appName = this.applicationName;
             this.appTranslate = false;
-            this.appQR = false;
+            //this.appQR = false;
             this.appRest = false;
             this.appPerformance = false;
             this.appSecurity = false;
@@ -82,10 +82,10 @@ module.exports = yeoman.generators.Base.extend({
                         if (!error) {
                             this.appName = slug.slugify(this.jsonproject.project);
                             this.appTranslate = this.jsonproject.components.translate.enabled;
-                            this.appQR = this.jsonproject.components.qr.enabled;
+                           // this.appQR = this.jsonproject.components.qr.enabled;
                             this.appRest = this.jsonproject.components.rest.enabled;
                             this.appPerformance = this.jsonproject.components.performance.enabled;
-                            this.appSecurity = this.jsonproject.components.security.enabled;
+                            this.appSecurity = false //this.jsonproject.components.security.enabled;
                             this.appServerPush = this.jsonproject.components.serverpush.enabled;
                             this.appCache = this.jsonproject.components.cache.enabled;
                             this.appLogging = this.jsonproject.components.logging.enabled;
@@ -164,22 +164,22 @@ module.exports = yeoman.generators.Base.extend({
                             value: 'appServerPush',
                             checked: false
                         },
-                        new inquirer.Separator(),
+                       /* new inquirer.Separator(),
                         {
                             name: 'Security',
                             value: 'appSecurity',
                             checked: false
-                        },
+                        }, */
                         new inquirer.Separator(),
                         {
                             name: 'Translate',
                             value: 'appTranslate',
                             checked: false
-                        }, {
+                        }/*, {
                             name: 'QR',
                             value: 'appQR',
                             checked: false
-                        }
+                        } */
                     ]
                 }, {
                     type: "confirm",
@@ -206,11 +206,11 @@ module.exports = yeoman.generators.Base.extend({
                 // manually deal with the response, get back and store the results.
                 // we change a bit this way of doing to automatically do this in the self.prompt() method.
                 this.appTranslate = hasFeature(coreOptions, 'appTranslate');
-                this.appQR = hasFeature(coreOptions, 'appQR');
+               // this.appQR = hasFeature(coreOptions, 'appQR');
                 this.appRest = hasFeature(coreOptions, 'appRest');
                 this.spushBaseUrl = props.spushBaseUrl;
                 this.appPerformance = hasFeature(coreOptions, 'appPerformance');
-                this.appSecurity = hasFeature(coreOptions, 'appSecurity');
+                this.appSecurity = false //hasFeature(coreOptions, 'appSecurity');
                 this.appServerPush = hasFeature(coreOptions, 'appServerPush');
                 this.appCache = hasFeature(coreOptions, 'appCache');
                 this.appLogging = hasFeature(coreOptions, 'appLogging');
@@ -239,11 +239,18 @@ module.exports = yeoman.generators.Base.extend({
                 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
                 'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
                 'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js'
+                'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js',
+                'bower_components/angular-ripple/angular-ripple.js',
+                'bower_components/angular-ui-select/dist/select.min.js',
+                'bower_components/angularjs-slider/dist/rzslider.min.js',
+                'bower_components/angular-resize/dist/angular-resize.min.js',
+                'bower_components/angular-sanitize/angular-sanitize.min.js',
+                'bower_components/Chart.js/Chart.min.js',
+                'bower_components/angular-chart.js/dist/angular-chart.min.js'
             ];
 
         //APP FILES
-        var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/states/app-states.js'];
+        var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/controllers/components-controller.js', 'scripts/controllers/modal-controller.js', 'scripts/controllers/charts-controller.js', 'scripts/states/app-states.js'];
         Array.prototype.push.apply(js, appsJS);
         this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
         this.write(this.destinationPath('app/index.html'), this.indexFile.replace(/>\n/g, '>' + os.EOL));
@@ -302,6 +309,36 @@ module.exports = yeoman.generators.Base.extend({
         this.fs.copyTpl(
             this.templatePath('/app/scripts/controllers/home-controller.js'),
             this.destinationPath('/app/scripts/controllers/home-controller.js'),
+            this
+        );
+         this.fs.copy(
+            this.templatePath('/app/views/components.html'),
+            this.destinationPath('/app/views/components.html'),
+            this
+        );
+           this.fs.copy(
+            this.templatePath('/app/views/modal-template.html'),
+            this.destinationPath('/app/views/modal-template.html'),
+            this
+        );
+          this.fs.copy(
+            this.templatePath('/app/views/charts.html'),
+            this.destinationPath('/app/views/charts.html'),
+            this
+        );
+         this.fs.copy(
+            this.templatePath('/app/scripts/controllers/components-controller.js'),
+            this.destinationPath('/app/scripts/controllers/components-controller.js'),
+            this
+        );
+         this.fs.copy(
+            this.templatePath('/app/scripts/controllers/modal-controller.js'),
+            this.destinationPath('/app/scripts/controllers/modal-controller.js'),
+            this
+        );
+         this.fs.copy(
+            this.templatePath('/app/scripts/controllers/charts-controller.js'),
+            this.destinationPath('/app/scripts/controllers/charts-controller.js'),
             this
         );
         this.fs.copyTpl(
@@ -380,9 +417,9 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appPerformance) {
             this.composeWith('appverse-html5:performance', {});
         }
-        if (this.appQR) {
+      /*  if (this.appQR) {
             this.composeWith('appverse-html5:qr', {});
-        }
+        } */
 
         this.composeWith('appverse-html5:webkit', {
             options: {

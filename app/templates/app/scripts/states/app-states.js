@@ -58,5 +58,19 @@ angular.module('<%=appName%>App')
 
                 })
 
+                   .state("components", {
+                    // Use a url of "/" to set a states as the "index".
+                    url: "/components",
+                    templateUrl: 'views/components.html',
+                    controller: 'ComponentsController'
+                })
+
+                  .state("charts", {
+                    // Use a url of "/" to set a states as the "index".
+                    url: "/charts",
+                    templateUrl: 'views/charts.html',
+                    controller: 'ChartsController'
+                })
+
                 ;
             }]);

@@ -8,6 +8,12 @@
     angular.module('<%=appName%>App', [
         'ngAnimate',
         'ui.bootstrap',
+        'angularRipple',
+        'ui.select',
+        'ngSanitize',
+        'rzModule',
+        'rt.resize',
+        'chart.js',
         'appverse.router',
         'App.Controllers',
         'appverse'
