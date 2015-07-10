@@ -14,6 +14,7 @@ module.exports = {
                 'coffee',
                 'sass'
             ],
+    emulator: ["watch", "setEmulatedDevice"],
     mobile: [
                 'build_mobile:ios_android',
                 'build_mobile:windows'

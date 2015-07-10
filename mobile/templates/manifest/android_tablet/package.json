@@ -1,0 +1,32 @@
+{
+    "name": "App",
+    "version": "0.0.1",
+    "description": "App application",
+    "title": "App",
+    "main": "../loading.html",
+    "private": true,
+    "keywords": ["nexus10"],
+    "window": {
+        "frame": true,
+        "toolbar": false,
+        "resizable": true,
+        "width": 1280,
+        "height": 800,
+        "position": "center",
+        "min_width": 1280,
+        "min_height": 800,
+        "max_width": 1280,
+        "max_height": 800
+    },
+    "single-instance": false,
+    "chromium-args": "--remote-debugging-port=9223",
+    "device": {
+        "title": "Google Nexus 10",
+        "width": 1280,
+        "height": 800,
+        "deviceScaleFactor": 2,
+        "userAgent": "Mozilla/5.0 (Linux; Android 4.3; Nexus 10 Build/JSS15Q) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2307.2 Mobile Safari/537.36",
+        "touch": true,
+        "mobile": true
+    }
+}

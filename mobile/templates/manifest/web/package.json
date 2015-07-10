@@ -1,0 +1,32 @@
+{
+    "name": "test158",
+    "version": "0.0.1",
+    "description": "test158 application",
+    "title": "test158 - Win7 Desktop",
+    "main": "../loading.html",
+    "private": true,
+    "keywords": ["web"],
+    "window": {
+        "frame": true,
+        "toolbar": false,
+        "resizable": true,
+        "width": 1280,
+        "height": 1024,
+        "position": "center",
+        "min_width": 1280,
+        "min_height": 1024,
+        "max_width": 2560,
+        "max_height": 1440
+    },
+    "single-instance": false,
+    "chromium-args": "--remote-debugging-port=9226",
+    "device": {
+        "title": "Win7 Desktop",
+        "width": 1280,
+        "height": 1024,
+        "deviceScaleFactor": 2,
+        "userAgent": "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.132 Safari/537.36",
+        "touch": false,
+        "mobile": false
+    }
+}

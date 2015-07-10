@@ -1,0 +1,32 @@
+{
+    "name": "App",
+    "version": "0.0.1",
+    "description": "App application",
+    "title": "App",
+    "main": "../loading.html",
+    "private": true,
+    "keywords": ["Google Nexus 5"],
+    "window": {
+        "frame": true,
+        "toolbar": false,
+        "resizable": false,
+        "width": 360,
+        "height": 640,
+        "position": "center",
+        "min_width": 360,
+        "min_height": 640,
+        "max_width": 360,
+        "max_height": 640
+    },
+    "single-instance": false,
+    "chromium-args": "--remote-debugging-port=9222",
+    "device": {
+        "title": "Google Nexus 5",
+        "width": 360,
+        "height": 640,
+        "deviceScaleFactor": 3,
+        "userAgent": "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19",
+        "touch": true,
+        "mobile": true
+    }
+}
