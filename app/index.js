@@ -21,7 +21,6 @@
 
 'use strict';
 var yeoman = require('yeoman-generator');
-var chalk = require('chalk');
 var slug = require("underscore.string");
 var utils = require('../lib');
 var pkg = require('../package.json');
@@ -36,6 +35,16 @@ module.exports = yeoman.generators.Base.extend({
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
+        // This makes `project` an option. --project=project.json
+        // Get a JSON path or URL as value. The JSON defines the project and must validate against schema/appverse-project-schema.json
+        this.option('help', {
+            type: String,
+            required: false
+        });
+        if (this.options['help']) {
+            utils.out.help();
+            process.exit();
+        }
         this.interactiveMode = true;
         // This makes `appname` an argument.
         this.argument('applicationName', {
@@ -82,7 +91,7 @@ module.exports = yeoman.generators.Base.extend({
                         if (!error) {
                             this.appName = slug.slugify(this.jsonproject.project);
                             this.appTranslate = this.jsonproject.components.translate.enabled;
-                           // this.appQR = this.jsonproject.components.qr.enabled;
+                            // this.appQR = this.jsonproject.components.qr.enabled;
                             this.appRest = this.jsonproject.components.rest.enabled;
                             this.appPerformance = this.jsonproject.components.performance.enabled;
                             this.appSecurity = false //this.jsonproject.components.security.enabled;
@@ -107,20 +116,7 @@ module.exports = yeoman.generators.Base.extend({
     },
     prompting: function () {
         var done = this.async();
-        this.log(chalk.bgBlack.cyan('\n' +
-            '                 __    __                    \n' +
-            '   __ _ _ __  _ _\\ \\  / /__ _ __ ___  ___    \n' +
-            '  / _| | |_ \\| |_ \\ \\/ / _ | |__/ __|/ _ \\   \n' +
-            ' | (_| | |_) | |_) \\  /  __| |  \\__ |  __/   \n' +
-            '  \\__|_| .__/| .__/ \\/ \\___|_|  |___/\\___|   \n' +
-            '       | |   | |                             \n' +
-            '       |_|   |_|                             \n' +
-            '                                    ' + 'v' + pkg.version + '\n \n'));
-
-        // Have Yeoman greet the user.
-        this.log(
-            'Welcome to the ' + chalk.bgBlack.cyan('Appverse Html5') + ' generator! \n'
-        );
+        utils.out.logo();
         utils.projectutils.checkVersion.call(this);
         var prompts;
         if (this.interactiveMode) {
@@ -175,11 +171,12 @@ module.exports = yeoman.generators.Base.extend({
                             name: 'Translate',
                             value: 'appTranslate',
                             checked: false
-                        }/*, {
-                            name: 'QR',
-                            value: 'appQR',
-                            checked: false
-                        } */
+                        }
+                    /*, {
+                                                name: 'QR',
+                                                value: 'appQR',
+                                                checked: false
+                                            } */
                     ]
                 }, {
                     type: "confirm",
@@ -206,7 +203,7 @@ module.exports = yeoman.generators.Base.extend({
                 // manually deal with the response, get back and store the results.
                 // we change a bit this way of doing to automatically do this in the self.prompt() method.
                 this.appTranslate = hasFeature(coreOptions, 'appTranslate');
-               // this.appQR = hasFeature(coreOptions, 'appQR');
+                // this.appQR = hasFeature(coreOptions, 'appQR');
                 this.appRest = hasFeature(coreOptions, 'appRest');
                 this.spushBaseUrl = props.spushBaseUrl;
                 this.appPerformance = hasFeature(coreOptions, 'appPerformance');
@@ -311,32 +308,32 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('/app/scripts/controllers/home-controller.js'),
             this
         );
-         this.fs.copy(
+        this.fs.copy(
             this.templatePath('/app/views/components.html'),
             this.destinationPath('/app/views/components.html'),
             this
         );
-           this.fs.copy(
+        this.fs.copy(
             this.templatePath('/app/views/modal-template.html'),
             this.destinationPath('/app/views/modal-template.html'),
             this
         );
-          this.fs.copy(
+        this.fs.copy(
             this.templatePath('/app/views/charts.html'),
             this.destinationPath('/app/views/charts.html'),
             this
         );
-         this.fs.copy(
+        this.fs.copy(
             this.templatePath('/app/scripts/controllers/components-controller.js'),
             this.destinationPath('/app/scripts/controllers/components-controller.js'),
             this
         );
-         this.fs.copy(
+        this.fs.copy(
             this.templatePath('/app/scripts/controllers/modal-controller.js'),
             this.destinationPath('/app/scripts/controllers/modal-controller.js'),
             this
         );
-         this.fs.copy(
+        this.fs.copy(
             this.templatePath('/app/scripts/controllers/charts-controller.js'),
             this.destinationPath('/app/scripts/controllers/charts-controller.js'),
             this
@@ -417,9 +414,9 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appPerformance) {
             this.composeWith('appverse-html5:performance', {});
         }
-      /*  if (this.appQR) {
-            this.composeWith('appverse-html5:qr', {});
-        } */
+        /*  if (this.appQR) {
+              this.composeWith('appverse-html5:qr', {});
+          } */
 
         this.composeWith('appverse-html5:webkit', {
             options: {

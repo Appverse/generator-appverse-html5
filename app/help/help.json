@@ -1,0 +1,124 @@
+{
+    "usage": [
+        "yo appverse-html5",
+        "yo appverse-html5 [<options>]",
+        "yo appverse-html5 [<args>] [<options>]",
+        "yo appverse-html5:[<subgenerator>] [<args>] [<options>]"
+    ],
+    "args": [
+        {
+            "name": "name",
+            "type": "String",
+            "help": "The application name. It will skip prompts."
+         }
+        ],
+    "options": [
+        {
+            "flag": "project",
+            "type": "String",
+            "help": "Project JSON Defintion. It will skip prompts"
+
+        },
+        {
+            "flag": "skip-install",
+            "type": "booelan",
+            "help": "Skip npm and bower install process"
+
+        }
+    ],
+    "subgenerators": [
+        {
+            "name": "app-view",
+            "help": "Add HTML view and AngularJS controller",
+            "args": [
+                {
+                    "name": "name",
+                    "type": "String",
+                    "help": "The view and controller name. "
+                }
+        ],
+            "options": [{
+                "flag": "menu",
+                "type": "String",
+                "help": "Add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created."
+            }]
+        },
+        {
+            "name": "bootstrap-theme",
+            "help": "Select a bootstrap theme from Bootswatch (http://bootswatch.com)"
+            },
+        {
+            "name": "cache",
+            "help": "Add the appverse-cache module"
+        },
+        {
+            "name": "detection",
+            "help": "Add the appverse-detection module"
+        },
+        {
+            "name": "imagemin",
+            "help": "Add the imagemin node module for image compression"
+        },
+        {
+            "name": "logging",
+            "help": "Add the appverse-logging module"
+        },
+        {
+            "name": "mobile",
+            "help": "Add Appverse Mobile builds to your project with grunt."
+        },
+        {
+            "name": "performance",
+            "help": "Add the appverse-performance module"
+        },
+        {
+            "name": "qr",
+            "help": "Add Quick Response Code modules"
+        },
+        {
+            "name": "rest",
+            "help": "Add the Appverse REST module to the project"
+        },
+        {
+            "name": "rest-entity",
+            "help": "Add a new REST Entity for CRUD generation.",
+            "args": [{
+                "name": "name",
+                "type": "String",
+                "help": "The Entity name."
+            }],
+            "options": [{
+                "flag": "menu",
+                "help": "Add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.",
+                "type": "String"
+            }, {
+                "flag": "schema",
+                "type": "String",
+                "help": "JSON Schema. The schema will be used to generate the entity form"
+            }, {
+                "flag": "rows",
+                "type": "number",
+                "help": "Mock Data. Number of rows to generate."
+            }]
+
+    },
+        {
+            "name": "security",
+            "help": "Add the appverse-security module"
+    },
+        {
+            "name": "serverpush",
+            "help": "Add the appverse-serverpush module"
+    },
+        {
+            "name": "translate",
+            "help": "Add the appverse-translate module"
+    },
+
+        {
+            "name": "webkit",
+            "help": "Add Node-Webkit support to the project"
+    }
+    ]
+
+}
