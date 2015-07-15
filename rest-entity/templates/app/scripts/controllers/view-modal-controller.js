@@ -27,6 +27,10 @@ angular.module('App.Controllers')
 
 .controller('<%=viewName%>-modal-controller',
     function ($scope, $modalInstance, item) {
+        var add = true;
+        if(item){
+            add = false;
+        }
         $scope.item = item;
         if (item) {
             $scope.title = 'Edit <%=viewName%>';
@@ -34,7 +38,7 @@ angular.module('App.Controllers')
             $scope.title = 'New <%=viewName%>';
         }
         $scope.ok = function (item) {
-            $modalInstance.close(item);
+            $modalInstance.close($scope.modalClose(item,add));
         };
         $scope.cancel = function () {
             $modalInstance.close();
