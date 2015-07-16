@@ -91,6 +91,7 @@ module.exports = yeoman.generators.Base.extend({
                         jsonutils.readJSONSchemaFileOrUrl(this.options['schema'], function (error, data) {
                             if (!error) {
                                 this.model = data;
+                                console.log("model " + JSON.stringify(this.model));
                                 //MOCK N ROWS
                                 if (!_.isUndefined(this.options['rows'])) {
                                     for (var i = 0; i < this.options['rows']; i++) {
@@ -99,6 +100,10 @@ module.exports = yeoman.generators.Base.extend({
                                 } else {
                                     //MOCK ONE ROW
                                     this.mockentity.push(jsf(this.model.properties));
+                                    // MOCK API - TODO - I moved it here to fix write mock generation.
+                                    //When schema comes from http, fake generation was too slow, and the file was empty.
+                                    this.log('Writing api/' + this.entity + '.json');
+                                    fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
                                 }
                             }
                         }.bind(this));
@@ -124,10 +129,11 @@ module.exports = yeoman.generators.Base.extend({
                             //MOCK ONE ROW
                         this.model = this.mockmodel;
                         this.mockentity.push(jsf(this.model.properties));
+                        // MOCK API
+                        this.log('Writing api/' + this.entity + '.json');
+                        fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
                     }
-                    // MOCK API
-                    this.log('Writing api/' + this.entity + '.json');
-                    fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
+
                 }
                 //MODAL FORM
                 this.fs.copyTpl(
