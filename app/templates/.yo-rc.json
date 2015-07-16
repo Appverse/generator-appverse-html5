@@ -1,0 +1,11 @@
+{
+    "generator-appverse-html5": {
+        "appPath": "app",
+        "bootstrap-theme": {
+            "provider": {
+                "name": "bootswatch",
+                "api": "http://api.bootswatch.com/3"
+            }
+        }
+    }
+}

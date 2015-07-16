@@ -32,16 +32,18 @@ module.exports = yeoman.generators.Base.extend({
         this.themeprompts = [];
         this.remotethemes = {};
         var prompts = [];
+        var themeApi = this.config.get("bootstrap-theme");
+
         if (this.interactiveMode == true) {
             prompts = {
                 type: 'list',
                 name: 'themes',
-                message: "Select bootswatch theme:",
+                message: "Select " + themeApi.provider.name + " theme:",
                 choices: []
             };
             var done = this.async();
-            this.log(" Getting themes from http://bootswatch.com ");
-            request('http://api.bootswatch.com/3', function (error, response, body) {
+            this.log(" Getting themes from " + themeApi.provider.name);
+            request(themeApi.provider.api, function (error, response, body) {
                 if (!error && response.statusCode === 200) {
                     this.remotethemes = JSON.parse(body.toString());
                     this.remotethemes.themes.forEach(function (entry) {
@@ -51,7 +53,7 @@ module.exports = yeoman.generators.Base.extend({
                     this.themeprompts.push(prompts);
                     done();
                 } else {
-                    this.log("Connection error.");
+                    this.log("Connection error." + error);
                 }
             }.bind(this));
         } else {
