@@ -83,8 +83,8 @@
              $scope.open(item);
          };
 
-         $scope.post = function (item) {
-             if (item.id !== undefined) {
+         $scope.post = function (item, add) {
+             if (!add) {
                  item.put().then(function () {
 
                      $scope.<%= _.capitalize(viewName)%>.some(function (element, index) {
@@ -116,21 +116,22 @@
                  animation: $scope.animationsEnabled,
                  templateUrl: 'views/<%=viewName%>/<%=viewName%>ModalForm.html',
                  controller: '<%=viewName%>-modal-controller',
+                 scope: $scope,
                  resolve: {
                      item: function () {
                          return item;
                      }
                  }
              });
-
-             modalInstance.result.then(function (selectedItem) {
-                 if (selectedItem) {
-                     $scope.post(selectedItem);
-                 }
-             }, function () {
-                 $log.info('Modal dismissed at: ' + new Date());
-             });
+      
          };
+        
+        $scope.modalClose = function(item,add){
+             if (item) {
+                 $scope.post(item,add);
+             }
+         };
+         
 
          $scope.toggleAnimation = function () {
              $scope.animationsEnabled = !$scope.animationsEnabled;
