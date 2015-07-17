@@ -89,9 +89,25 @@ module.exports = yeoman.generators.Base.extend({
                     //SCHEMA ?
                     if (!_.isUndefined(this.options['schema'])) {
                         jsonutils.readJSONSchemaFileOrUrl(this.options['schema'], function (error, data) {
+                            if (!data) {
+                                this.log ("Can't find a valid schema definition there!");
+                                process.exit();
+                                return;
+                            }
                             if (!error) {
                                 this.model = data;
-                                console.log("model " + JSON.stringify(this.model));
+
+                                //CHECK IF THERE IS AN ID PROP
+                                if (_.has(data, 'container')) {
+                                    this.model["properties"] = data.container.properties;
+                                }
+                                if (!_.has(this.model.properties, 'id')) {
+                                    this.model["properties"]["id"] = {
+                                        type: "integer",
+                                        description: "id",
+                                        required: false
+                                    }
+                                }
                                 //MOCK N ROWS
                                 if (!_.isUndefined(this.options['rows'])) {
                                     for (var i = 0; i < this.options['rows']; i++) {
@@ -100,13 +116,31 @@ module.exports = yeoman.generators.Base.extend({
                                 } else {
                                     //MOCK ONE ROW
                                     this.mockentity.push(jsf(this.model.properties));
-                                    // MOCK API - TODO - I moved it here to fix write mock generation.
-                                    //When schema comes from http, fake generation was too slow, and the file was empty.
-                                    this.log('Writing api/' + this.entity + '.json');
-                                    fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
                                 }
+                                // MOCK API - TODO - I moved it here to fix write mock generation.
+                                //When schema comes from http, fake generation was too slow, and the file was empty.
+                                this.log('Writing api/' + this.entity + '.json');
+                                fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
+                                //MODAL FORM
+                                this.fs.copyTpl(
+                                    this.templatePath('/app/views/view/viewModalForm.html'),
+                                    this.destinationPath('/app/views/' + this.name + '/' + this.name + 'ModalForm.html'),
+                                    this
+                                );
+                                this.controllerScript = this.name + '-modal-controller.js';
+                                this.fs.copyTpl(
+                                    this.templatePath('/app/scripts/controllers/view-modal-controller.js'),
+                                    this.destinationPath('/app/scripts/controllers/' + this.controllerScript),
+                                    this
+                                );
+                                //ADD SCRIPT TO INDEX.HTML
+                                utils.addControllerScriptToIndex.call(this);
+
                             }
                         }.bind(this));
+                        // NO SCHEMA PROVIDED
+                        // TODO: PROVIDE A FUNCTION TO DO THE COMMON PART
+                        // PROBLEM WITH SYNC, BECAUSE OF THE REMOTE SCHEMAS. VARIABLES WERE NOT SET WHEN TEMPLATE WAS MOVED
                     } else {
                         //MOCK SCHEMA
                         this.mockmodel = {
@@ -132,23 +166,23 @@ module.exports = yeoman.generators.Base.extend({
                         // MOCK API
                         this.log('Writing api/' + this.entity + '.json');
                         fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
+                        //MODAL FORM
+                        this.fs.copyTpl(
+                            this.templatePath('/app/views/view/viewModalForm.html'),
+                            this.destinationPath('/app/views/' + this.name + '/' + this.name + 'ModalForm.html'),
+                            this
+                        );
+                        this.controllerScript = this.name + '-modal-controller.js';
+                        this.fs.copyTpl(
+                            this.templatePath('/app/scripts/controllers/view-modal-controller.js'),
+                            this.destinationPath('/app/scripts/controllers/' + this.controllerScript),
+                            this
+                        );
+                        //ADD SCRIPT TO INDEX.HTML
+                        utils.addControllerScriptToIndex.call(this);
                     }
-
                 }
-                //MODAL FORM
-                this.fs.copyTpl(
-                    this.templatePath('/app/views/view/viewModalForm.html'),
-                    this.destinationPath('/app/views/' + this.name + '/' + this.name + 'ModalForm.html'),
-                    this
-                );
-                this.controllerScript = this.name + '-modal-controller.js';
-                this.fs.copyTpl(
-                    this.templatePath('/app/scripts/controllers/view-modal-controller.js'),
-                    this.destinationPath('/app/scripts/controllers/' + this.controllerScript),
-                    this
-                );
-                //ADD SCRIPT TO INDEX.HTML
-                utils.addControllerScriptToIndex.call(this);
+
             } else {
                 this.log("Execute 'yo appverse-html5:rest' to add the REST module to the project.");
             }
