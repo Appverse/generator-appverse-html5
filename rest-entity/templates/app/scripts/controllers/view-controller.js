@@ -44,9 +44,9 @@
              }
              $scope.columns.push({
                  displayName: '',
-                 cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text><button ng-click="editItem(row.entity)" class="btn btn-xs btn-primary glyphicon glyphicon-pencil"></button>&nbsp;<button ng-click="deleteItem(row.entity)" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></span></div>',
+                cellTemplate: '<div class="ngCellText text-right" ng-class="col.colIndex()"><span ng-cell-text><button ng-click="editItem(row.entity)" class="btn btn-xs btn-primary glyphicon glyphicon-pencil"></button>&nbsp;<button ng-click="deleteItem(row.entity)" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></span></div>',
                  sortable: false,
-                 width: 100,
+                 width: 150,
                  minWidth: 100
              });
          });
@@ -55,6 +55,7 @@
              data: '<%=_.capitalize(viewName)%>',
              columnDefs: 'columns',
              rowHeight: 48,
+             headerRowHeight:48,
              filterOptions: {
                  filterText: "",
                  useExternalFilter: false
