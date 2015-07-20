@@ -43,30 +43,31 @@ angular.module('App.Controllers')
         $scope.cancel = function () {
             $modalInstance.close();
         };
+        $scope.datepicker = [];
+        $scope.openCalendar = function($event, opened) {
+             $event.preventDefault();
+             $event.stopPropagation();
+             $scope.datepicker[opened] = true;
+         };
 
+         $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+         $scope.format = $scope.formats[0];
+
+         $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1
+         };
+         $scope.datepicker = {};
         <%  var fields=model.properties;
          for (var key in fields) {
          var type = fields[key].type;
-
-         if (type == 'string' && (fields[key].format == 'date-time' || fields[key].format == 'date')) { %>
-             $scope.datepicker = {opened : false};
-             $scope.openCalendar = function($event) {
-                 $event.preventDefault();
-                 $event.stopPropagation();
-                 $scope.datepicker.opened = true;
-             };
-
-             $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-             $scope.format = $scope.formats[0];
-             $scope.today = function() {
-                  $scope.item.<%=key%> = new Date();
-            };
-            $scope.dateOptions = {
-              formatYear: 'yy',
-              startingDay: 1
-            };
+             var calendars = {};
+         if (type == 'string' && (fields[key].format == 'date-time' || fields[key].format == 'date')) {
+           %>  $scope.today = function() {
+                   $scope.item.<%=key%> = new Date();
+               };
+             $scope.datepicker['<%="opened" + fields[key].name%>'] = false;
     <%   }
        }
     %>
-
     });

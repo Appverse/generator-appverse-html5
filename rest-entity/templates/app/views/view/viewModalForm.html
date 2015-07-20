@@ -31,9 +31,9 @@
             <label class="col-sm-2" for='<%=key%>'><%=_.capitalize(key)%></label>
             <div class="col-md-6">
                 <p class="input-group">
-                <input type="text" name="<%=key%>" class="form-control" ng-model='item.<%=key%>' datepicker-popup="{{format}}" ng-model='item.<%=key%>' is-open="datepicker.opened" close-text="Close" datepicker-options="dateOptions" <% if (fields[key].required==true) { %>ng-required="true"><% } else if (_.lastIndexOf(model.required, key)>= 0) { %>ng-required="true"><% } else { %>ng-required="false"><% } %>
+                <input type="text" name="<%=key%>" class="form-control" ng-model='item.<%=key%>' datepicker-popup="{{format}}" ng-model='item.<%=key%>' is-open="datepicker.opened<%=key%>" close-text="Close" datepicker-options="dateOptions" <% if (fields[key].required==true) { %>ng-required="true"><% } else if (_.lastIndexOf(model.required, key)>= 0) { %>ng-required="true"><% } else { %>ng-required="false"><% } %>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openCalendar($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        <button type="button" class="btn btn-default" ng-click="openCalendar($event,'opened<%=key%>')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
                 </p>
                 <% if (fields[key].required==true || _.lastIndexOf(model.required, key)>=0) { %>
