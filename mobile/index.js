@@ -127,6 +127,10 @@ module.exports = yeoman.generators.Base.extend({
     writing: function () {
         if (this.mobile) {
             this.fs.copy(
+                this.templatePath('manifest'),
+                this.destinationPath('manifest')
+            );
+            this.fs.copy(
                 this.templatePath('tasks'),
                 this.destinationPath('tasks')
             );
@@ -195,6 +199,10 @@ module.exports = yeoman.generators.Base.extend({
             pkg.devDependencies["grunt-contrib-compress"] = "^0.13.0";
             pkg.devDependencies["grunt-http-upload"] = "^0.1.8";
             pkg.devDependencies["grunt-replace"] = "^0.9.2";
+
+            pkg.devDependencies["nodewebkit"] = "0.11.6";
+            pkg.devDependencies["chrome-remote-interface"] = "0.9.0";
+
             fs.writeFileSync(packagePath, JSON.stringify(pkg));
         }
     },

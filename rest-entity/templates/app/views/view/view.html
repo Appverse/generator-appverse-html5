@@ -10,26 +10,27 @@
         </div>
 
         <div class="row">
-
-            <form novalidate class="form-inline clearfix" name="filterForm">
-                <div class="pull-left">
-                    <button angular-ripple class="btn btn-action" ng-click="open()">ADD</button>
-                </div>
-
-                <div class="form-group pull-right">
-                    <label for="filterText" class="sr-only">Filter</label>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="filterText" placeholder="Filter..." ng-model="filterText" ng-change="filter<%= _.capitalize(viewName) %>()">
-                        <span class="input-group-addon glyphicon glyphicon-search"></span>
+            <div class="col-md-12">
+                <form novalidate class="form-inline clearfix ng-grid-header" name="filterForm">
+                    <div class="pull-left">
+                        <button angular-ripple class="btn btn-action" ng-click="open()">ADD</button>
                     </div>
-                </div>
 
-            </form>
-            <br>
+                    <div class="form-group pull-right">
+                        <label for="filterText" class="sr-only">Filter</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="filterText" placeholder="Filter..." ng-model="filterText" ng-change="filter<%=_.capitalize(viewName)%>()">
+                            <span class="input-group-addon glyphicon glyphicon-search"></span>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
         </div>
         <div class="row">
-            <div class="gridStyle" ng-grid="gridOptions"></div>
-            <br>
+            <div class="col-md-12">
+                <div class="gridStyle" ng-grid="gridOptions"></div>
+            </div>
         </div>
     </div>
 

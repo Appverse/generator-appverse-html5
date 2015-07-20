@@ -95,6 +95,7 @@ $link-hover-decoration: underline;
     src: url('../fonts/glyphicons-halflings-regular.eot');
     src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular') format('svg');
 }
+
 //## Font, line-height, and color for body text, headings, and more.
 $font-family-sans-serif: Roboto,
 sans-serif;
@@ -551,7 +552,7 @@ $label-link-hover-color: #fff;
 //
 //##
 //** Padding applied to the modal body
-$modal-inner-padding: 20px;
+$modal-inner-padding: 15px;
 //** Padding applied to the modal title
 $modal-title-padding: 15px;
 //** Modal title line-height
@@ -559,18 +560,15 @@ $modal-title-line-height: $line-height-base;
 //** Background color of modal content area
 $modal-content-bg: #fff;
 //** Modal content border color
-$modal-content-border-color: rgba(0,
-0,
-0,
-.2);
+$modal-content-border-color: transparent;
 //** Modal content border color **for IE8**
 $modal-content-fallback-border-color: #999;
 //** Modal backdrop background color
 $modal-backdrop-bg: #000;
 //** Modal backdrop opacity
-$modal-backdrop-opacity: .5;
+$modal-backdrop-opacity: .3;
 //** Modal header border color
-$modal-header-border-color: #e5e5e5;
+$modal-header-border-color: transparent;
 //** Modal footer border color
 $modal-footer-border-color: $modal-header-border-color;
 $modal-lg: 900px;
@@ -728,8 +726,8 @@ $carousel-text-shadow: 0 1px 2px rgba(0,
 .6);
 $carousel-control-color: #fff;
 $carousel-control-width: 15%;
-$carousel-control-opacity: .5;
-$carousel-control-font-size: 20px;
+$carousel-control-opacity: 1;
+$carousel-control-font-size: 12px;
 $carousel-indicator-active-bg: #fff;
 $carousel-indicator-border-color: #fff;
 $carousel-caption-color: #fff;

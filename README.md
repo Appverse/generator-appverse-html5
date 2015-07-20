@@ -240,17 +240,53 @@ The **grunt taks** will:
   
 
 ### Bootstrap theme selector 
-The Appverse HTML5 generator allows to select a bootstrap theme from [Bootswatch](http://bootswatch.com) using the [Bootswatch API](https://bootswatch.com/help/)
+The Appverse HTML5 generator allows to select a [Bootstrap](http://getbootstrap.com) theme.
 
-* The Appverse HTML5 generator will connect to bootswatch to get the available themes list. 
-* It will apply the selected Bootswatch theme to the generated project.
+* The Appverse HTML5 generator will connect to the theme provider to get the available themes list. 
+* The subgenerator will connect to the provider SCSS URL's to get the files. 
+* It will apply the selected theme to the generated project.
+
+The required API format will be a JSON with theme list and scss files, like:
+
+```json
+    {
+     "version": "0.0.1",
+     "themes": [
+     {
+      "name": "theme-name",
+      "description": "My theme",
+      "scss": "http://server/_theme.scss",
+      "scssVariables": "http://server/_variables.scss"
+    },
+    ...
+    ]
+   }
+```
 
 #### Subgenerator
-* Bootstrap theme selector from [Bootswatch](http://bootswatch.com)
+* [Bootstrap](http://getbootstrap.com) theme selector.
 
 ```bash
     $ yo appverse-html5:bootstrap-theme    
 ```
+
+The generator will provide the configuration with the .yo-rc.json file to the generated project. 
+The bootsrap-theme subgenerator will read that configuration to get the theme selector. For example, to use the [Bootswatch](http://bootswatch.com) API:
+
+```json
+    {
+    "generator-appverse-html5": {
+        "appPath": "app",
+        "bootstrap-theme": {
+            "provider": { 
+                 "name": "bootswatch", 
+                 "api": "http://api.bootswatch.com/3" 
+            }
+        }
+    }
+    }
+```
+
 
 ### Arguments and options
 

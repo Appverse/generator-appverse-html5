@@ -35,6 +35,8 @@ module.exports = yeoman.generators.Base.extend({
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
+
+        this.log("CONFIG:" + JSON.stringify(this.config.getAll()));
         // This makes `project` an option. --project=project.json
         // Get a JSON path or URL as value. The JSON defines the project and must validate against schema/appverse-project-schema.json
         this.option('help', {
@@ -278,6 +280,10 @@ module.exports = yeoman.generators.Base.extend({
             this
         );
         this.fs.copy(
+            this.templatePath('.yo-rc.json'),
+            this.destinationPath('.yo-rc.json')
+        );
+        this.fs.copy(
             this.templatePath('.bowerrc'),
             this.destinationPath('.bowerrc')
         );
@@ -385,7 +391,7 @@ module.exports = yeoman.generators.Base.extend({
                 options: {
                     interactiveMode: this.interactiveMode,
                     config: this.jsonproject,
-                    'skip-install': false
+                    'skip-install': this.options['skip-install']
                 }
             });
         }

@@ -45,7 +45,7 @@
         },
         {
             "name": "bootstrap-theme",
-            "help": "Select a bootstrap theme from Bootswatch (http://bootswatch.com)"
+            "help": "Select a Bootstrap theme."
             },
         {
             "name": "cache",

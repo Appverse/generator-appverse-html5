@@ -1,0 +1,32 @@
+{
+    "name": "App",
+    "version": "0.0.1",
+    "description": "App application",
+    "title": "App",
+    "main": "../loading.html",
+    "private": true,
+    "keywords": ["iPhone 5"],
+    "window": {
+        "frame": true,
+        "toolbar": false,
+        "resizable": true,
+        "width": 320,
+        "height": 568,
+        "position": "center",
+        "min_width": 320,
+        "min_height": 568,
+        "max_width": 320,
+        "max_height": 568
+    },
+    "single-instance": false,
+    "chromium-args": "--remote-debugging-port=9224",
+    "device": {
+        "title": "Apple iPhone 5",
+        "width": 320,
+        "height": 568,
+        "deviceScaleFactor": 2,
+        "userAgent": "Mozilla/5.0 (iPhone; CPU iPhone OS 7_0 like Mac OS X; en-us) AppleWebKit/537.51.1 (KHTML, like Gecko) Version/7.0 Mobile/11A465 Safari/9537.53",
+        "touch": true,
+        "mobile": true
+    }
+}

@@ -44,9 +44,9 @@
              }
              $scope.columns.push({
                  displayName: '',
-                 cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><span ng-cell-text><button ng-click="editItem(row.entity)" class="btn btn-xs btn-primary glyphicon glyphicon-pencil"></button>&nbsp;<button ng-click="deleteItem(row.entity)" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></span></div>',
+                cellTemplate: '<div class="ngCellText text-right" ng-class="col.colIndex()"><span ng-cell-text><button ng-click="editItem(row.entity)" class="btn btn-xs btn-primary glyphicon glyphicon-pencil"></button>&nbsp;<button ng-click="deleteItem(row.entity)" class="btn btn-xs btn-danger glyphicon glyphicon-trash"></button></span></div>',
                  sortable: false,
-                 width: 100,
+                 width: 150,
                  minWidth: 100
              });
          });
@@ -55,6 +55,7 @@
              data: '<%=_.capitalize(viewName)%>',
              columnDefs: 'columns',
              rowHeight: 48,
+             headerRowHeight:48,
              filterOptions: {
                  filterText: "",
                  useExternalFilter: false
@@ -83,8 +84,8 @@
              $scope.open(item);
          };
 
-         $scope.post = function (item) {
-             if (item.id !== undefined) {
+         $scope.post = function (item, add) {
+             if (!add) {
                  item.put().then(function () {
 
                      $scope.<%= _.capitalize(viewName)%>.some(function (element, index) {
@@ -116,21 +117,22 @@
                  animation: $scope.animationsEnabled,
                  templateUrl: 'views/<%=viewName%>/<%=viewName%>ModalForm.html',
                  controller: '<%=viewName%>-modal-controller',
+                 scope: $scope,
                  resolve: {
                      item: function () {
                          return item;
                      }
                  }
              });
-
-             modalInstance.result.then(function (selectedItem) {
-                 if (selectedItem) {
-                     $scope.post(selectedItem);
-                 }
-             }, function () {
-                 $log.info('Modal dismissed at: ' + new Date());
-             });
+      
          };
+        
+        $scope.modalClose = function(item,add){
+             if (item) {
+                 $scope.post(item,add);
+             }
+         };
+         
 
          $scope.toggleAnimation = function () {
              $scope.animationsEnabled = !$scope.animationsEnabled;
