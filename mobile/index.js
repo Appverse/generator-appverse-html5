@@ -37,11 +37,8 @@ module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
         //CONFIG
-        this.option('interactiveMode', {
-            desc: 'Allow prompts',
-            type: Boolean,
-            defaults: false
-        });
+
+        this.option('interactiveMode');
         this.option('config', {
             desc: 'JSON COnfiguration',
             type: Object
@@ -51,10 +48,12 @@ module.exports = yeoman.generators.Base.extend({
             username: 'username',
             password: 'password'
         };
+
         if (!_.isUndefined(this.options['interactiveMode'])) {
             this.interactiveMode = this.options['interactiveMode'];
         } else {
             this.interactiveMode = true;
+            this.log("Interactive else Mode" + this.interactiveMode);
         }
         if (!_.isUndefined(this.options['config'])) {
             this.mobile = this.options['config'].package.mobile.enabled;
@@ -67,13 +66,14 @@ module.exports = yeoman.generators.Base.extend({
             this.mobile = false;
         }
         this.appName = utils.projectutils.getApplicationName(this);
-
+        this.log("Interactive Mode" + this.interactiveMode);
     },
 
     prompting: function () {
         var done = this.async();
         var prompts = [];
-        if (this.interactiveMode) {
+
+        if (this.interactiveMode == true) {
             prompts = [
                 {
                     type: "confirm",
