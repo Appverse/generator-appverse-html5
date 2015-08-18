@@ -129,7 +129,7 @@ module.exports = yeoman.generators.Base.extend({
             '    <script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
-        var index = this.readFileAsString(indexPath);
+        var index = require("html-wiring").readFileAsString(indexPath);
         var indexTag = 'app-states.js"></script>';
         var output = index;
 
@@ -144,7 +144,7 @@ module.exports = yeoman.generators.Base.extend({
         //REST CONFIG
         this.log('Writing angular configuration (app.js) by the Rest generator');
         var path = this.destinationPath('app/scripts/app.js');
-        var file = this.readFileAsString(path);
+        var file = require("html-wiring").readFileAsString(path);
 
         //PARSE FILE
         var astCode = esprima.parse(file);

@@ -24,6 +24,7 @@ var yeoman = require('yeoman-generator');
 var fs = require('fs');
 var os = require('os');
 var utils = require('../lib').projectutils;
+var wiring = require('html-wiring');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
@@ -40,7 +41,7 @@ module.exports = yeoman.generators.Base.extend({
             '    <script src="bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
-        var index = this.readFileAsString(indexPath);
+        var index = wiring.readFileAsString(indexPath);
         var indexTag = 'app-states.js"></script>';
         var output = index;
 

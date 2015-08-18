@@ -40,7 +40,7 @@ module.exports = yeoman.generators.Base.extend({
 
 
         var indexPath = this.destinationPath('app/index.html');
-        var index = this.readFileAsString(indexPath);
+        var index = require("html-wiring").readFileAsString(indexPath);
         var indexTag = 'app-states.js"></script>';
         var output = index;
 

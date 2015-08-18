@@ -26,6 +26,7 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fs = require('fs-extra');
 
+
 describe('appverse-html5:app-view', function () {
 
     describe('when called with only one argument', function () {
@@ -61,7 +62,9 @@ describe('appverse-html5:app-view', function () {
                     fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
                 .withArguments('myView2')
-                .withOptions({ menu: 'myDropdown' })
+                .withOptions({
+                    menu: 'myDropdown'
+                })
                 .on('end', done);
         });
 
@@ -87,7 +90,9 @@ describe('appverse-html5:app-view', function () {
                     fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
                 .withArguments('myView3')
-                .withOptions({ menu: 'myDropdown' })
+                .withOptions({
+                    menu: 'myDropdown'
+                })
                 .on('end', done);
         });
 

@@ -26,11 +26,40 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
 
+describe('appverse-html5:generator', function () {
+    var gen;
+    beforeEach(function (done) {
+        this.timeout(10000);
+        var deps = [
+                '../app',
+            [helpers.createDummyGenerator(), 'appverse-html5:imagemin'],
+            [helpers.createDummyGenerator(), 'appverse-html5:webkit']
+            ];
 
-describe('appverse generator', function () {
-    // not testing the actual run of generators yet
-    it('the generator can be required without throwing', function () {
-        this.app = require('../app');
+        helpers.testDirectory(path.join(os.tmpdir(), 'testApp1'), function (err) {
+            if (err) {
+                return done(err);
+            }
+            gen = helpers.createGenerator('appverse-html5', deps);
+            gen.options['skip-install'] = true;
+            done();
+        }.bind(this));
+    });
+
+    describe('when called with an argument', function () {
+        before(function (done) {
+            fse.copy(path.join(__dirname, '../app/templates'), path.join(os.tmpdir(), 'testApp1'), done);
+        });
+        it('should create files with defaults', function () {
+            assert.file([
+                'bower.json',
+                'package.json',
+                '.editorconfig',
+                '.jshintrc'
+            ]);
+
+            assert.fileContent('bower.json', 'testapp1');
+        });
     });
 
 });

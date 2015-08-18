@@ -28,6 +28,7 @@ var escodegen = require('escodegen');
 var utils = require('../lib').projectutils;
 var os = require('os');
 var _ = require('lodash');
+var wiring = require ('html-wiring');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
@@ -93,7 +94,7 @@ module.exports = yeoman.generators.Base.extend({
 
 
         var indexPath = this.destinationPath('app/index.html');
-        var index = this.readFileAsString(indexPath);
+        var index = wiring.readFileAsString(indexPath);
         var indexTag = 'app-states.js"></script>';
         var output = index;
 
@@ -144,7 +145,7 @@ module.exports = yeoman.generators.Base.extend({
 
         //CONFIG
         var path = this.destinationPath('app/scripts/app.js');
-        var file = this.readFileAsString(path);
+        var file = wiring.readFileAsString(path);
         //PARSE FILE
         var moduleCode = esprima.parse(file);
         var configCode = estraverse.replace(moduleCode, {

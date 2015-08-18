@@ -174,7 +174,7 @@ module.exports = yeoman.generators.Base.extend({
             //
             //Do it 'by hand' at the ent of the file
             var indexPath = this.destinationPath('Gruntfile.js');
-            var index = this.readFileAsString(indexPath);
+            var index = require("html-wiring").readFileAsString(indexPath);
             var indexTag = '};';
             var output = index;
             var pos;

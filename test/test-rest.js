@@ -25,16 +25,16 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
-/*
+
 describe('appverse-html5:rest', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../rest'))
-            .inDir(path.join(os.tmpdir(), 'testApp-rest'))
+            .inTmpDir(function (dir) {
+                var done = this.async(); // `this` is the RunContext object.
+                fse.copy(path.join(__dirname, '../app/templates'), dir, done);
+            })
             .withOptions({
                 'skip-install': true
-            })
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });
@@ -52,4 +52,4 @@ describe('appverse-html5:rest', function () {
         assert.fileContent('config/connect.js', "context: '/api'");
     });
 
-});*/
+});

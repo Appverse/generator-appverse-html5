@@ -37,7 +37,7 @@ module.exports = yeoman.generators.Base.extend({
             '    <script src="bower_components/appverse-web-html5-core/dist/appverse-performance/appverse-performance.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
-        var index = this.readFileAsString(indexPath);
+        var index = require("html-wiring").readFileAsString(indexPath);
         var indexTag = 'app-states.js"></script>';
         var output = index;
 
@@ -54,7 +54,7 @@ module.exports = yeoman.generators.Base.extend({
         //ANGULAR MODULES
         var hook = '\'App.Controllers\'',
             path = this.destinationPath('app/scripts/app.js'),
-            file = this.readFileAsString(path),
+            file = require("html-wiring").readFileAsString(path),
             insert = ", 'appverse.performance'";
         if (file.indexOf(insert) === -1) {
             var pos = file.lastIndexOf(hook) + hook.length;
