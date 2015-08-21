@@ -76,8 +76,8 @@ module.exports = yeoman.generators.Base.extend({
     writing: function () {
         if (this.webkit) {
             this.fs.copy(
-                this.templatePath('config/nodewebkit.js'),
-                this.destinationPath('config/nodewebkit.js')
+                this.templatePath('config/nwjs.js'),
+                this.destinationPath('config/nwjs.js')
             );
             this.fs.copy(
                 this.templatePath('tasks/webkit.js'),
@@ -87,8 +87,8 @@ module.exports = yeoman.generators.Base.extend({
             //this.npmInstall () is not working with skip-install
             var pkg = require(packagePath);
             pkg.scripts["start"] = "nodewebkit ./dist/web";
-            pkg.devDependencies["grunt-node-webkit-builder"] = "1.0.2";
-            pkg.devDependencies["node-webkit-builder"] = "1.0.11";
+            pkg.devDependencies["grunt-nw-builder"] = "2.0.0";
+            pkg.devDependencies["nw-builder"] = "2.0.2";
             pkg.devDependencies["nodewebkit"] = "0.11.6";
             fs.writeFileSync(packagePath, JSON.stringify(pkg));
         }
