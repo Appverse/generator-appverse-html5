@@ -375,7 +375,7 @@ module.exports = yeoman.generators.Base.extend({
         var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/controllers/components-controller.js', 'scripts/controllers/modal-controller.js', 'scripts/controllers/charts-controller.js', 'scripts/states/app-states.js'];
         Array.prototype.push.apply(js, appsJS);
         this.indexFile = wiring.appendScripts(this.indexFile, 'scripts/scripts.js', js);
-        this.write(this.destinationPath('app/index.html'), this.indexFile.replace(/>\n/g, '>' + os.EOL));
+        this.write(this.destinationPath('app/index.html'), this.indexFile);
 
     },
     install: function () {
