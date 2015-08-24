@@ -163,12 +163,12 @@ module.exports = yeoman.generators.Base.extend({
                             value: 'appServerPush',
                             checked: false
                         },
-                       /* new inquirer.Separator(),
+                        new inquirer.Separator(),
                         {
                             name: 'Security',
                             value: 'appSecurity',
                             checked: false
-                        }, */
+                        },
                         new inquirer.Separator(),
                         {
                             name: 'Translate',
