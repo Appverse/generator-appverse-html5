@@ -43,7 +43,7 @@ describe('appverse-html5:webkit', function () {
 
     it('includes scripts', function () {
         assert.file([
-            'config/nodewebkit.js',
+            'config/nwjs.js',
             'tasks/webkit.js'
         ]);
     });
