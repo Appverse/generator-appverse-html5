@@ -28,15 +28,17 @@ var inquirer = require('inquirer');
 var _ = require('lodash');
 var fs = require('fs');
 var os = require('os');
+var wiring = require('html-wiring');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
+        require('events').EventEmitter.defaultMaxListeners = 20;
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
 
-        this.log("CONFIG:" + JSON.stringify(this.config.getAll()));
+        // this.log("CONFIG:" + JSON.stringify(this.config.getAll()));
         // This makes `project` an option. --project=project.json
         // Get a JSON path or URL as value. The JSON defines the project and must validate against schema/appverse-project-schema.json
         this.option('help', {
@@ -96,7 +98,7 @@ module.exports = yeoman.generators.Base.extend({
                             // this.appQR = this.jsonproject.components.qr.enabled;
                             this.appRest = this.jsonproject.components.rest.enabled;
                             this.appPerformance = this.jsonproject.components.performance.enabled;
-                            this.appSecurity = false //this.jsonproject.components.security.enabled;
+                            this.appSecurity = this.jsonproject.components.security.enabled;
                             this.appServerPush = this.jsonproject.components.serverpush.enabled;
                             this.appCache = this.jsonproject.components.cache.enabled;
                             this.appLogging = this.jsonproject.components.logging.enabled;
@@ -162,23 +164,18 @@ module.exports = yeoman.generators.Base.extend({
                             value: 'appServerPush',
                             checked: false
                         },
-                       /* new inquirer.Separator(),
+                        new inquirer.Separator(),
                         {
                             name: 'Security',
                             value: 'appSecurity',
                             checked: false
-                        }, */
+                        },
                         new inquirer.Separator(),
                         {
                             name: 'Translate',
                             value: 'appTranslate',
                             checked: false
                         }
-                    /*, {
-                                                name: 'QR',
-                                                value: 'appQR',
-                                                checked: false
-                                            } */
                     ]
                 }, {
                     type: "confirm",
@@ -205,11 +202,10 @@ module.exports = yeoman.generators.Base.extend({
                 // manually deal with the response, get back and store the results.
                 // we change a bit this way of doing to automatically do this in the self.prompt() method.
                 this.appTranslate = hasFeature(coreOptions, 'appTranslate');
-                // this.appQR = hasFeature(coreOptions, 'appQR');
                 this.appRest = hasFeature(coreOptions, 'appRest');
                 this.spushBaseUrl = props.spushBaseUrl;
                 this.appPerformance = hasFeature(coreOptions, 'appPerformance');
-                this.appSecurity = false //hasFeature(coreOptions, 'appSecurity');
+                this.appSecurity = hasFeature(coreOptions, 'appSecurity');
                 this.appServerPush = hasFeature(coreOptions, 'appServerPush');
                 this.appCache = hasFeature(coreOptions, 'appCache');
                 this.appLogging = hasFeature(coreOptions, 'appLogging');
@@ -220,39 +216,13 @@ module.exports = yeoman.generators.Base.extend({
             }
             done();
         }.bind(this));
-
     },
     writing: function () {
-        this.indexFile = this.readFileAsString(this.templatePath('app/index.html'));
-        this.indexFile = this.engine(this.indexFile, this);
-        var js = ['bower_components/jquery/dist/jquery.min.js',
-                'bower_components/angular/angular.min.js',
-                'bower_components/angular-touch/angular-touch.min.js',
-                'bower_components/modernizr/modernizr.js',
-                'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
-                'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                'bower_components/ng-grid/build/ng-grid.min.js',
-                'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
-                'bower_components/angular-animate/angular-animate.min.js',
-                'bower_components/angular-xeditable/dist/js/xeditable.js',
-                'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
-                'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
-                'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js',
-                'bower_components/angular-ripple/angular-ripple.js',
-                'bower_components/angular-ui-select/dist/select.min.js',
-                'bower_components/angularjs-slider/dist/rzslider.min.js',
-                'bower_components/angular-resize/dist/angular-resize.min.js',
-                'bower_components/angular-sanitize/angular-sanitize.min.js',
-                'bower_components/Chart.js/Chart.min.js',
-                'bower_components/angular-chart.js/dist/angular-chart.min.js'
-            ];
-
-        //APP FILES
-        var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/controllers/components-controller.js', 'scripts/controllers/modal-controller.js', 'scripts/controllers/charts-controller.js', 'scripts/states/app-states.js'];
-        Array.prototype.push.apply(js, appsJS);
-        this.indexFile = this.appendScripts(this.indexFile, 'scripts/scripts.js', js);
-        this.write(this.destinationPath('app/index.html'), this.indexFile.replace(/>\n/g, '>' + os.EOL));
+        this.fs.copyTpl(
+            this.templatePath('app/index.html'),
+            this.destinationPath('app/index.html'),
+            this
+        );
 
         this.fs.copyTpl(
             this.templatePath('package.json'),
@@ -301,61 +271,59 @@ module.exports = yeoman.generators.Base.extend({
             this
         );
         this.fs.copy(
-            this.templatePath('/app/views/theme.html'),
-            this.destinationPath('/app/views/theme.html')
+            this.templatePath('app/views/theme.html'),
+            this.destinationPath('app/views/theme.html')
         );
         this.fs.copyTpl(
-            this.templatePath('/app/views/home.html'),
-            this.destinationPath('/app/views/home.html'),
-            this
-        );
-        this.fs.copyTpl(
-            this.templatePath('/app/scripts/controllers/home-controller.js'),
-            this.destinationPath('/app/scripts/controllers/home-controller.js'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('/app/views/components.html'),
-            this.destinationPath('/app/views/components.html'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('/app/views/modal-template.html'),
-            this.destinationPath('/app/views/modal-template.html'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('/app/views/charts.html'),
-            this.destinationPath('/app/views/charts.html'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('/app/scripts/controllers/components-controller.js'),
-            this.destinationPath('/app/scripts/controllers/components-controller.js'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('/app/scripts/controllers/modal-controller.js'),
-            this.destinationPath('/app/scripts/controllers/modal-controller.js'),
-            this
-        );
-        this.fs.copy(
-            this.templatePath('/app/scripts/controllers/charts-controller.js'),
-            this.destinationPath('/app/scripts/controllers/charts-controller.js'),
+            this.templatePath('app/views/home.html'),
+            this.destinationPath('app/views/home.html'),
             this
         );
         this.fs.copyTpl(
-            this.templatePath('/app/scripts/states/app-states.js'),
-            this.destinationPath('/app/scripts/states/app-states.js'),
+            this.templatePath('app/scripts/controllers/home-controller.js'),
+            this.destinationPath('app/scripts/controllers/home-controller.js'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('app/views/components.html'),
+            this.destinationPath('app/views/components.html'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('app/views/modal-template.html'),
+            this.destinationPath('app/views/modal-template.html'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('app/views/charts.html'),
+            this.destinationPath('app/views/charts.html'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('app/scripts/controllers/components-controller.js'),
+            this.destinationPath('app/scripts/controllers/components-controller.js'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('app/scripts/controllers/modal-controller.js'),
+            this.destinationPath('app/scripts/controllers/modal-controller.js'),
+            this
+        );
+        this.fs.copy(
+            this.templatePath('app/scripts/controllers/charts-controller.js'),
+            this.destinationPath('app/scripts/controllers/charts-controller.js'),
             this
         );
         this.fs.copyTpl(
-            this.templatePath('/app/scripts/app.js'),
-            this.destinationPath('/app/scripts/app.js'),
+            this.templatePath('app/scripts/states/app-states.js'),
+            this.destinationPath('app/scripts/states/app-states.js'),
             this
         );
-
-
+        this.fs.copyTpl(
+            this.templatePath('app/scripts/app.js'),
+            this.destinationPath('app/scripts/app.js'),
+            this
+        );
         //paths starting with "/" cause problems on UNIX based OS like OSX
         this.fs.copy(
             this.templatePath('test'),
@@ -377,8 +345,40 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('tasks')
         );
 
+        //var indexFile = wiring.readFileAsString(this.destinationPath('app/index.html'));
+        var indexFile = this.fs.read(this.destinationPath('app/index.html'));
+        var js = ['bower_components/jquery/dist/jquery.min.js',
+                    'bower_components/angular/angular.min.js',
+                    'bower_components/angular-touch/angular-touch.min.js',
+                    'bower_components/modernizr/modernizr.js',
+                    'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+                    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                    'bower_components/ng-grid/build/ng-grid.min.js',
+                    'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
+                    'bower_components/angular-animate/angular-animate.min.js',
+                    'bower_components/angular-xeditable/dist/js/xeditable.js',
+                    'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
+                    'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
+                    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+                    'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js',
+                    'bower_components/angular-ripple/angular-ripple.js',
+                    'bower_components/angular-ui-select/dist/select.min.js',
+                    'bower_components/angularjs-slider/dist/rzslider.min.js',
+                    'bower_components/angular-resize/dist/angular-resize.min.js',
+                    'bower_components/angular-sanitize/angular-sanitize.min.js',
+                    'bower_components/Chart.js/Chart.min.js',
+                    'bower_components/angular-chart.js/dist/angular-chart.min.js'
+                ];
+        //APP FILES
+        var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/controllers/components-controller.js', 'scripts/controllers/modal-controller.js', 'scripts/controllers/charts-controller.js', 'scripts/states/app-states.js'];
+        Array.prototype.push.apply(js, appsJS);
+        indexFile = wiring.appendScripts(indexFile, 'scripts/scripts.js', js);
+        this.write(this.destinationPath('app/index.html'), indexFile);
+
     },
     install: function () {
+
+
         if (this.appCache) {
             this.composeWith('appverse-html5:cache', {});
         }
@@ -420,10 +420,6 @@ module.exports = yeoman.generators.Base.extend({
         if (this.appPerformance) {
             this.composeWith('appverse-html5:performance', {});
         }
-        /*  if (this.appQR) {
-              this.composeWith('appverse-html5:qr', {});
-          } */
-
         this.composeWith('appverse-html5:webkit', {
             options: {
                 config: this.jsonproject,
@@ -456,7 +452,10 @@ module.exports = yeoman.generators.Base.extend({
                 'skip-install': this.options['skip-install']
             }
         });
-
+        if (this.options['skip-install']) {
+          this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");
+          this.log("Execute 'grunt list' to report the available grunt tasks into the Readme.md file." + os.EOL);
+        } else {
         this.installDependencies({
             skipInstall: this.options['skip-install'],
             callback: function () {
@@ -464,7 +463,7 @@ module.exports = yeoman.generators.Base.extend({
                 this.emit('dependenciesInstalled');
             }.bind(this)
         });
-
+      }
         //Now you can bind to the dependencies installed event
         this.on('dependenciesInstalled', function () {
             this.spawnCommand('grunt', ['list']);
@@ -483,7 +482,7 @@ module.exports = yeoman.generators.Base.extend({
             this.log("Check your Readme.md for available grunt tasks." + os.EOL);
         }
         // event handler dependenciesInstalled fails with skip-install !!!
-        process.exit();
+        //process.exit();
     }
 
 

@@ -21,7 +21,6 @@
  'use strict';
 
  /*
-  * Controller Currencies4Controller for Currencies4.
   * Pay attention to injection of dependencies (factories, entities and Angular objects).
   */
  angular.module('App.Controllers')
@@ -29,12 +28,12 @@
  .controller('<%=controllerName%>',
      function ($scope, Restangular, $log, $modal) {
          $log.debug('<%=controllerName%>');
-         $scope.name = '<%=_.capitalize(viewName)%>';
+         $scope.name = '<%=capitalizedViewName%>';
          $scope.columns = [];
-         $scope.<%=_.capitalize(viewName)%> = [];
-         $scope.base<%=_.capitalize(viewName)%> = Restangular.all('<%=viewName%>');
-         $scope.base<%=_.capitalize(viewName)%>.getList().then(function (items) {
-             $scope.<%=_.capitalize(viewName)%> = items;
+         $scope.<%=capitalizedViewName%> = [];
+         $scope.base<%=capitalizedViewName%> = Restangular.all('<%=viewName%>');
+         $scope.base<%=capitalizedViewName%>.getList().then(function (items) {
+             $scope.<%=capitalizedViewName%> = items;
              for (var key in items[0].plain()) {
                  $scope.columns.push({
                      field: key,
@@ -52,7 +51,7 @@
          });
 
          $scope.gridOptions = {
-             data: '<%=_.capitalize(viewName)%>',
+             data: '<%=capitalizedViewName%>',
              columnDefs: 'columns',
              rowHeight: 48,
              headerRowHeight:48,
@@ -71,9 +70,9 @@
              var deleteUser = confirm('Are you sure you want to delete?');
              if (deleteUser) {
                  item.remove().then(function () {
-                     var index = $scope.<%=_.capitalize(viewName)%>.indexOf(item);
+                     var index = $scope.<%=capitalizedViewName%>.indexOf(item);
                      if (index > -1) {
-                         $scope.<%=_.capitalize(viewName)%>.splice(index, 1);
+                         $scope.<%=capitalizedViewName%>.splice(index, 1);
                      }
                  });
              }
@@ -88,9 +87,9 @@
              if (!add) {
                  item.put().then(function () {
 
-                     $scope.<%= _.capitalize(viewName)%>.some(function (element, index) {
+                     $scope.<%= capitalizedViewName%>.some(function (element, index) {
                          if (element.id === item.id) {
-                             $scope.<%=_.capitalize(viewName)%>[index] = item;
+                             $scope.<%=capitalizedViewName%>[index] = item;
                              var rowCache = $scope.gridOptions.ngGrid.rowCache[index]; //Refresh bug in ng-grid
                              rowCache.clone.entity = item;
                              rowCache.entity = item;
@@ -99,13 +98,13 @@
                      });
                  });
              } else {
-                 $scope.base<%= _.capitalize(viewName)%>.post(item).then(function (responseData) {
-                     $scope.<%=_.capitalize(viewName)%>.push(responseData);
+                 $scope.base<%=capitalizedViewName%>.post(item).then(function (responseData) {
+                     $scope.<%=capitalizedViewName%>.push(responseData);
                  });
              }
          };
 
-         $scope.filter<%=_.capitalize(viewName)%> = function () {
+         $scope.filter<%=filterName%> = function () {
              $scope.gridOptions.filterOptions.filterText = $scope.filterText;
          };
 

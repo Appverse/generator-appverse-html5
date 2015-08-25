@@ -29,7 +29,7 @@ var fs = require('fs-extra');
 describe('appverse-html5:imagemin', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../imagemin'))
-            .inDir(path.join(os.tmpdir(), 'testApp-imagemin'), function (dir) {
+                .inTmpDir(function (dir) {
                 fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
             })
             .withOptions({

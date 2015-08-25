@@ -5,6 +5,10 @@
 
 This is a Yeoman Generator for Appverse - HTML5
 
+[![NPM](https://nodei.co/npm/generator-appverse-html5.png)](https://nodei.co/npm/generator-appverse-html5/)
+
+[![NPM](https://nodei.co/npm-dl/generator-appverse-html5.png?months=1)](https://nodei.co/npm/generator-appverse-html5)
+
 Requirements
 -------------
 **Nodejs** and **NPM** package manager must be installed.

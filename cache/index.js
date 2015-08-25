@@ -34,11 +34,10 @@ module.exports = yeoman.generators.Base.extend({
         var restJS = os.EOL +
             '    <!-- CACHE MODULE -->' + os.EOL +
             '    <script src="bower_components/angular-cache/dist/angular-cache.min.js"></script>' + os.EOL +
-            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"></script>' + os.EOL +
-            '    <script src="bower_components/angular-resource/angular-resource.js"></script>';
+            '    <script src="bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
-        var index = this.readFileAsString(indexPath);
+        var index = require("html-wiring").readFileAsString(indexPath);
         var indexTag = 'app-states.js"></script>';
         var output = index;
         var pos;
@@ -55,13 +54,9 @@ module.exports = yeoman.generators.Base.extend({
         //ADD ANGULAR MODULE
         utils.addAngularModule.call(this, 'appverse.cache');
 
-        //BOWER
-         var bower = require(this.destinationPath('bower.json'));
-        bower.dependencies['angular-resource'] = '~1.4.0';
-        fs.writeFileSync(this.destinationPath('bower.json'), JSON.stringify(bower));
     },
     install: function () {
-         this.installDependencies({
+        this.installDependencies({
             skipInstall: this.options['skip-install']
         });
     }

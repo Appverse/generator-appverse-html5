@@ -26,11 +26,48 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
 
+describe('appverse-html5:generator', function () {
+            var deps = [
+                [helpers.createDummyGenerator(), 'appverse-html5:imagemin'],
+                [helpers.createDummyGenerator(), 'appverse-html5:mobile'],
+                [helpers.createDummyGenerator(), 'appverse-html5:security'],
+                [helpers.createDummyGenerator(), 'appverse-html5:serverpush'],
+                [helpers.createDummyGenerator(), 'appverse-html5:translate'],
+                [helpers.createDummyGenerator(), 'appverse-html5:cache'],
+                [helpers.createDummyGenerator(), 'appverse-html5:detection'],
+                [helpers.createDummyGenerator(), 'appverse-html5:performance'],
+                [helpers.createDummyGenerator(), 'appverse-html5:logging'],
+                [helpers.createDummyGenerator(), 'appverse-html5:rest'],
+                [helpers.createDummyGenerator(), 'appverse-html5:app-view'],
+                [helpers.createDummyGenerator(), 'appverse-html5:rest-entity'],
+                [helpers.createDummyGenerator(), 'appverse-html5:bootstrap-theme'],
+                [helpers.createDummyGenerator(), 'appverse-html5:webkit']
+            ];
 
-describe('appverse generator', function () {
-    // not testing the actual run of generators yet
-    it('the generator can be required without throwing', function () {
-        this.app = require('../app');
-    });
+            describe('when called with prompts', function () {
+                        before(function (done) {
+                            helpers.run(path.join(__dirname, '../app'))
+                                .inTmpDir(function (dir) {
+                                    // `dir` is the path to the new temporary directory
+                                    fse.copySync(path.join(__dirname, '../app/templates'), dir)
+                                })
+                                .withGenerators(deps)
+                                .withPrompts({
+                                    appName: 'testApp1',
+                                    bootstrapTheme: false
+                                })
+                                .withOptions({
+                                    'skip-install': true
+                                }) // execute with options
+                                .on('end', done);
+                        });
+
+                        it('should create files with defaults', function () {
+                                assert.file(['bower.json', 'package.json', '.editorconfig', '.jshintrc']);
+                                assert.fileContent('bower.json', 'testapp1');
+                                assert.fileContent('app/index.html', 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js');
+                       });
+
+      });
 
 });

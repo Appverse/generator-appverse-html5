@@ -129,7 +129,7 @@ module.exports = yeoman.generators.Base.extend({
             '    <script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script>';
 
         var indexPath = this.destinationPath('app/index.html');
-        var index = this.readFileAsString(indexPath);
+        var index = require("html-wiring").readFileAsString(indexPath);
         var indexTag = 'app-states.js"></script>';
         var output = index;
 
@@ -144,7 +144,7 @@ module.exports = yeoman.generators.Base.extend({
         //REST CONFIG
         this.log('Writing angular configuration (app.js) by the Rest generator');
         var path = this.destinationPath('app/scripts/app.js');
-        var file = this.readFileAsString(path);
+        var file = require("html-wiring").readFileAsString(path);
 
         //PARSE FILE
         var astCode = esprima.parse(file);
@@ -229,11 +229,14 @@ module.exports = yeoman.generators.Base.extend({
             pkg.devDependencies["json-server"] = "0.6.10";
         }
         fs.writeFileSync(packagePath, JSON.stringify(pkg));
-
-        this.installDependencies({
-            skipInstall: this.options['skip-install']
-        });
-
+        if (this.options['skip-install']) {
+          this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");
+          this.log("Execute 'grunt list' to report the available grunt tasks into the Readme.md file." + os.EOL);
+        } else {
+            this.installDependencies({
+               skipInstall: this.options['skip-install']
+            });
+      }
     },
     end: function () {
         if (this.mockServer) {

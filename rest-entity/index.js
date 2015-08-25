@@ -28,10 +28,9 @@ var _ = require('lodash');
 var jsf = require('json-schema-faker');
 var cheerio = require('cheerio');
 
-var writeFiles = function () {}
-
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
+      this.conflicter.force = true;
         this.argument('entity', {
             required: true,
             type: String,
@@ -71,6 +70,8 @@ module.exports = yeoman.generators.Base.extend({
             if (!_.isUndefined(this.name)) {
                 var done = this.async();
                 //ADD FILES: VIEW.HTML and CONTROLLER.JS
+                this.filterName = _.capitalize(this.name);
+                this.capitalizedViewName = _.capitalize(this.name);
                 utils.addViewAndController.call(this);
                 done();
             }
@@ -81,7 +82,7 @@ module.exports = yeoman.generators.Base.extend({
             if (this.restModule) {
                 //CHECK IF MOCK SERVER IS PRESENT
                 var pkgPath = this.destinationPath('package.json');
-                this.pkg = JSON.parse(this.readFileAsString(pkgPath));
+                this.pkg = JSON.parse(require("html-wiring").readFileAsString(pkgPath));
                 //MOCKSERVER ?
                 if (!_.isUndefined(this.pkg.devDependencies['json-server'])) {
                     this.mockentity = [];
@@ -90,13 +91,12 @@ module.exports = yeoman.generators.Base.extend({
                     if (!_.isUndefined(this.options['schema'])) {
                         jsonutils.readJSONSchemaFileOrUrl(this.options['schema'], function (error, data) {
                             if (!data) {
-                                this.log ("Can't find a valid schema definition there!");
+                                this.log("Can't find a valid schema definition there!");
                                 process.exit();
                                 return;
                             }
                             if (!error) {
                                 this.model = data;
-
                                 //CHECK IF THERE IS AN ID PROP
                                 if (_.has(data, 'container')) {
                                     this.model["properties"] = data.container.properties;
@@ -123,14 +123,14 @@ module.exports = yeoman.generators.Base.extend({
                                 fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
                                 //MODAL FORM
                                 this.fs.copyTpl(
-                                    this.templatePath('/app/views/view/viewModalForm.html'),
-                                    this.destinationPath('/app/views/' + this.name + '/' + this.name + 'ModalForm.html'),
+                                    this.templatePath('app/views/view/viewModalForm.html'),
+                                    this.destinationPath('app/views/' + this.name + '/' + this.name + 'ModalForm.html'),
                                     this
                                 );
                                 this.controllerScript = this.name + '-modal-controller.js';
                                 this.fs.copyTpl(
-                                    this.templatePath('/app/scripts/controllers/view-modal-controller.js'),
-                                    this.destinationPath('/app/scripts/controllers/' + this.controllerScript),
+                                    this.templatePath('app/scripts/controllers/view-modal-controller.js'),
+                                    this.destinationPath('app/scripts/controllers/' + this.controllerScript),
                                     this
                                 );
                                 //ADD SCRIPT TO INDEX.HTML
@@ -166,23 +166,23 @@ module.exports = yeoman.generators.Base.extend({
                         // MOCK API
                         this.log('Writing api/' + this.entity + '.json');
                         fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
+                        this.lodash = require('lodash');
                         //MODAL FORM
                         this.fs.copyTpl(
-                            this.templatePath('/app/views/view/viewModalForm.html'),
-                            this.destinationPath('/app/views/' + this.name + '/' + this.name + 'ModalForm.html'),
+                            this.templatePath('app/views/view/viewModalForm.html'),
+                            this.destinationPath('app/views/' + this.name + '/' + this.name + 'ModalForm.html'),
                             this
                         );
                         this.controllerScript = this.name + '-modal-controller.js';
                         this.fs.copyTpl(
-                            this.templatePath('/app/scripts/controllers/view-modal-controller.js'),
-                            this.destinationPath('/app/scripts/controllers/' + this.controllerScript),
+                            this.templatePath('app/scripts/controllers/view-modal-controller.js'),
+                            this.destinationPath('app/scripts/controllers/' + this.controllerScript),
                             this
                         );
                         //ADD SCRIPT TO INDEX.HTML
                         utils.addControllerScriptToIndex.call(this);
                     }
                 }
-
             } else {
                 this.log("Execute 'yo appverse-html5:rest' to add the REST module to the project.");
             }

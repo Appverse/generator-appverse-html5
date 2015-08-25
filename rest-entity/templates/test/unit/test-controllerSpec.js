@@ -13,7 +13,7 @@ describe("Unit: Testing <%=controllerName%>", function () {
             $scope: scope
         });
 
-        expect(scope.name).toEqual('<%=_.capitalize(viewName)%>');
+        expect(scope.name).toEqual('<%=capitalizedViewName%>');
     }));
 
 });

@@ -31,7 +31,7 @@ describe('appverse-html5:bootstrap-theme', function () {
     describe('Theme by default', function () {
         before(function (done) {
             helpers.run(path.join(__dirname, '../bootstrap-theme'))
-                .inDir(path.join(os.tmpdir(), 'testApp-bootstrap'), function (dir) {
+                  .inTmpDir(function (dir) {
                     fs.copySync(path.join(__dirname, '../app/templates'), dir);
                 })
                 .withOptions({
@@ -58,7 +58,7 @@ describe('appverse-html5:bootstrap-theme', function () {
         before(function (done) {
 
             helpers.run(path.join(__dirname, '../bootstrap-theme'))
-                .inDir(path.join(os.tmpdir(), 'testApp2-bootstrap'), function (dir) {
+                  .inTmpDir(function (dir) {
                     fs.copySync(path.join(__dirname, '../app/templates'), dir);
                 })
                 .withOptions({
@@ -85,7 +85,7 @@ describe('appverse-html5:bootstrap-theme', function () {
         before(function (done) {
 
             helpers.run(path.join(__dirname, '../bootstrap-theme'))
-                .inDir(path.join(os.tmpdir(), 'testApp3-bootstrap'), function (dir) {
+                  .inTmpDir(function (dir) {
                     fs.copySync(path.join(__dirname, '../app/templates'), dir);
                 })
                 .withPrompts({

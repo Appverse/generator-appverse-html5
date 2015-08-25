@@ -28,7 +28,7 @@ var fs = require('fs-extra');
 describe('appverse-html5:security', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../security'))
-            .inDir(path.join(os.tmpdir(), 'testApp-security'), function (dir) {
+            .inTmpDir(function (dir) {
                 fs.copySync(path.join(__dirname, '../app/templates'), dir);
             })
             .withOptions({

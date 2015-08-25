@@ -26,13 +26,14 @@ var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fs = require('fs-extra');
 
+
 describe('appverse-html5:app-view', function () {
 
     describe('when called with only one argument', function () {
 
         before(function (done) {
             helpers.run(path.join(__dirname, '../app-view'))
-                .inDir(path.join(os.tmpdir(), 'testApp-view'), function (dir) {
+                    .inTmpDir(function (dir) {
                     fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
                     fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
                     fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
@@ -55,13 +56,15 @@ describe('appverse-html5:app-view', function () {
 
         before(function (done) {
             helpers.run(path.join(__dirname, '../app-view'))
-                .inDir(path.join(os.tmpdir(), 'testApp-view2'), function (dir) {
+                  .inTmpDir(function (dir) {
                     fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
                     fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
                     fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
                 .withArguments('myView2')
-                .withOptions({ menu: 'myDropdown' })
+                .withOptions({
+                    menu: 'myDropdown'
+                })
                 .on('end', done);
         });
 
@@ -81,13 +84,15 @@ describe('appverse-html5:app-view', function () {
         before(function (done) {
             var utils = require('../lib').projectutils;
             helpers.run(path.join(__dirname, '../app-view'))
-                .inDir(path.join(os.tmpdir(), 'testApp-view3'), function (dir) {
+                    .inTmpDir(function (dir) {
                     fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
                     fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
                     fs.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
                 })
                 .withArguments('myView3')
-                .withOptions({ menu: 'myDropdown' })
+                .withOptions({
+                    menu: 'myDropdown'
+                })
                 .on('end', done);
         });
 

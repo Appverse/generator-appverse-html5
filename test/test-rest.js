@@ -25,16 +25,23 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
-/*
+
 describe('appverse-html5:rest', function () {
+
     before(function (done) {
         helpers.run(path.join(__dirname, '../rest'))
-            .inDir(path.join(os.tmpdir(), 'testApp-rest'))
+        .inTmpDir(function (dir) {
+            // `dir` is the path to the new temporary directory
+            fse.copySync(path.join(__dirname, '../app/templates'), dir)
+        })
+            .withPrompts({
+                  restBaseUrl: "http://127.0.0.1",
+                  restBaseUrlPort: "8000",
+                  mockServer: true,
+                  mockServerPort: 8888
+            })
             .withOptions({
                 'skip-install': true
-            })
-            .on('ready', function (generator) {
-                fse.copySync(path.join(generator.templatePath(), '../../app/templates'), generator.destinationPath());
             })
             .on('end', done);
     });
@@ -52,4 +59,4 @@ describe('appverse-html5:rest', function () {
         assert.fileContent('config/connect.js', "context: '/api'");
     });
 
-});*/
+});
