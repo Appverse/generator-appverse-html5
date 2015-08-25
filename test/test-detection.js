@@ -29,7 +29,7 @@ var path = require('path');
 describe('appverse-html5:detection', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../detection'))
-            .inDir(path.join(os.tmpdir(), 'testApp-detection'), function (dir) {
+              .inTmpDir(function (dir) {
                 fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
                 fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
                 fs.copySync(path.join(__dirname, '../app/templates/app/scripts/app.js'), path.join(dir, 'app/scripts/app.js'));

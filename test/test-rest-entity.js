@@ -27,35 +27,61 @@ var os = require('os');
 var fse = require('fs-extra');
 var fs = require('fs');
 
-describe('appverse-html5:rest-entity', function () {
-    describe('when called with only entity argument', function () {
-    before(function (done) {
-        helpers.run(path.join(__dirname, '../rest-entity'))
-            .inDir(path.join(os.tmpdir(), 'testApp-rest-entity'), function (dir) {
-                fse.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
-                fse.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
-                fse.copySync(path.join(__dirname, '../app/templates/app/scripts/app.js'), path.join(dir, 'app/scripts/app.js'));
-                fse.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
-                //MOCK SERVER DEP
-                var pkg = require(path.join(dir, 'package.json'));
-                pkg.devDependencies['json-server'] = "0.6.10";
+describe('appverse-html5:crud-rest-entity', function () {
+  var deps = [
+      [helpers.createDummyGenerator(), 'appverse-html5:imagemin'],
+      [helpers.createDummyGenerator(), 'appverse-html5:mobile'],
+      [helpers.createDummyGenerator(), 'appverse-html5:security'],
+      [helpers.createDummyGenerator(), 'appverse-html5:serverpush'],
+      [helpers.createDummyGenerator(), 'appverse-html5:translate'],
+      [helpers.createDummyGenerator(), 'appverse-html5:cache'],
+      [helpers.createDummyGenerator(), 'appverse-html5:detection'],
+      [helpers.createDummyGenerator(), 'appverse-html5:performance'],
+      [helpers.createDummyGenerator(), 'appverse-html5:logging'],
+      [helpers.createDummyGenerator(), 'appverse-html5:app-view'],
+      [helpers.createDummyGenerator(), 'appverse-html5:bootstrap-theme'],
+      [helpers.createDummyGenerator(), 'appverse-html5:webkit']
+  ];
 
-                fse.writeFileSync(path.join(dir, 'package.json'), JSON.stringify(pkg));
-                fse.mkdirSync(path.join(dir, 'api'));
-            })
-             // ANGULAR MODULE
-            .on('ready', function (generator) {
-                require('../lib').projectutils.addAngularModule.call(generator, 'appverse.rest');
-            })
+
+describe('when called with only entity argument', function () {
+    before(function (done) {
+          helpers.run(path.join(__dirname, '../rest-entity'))
+          .inTmpDir(function (dir) {
+              // `dir` is the path to the new temporary directory
+              fse.copySync(path.join(__dirname, '../app/templates'), dir);
+             //MOCK SERVER DEP
+             var pkg = require(path.join(dir, 'package.json'));
+             pkg.devDependencies['json-server'] = "0.6.10";
+             fse.writeFileSync(path.join(dir, 'package.json'), JSON.stringify(pkg));
+             fse.mkdirSync(path.join(dir, 'api'));
+        })
+        // ANGULAR MODULE
+          .on('ready', function (generator) {
+              generator.conflicter.force = true;
+              require('../lib').projectutils.addAngularModule.call(generator, 'appverse.rest');
+              var indexFile = generator.fs.read(generator.destinationPath('app/index.html'));
+              var restJS = ['<script src="bower_components/lodash/lodash.min.js"></script>',
+                            '<script src="bower_components/restangular/dist/restangular.min.js"></script>',
+                            '<script src="bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"></script>'
+                          ];
+              //APP FILES
+              indexFile = require('html-wiring').appendScripts(indexFile, 'scripts/scripts.js', restJS);
+              generator.write(generator.destinationPath('app/index.html'), indexFile);
+          })
             .withArguments('testEntity')
+            .withOptions({
+                'skip-install': true
+            })
             .on('end', done);
     });
+
 
     it('includes view and controller files', function () {
         assert.file(['api/testEntity.json',
                      'app/views/testEntity/testEntity.html',
                      'app/views/testEntity/testEntityModalForm.html',
-                     'app/scripts/controllers/testEntity-modal-controller.js', 
+                     'app/scripts/controllers/testEntity-modal-controller.js',
                      'app/scripts/controllers/testEntity-controller.js']);
         //ASERT LODASH TEMPLATE REPLACEMENT
         assert.fileContent('app/scripts/controllers/testEntity-controller.js', '$scope.baseTestEntity = Restangular.all(\'testEntity\');');
@@ -69,48 +95,14 @@ describe('appverse-html5:rest-entity', function () {
         assert.fileContent('app/scripts/controllers/testEntity-controller.js', '$scope.filterTestEntity = function () {');
         assert.fileContent('app/scripts/controllers/testEntity-controller.js', 'templateUrl: \'views/testEntity/testEntityModalForm.html\'');
         assert.fileContent('app/scripts/controllers/testEntity-controller.js', 'controller: \'testEntity-modal-controller\'');
-        
+
         assert.fileContent('app/scripts/controllers/testEntity-modal-controller.js', '.controller(\'testEntity-modal-controller\'');
         assert.fileContent('app/scripts/controllers/testEntity-modal-controller.js', '.controller(\'testEntity-modal-controller\'');
         assert.fileContent('app/scripts/controllers/testEntity-modal-controller.js', 'Edit testEntity');
         assert.fileContent('app/scripts/controllers/testEntity-modal-controller.js', 'New testEntity');
-        });    
-    });
-    
- describe('when called with only entity menu argument', function () {
-    before(function (done) {
-        helpers.run(path.join(__dirname, '../rest-entity'))
-            .inDir(path.join(os.tmpdir(), 'testAppMenu-rest-entity'), function (dir) {
-                fse.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
-                fse.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
-                fse.copySync(path.join(__dirname, '../app/templates/app/scripts/app.js'), path.join(dir, 'app/scripts/app.js'));
-                fse.copySync(path.join(__dirname, '../app/templates/app/scripts/states/app-states.js'), path.join(dir, 'app/scripts/states/app-states.js'));
-            //MOCK SERVER DEP
-                var pkg = require(path.join(dir, 'package.json'));
-                pkg.devDependencies['json-server'] = "0.6.10";
 
-                fse.writeFileSync(path.join(dir, 'package.json'), JSON.stringify(pkg));
-                fse.mkdirSync(path.join(dir, 'api'));
-            })
-        
-             // ANGULAR MODULE
-            .on('ready', function (generator) {
-                require('../lib').projectutils.addAngularModule.call(generator, 'appverse.rest');
-            })
-            .withArguments('testEntityMenu')
-            .withOptions ({menu: 'Crud'})
-            .on('end', done);
+        assert.fileContent('app/index.html', '<script src="scripts/controllers/testEntity-controller.js"></script>');
+        assert.fileContent('app/index.html', '<script src="scripts/controllers/testEntity-modal-controller.js"></script>');
+        });
     });
-
-    it('includes view and controller files', function () {
-        assert.file(['api/testEntityMenu.json',
-                     'app/views/testEntityMenu/testEntityMenu.html',
-                     'app/views/testEntityMenu/testEntityMenuModalForm.html',
-                     'app/scripts/controllers/testEntityMenu-modal-controller.js', 
-                     'app/scripts/controllers/testEntityMenu-controller.js']);
-        
-        assert.fileContent('app/index.html', 'Crud<span class="caret"></span></a><ul class="dropdown-menu">');
-        });    
-    });
- 
 });

@@ -21,7 +21,6 @@
  'use strict';
 
  /*
-  * Controller Currencies4Controller for Currencies4.
   * Pay attention to injection of dependencies (factories, entities and Angular objects).
   */
  angular.module('App.Controllers')

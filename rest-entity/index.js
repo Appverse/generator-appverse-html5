@@ -30,6 +30,7 @@ var cheerio = require('cheerio');
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
+      this.conflicter.force = true;
         this.argument('entity', {
             required: true,
             type: String,
@@ -96,7 +97,6 @@ module.exports = yeoman.generators.Base.extend({
                             }
                             if (!error) {
                                 this.model = data;
-
                                 //CHECK IF THERE IS AN ID PROP
                                 if (_.has(data, 'container')) {
                                     this.model["properties"] = data.container.properties;
@@ -166,9 +166,7 @@ module.exports = yeoman.generators.Base.extend({
                         // MOCK API
                         this.log('Writing api/' + this.entity + '.json');
                         fs.writeFileSync(this.destinationPath('api/' + this.name + '.json'), JSON.stringify(this.mockentity));
-
                         this.lodash = require('lodash');
-
                         //MODAL FORM
                         this.fs.copyTpl(
                             this.templatePath('app/views/view/viewModalForm.html'),
@@ -185,7 +183,6 @@ module.exports = yeoman.generators.Base.extend({
                         utils.addControllerScriptToIndex.call(this);
                     }
                 }
-
             } else {
                 this.log("Execute 'yo appverse-html5:rest' to add the REST module to the project.");
             }

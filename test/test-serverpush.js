@@ -24,15 +24,14 @@ var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
-var fs = require('fs-extra');
+var fse = require('fs-extra');
 
 describe('appverse-html5:serverpush', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../serverpush'))
-            .inDir(path.join(os.tmpdir(), 'testApp-serverpush'), function (dir) {
-                fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
-                fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
-                fs.copySync(path.join(__dirname, '../app/templates/app/scripts/app.js'), path.join(dir, 'app/scripts/app.js'));
+              .inTmpDir(function (dir) {
+                var done = this.async(); // `this` is the RunContext object.
+                fse.copy(path.join(__dirname, '../app/templates'), dir, done);
             })
             .on('end', done);
     });

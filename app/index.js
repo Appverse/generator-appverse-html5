@@ -33,6 +33,7 @@ var wiring = require('html-wiring');
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
+        require('events').EventEmitter.defaultMaxListeners = 20;
     },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
@@ -97,7 +98,7 @@ module.exports = yeoman.generators.Base.extend({
                             // this.appQR = this.jsonproject.components.qr.enabled;
                             this.appRest = this.jsonproject.components.rest.enabled;
                             this.appPerformance = this.jsonproject.components.performance.enabled;
-                            this.appSecurity = false //this.jsonproject.components.security.enabled;
+                            this.appSecurity = this.jsonproject.components.security.enabled;
                             this.appServerPush = this.jsonproject.components.serverpush.enabled;
                             this.appCache = this.jsonproject.components.cache.enabled;
                             this.appLogging = this.jsonproject.components.logging.enabled;
@@ -204,7 +205,7 @@ module.exports = yeoman.generators.Base.extend({
                 this.appRest = hasFeature(coreOptions, 'appRest');
                 this.spushBaseUrl = props.spushBaseUrl;
                 this.appPerformance = hasFeature(coreOptions, 'appPerformance');
-                this.appSecurity = false //hasFeature(coreOptions, 'appSecurity');
+                this.appSecurity = hasFeature(coreOptions, 'appSecurity');
                 this.appServerPush = hasFeature(coreOptions, 'appServerPush');
                 this.appCache = hasFeature(coreOptions, 'appCache');
                 this.appLogging = hasFeature(coreOptions, 'appLogging');
@@ -215,7 +216,6 @@ module.exports = yeoman.generators.Base.extend({
             }
             done();
         }.bind(this));
-
     },
     writing: function () {
         this.fs.copyTpl(
@@ -223,7 +223,6 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('app/index.html'),
             this
         );
-
 
         this.fs.copyTpl(
             this.templatePath('package.json'),
@@ -325,8 +324,6 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('app/scripts/app.js'),
             this
         );
-
-
         //paths starting with "/" cause problems on UNIX based OS like OSX
         this.fs.copy(
             this.templatePath('test'),
@@ -348,37 +345,40 @@ module.exports = yeoman.generators.Base.extend({
             this.destinationPath('tasks')
         );
 
-        this.indexFile = wiring.readFileAsString(this.destinationPath('app/index.html'));
+        //var indexFile = wiring.readFileAsString(this.destinationPath('app/index.html'));
+        var indexFile = this.fs.read(this.destinationPath('app/index.html'));
         var js = ['bower_components/jquery/dist/jquery.min.js',
-                  'bower_components/angular/angular.min.js',
-                  'bower_components/angular-touch/angular-touch.min.js',
-                  'bower_components/modernizr/modernizr.js',
-                  'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
-                  'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                  'bower_components/ng-grid/build/ng-grid.min.js',
-                  'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
-                  'bower_components/angular-animate/angular-animate.min.js',
-                  'bower_components/angular-xeditable/dist/js/xeditable.js',
-                  'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
-                  'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
-                  'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                  'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js',
-                  'bower_components/angular-ripple/angular-ripple.js',
-                  'bower_components/angular-ui-select/dist/select.min.js',
-                  'bower_components/angularjs-slider/dist/rzslider.min.js',
-                  'bower_components/angular-resize/dist/angular-resize.min.js',
-                  'bower_components/angular-sanitize/angular-sanitize.min.js',
-                  'bower_components/Chart.js/Chart.min.js',
-                  'bower_components/angular-chart.js/dist/angular-chart.min.js'
-              ];
+                    'bower_components/angular/angular.min.js',
+                    'bower_components/angular-touch/angular-touch.min.js',
+                    'bower_components/modernizr/modernizr.js',
+                    'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+                    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                    'bower_components/ng-grid/build/ng-grid.min.js',
+                    'bower_components/venturocket-angular-slider/build/angular-slider.min.js',
+                    'bower_components/angular-animate/angular-animate.min.js',
+                    'bower_components/angular-xeditable/dist/js/xeditable.js',
+                    'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
+                    'bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js',
+                    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+                    'bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js',
+                    'bower_components/angular-ripple/angular-ripple.js',
+                    'bower_components/angular-ui-select/dist/select.min.js',
+                    'bower_components/angularjs-slider/dist/rzslider.min.js',
+                    'bower_components/angular-resize/dist/angular-resize.min.js',
+                    'bower_components/angular-sanitize/angular-sanitize.min.js',
+                    'bower_components/Chart.js/Chart.min.js',
+                    'bower_components/angular-chart.js/dist/angular-chart.min.js'
+                ];
         //APP FILES
         var appsJS = ['scripts/app.js', 'scripts/controllers/home-controller.js', 'scripts/controllers/components-controller.js', 'scripts/controllers/modal-controller.js', 'scripts/controllers/charts-controller.js', 'scripts/states/app-states.js'];
         Array.prototype.push.apply(js, appsJS);
-        this.indexFile = wiring.appendScripts(this.indexFile, 'scripts/scripts.js', js);
-        this.write(this.destinationPath('app/index.html'), this.indexFile);
+        indexFile = wiring.appendScripts(indexFile, 'scripts/scripts.js', js);
+        this.write(this.destinationPath('app/index.html'), indexFile);
 
     },
     install: function () {
+
+
         if (this.appCache) {
             this.composeWith('appverse-html5:cache', {});
         }
@@ -452,7 +452,10 @@ module.exports = yeoman.generators.Base.extend({
                 'skip-install': this.options['skip-install']
             }
         });
-
+        if (this.options['skip-install']) {
+          this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");
+          this.log("Execute 'grunt list' to report the available grunt tasks into the Readme.md file." + os.EOL);
+        } else {
         this.installDependencies({
             skipInstall: this.options['skip-install'],
             callback: function () {
@@ -460,7 +463,7 @@ module.exports = yeoman.generators.Base.extend({
                 this.emit('dependenciesInstalled');
             }.bind(this)
         });
-
+      }
         //Now you can bind to the dependencies installed event
         this.on('dependenciesInstalled', function () {
             this.spawnCommand('grunt', ['list']);
@@ -479,7 +482,7 @@ module.exports = yeoman.generators.Base.extend({
             this.log("Check your Readme.md for available grunt tasks." + os.EOL);
         }
         // event handler dependenciesInstalled fails with skip-install !!!
-        process.exit();
+        //process.exit();
     }
 
 

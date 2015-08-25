@@ -29,7 +29,7 @@ var fs = require('fs-extra');
 describe('appverse-html5:qr', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../qr'))
-            .inDir(path.join(os.tmpdir(), 'testApp-qr'), function (dir) {
+              .inTmpDir(function (dir) {
                 fs.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
                 fs.copySync(path.join(__dirname, '../app/templates/app/index.html'), path.join(dir, 'app/index.html'));
             })

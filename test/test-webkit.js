@@ -29,7 +29,7 @@ var fse = require('fs-extra');
 describe('appverse-html5:webkit', function () {
     before(function (done) {
         helpers.run(path.join(__dirname, '../webkit'))
-            .inDir(path.join(os.tmpdir(), 'testApp-webkit'), function (dir) {
+              .inTmpDir(function (dir) {
                 fse.copySync(path.join(__dirname, '../app/templates/package.json'), path.join(dir, 'package.json'));
             })
             .withPrompts({

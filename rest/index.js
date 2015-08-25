@@ -229,11 +229,14 @@ module.exports = yeoman.generators.Base.extend({
             pkg.devDependencies["json-server"] = "0.6.10";
         }
         fs.writeFileSync(packagePath, JSON.stringify(pkg));
-
-        this.installDependencies({
-            skipInstall: this.options['skip-install']
-        });
-
+        if (this.options['skip-install']) {
+          this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");
+          this.log("Execute 'grunt list' to report the available grunt tasks into the Readme.md file." + os.EOL);
+        } else {
+            this.installDependencies({
+               skipInstall: this.options['skip-install']
+            });
+      }
     },
     end: function () {
         if (this.mockServer) {
