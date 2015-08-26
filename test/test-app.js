@@ -27,7 +27,7 @@ var os = require('os');
 var fse = require('fs-extra');
 
 describe('appverse-html5:generator', function () {
-            var deps = [
+    var deps = [
                 [helpers.createDummyGenerator(), 'appverse-html5:imagemin'],
                 [helpers.createDummyGenerator(), 'appverse-html5:mobile'],
                 [helpers.createDummyGenerator(), 'appverse-html5:security'],
@@ -44,30 +44,31 @@ describe('appverse-html5:generator', function () {
                 [helpers.createDummyGenerator(), 'appverse-html5:webkit']
             ];
 
-            describe('when called with prompts', function () {
-                        before(function (done) {
-                            helpers.run(path.join(__dirname, '../app'))
-                                .inTmpDir(function (dir) {
-                                    // `dir` is the path to the new temporary directory
-                                    fse.copySync(path.join(__dirname, '../app/templates'), dir)
-                                })
-                                .withGenerators(deps)
-                                .withPrompts({
-                                    appName: 'testApp1',
-                                    bootstrapTheme: false
-                                })
-                                .withOptions({
-                                    'skip-install': true
-                                }) // execute with options
-                                .on('end', done);
-                        });
+    describe('when called with prompts', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../app'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../app/templates'), dir)
+                })
+                .withGenerators(deps)
+                .withPrompts({
+                    appName: 'testApp1',
+                    bootstrapTheme: false
+                })
+                .withOptions({
+                    'skip-install': true,
+                    'skip-welcome-message': true
+                }) // execute with options
+                .on('end', done);
+        });
 
-                        it('should create files with defaults', function () {
-                                assert.file(['bower.json', 'package.json', '.editorconfig', '.jshintrc']);
-                                assert.fileContent('bower.json', 'testapp1');
-                                assert.fileContent('app/index.html', 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js');
-                       });
+        it('should create files with defaults', function () {
+            assert.file(['bower.json', 'package.json', '.editorconfig', '.jshintrc']);
+            assert.fileContent('bower.json', 'testapp1');
+            assert.fileContent('app/index.html', 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js');
+        });
 
-      });
+    });
 
 });

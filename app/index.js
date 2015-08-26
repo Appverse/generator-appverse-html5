@@ -49,6 +49,7 @@ module.exports = yeoman.generators.Base.extend({
             utils.out.help();
             process.exit();
         }
+
         this.interactiveMode = true;
         // This makes `appname` an argument.
         this.argument('applicationName', {
@@ -120,8 +121,10 @@ module.exports = yeoman.generators.Base.extend({
     },
     prompting: function () {
         var done = this.async();
-        utils.out.logo();
-        utils.projectutils.checkVersion.call(this);
+        if (!this.options['skip-welcome-message']) {
+            utils.out.logo();
+            utils.projectutils.checkVersion.call(this);
+        }
         var prompts;
         if (this.interactiveMode) {
             prompts = [
@@ -453,17 +456,17 @@ module.exports = yeoman.generators.Base.extend({
             }
         });
         if (this.options['skip-install']) {
-          this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");
-          this.log("Execute 'grunt list' to report the available grunt tasks into the Readme.md file." + os.EOL);
+            this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");
+            this.log("Execute 'grunt list' to report the available grunt tasks into the Readme.md file." + os.EOL);
         } else {
-        this.installDependencies({
-            skipInstall: this.options['skip-install'],
-            callback: function () {
-                // Emit a new event - dependencies installed
-                this.emit('dependenciesInstalled');
-            }.bind(this)
-        });
-      }
+            this.installDependencies({
+                skipInstall: this.options['skip-install'],
+                callback: function () {
+                    // Emit a new event - dependencies installed
+                    this.emit('dependenciesInstalled');
+                }.bind(this)
+            });
+        }
         //Now you can bind to the dependencies installed event
         this.on('dependenciesInstalled', function () {
             this.spawnCommand('grunt', ['list']);
