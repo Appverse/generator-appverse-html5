@@ -1,13 +1,17 @@
-## [Appverse HTML5](http://appverse.org/)
+## [Appverse HTML5](http://appverse.org/) 
 ![](http://appversed.files.wordpress.com/2012/12/logo.png)
+
+![](https://img.shields.io/npm/v/generator-appverse-html5.svg) ![](https://img.shields.io/npm/dm/generator-appverse-html5.svg) ![](https://img.shields.io/npm/l/generator-appverse-html5.svg) 
 
 ### generator-appverse-html5 
 
-This is a Yeoman Generator for Appverse - HTML5
+This is a Yeoman Generator for Appverse - HTML5 
 
 [![NPM](https://nodei.co/npm/generator-appverse-html5.png)](https://nodei.co/npm/generator-appverse-html5/)
 
 [![NPM](https://nodei.co/npm-dl/generator-appverse-html5.png?months=1)](https://nodei.co/npm/generator-appverse-html5)
+
+
 
 Requirements
 -------------
