@@ -88,16 +88,29 @@ Now you can execute the generator:
     $ yo appverse-html5
 ```
 
-### Sub-generators
-------------------
-Later on you can add any of the Appverse modules to your project running the subgenerators.
-
-* REST 
-Add the Appverse REST module to the project. 
-It can add a MOCK REST Server ([json-server](https://github.com/typicode/json-server))
+### Subgenerators 
+-----------------
+#### Module
+Later on you can add any of the Appverse modules to your project running the module subgenerator.
 
 ```bash
-    $ yo appverse-html5:rest
+    $ yo appverse-html5:module [name]
+```
+
+Type --help option for available module list
+
+```bash
+    $ yo appverse-html5:module --help
+```
+
+##### Module list 
+ 
+* REST 
+Adds the Appverse REST module to the project. 
+Add a MOCK REST Server ([json-server](https://github.com/typicode/json-server)) as well.
+
+```bash
+    $ yo appverse-html5:module rest
 ```
 
 Mock server adds two new grunt tasks:
@@ -114,53 +127,15 @@ Runs the application using the mock JSON server as REST backend, and:
 
 Runs the application using the mock JSON server as REST backend and open the default browser.
 
-
 * Cache   
-
-```bash
-    $ yo appverse-html5:cache 
-```
-
 * Detection  
-
-```bash
-    $ yo appverse-html5:detection 
-```
-
 * Performance
-
-```bash
-    $ yo appverse-html5:performance    
-```
 * Logging   
-
-```bash 
-    $ yo appverse-html5:logging 
-```
-
 * Server Push 
-
-```bash 
-    $ yo appverse-html5:serverpush    
-```
-
 * Translation  
-
-```bash 
-    $ yo appverse-html5:translate
-```
-
 * Security  
-
-```bash 
-    $ yo appverse-html5:security
-```
-
 * QR  
 
-```bash
-    $ yo appverse-html5:qr
-```
 
 * Add a new view  
 Execute the app-view subgenerator with the view name as argument. The subgenerator will create the HTML view and the JS controller. 

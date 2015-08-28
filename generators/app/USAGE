@@ -1,0 +1,29 @@
+Description:
+    Creates a default Appverse HTML5 - AngularJS app
+    
+Exection
+
+     yo appverse-html5
+     yo appverse-html5 [<options>]
+     yo appverse-html5 [<args>] [<options>]
+     yo appverse-html5:[<subgenerator>] [<args>] [<options>]
+
+  args
+     name: The application name. It will skip initial prompts.
+  
+  options: 
+        --help: Shows help.
+        --project: Project JSON Defintion. It will skip initial prompts 
+        --skip-install: Skip npm and bower install process. 
+        
+  subgenerators
+  
+    module: Installs a module
+       args
+         name: Module name  
+       options  
+         --help: Shows module help.
+         --skip-install: Skip npm and bower install process. 
+         
+        
+       

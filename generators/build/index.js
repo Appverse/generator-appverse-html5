@@ -3,8 +3,8 @@ var yeoman = require('yeoman-generator');
 var fs = require('fs');
 var os = require('os');
 var _ = require('lodash');
-var generator = require('./module-base');
-var modules = require('./modules.json');
+var generator = require('./build-base');
+var modules = require('./build.json');
 var util = require('util');
 
 
@@ -18,14 +18,14 @@ module.exports = yeoman.generators.Base.extend({
         this.argument('name', {
             required: true,
             type: String,
-            desc: 'The subgenerator name'
+            desc: 'The build type name'
         });
 
-        this.log('Searching module ' + this.name + '.');
+        this.log('Searching build type ' + this.name + '.');
         this.module = this.findModule(this.name, modules);
 
         if (this.module) {
-            this.log('Module found: ' + JSON.stringify(this.module.name));
+            this.log('Build type found: ' + JSON.stringify(this.module.name));
         } else {
             this.warning('Can not find module ' + this.name + '.');
             this.help();
@@ -46,20 +46,6 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     writing: function () {
-        //SCRIPTS
-        if (this.module.scripts) {
-            this.addScriptsToIndex(this.module.scripts);
-        }
-        //ANGULAR MODULE
-        if (this.module.angular) {
-            this.addAngularModule(this.module.angular);
-        }
-        //PACKAGES
-        //BOWER
-        if (this.module.bower) {
-            this.newpacakages = true;
-            this.addPackage(this.module.bower, 'bower.json', 'dependencies');
-        }
         //NPM
         if (this.module.npm) {
             this.newpacakages = true;
@@ -72,10 +58,6 @@ module.exports = yeoman.generators.Base.extend({
         //TEMPLATES
         if (this.module.templates) {
             this.moveTemplates(this.name, this.module.templates);
-        }
-        //CONFIG
-        if (this.module.config) {
-            this.addConfig(this.module.config);
         }
     },
     install: function () {

@@ -4,6 +4,7 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var pkg = require("../package.json");
+var _ = require('lodash');
 var os = require('os');
 var updateNotifier = require('update-notifier');
 var Generator = yeoman.generators.Base;
@@ -88,5 +89,85 @@ Array.prototype.pushIfNotExist = function (element, comparer) {
 Array.prototype.unshiftIfNotExist = function (element, comparer) {
     if (!this.inArray(comparer)) {
         this.unshift(element);
+    }
+};
+
+/**
+ *
+ * Find module by name from the available module list
+ *
+ */
+Generator.prototype.findModule = function findModule(nameKey, modules) {
+    for (var i = 0; i < modules.length; i++) {
+        if (modules[i].name === nameKey) {
+            return modules[i];
+        }
+    }
+};
+
+/**
+ *
+ * Find modules for prompting on start
+ *
+ */
+Generator.prototype.promptModules = function promptModules() {
+    var modules = require("./module/modules.json");
+    var prompts = [];
+    for (var i = 0; i < modules.length; i++) {
+        if (modules[i].startprompt) {
+            var p = {
+                name: _.capitalize(modules[i].name),
+                value: modules[i].name,
+                checked: false
+            }
+            prompts.push(p);
+        }
+    }
+    return prompts;
+};
+/**
+ * Move files to target path
+ *
+ **/
+Generator.prototype.moveFiles = function moveFiles(base, files) {
+    files.forEach(function (file) {
+        this.fs.copy(
+            this.templatePath(path.join(base, file)),
+            this.destinationPath(file)
+        );
+    }.bind(this));
+};
+/**
+ * Fill and Move templates to target path
+ *
+ **/
+Generator.prototype.moveTemplates = function moveTemplates(base, templates) {
+    templates.forEach(function (template) {
+        this.fs.copyTpl(
+            this.templatePath(path.join(base, template)),
+            this.destinationPath(template),
+            this
+        );
+    }.bind(this));
+};
+/**
+ * Add package to dependency manager  (package.json, bower.json)
+ @ package list
+ @ file
+ @ node
+ */
+Generator.prototype.addPackage = function addPackage(packages, file, node) {
+    var manager = require(this.destinationPath(file));
+    var write = false;
+    packages.forEach(function (p) {
+        if (!manager[node][p.name]) {
+            manager[node][p.name] = p.version;
+            write = true;
+        }
+    });
+    if (write) {
+        this.fs.write(this.destinationPath(file), JSON.stringify(manager));
+    } else {
+        this.info("Dependency already exists at " + file);
     }
 };
