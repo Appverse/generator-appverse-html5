@@ -23,7 +23,7 @@ var Generator = yeoman.generators.Base;
 Generator.prototype.help = function help() {
     this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:module [module]" + os.EOL));
     this.log(chalk.bgBlack.white(" Available module list:"));
-    require('./modules.json').forEach(function (e) {
+    this.modules.forEach(function (e) {
         console.log("\t" + chalk.bgBlack.cyan(e.name));
     });
     return "";
@@ -35,7 +35,7 @@ Generator.prototype.help = function help() {
  * ADD SCRIPTS FROM MODULE TO INDEX:HTML
  */
 Generator.prototype.addScriptsToIndex = function addScriptsToIndex(scripts) {
-    this.log("Adding scripts to index.html");
+    this.log(" > " + this.name + ": Adding scripts to index.html");
     var index = this.fs.read(this.destinationPath('app/index.html'));
     var indexHTML = cheerio.load(index);
     var write = false;
@@ -57,7 +57,7 @@ Generator.prototype.addScriptsToIndex = function addScriptsToIndex(scripts) {
     if (write) {
         this.fs.write(this.destinationPath('app/index.html'), indexHTML.html());
     } else {
-        this.info("Scripts already exists at index.html");
+        this.info(" > " + this.name + ": Scripts already exists at index.html");
     }
 };
 
@@ -88,7 +88,7 @@ Generator.prototype.checkAngularModule = function (moduleName) {
 Generator.prototype.addAngularModule = function (moduleName) {
     if (!this.checkAngularModule(moduleName)) {
         //ANGULAR MODULES
-        this.log('Writing angular modules (app.js).');
+        this.log(" > " + this.name + ': Writing angular modules (app.js).');
         var file = this.fs.read(this.destinationPath('app/scripts/app.js'));
         //PARSE FILE
         var astCode = esprima.parse(file);
@@ -114,7 +114,7 @@ Generator.prototype.addAngularModule = function (moduleName) {
         var finalCode = escodegen.generate(moduleCode);
         this.fs.write(this.destinationPath('app/scripts/app.js'), finalCode);
     } else {
-        this.info("Angular module already installed");
+        this.info(" > " + this.name + ": Angular module already installed");
     }
 };
 
@@ -122,7 +122,7 @@ Generator.prototype.addAngularModule = function (moduleName) {
  * Add environment configuration
  */
 Generator.prototype.addConfig = function addConfig(configuration) {
-    this.log('Writing angular configuration (app.js) by the Rest generator');
+    this.log(this.name + ': Writing angular configuration (app.js)');
     var file = this.fs.read(this.destinationPath('app/scripts/app.js'));
     //PARSE FILE
     var astCode = esprima.parse(file);

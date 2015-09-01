@@ -1,0 +1,27 @@
+[
+    {
+        "name": "buildmock",
+        "files": [
+           "buildmock/buildmock.js",
+           "buildmock/buildmock.js"
+        ],
+        "npm": [
+            {
+                "name": "buildmock-package",
+                "version": "0.0.1"
+        },
+            {
+                "name": "buildmock-package2",
+                "version": "0.0.2"
+        }
+        ],
+        "scripts": [{
+            "name": "buildmock",
+            "value": "buildmock script"
+        }],
+        "templates": [
+           "buildmock/buildmocktemplate1.js",
+           "buildmock/buildmocktemplate2.js"
+        ]
+    }
+]

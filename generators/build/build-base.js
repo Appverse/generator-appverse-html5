@@ -9,6 +9,8 @@ var os = require('os');
 var yeoman = require('yeoman-generator');
 var gen = require('../generator-base');
 
+var Generator = yeoman.generators.Base;
+
 /**
  *
  * This method rewrites the yeoman.help()  generator/lib/actions/help.js

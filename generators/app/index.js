@@ -26,55 +26,122 @@ var inquirer = require('inquirer');
 var _ = require('lodash');
 var fs = require('fs');
 var os = require('os');
+var path = require('path');
 var wiring = require('html-wiring');
-var project = require('./project-config.json');
+var project = require('./config/project-config.json');
 var gen = require('../generator-base');
 
 module.exports = yeoman.generators.Base.extend({
-    initializing: function () {
-        this.conflicter.force = true;
-        require('events').EventEmitter.defaultMaxListeners = 20;
-    },
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
     },
-    prompting: function () {
-        var done = this.async();
+    initializing: function () {
+        this.conflicter.force = true;
+        this.skipprompts = false;
+        require('events').EventEmitter.defaultMaxListeners = 20;
+
         if (!this.options['skip-welcome-message']) {
             this.welcome();
             this.checkVersion();
         }
 
-        var prompts = [{
-                name: 'appName',
-                message: 'What is your app\'s name ?  ' +
-                    '\n Application name cannot contain special characters or a blank space. ' +
-                    '\n Name will be slug if needed.  ',
-                default: slug.slugify(this.appname)
+        if (!this.options['modules']) {
+            this.modules = path.join(__dirname, '../module/config/modules.json');
+        } else {
+            this.modules = this.options['modules'];
+        }
+
+        if (!this.options['builds']) {
+            this.builds = path.join(__dirname, '../build/config/build.json');
+        } else {
+            this.builds = this.options['builds'];
+        }
+
+        // This makes `appname` an argument.
+        this.argument('application', {
+            type: String,
+            required: false
+        });
+        // Get the application name as argument to skip promtps and init all the variables
+        // false by default or --all
+        if (typeof this.application !== 'undefined') {
+            this.skipprompts = true;
+            this.appName = this.application;
+        }
+
+        // This makes `project` an option. --project=project.json
+        // Get a JSON path or URL as value. The JSON defines the project and must validate against schema/appverse-project-schema.json
+        if (this.options['project']) {
+            this.project = this.options['project'];
+            this.readJSONFileOrUrl(this.project, function (error, data) {
+                if (!error) {
+                    this.jsonproject = data;
+                    this.props = {};
+                    this.props.coreOptions = [];
+                    this.validateJson(this.jsonproject, this.templatePath(), function (error, data) {
+                        if (!error) {
+                            this.appName = slug.slugify(this.jsonproject.project);
+                            //ENABLED MODULES
+                            for (var key in this.jsonproject.modules) {
+                                if (this.jsonproject.modules[key].enabled) {
+                                    if (this.jsonproject.modules.hasOwnProperty(key)) {
+                                        this.props.coreOptions.push(key);
+                                    }
+                                }
+                            }
+                            //ENABLED BUILDS
+                            for (var key in this.jsonproject.builds) {
+                                if (this.jsonproject.builds[key].enabled) {
+                                    if (this.jsonproject.modules.hasOwnProperty(key)) {
+                                        this.props[this.jsonproject.builds[key]] = key;
+                                    }
+                                }
+                            }
+                            this.env.options.appPath = this.options.appPath || 'app';
+                            this.config.set('appPath', this.env.options.appPath);
+                            this.skipprompts = true;
+                        } else {
+                            this.warning(error);
+                            process.exit();
+                        }
+                    }.bind(this));
+                } else {
+                    this.warning(error);
+                    process.exit();
+                }
+            }.bind(this));
+        }
+    },
+    prompting: function () {
+        if (!this.skipprompts) {
+            var done = this.async();
+            var prompts = [{
+                    name: 'appName',
+                    message: 'What is your app\'s name ?  ' +
+                        '\n Application name cannot contain special characters or a blank space. ' +
+                        '\n Name will be slug if needed.  ',
+                    default: slug.slugify(this.appname)
                 }, {
-                type: 'checkbox',
-                name: 'coreOptions',
-                message: "Select core modules. \n You can add the modules later executing the subgenerators",
-                choices: this.promptModules()
-                }, {
-                type: "confirm",
-                name: "bootstrapTheme",
-                message: "Do you want to select a Bootstrap theme from Bootswatch.com?",
-                default: false
+                    type: 'checkbox',
+                    name: 'coreOptions',
+                    message: "Select core modules. \n You can add the modules later executing the subgenerators",
+                    choices: this.promptModules(this.modules)
                 }
                 ];
 
+            Array.prototype.push.apply(prompts, this.promptBuilds(this.builds));
 
-        this.prompt(prompts, function (props) {
-            if (prompts.length > 0) {
-                this.appName = slug.slugify(props.appName);
-                this.props = props;
-                this.env.options.appPath = this.options.appPath || 'app';
-                this.config.set('appPath', this.env.options.appPath);
-                this.appBootstrapSelector = props.bootstrapTheme;
-            }
-            done();
-        }.bind(this));
+            this.prompt(prompts, function (props) {
+                if (prompts.length > 0) {
+                    this.appName = slug.slugify(props.appName);
+                    this.props = props;
+                    this.env.options.appPath = this.options.appPath || 'app';
+                    this.config.set('appPath', this.env.options.appPath);
+                    this.appBootstrapSelector = props.bootstrapTheme;
+                }
+                done();
+            }.bind(this));
+        }
     },
     writing: function () {
         //TEMPLATES
@@ -88,15 +155,38 @@ module.exports = yeoman.generators.Base.extend({
         this.write(this.destinationPath('app/index.html'), indexFile);
     },
     install: function () {
-        this.props.coreOptions.forEach(function (option) {
-            this.composeWith('appverse-html5:module', {
-                args: option,
-                options: {
-                    'skip-welcome-message': true,
-                    'skip-install': true
-                }
-            });
+        if (this.props.coreOptions) {
+            if (this.props.coreOptions.length > 0) {
+                //MODULES
+                this.props.coreOptions.forEach(function (option) {
+                    this.composeWith('appverse-html5:module', {
+                        args: option,
+                        options: {
+                            'modules': this.modules,
+                            'skip-welcome-message': true,
+                            'skip-install': true,
+                            'skip-prompts': this.skipprompts,
+                            'jsonproject': this.jsonproject
+                        }
+                    });
+                }.bind(this));
+            }
+        }
+        //BUILD OPTIONS
+        this.promptBuilds(this.builds).forEach(function (option) {
+            if (this.props[option.name]) {
+                this.composeWith('appverse-html5:build', {
+                    args: option.name,
+                    options: {
+                        'builds': this.builds,
+                        'skip-welcome-message': true,
+                        'skip-prompts': this.skipprompts,
+                        'jsonproject': this.jsonproject
+                    }
+                });
+            }
         }.bind(this));
+
         this.installDependencies({
             skipInstall: this.options['skip-install'],
             callback: function () {

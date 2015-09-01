@@ -26,12 +26,20 @@ module.exports = function (grunt) {
                 }
             }
         },
+        instrument: {
+            files: ['generators/**/*.js', '!**/templates/**'],
+            options: {
+                lazy: true,
+                basePath: 'temp/generators'
+            }
+        }
     });
 
     // Load all grunt plugins here
     grunt.loadNpmTasks('grunt-bumpup');
     grunt.loadNpmTasks('grunt-git');
 
+    grunt.loadNpmTasks('grunt-istanbul');
 
 
-}
+};

@@ -23,11 +23,17 @@
                 "name": "start",
                 "value": "nodewebkit ./dist/web"
         }
-        ]
+        ],
+        "startprompt": {
+            "type": "confirm",
+            "name": "webkit",
+            "message": "Do you want to package your application as a desktop application using Node-Webkit?",
+            "default": false
+        }
     },
     {
         "name": "mobile",
-        "files": ["manifest", "tasks", "config", "mobile-builder-bundle", ],
+        "files": ["manifest", "tasks", "config", "mobile-builder-bundle"],
         "templates": ["Gruntfile.js", "tasks/mobile.js", "config/http_upload.js", "mobile-builder-bundle/build.properties"],
         "npm": [
             {
@@ -63,24 +69,30 @@
                 "version": "0.9.0"
         }
         ],
-        prompts: [
+        "prompts": [
             {
-                type: "input",
-                name: "hostname",
-                message: "Mobile Builder Host name",
-                default: "https://yourhostname"
+                "type": "input",
+                "name": "hostname",
+                "message": "Mobile Builder Host name",
+                "default": "https://yourhostname"
              }, {
-                type: "input",
-                name: "username",
-                message: "User name",
-                default: "username"
+                "type": "input",
+                "name": "username",
+                "message": "User name",
+                "default": "username"
              }, {
-                type: "input",
-                name: "password",
-                message: "Password ",
-                default: "password"
+                "type": "input",
+                "name": "password",
+                "message": "Password",
+                "default": "password"
             }
-        ];
+        ],
+        "startprompt": {
+            "type": "confirm",
+            "name": "mobile",
+            "message": "Do you want to add Mobile Builds?",
+            "default": false
+        }
     },
     {
         "name": "imagemin",
