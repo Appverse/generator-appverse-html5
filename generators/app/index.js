@@ -38,6 +38,8 @@ module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
         this.skipprompts = false;
+        this.props = {};
+        this.props.coreOptions = [];
         require('events').EventEmitter.defaultMaxListeners = 20;
 
         if (!this.options['skip-welcome-message']) {
@@ -76,8 +78,6 @@ module.exports = yeoman.generators.Base.extend({
             this.readJSONFileOrUrl(this.project, function (error, data) {
                 if (!error) {
                     this.jsonproject = data;
-                    this.props = {};
-                    this.props.coreOptions = [];
                     this.validateJson(this.jsonproject, this.templatePath(), function (error, data) {
                         if (!error) {
                             this.appName = slug.slugify(this.jsonproject.project);
@@ -145,9 +145,9 @@ module.exports = yeoman.generators.Base.extend({
     },
     writing: function () {
         //TEMPLATES
-        this.moveTemplates("", project.templates);
+        this.moveTemplates(this.templatePath(), project.templates);
         //FILES
-        this.moveFiles("", project.files);
+        this.moveFiles(this.templatePath(), project.files);
         //SCRIPTS
         var indexFile = this.fs.read(this.destinationPath('app/index.html'));
         Array.prototype.push.apply(project.scripts, project.appScripts);
