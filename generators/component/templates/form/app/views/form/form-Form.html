@@ -1,92 +1,107 @@
+ <div class="well">
 
-        <h3 {{title}}</h3>
-
-    <div class="row">
-        <form class="form-horizontal" name="<%=name%>Form">
+         <form class="form-horizontal ng-pristine ng-valid" name="<%=name%>Form">
+             <fieldset>
+                 <legend> {{title}}</legend>
             <% var fields=model.properties; for (var key in fields) { var type=fields[key].type; if (type=='string' && fields[key].enum) { %>
                 <div class="form-group" ng-class="{'has-success has-feedback': <%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty, 'has-error has-feedback': <%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty}">
-                    <label class="col-sm-2" for='<%=key%>'>
-                        <%=_.capitalize(key)%>
+                    <label class="col-sm-2 control-label" for='<%=key%>'>
+                        <%=lodash.capitalize(key)%>
                     </label>
                     <div class="col-sm-10">
-                        <select class="form-control" name="<%=key%>" ng-model='item.<%=key%>' <% if (fields[key].required==true) { %>required><% } else if (_.lastIndexOf(model.required, key)>= 0) { %>required><% } else { %>><% } %>
+                        <select class="form-control" name="<%=key%>" ng-model='item.<%=key%>' <% if (fields[key].required==true) { %>required>
+                            <% } else if (lodash.lastIndexOf(model.required, key)>= 0) { %>required><% } else { %>><% } %>
                     </div>
                     <% for (var i=0 ; i < fields[key].enum.length; i++ ) { %>
-                    <option value='<%=fields[key].enum[i]%>'>
-                        <%=fields[key].enum[i]%>
-                    </option>
-                    <% } %>
-                    </select>
-                    <% if (fields[key].required==true || _.lastIndexOf(model.required, key)>=0) { %>
-                        <span ng-show="<%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-ok"></span>
-                        <span ng-show="<%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-remove"></span>
-                        <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.required"><%=_.capitalize(key)%> is required.</span>
-                    <% } %>
+                        <option value='<%=fields[key].enum[i]%>'>
+                            <%=fields[key].enum[i]%>
+                        </option>
+                        <% } %>
+                            </select>
+                            <% if (fields[key].required==true || lodash.lastIndexOf(model.required, key)>=0) { %>
+                                <span ng-show="<%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-ok"></span>
+                                <span ng-show="<%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-remove"></span>
+                                <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.required"><%=key%> is required.</span>
+                                <% } %>
                 </div>
-    <% } else if (type=='string' && (fields[key].format=='date-time' || fields[key].format=='date' )) { %>
-        <div class="form-group" ng-class="{'has-success has-feedback': <%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty, 'has-error has-feedback': <%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty}">
-             <% if (fields[key].required==true || _.lastIndexOf(model.required, key)>=0) { %>
-                    <span ng-show="<%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-ok"></span>
-                    <span ng-show="<%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-remove"></span><% } %>
-            <label class="col-sm-2" for='<%=key%>'><%=_.capitalize(key)%></label>
-            <div class="col-md-6">
-                <p class="input-group">
-                <input type="text" name="<%=key%>" class="form-control" ng-model='item.<%=key%>' datepicker-popup="{{format}}" ng-model='item.<%=key%>' is-open="datepicker.opened<%=key%>" close-text="Close" datepicker-options="dateOptions" <% if (fields[key].required==true) { %>ng-required="true"><% } else if (_.lastIndexOf(model.required, key)>= 0) { %>ng-required="true"><% } else { %>ng-required="false"><% } %>
-                    <span class="input-group-btn">
+                <% } else if (type=='string' && (fields[key].format=='date-time' || fields[key].format=='date' )) { %>
+                    <div class="form-group" ng-class="{'has-success has-feedback': <%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty, 'has-error has-feedback': <%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty}">
+                        <% if (fields[key].required==true || lodash.lastIndexOf(model.required, key)>=0) { %>
+                            <span ng-show="<%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-ok"></span>
+                            <span ng-show="<%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-remove"></span>
+                            <% } %>
+                                <label class="col-sm-2 control-label" for='<%=key%>'>
+                                    <%=lodash.capitalize(key)%>
+                                </label>
+                                <div class="col-md-6">
+                                    <p class="input-group">
+                                        <input type="text" name="<%=key%>" class="form-control" ng-model='item.<%=key%>' datepicker-popup="{{format}}" ng-model='item.<%=key%>' is-open="datepicker.opened<%=key%>" close-text="Close" datepicker-options="dateOptions" <% if (fields[key].required==true) { %>ng-required="true">
+                                        <% } else if (lodash.lastIndexOf(model.required, key)>= 0) { %>ng-required="true">
+                                            <% } else { %>ng-required="false">
+                                                <% } %>
+                                                    <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="openCalendar($event,'opened<%=key%>')"><i class="glyphicon glyphicon-calendar"></i></button>
                     </span>
-                </p>
-                <% if (fields[key].required==true || _.lastIndexOf(model.required, key)>=0) { %>
-                <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.required"><%=_.capitalize(key)%> is required.</span><% } %>
-            </div>
-        </div>
-        <% } else if (type=='integer' || type=='number' ) { %>
-            <div class="form-group" ng-class="{'has-success has-feedback': <%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty, 'has-error has-feedback': <%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty}">
-                <% if (fields[key].required==true || _.lastIndexOf(model.required, key)>=0 || fields[key].maximum || fields[key].minimum) { %>
-                    <span ng-show="<%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-ok"></span>
-                    <span ng-show="<%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-remove"></span>
-                    <% } %>
-                        <label class="col-sm-2" for='<%=key%>'>
-                            <%=_.capitalize(key)%>
-                        </label>
-                        <div class="col-sm-10">
-                            <input type='number' name="<%=key%>" class="form-control  ng-touched" nane='<%=key%>' ng-model='item.<%=key%>' ng-disabled="false" <% if (fields[key].maximum){ %> max='<%=fields[key].maximum%>'<% } %><% if (fields[key].minimum){ %> min='<%=fields[key].minimum%>'<% } %>
-                             <% if (fields[key].required==true) { %>required><% } else if (_.lastIndexOf(model.required, key)>=0) { %>required><% } else { %>><% } %>
-                             <% if (fields[key].required==true || _.lastIndexOf(model.required, key)>=0) { %>
-                                 <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.required"><%=_.capitalize(key)%> is required.</span>
-                             <% } %>
-                             <% if (fields[key].maximum) { %> <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.max"><%=_.capitalize(key)%> is too big, max <%=fields[key].maximum%></span><% } %>
-                             <% if (fields[key].minimum) { %> <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.min"><%=_.capitalize(key)%> is too small, min <%=fields[key].minimum%></span><% } %>
-                        </div>
-            </div>
-            <% } else if (type=='boolean' ) { %>
-                <div class="form-group">
-                    <label class="col-sm-2"><%=_.capitalize(key)%></label>
-                    <div class="col-sm-10">
-                        <input type="checkbox" ng-model='item.<%=key%>' name="<%=key%>">
+                                    </p>
+                                    <% if (fields[key].required==true || lodash.lastIndexOf(model.required, key)>=0) { %>
+                                        <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.required"><%=key%> is required.</span>
+                                        <% } %>
+                                </div>
                     </div>
-                </div>
-            <% } else { %>
-            <div class="form-group" ng-class="{'has-success has-feedback': <%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty, 'has-error has-feedback': <%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty}">
-               <label class="col-sm-2" for='<%=key%>'><%=_.capitalize(key)%></label>
-               <div class="col-sm-10">
-                    <input type='text' name="<%=key%>" class="form-control  ng-touched" ng-model='item.<%=key%>' ng-disabled="false" <% if(fields[key].maxLength) {%> maxlength='<%=fields[key].maxLength%>'<%}%><% if(fields[key].minLength) {%> minlength='<%=fields[key].minLength%>' <%}%><% if (fields[key].required==true) { %> required><% } else if (_.lastIndexOf(model.required, key)>=0) { %>required><% } else { %>><% } %>
-                    <% if (fields[key].required==true || _.lastIndexOf(model.required, key)>= 0 || fields[key].minLength) { %>
-                        <span ng-show="<%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-ok"></span>
-                        <span ng-show="<%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-remove"></span>
-                    <% } %>
-                    <% if (fields[key].required==true || _.lastIndexOf(model.required, key)>=0) { %>
-                        <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.required"><%=_.capitalize(key)%> is required.</span><% } %>
-                    <% if (fields[key].minLength) { %><span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.minlength"><%=_.capitalize(key)%> is too short, minimum <%=fields[key].minLength%></span><% } %>
-                    <% if (fields[key].maxLength) { %><span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.maxLength"><%=_.capitalize(key)%> is too long, maximum <%=fields[key].maxLength%></span>
-                    <% } %>
-               </div>
-           </div>
-    <% } %>
-        <% } %>
-            </form>
-            </div>
-            <div class="row">
-                <button angular-ripple type="submit" class="btn btn-default" ng-click="cancel()">Cancel</button>
-                <button angular-ripple type="submit" class="btn btn-action" ng-click="ok(item)" ng-disabled="!<%=name%>Form.$valid">{{item.id?'Save':'Add'}}</button>
-            </div>
+                    <% } else if (type=='integer' || type=='number' ) { %>
+                        <div class="form-group" ng-class="{'has-success has-feedback': <%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty, 'has-error has-feedback': <%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty}">
+                            <% if (fields[key].required==true || lodash.lastIndexOf(model.required, key)>=0 || fields[key].maximum || fields[key].minimum) { %>
+                                <span ng-show="<%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-ok"></span>
+                                <span ng-show="<%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-remove"></span>
+                                <% } %>
+                                    <label class="col-sm-2 control-label" for='<%=key%>'>
+                                         <%=lodash.capitalize(key)%>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input type='number' name="<%=key%>" class="form-control  ng-touched" nane='<%=key%>' ng-model='item.<%=key%>' ng-disabled="false"
+                                        <% if (fields[key].maximum){ %> max='<%=fields[key].maximum%>'<% } %>
+                                        <% if (fields[key].minimum){ %> min='<%=fields[key].minimum%>'<% } %><% if (fields[key].required==true) { %>required><% } else if (lodash.lastIndexOf(model.required, key)>=0) { %>required><% } else { %>><% } %><% if (fields[key].required==true || lodash.lastIndexOf(model.required, key)>=0) { %><span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.required"><%=key%> is required.</span><% } %><% if (fields[key].maximum) { %> <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.max"><%=key%> is too big, max <%=fields[key].maximum%></span><% } %><% if (fields[key].minimum) { %> <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.min"><%=key%> is too small, min <%=fields[key].minimum%></span><% } %>
+                                    </div>
+                        </div>
+                        <% } else if (type=='boolean' ) { %>
+                            <div class="form-group">
+                                <label class="col-sm-2  control-label">
+                                    <%=lodash.capitalize(key)%>
+                                </label>
+                                <div class="col-sm-10">
+                                    <input type="checkbox" ng-model='item.<%=key%>' name="<%=key%>">
+                                </div>
+                            </div>
+                            <% } else { %>
+                                <div class="form-group" ng-class="{'has-success has-feedback': <%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty, 'has-error has-feedback': <%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty}">
+                                    <label class="col-sm-2 control-label" for='<%=key%>'>
+                                        <%=lodash.capitalize(key)%>
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <input type='text' name="<%=key%>" class="form-control  ng-touched" ng-model='item.<%=key%>' ng-disabled="false" <% if(fields[key].maxLength) {%> maxlength='
+                                        <%=fields[key].maxLength%>'
+                                            <%}%>
+                                                <% if(fields[key].minLength) {%> minlength='<%=fields[key].minLength%>'<%}%>
+                                                <% if (fields[key].required==true) { %> required><% } else if (lodash.lastIndexOf(model.required, key)>=0) { %>required><% } else { %>><% } %>
+                                                <% if (fields[key].required==true || lodash.lastIndexOf(model.required, key)>= 0 || fields[key].minLength) { %>
+                                                <span ng-show="<%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-ok"></span>
+                                                <span ng-show="<%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty" class="form-control-feedback ng-scope glyphicon glyphicon-remove"></span><% } %>
+                                                <% if (fields[key].required==true || lodash.lastIndexOf(model.required, key)>=0) { %>
+                                                <span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.required"><%=key%> is required.</span><% } %>
+                                                <% if (fields[key].minLength) { %><span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.minlength"><%=key%> is too short, minimum <%=fields[key].minLength%></span><% } %>
+                                                <% if (fields[key].maxLength) { %><span class="text-danger" ng-show="<%=name%>Form.<%=key%>.$error.maxLength"><%=key%> is too long, maximum <%=fields[key].maxLength%></span>
+                                                <% } %>
+                                    </div>
+                                </div>
+                                <% } %>
+                            <% } %>
+             </fieldset>
+        </form>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <button angular-ripple type="submit" class="btn btn-default" ng-click="cancel()">Cancel</button>
+            <button angular-ripple type="submit" class="btn btn-action" ng-click="ok(item)" ng-disabled="!<%=name%>Form.$valid">{{item.id?'Save':'Add'}}</button>
+        </div>
+    </div>
+  </div>

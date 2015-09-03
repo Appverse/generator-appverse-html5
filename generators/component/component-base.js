@@ -26,7 +26,10 @@ Generator.prototype.help = function help() {
     this.log(chalk.bgBlack.white(" Available component list:"));
     this.components.forEach(function (e) {
         if (e.option) {
-            console.log("\t" + chalk.bgBlack.cyan(e.name + " --" + e.option + "=[value]"));
+            console.log("\t" + chalk.bgBlack.cyan(e.name));
+            e.option.forEach(function (o) {
+                console.log(chalk.bgBlack.cyan(o + "=[value]"));
+            });
         } else {
             console.log("\t" + chalk.bgBlack.cyan(e.name));
         }
@@ -46,30 +49,40 @@ Generator.prototype.resolveNamedTemplatePath = function resolveNamedTemplatePath
  * Link generated html to target view
  *
  **/
-Generator.prototype.addToTargetView = function addToTargetView(target, template, name) {
-    var include = "<div class=\"row\"><div ng-include src=" + this.resolveNamedTemplatePath(template, name) + "></div></div>";
+Generator.prototype.addToTargetView = function addToTargetView(template, name, target) {
+    var includePath = this.resolveNamedTemplatePath(template, name);
+    var replacement = new RegExp('\\bapp/\\b', 'g');
+    var res = includePath.replace(replacement, '');
+    var include = '<div class=\"row\"><div class=\"col-lg-12\"><div ng-include src=\"\'' + res + '\'\"></div></div></div>';
     var targetPath = this.destinationPath('app/views/' + target + '/' + target + '.html');
     var targetView = this.fs.read(targetPath);
     var targetHTML = cheerio.load(targetView);
-    targetHTML('<div class="container" scrolly-scroll>').append(include);
+    targetHTML('.container').append(include);
+    this.fs.write(targetPath, targetHTML.html());
 };
-
-
+/**
+ * Move Named template
+ *
+ */
+Generator.prototype.moveNamedTemplate = function moveNamedTemplate(template, name) {
+    this.name = this.options["name"];
+    this.lodash = _;
+    var base = path.join(this.templatepath, this.componentName);
+    this.fs.copyTpl(
+        path.join(base, template),
+        this.destinationPath(this.resolveNamedTemplatePath(template, name)),
+        this
+    );
+};
 /**
  * Fill and Move named templates to target path
  *
  **/
-Generator.prototype.moveNamedTemplates = function moveNamedTemplates(base, templates, name) {
-    this.name = this.options["name"];
+Generator.prototype.moveNamedTemplates = function moveNamedTemplates(templates, name) {
     templates.forEach(function (template) {
-        this.fs.copyTpl(
-            path.join(base, template),
-            this.destinationPath(this.resolveNamedTemplatePath(template, name)),
-            this
-        );
+        this.moveNamedTemplate(template, name);
     }.bind(this));
 };
-
 /**
  * Add named scripts to index
  *
@@ -81,8 +94,6 @@ Generator.prototype.namedScripts = function namedScripts(scripts, name) {
     }.bind(this));
     this.addScriptsToIndex(namedScripts);
 };
-
-
 /**
  * ADD Routing
  **/
@@ -99,7 +110,6 @@ Generator.prototype.addRouteState = function addRouteState(name) {
         this.fs.write(path, output);
     }
 };
-
 /**
  * ADD Link to NAV Bar.
  **/
@@ -116,7 +126,6 @@ Generator.prototype.addLinkToNavBar = function addLinkToNavBar(name) {
     this.fs.write(indexPath, indexHTML.html());
     this.addRouteState(name);
 };
-
 /**
  * ADD Drop Down to NAV
  **/

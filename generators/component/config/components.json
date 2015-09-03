@@ -14,9 +14,18 @@
     },
     {
         "name": "form",
-        "option": ["name", "schema", "target"],
-        "named-templates": ["app/views/form/form-Form.html"],
-        "navigation": false,
-        "target": true
+        "option": ["schema", "target"],
+        "html-snippet": "app/views/form/form-Form.html",
+        "js-snippet": "app/scripts/form-Controller.js"
+    },
+    {
+        "name": "slider",
+        "option": ["target"],
+        "html-snippet": "app/views/slider/slider-Slider.html"
+    },
+     {
+        "name": "xeditable",
+        "option": ["target"],
+        "html-snippet": "app/views/xeditable/xeditable-Xeditable.html"
     }
 ]

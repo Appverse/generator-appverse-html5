@@ -61,34 +61,64 @@ module.exports = yeoman.generators.Base.extend({
             process.exit();
         }
     },
-    writing: function () {
-        //SCRIPTS
-        if (this.component['named-scripts'] && this.options["name"]) {
-            this.namedScripts(this.component['named-scripts'], this.options["name"]);
-        }
-        //TEMPLATES
-        if (this.component['named-templates'] && this.options["name"]) {
-            this.moveNamedTemplates(path.join(this.templatepath, this.componentName), this.component['named-templates'], this.options["name"]);
-        }
-        //NAVIGATION
-        if (this.component.navigation) {
-            if (!this.options['menu']) {
-                this.addLinkToNavBar(this.options["name"]);
-            } else {
-                this.menu = this.options['menu'];
-                this.addDropDownOption(this.options["name"]);
+    writing: {
+        schema: function () {
+            //SCHEMA
+            if (this.options["schema"]) {
+                this.readJSONSchemaFileOrUrl(this.options['schema'], function (error, data) {
+                    if (!data) {
+                        this.warning("Can't find a valid schema definition there!");
+                        process.exit();
+                    }
+                    if (!error) {
+                        this.model = data;
+                        //CHECK IF THERE IS AN ID PROP
+                        if (_.has(data, 'container')) {
+                            this.model["properties"] = data.container.properties;
+                        }
+                        if (!_.has(this.model.properties, 'id')) {
+                            this.model["properties"]["id"] = {
+                                type: "integer",
+                                description: "id",
+                                required: false
+                            }
+                        }
+                    }
+                }.bind(this));
+            }
+        },
+        templates: function () {
+            //TEMPLATES
+            if (this.component['named-templates'] && this.options["name"]) {
+                this.moveNamedTemplates(this.component['named-templates'], this.options["name"]);
+            }
+        },
+        target: function () {
+            //TARGET
+            if (this.options["target"]) {
+                if (this.component['html-snippet']) {
+                    this.moveNamedTemplate(this.component['html-snippet'], this.options["target"]);
+                    this.addToTargetView(this.component['html-snippet'], this.options["target"], this.options["target"]);
+                }
+            }
+        },
+        scripts: function () {
+            //SCRIPTS
+            if (this.component['named-scripts'] && this.options["name"]) {
+                this.namedScripts(this.component['named-scripts'], this.options["name"]);
+            }
+        },
+        navigation: function () {
+            //NAVIGATION
+            if (this.component.navigation) {
+                if (!this.options['menu']) {
+                    this.addLinkToNavBar(this.options["name"]);
+                } else {
+                    this.menu = this.options['menu'];
+                    this.addDropDownOption(this.options["name"]);
+                }
             }
         }
-        //TARGET
-        if (this.options["target"] && this.options["name"]) {
-            if (this.component['named-templates']) {
-                this.moveNamedTemplates(path.join(this.templatepath, this.componentName), this.component['named-templates'], this.options["name"]);
-                this.addToTargetView(path.join(this.templatepath, this.componentName), this.component['named-templates'], this.options["name"]);
-            }
-        }
-        //SCHEMA
-        if (this.options["schema"]) {}
-
     },
     end: function () {
         this.info("Finish " + this.componentName);

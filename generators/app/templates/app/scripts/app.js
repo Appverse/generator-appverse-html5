@@ -14,6 +14,7 @@
         'rzModule',
         'rt.resize',
         'chart.js',
+        'xeditable',
         'appverse.router',
         'App.Controllers',
         'appverse'
