@@ -100,6 +100,15 @@ module.exports = yeoman.generators.Base.extend({
                     this.moveNamedTemplate(this.component['html-snippet'], this.options["target"]);
                     this.addToTargetView(this.component['html-snippet'], this.options["target"], this.options["target"]);
                 }
+                if (this.component['js-snippet']) {
+                    this.moveNamedTemplate(this.component['js-snippet'], this.options["target"]);
+                    var scripts = [];
+                    var scriptPath = this.resolveNamedTemplatePath(this.component['js-snippet'], this.options["target"]);
+                    var replacement = new RegExp('\\bapp/\\b', 'g');
+                    var res = scriptPath.replace(replacement, '');
+                    scripts.push(res);
+                    this.addScriptsToIndex(scripts);
+                }
             }
         },
         scripts: function () {

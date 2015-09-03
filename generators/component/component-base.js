@@ -65,7 +65,7 @@ Generator.prototype.addToTargetView = function addToTargetView(template, name, t
  *
  */
 Generator.prototype.moveNamedTemplate = function moveNamedTemplate(template, name) {
-    this.name = this.options["name"];
+    this.name = name;
     this.lodash = _;
     var base = path.join(this.templatepath, this.componentName);
     this.fs.copyTpl(
