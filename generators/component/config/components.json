@@ -1,0 +1,22 @@
+[
+    {
+        "name": "view",
+        "option": ["name"],
+        "named-templates": ["app/scripts/controllers/view-controller.js",
+                            "app/views/view/view.html",
+                            "test/e2e/controllers/view-controllerSpec.js",
+                            "test/e2e/view-routesSpec.js",
+                            "test/unit/view-controllerSpec.js"],
+        "named-scripts": [
+            "scripts/controllers/view-controller.js"
+        ],
+        "navigation": true
+    },
+    {
+        "name": "form",
+        "option": ["name", "schema", "target"],
+        "named-templates": ["app/views/form/form-Form.html"],
+        "navigation": false,
+        "target": true
+    }
+]

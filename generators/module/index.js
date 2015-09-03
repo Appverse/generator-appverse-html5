@@ -40,7 +40,7 @@ module.exports = yeoman.generators.Base.extend({
         });
         if (this.name) {
             this.log('Searching module ' + this.name + '.');
-            this.module = this.findModule(this.name, this.modules);
+            this.module = this.findConfig(this.name, this.modules);
         }
 
         if (this.module) {

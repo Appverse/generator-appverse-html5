@@ -32,7 +32,7 @@ module.exports = yeoman.generators.Base.extend({
         });
         if (this.name) {
             this.log('Searching build type ' + this.name + '.');
-            this.module = this.findModule(this.name, this.builds);
+            this.module = this.findConfig(this.name, this.builds);
         }
         if (this.module) {
             this.log('Build type found: ' + JSON.stringify(this.module.name));

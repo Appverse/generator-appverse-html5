@@ -30,40 +30,6 @@ Generator.prototype.help = function help() {
 };
 
 
-
-/*
- * ADD SCRIPTS FROM MODULE TO INDEX:HTML
- */
-Generator.prototype.addScriptsToIndex = function addScriptsToIndex(scripts) {
-    this.log(" > " + this.name + ": Adding scripts to index.html");
-    var index = this.fs.read(this.destinationPath('app/index.html'));
-    var indexHTML = cheerio.load(index);
-    var write = false;
-    scripts.forEach(function (script) {
-        var scriptTag = os.EOL + '<script src=\"' + script + '\"></script>';
-        var exists = false;
-        for (var i = 0; i < indexHTML('script').length; i++) {
-            var current = indexHTML('script').get()[i].attribs.src;
-            if (current === script) {
-                exists = true;
-                break;
-            }
-        }
-        if (!exists) {
-            write = true;
-            indexHTML(scriptTag).insertAfter(indexHTML('script').get()[indexHTML('script').length - 1]);
-        }
-    });
-    if (write) {
-        this.fs.write(this.destinationPath('app/index.html'), indexHTML.html());
-    } else {
-        this.info(" > " + this.name + ": Scripts already exists at index.html");
-    }
-};
-
-
-
-
 /**
  * Check if angular module is loaded
  **/
