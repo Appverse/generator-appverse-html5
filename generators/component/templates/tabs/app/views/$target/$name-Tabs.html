@@ -1,0 +1,8 @@
+<div class="well" ng-controller="<%=name%>Controller">
+     <tabset>
+                <tab heading="Static title">Static content</tab>
+                <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+                    {{tab.content}}
+                </tab>
+    </tabset>
+</div>

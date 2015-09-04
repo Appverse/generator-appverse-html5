@@ -57,6 +57,12 @@
         "option": ["target"],
         "html-snippet": "app/views/$target/$name-Modal.html",
         "js-snippet": "app/scripts/controllers/$name-ModalController.js"
+    },
+       {
+        "name": "tabs",
+        "option": ["target"],
+        "html-snippet": "app/views/$target/$name-Tabs.html",
+        "js-snippet": "app/scripts/controllers/$name-TabsController.js"
     }
 
 ]

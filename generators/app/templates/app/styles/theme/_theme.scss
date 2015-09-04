@@ -378,6 +378,9 @@ img{
                     &.glyphicon-pencil{
                         @extend .rotate;
                     }
+                    &.glyphicon-globe{
+                        @extend .rotate;
+                    }
                     &.glyphicon-home{
                         @extend .zoom;
                     }

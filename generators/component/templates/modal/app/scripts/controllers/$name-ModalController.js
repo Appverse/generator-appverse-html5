@@ -26,8 +26,8 @@
  */
 angular.module('App.Controllers')
 
-.controller('<%=name%>ModalController', ['$scope', '$modal',
-            function ($scope, $modal) {
+.controller('<%=name%>ModalController', ['$scope', '$modal', '$log',
+            function ($scope, $modal, $log) {
 
         $scope.animationsEnabled = true;
 

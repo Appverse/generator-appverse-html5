@@ -135,7 +135,7 @@ Generator.prototype.addLinkToNavBar = function addLinkToNavBar(name) {
     //ADD LINK
     var findlink = indexHTML('*[ui-sref="' + name + '"]');
     if (_.isEmpty(findlink)) {
-        var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '">' + name + '</a></li>';
+        var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li>';
         indexHTML('ul.nav.navbar-nav').append(navLink);
     }
     this.fs.write(indexPath, indexHTML.html());
@@ -157,14 +157,14 @@ Generator.prototype.addDropDownOption = function addDropDownOption(name) {
         if (_.isEmpty(findDropdown)) {
             this.log(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
             //NOT EXISTS
-            var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '">' + name + '</a></li></ul></li>';
+            var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li></ul></li>';
             this.log(" Adding new option " + name + " to dropdown menu. ");
             indexHTML('ul.nav.navbar-nav').append(htmlCode);
         } else {
             this.log(" Dropdown menu found. ");
             //EXISTS
             this.log(" Adding new option " + name + " to dropdown menu. ");
-            var navLink = '<li data-ng-class="{active: $state.includes(\'' + ame + '\')}"><a angular-ripple ui-sref="' + name + '">' + name + '</a></li>';
+            var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li>';
             indexHTML(findDropdown).next().append(navLink);
         }
         this.fs.write(indexPath, indexHTML.html());
