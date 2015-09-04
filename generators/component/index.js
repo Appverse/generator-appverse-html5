@@ -53,6 +53,19 @@ module.exports = yeoman.generators.Base.extend({
                         this.help();
                         process.exit();
                     }
+                    //If there is a type options, there is a types array
+                    if (option === 'type') {
+                        var validType = this.component.types.inArray (function (e) {
+                            return e === this.options[option];
+                        }.bind(this));
+                        if (!validType) {
+                              this.warning('Invalid type value: ' + this.options[option]);
+                              this.info("Valid types: " + this.component.types);
+                              process.exit();
+                        } else {
+                            this.type = this.options[option];
+                        }
+                    }
                 }.bind(this));
             }
         } else {
@@ -90,20 +103,31 @@ module.exports = yeoman.generators.Base.extend({
         templates: function () {
             //TEMPLATES
             if (this.component['named-templates'] && this.options["name"]) {
-                this.moveNamedTemplates(this.component['named-templates'], this.options["name"]);
+                this.moveNamedTemplates(this.component['named-templates'], this.options["name"], this.options["name"]);
             }
         },
         target: function () {
             //TARGET
             if (this.options["target"]) {
+                 if (!this.validateTarget(this.options["target"])){
+                    this.warning('Can not find target view ' + this.options["target"]);
+                    this.help();
+                    process.exit();
+                }
+                this.target = this.options["target"];
+                this.name = this.options["target"];
+                if (this.options["type"]) {
+                     this.name = this.options["target"] + this.options["type"];
+                }
+
                 if (this.component['html-snippet']) {
-                    this.moveNamedTemplate(this.component['html-snippet'], this.options["target"]);
-                    this.addToTargetView(this.component['html-snippet'], this.options["target"], this.options["target"]);
+                    this.moveNamedTemplate(this.component['html-snippet'], this.name, this.target);
+                    this.addToTargetView(this.component['html-snippet'], this.name, this.target);
                 }
                 if (this.component['js-snippet']) {
-                    this.moveNamedTemplate(this.component['js-snippet'], this.options["target"]);
+                    this.moveNamedTemplate(this.component['js-snippet'], this.name, this.target);
                     var scripts = [];
-                    var scriptPath = this.resolveNamedTemplatePath(this.component['js-snippet'], this.options["target"]);
+                    var scriptPath = this.resolveNamedTemplatePath(this.component['js-snippet'], this.name, this.target);
                     var replacement = new RegExp('\\bapp/\\b', 'g');
                     var res = scriptPath.replace(replacement, '');
                     scripts.push(res);
@@ -114,7 +138,7 @@ module.exports = yeoman.generators.Base.extend({
         scripts: function () {
             //SCRIPTS
             if (this.component['named-scripts'] && this.options["name"]) {
-                this.namedScripts(this.component['named-scripts'], this.options["name"]);
+                this.namedScripts(this.component['named-scripts'], this.options["name"],this.options["name"]);
             }
         },
         navigation: function () {

@@ -18,8 +18,9 @@
         'appverse.router',
         'App.Controllers',
         'appverse'
-    ]).run(function ($log) {
-        $log.debug('<%=appName%>App run');
+    ]).run(function ($log,editableOptions) {
+        $log.debug('testAlphaApp run');
+        editableOptions.theme = 'bs3';
     });
 
     AppInit.setConfig({

@@ -26,23 +26,38 @@ Generator.prototype.help = function help() {
     this.log(chalk.bgBlack.white(" Available component list:"));
     this.components.forEach(function (e) {
         if (e.option) {
-            console.log("\t" + chalk.bgBlack.cyan(e.name));
+            var options = "";
             e.option.forEach(function (o) {
-                console.log(chalk.bgBlack.cyan(o + "=[value]"));
+               options += " --" + o + "=[value] ";
             });
+             console.log("\t" + chalk.bgBlack.cyan(e.name) + " " + chalk.bgBlack.cyan(options));
+            if (e.types) {
+                 console.log(chalk.bgBlack.cyan("\t     Valid types: " + e.types));
+            }
         } else {
             console.log("\t" + chalk.bgBlack.cyan(e.name));
         }
     });
     return "";
 };
+function escapeRegExp(string) {
+    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
+}
+function replaceAll(string, find, replace) {
+  return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
+}
 /**
  *
  */
-Generator.prototype.resolveNamedTemplatePath = function resolveNamedTemplatePath(template, name) {
-    var replacement = new RegExp('\\b' + this.componentName + '\\b', 'g')
-    var res = template.replace(replacement, name);
-    return res;
+Generator.prototype.resolveNamedTemplatePath = function resolveNamedTemplatePath(template, name, target) {
+    var res = template.replace('$target', target);
+    var name = replaceAll (res, '$name', name);
+    return name;
+};
+
+Generator.prototype.validateTarget = function validateTarget (target) {
+    var fullTarget = 'app/views/' + target + '/' + target + '.html';
+    return this.fs.exists(this.destinationPath (fullTarget));
 };
 
 /**
@@ -50,7 +65,7 @@ Generator.prototype.resolveNamedTemplatePath = function resolveNamedTemplatePath
  *
  **/
 Generator.prototype.addToTargetView = function addToTargetView(template, name, target) {
-    var includePath = this.resolveNamedTemplatePath(template, name);
+    var includePath = this.resolveNamedTemplatePath(template, name, target);
     var replacement = new RegExp('\\bapp/\\b', 'g');
     var res = includePath.replace(replacement, '');
     var include = '<div class=\"row\"><div class=\"col-lg-12\"><div ng-include src=\"\'' + res + '\'\"></div></div></div>';
@@ -64,13 +79,13 @@ Generator.prototype.addToTargetView = function addToTargetView(template, name, t
  * Move Named template
  *
  */
-Generator.prototype.moveNamedTemplate = function moveNamedTemplate(template, name) {
+Generator.prototype.moveNamedTemplate = function moveNamedTemplate(template, name, target) {
     this.name = name;
     this.lodash = _;
     var base = path.join(this.templatepath, this.componentName);
     this.fs.copyTpl(
         path.join(base, template),
-        this.destinationPath(this.resolveNamedTemplatePath(template, name)),
+        this.destinationPath(this.resolveNamedTemplatePath(template, name, target)),
         this
     );
 };
@@ -78,19 +93,19 @@ Generator.prototype.moveNamedTemplate = function moveNamedTemplate(template, nam
  * Fill and Move named templates to target path
  *
  **/
-Generator.prototype.moveNamedTemplates = function moveNamedTemplates(templates, name) {
+Generator.prototype.moveNamedTemplates = function moveNamedTemplates(templates, name, target) {
     templates.forEach(function (template) {
-        this.moveNamedTemplate(template, name);
+        this.moveNamedTemplate(template, name, target);
     }.bind(this));
 };
 /**
  * Add named scripts to index
  *
  **/
-Generator.prototype.namedScripts = function namedScripts(scripts, name) {
+Generator.prototype.namedScripts = function namedScripts(scripts, name, target) {
     var namedScripts = [];
     scripts.forEach(function (script) {
-        namedScripts.push(this.resolveNamedTemplatePath(script, name));
+        namedScripts.push(this.resolveNamedTemplatePath(script, name, target));
     }.bind(this));
     this.addScriptsToIndex(namedScripts);
 };

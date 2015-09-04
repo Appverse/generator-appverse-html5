@@ -2,30 +2,38 @@
     {
         "name": "view",
         "option": ["name"],
-        "named-templates": ["app/scripts/controllers/view-controller.js",
-                            "app/views/view/view.html",
-                            "test/e2e/controllers/view-controllerSpec.js",
-                            "test/e2e/view-routesSpec.js",
-                            "test/unit/view-controllerSpec.js"],
+        "named-templates": ["app/scripts/controllers/$name-controller.js",
+                            "app/views/$name/$name.html",
+                            "test/e2e/controllers/$name-controllerSpec.js",
+                            "test/e2e/$name-routesSpec.js",
+                            "test/unit/$name-controllerSpec.js"],
         "named-scripts": [
-            "scripts/controllers/view-controller.js"
+            "scripts/controllers/$name-controller.js"
         ],
         "navigation": true
     },
     {
         "name": "form",
         "option": ["schema", "target"],
-        "html-snippet": "app/views/form/form-Form.html",
-        "js-snippet": "app/scripts/controllers/form-FormController.js"
+        "html-snippet": "app/views/$target/$name-Form.html",
+        "js-snippet": "app/scripts/controllers/$name-FormController.js"
     },
     {
         "name": "slider",
         "option": ["target"],
-        "html-snippet": "app/views/slider/slider-Slider.html"
+        "html-snippet": "app/views/$target/$name-Slider.html"
     },
     {
         "name": "xeditable",
         "option": ["target"],
-        "html-snippet": "app/views/xeditable/xeditable-Xeditable.html"
+        "html-snippet": "app/views/$target/$name-Xeditable.html"
+    },
+    {
+        "name": "chart",
+        "option": ["target", "type"],
+        "html-snippet": "app/views/$target/$name-Chart.html",
+        "js-snippet": "app/scripts/controllers/$name-ChartController.js",
+        "types" : ["line", "bar", "doughnut", "radar", "pie", "polar-area"]
     }
+
 ]
