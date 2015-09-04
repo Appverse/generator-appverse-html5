@@ -51,6 +51,12 @@
         "option": ["target"],
         "html-snippet": "app/views/$target/$name-Datepicker.html",
         "js-snippet": "app/scripts/controllers/$name-DatepickerController.js"
+    },
+    {
+        "name": "modal",
+        "option": ["target"],
+        "html-snippet": "app/views/$target/$name-Modal.html",
+        "js-snippet": "app/scripts/controllers/$name-ModalController.js"
     }
 
 ]
