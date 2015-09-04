@@ -40,6 +40,17 @@
         "option": ["target"],
         "html-snippet": "app/views/$target/$name-Accordion.html",
         "js-snippet": "app/scripts/controllers/$name-AccordionController.js"
+    },
+     {
+        "name": "collapse",
+        "option": ["target"],
+        "html-snippet": "app/views/$target/$name-Collapse.html"
+    },
+     {
+        "name": "datepicker",
+        "option": ["target"],
+        "html-snippet": "app/views/$target/$name-Datepicker.html",
+        "js-snippet": "app/scripts/controllers/$name-DatepickerController.js"
     }
 
 ]
