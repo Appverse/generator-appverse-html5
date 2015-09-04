@@ -34,6 +34,12 @@
         "html-snippet": "app/views/$target/$name-Chart.html",
         "js-snippet": "app/scripts/controllers/$name-ChartController.js",
         "types" : ["line", "bar", "doughnut", "radar", "pie", "polar-area"]
+    },
+     {
+        "name": "accordion",
+        "option": ["target"],
+        "html-snippet": "app/views/$target/$name-Accordion.html",
+        "js-snippet": "app/scripts/controllers/$name-AccordionController.js"
     }
 
 ]

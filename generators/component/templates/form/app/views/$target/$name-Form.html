@@ -65,12 +65,11 @@
                         </div>
                         <% } else if (type=='boolean' ) { %>
                             <div class="form-group">
-                                <label class="col-sm-2  control-label">
-                                    <%=lodash.capitalize(key)%>
-                                </label>
-                                <div class="col-sm-10">
-                                    <input type="checkbox" ng-model='item.<%=key%>' name="<%=key%>">
-                                </div>
+                                <div class="checkbox">
+                                        <label class="col-sm-2 control-label">
+                                            <input type="checkbox" ng-model='item.<%=key%>' name="<%=key%>"><span class="checkbox-material"><span class="check"></span></span>  <%=lodash.capitalize(key)%>
+                                        </label>
+                                    </div>
                             </div>
                             <% } else { %>
                                 <div class="form-group" ng-class="{'has-success has-feedback': <%=name%>Form.<%=key%>.$valid && <%=name%>Form.<%=key%>.$dirty, 'has-error has-feedback': <%=name%>Form.<%=key%>.$invalid && <%=name%>Form.<%=key%>.$dirty}">
