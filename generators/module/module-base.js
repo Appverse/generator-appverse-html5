@@ -21,6 +21,7 @@ var Generator = yeoman.generators.Base;
  *
  */
 Generator.prototype.help = function help() {
+    this.modules = require('./config/modules.json');
     this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:module [module]" + os.EOL));
     this.log(chalk.bgBlack.white(" Available module list:"));
     this.modules.forEach(function (e) {

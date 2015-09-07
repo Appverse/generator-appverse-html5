@@ -22,6 +22,7 @@ var Generator = yeoman.generators.Base;
  *
  */
 Generator.prototype.help = function help() {
+    this.components = require('./config/components.json');
     this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:component [component] [option]"));
     this.log(chalk.bgBlack.white(" Available component list:"));
     this.components.forEach(function (e) {
