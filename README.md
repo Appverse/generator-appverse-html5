@@ -356,17 +356,17 @@ Execute:
 ```bash
     grunt dist:mobile
 ``` 
+The **grunt taks** will:
+  * Create your mobile bundle
+  * Upload the result to the build server
+  * Download the package from the build server for each plattform. (Android, iOS or Windows Phone)
+
 
 * Imagemin
 
 ```bash
     yo appverse-html5:build imagemin
 ```
-
-The **grunt taks** will:
-  * Create your mobile bundle
-  * Upload the result to the build server
-  * Download the package from the build server for each plattform. (Android, iOS or Windows Phone)
   
 
 ### Bootstrap theme selector 
