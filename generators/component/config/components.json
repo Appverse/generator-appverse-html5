@@ -63,6 +63,12 @@
         "option": ["target"],
         "html-snippet": "app/views/$target/$name-Tabs.html",
         "js-snippet": "app/scripts/controllers/$name-TabsController.js"
+    },
+       {
+        "name": "grid",
+        "option": ["target"],
+        "html-snippet": "app/views/$target/$name-Grid.html",
+        "js-snippet": "app/scripts/controllers/$name-GridController.js"
     }
 
 ]

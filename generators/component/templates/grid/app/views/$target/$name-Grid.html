@@ -1,0 +1,21 @@
+<div class="well" ng-controller="<%=name%>GridController">
+    <div class="row">
+        <div class="col-md-12">
+            <form novalidate class="form-inline clearfix ng-grid-header" name="filterForm">
+                <div class="form-group pull-right">
+                    <label for="filterText" class="sr-only">Filter</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="filterText" placeholder="Filter..." ng-model="filterText" ng-change="filter<%=name%>()">
+                        <span class="input-group-addon glyphicon glyphicon-search"></span>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="gridStyle" ng-grid="gridOptions"></div>
+        </div>
+    </div>
+</div>

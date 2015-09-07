@@ -34,8 +34,9 @@
     },
     {
         "name": "rest",
-        "scripts": ["bower_components/socket.io-client/dist/socket.io.min.js",
-                   "bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"],
+        "scripts": ["bower_components/lodash/lodash.min.js",
+                    "bower_components/restangular/dist/restangular.min.js",
+                    "bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"],
         "angular": "appverse.rest",
         "startprompt": true,
         "prompts": [

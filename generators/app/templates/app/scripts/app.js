@@ -15,6 +15,7 @@
         'rt.resize',
         'chart.js',
         'xeditable',
+        'ngGrid',
         'appverse.router',
         'App.Controllers',
         'appverse'
