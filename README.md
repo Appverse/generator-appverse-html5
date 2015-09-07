@@ -20,13 +20,13 @@ Requirements
 * Install **bower** and **grunt-cli**.
 
 ```bash
-    $ npm install -g bower grunt-cli
+    npm install -g bower grunt-cli
 ```
  
 * Install **yeoman** if it is not installed previously.
 
 ```bash
-    $ npm install -g yo
+    npm install -g yo
 ```
 
 Installing 
@@ -35,7 +35,7 @@ Installing
 * Install the Appverse HTML5 generator NPM package. 
 
 ```bash
-    $ npm install -g generator-appverse-html5
+    npm install -g generator-appverse-html5
 ```
 
 Running 
@@ -46,28 +46,28 @@ Running
 Create a directoy:
 
 ```bash
-    $ mkdir testApp
+    mkdir testApp
 ```
 
 ```bash
-    $ cd testApp
+    cd testApp
 ```
 Execute the generator:
 
 ```bash
-    $ yo appverse-html5
+    yo appverse-html5
 ```
 
 Yeoman will generate a boilerplate project with **Appverse - HTML5**. 
 Execute grunt to test it:
 
 ```bash
-    $ grunt server
+    grunt server
 ```
 or
 
 ```bash
-    $ grunt server:open 
+    grunt server:open 
 ```
 
 to auto open your default browser with the application.
@@ -78,15 +78,29 @@ to auto open your default browser with the application.
 * Link the package 
 
 ```bash
-    $ npm link
+    npm link
 ```
 
 That will create a symlink to your npm cache. 
 Now you can execute the generator:
 
 ```bash
-    $ yo appverse-html5
+    yo appverse-html5
 ```
+
+Test: 
+
+* Mocha
+
+```bash
+    mocha
+```
+* Istanbul
+
+```bash
+    npm test
+```
+   
 
 ### Subgenerators 
 -----------------
@@ -94,112 +108,239 @@ Now you can execute the generator:
 Later on you can add any of the Appverse modules to your project running the module subgenerator.
 
 ```bash
-    $ yo appverse-html5:module [name]
+    yo appverse-html5:module [name]
 ```
 
 Type --help option for available module list
 
 ```bash
-    $ yo appverse-html5:module --help
+    yo appverse-html5:module --help
 ```
 
 ##### Module list 
  
-* REST 
-Adds the Appverse REST module to the project. 
+* **REST**: Adds the Appverse REST module to the project. The Integrated REST module includes communication. It is based on [Restangular](https://github.com/mgonto/restangular). Params configuration are set in app-configuration file as constants.
+
 Add a MOCK REST Server ([json-server](https://github.com/typicode/json-server)) as well.
 
 ```bash
-    $ yo appverse-html5:module rest
+    yo appverse-html5:module rest
 ```
 
 Mock server adds two new grunt tasks:
 
 ```bash
-    $ grunt mockserver
+    grunt mockserver
 ```
 
 Runs the application using the mock JSON server as REST backend, and:
 
 ```bash
-    $ grunt mockserver:open
+    grunt mockserver:open
 ```
 
 Runs the application using the mock JSON server as REST backend and open the default browser.
 
-* Cache   
-* Detection  
-* Performance
-* Logging   
-* Server Push 
-* Translation  
-* Security  
-* QR  
+* **Cache**: The Cache module includes several types of cache
+  * Scope Cache: To be used in a limited scope. It does not persist when navigation.
+  * Browser Storage: It handles short strings into local or session storage. Access is synchronous.
+  * IndexedDB: It initializes indexed database at browser to handle data structures. Access is asynchronous.
+  * Http Cache: It initializes cache for the $httpProvider. $http service instances will use this cache.
+  
+```bash
+    yo appverse-html5:module cache
+```
 
+* **Detection**: Provides browser and network detection.  
 
-* Add a new view  
-Execute the app-view subgenerator with the view name as argument. The subgenerator will create the HTML view and the JS controller. 
+```bash
+    yo appverse-html5:module detection
+```
+
+* **Performance**: Services to handle usage of several performance elements
+     * Webworkers. Multithreaded-parallelized execution of tasks separated of the main JavaScript thread.
+     * High Performance UI directives support.
+  
+```bash
+    yo appverse-html5:module performance
+```     
+
+* **Logging**: Handles several tasks with logging:     
+     * It applies a decorator on native $log service in module ng.     
+     * It includes sending of log events to server-side REST service.
+      
+        * Server side log
+     
+      To handle JavaScript errors, we needed to intercept the core AngularJS
+      error handling and add a server-side communication aspect to it.
+     
+        * Decorator way
+     
+      The $provide service (which provides all angular services) needs 2 parameters to “decorate” something:
+     
+      1) the target service;
+     
+      2) the callback to be executed every time someone asks for the target.
+     
+      This way, we are telling in config time to [AngularJS](https://docs.angularjs.org/guide) that every time a service/controller/directive asks for $log instance [AngularJS](https://docs.angularjs.org/guide) will provide the result of the callback. As you can see, we are passing the original $log and formattedLogger (the API implementation) to the callback, and then, he returns a formattedLogger factory instance.
+
+```bash
+    yo appverse-html5:module logging
+```   
+
+* **Server Push**: This module handles server data communication when it pushes them to the client exposing the factory SocketFactory, which is an API for instantiating sockets that are integrated with Angular's digest cycle.
+It is now based on [SocketIO](http://socket.io/)
+
+```bash
+    yo appverse-html5:module serverpush
+``` 
+
+* **Translation**: The Internationalization module handles languages in application.  
+
+```bash
+    yo appverse-html5:module translate
+``` 
+
+* **Security**: [appverse-web-html5-scurity](https://github.com/Appverse/appverse-web-html5-security) Appverse Web Client Side security module based on HTML5 and Java Script  
+
+```bash
+    yo appverse-html5:module security 
+``` 
+
+* **QR** [Angular-QR](https://github.com/janantala/angular-qr ) QR code generator for [AngularJS](https://docs.angularjs.org/guide)
+
+```bash
+    yo appverse-html5:module qr 
+``` 
+
+#### Component
+The component subg-generator allows you to add UI components to your project or to target views. 
+
+You can type --help to get the full available component list. 
+
+```bash
+    yo appverse-html5:component --help
+```
+
+* **view** 
+
+Add a new view/controller  
+Execute the subgenerator with the view name as argument. The subgenerator will create the HTML view and the [AngularJS](https://docs.angularjs.org/guide) controller. 
 A new option in the navigation bar will be created as well. 
 
 ```bash
-    $ yo appverse-html5:app-view $viewname
+    yo appverse-html5:component view [name]
 ```
 
 The menu option will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
 
 ```bash
-    $ yo appverse-html5:app-view $viewname --menu=$dropdownmenu
+    yo appverse-html5:component view [name] --menu=[dropdownmenu]
 ```
 
-* Add a new REST entity  
-The subgenerator will require REST module installed. 
+Once a View/Controller is created, we can add different components to the new page. 
 
-It will create:
-  * A view to manage the Rest entity
-  * A controller for the view
-  * A MOCK JSON file if the MOCK REST server was selected.
-  * A new option in the navigation bar.
+* **collapse** 
+
+Collapse from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). [AngularJS](https://docs.angularjs.org/guide) version of Bootstrap's collapse plugin. Provides a simple way to hide and show an element with a css transition
 
 ```bash
-    $ yo appverse-html5:rest-entity $entityname
+    yo appverse-html5:component collapse --target=[view]
 ```
 
-The menu option will add or update a dropdown menu.
+* **accordion** 
+
+Accordion from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). The accordion directive builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header. 
 
 ```bash
-    $ yo appverse-html5:rest-entity $entityname --menu=$dropdownmenu
+    yo appverse-html5:component accordion --target=[view]
 ```
 
-The schema option will be used to generate the entity form (add and edit)
+* **chart** 
+
+Adds a chart [Angular-ChartJS](http://jtblin.github.io/angular-chart.js) to the target view. 
+
+Chart types: line,bar,doughnut,radar,pie,polar-area
 
 ```bash
-    $ yo appverse-html5:rest-entity $entityname --schema=$url or path to json-schema
+    yo appverse-html5:component chart --type=[type] --target=[view]
 ```
 
-The rows options will be used to generate mock data.
+* **grid** 
+
+Adds [ng-grid](http://angular-ui.github.io/ui-grid/) grid to the view. 
 
 ```bash
-    $ yo appverse-html5:rest-entity $entityname --schema=$json-schema --rows=$n
+    yo appverse-html5:component grid --target=[view]
 ```
+
+* **form** 
+
+It will generate a HTML Form from the [JSON Schema](http://json-schema.org/) provided. 
+The schema option allows to use a file, with the full path or the JSON Schema URL. 
+
+```bash
+    yo appverse-html5:component form --target=[view] --schema=[schema.json]
+```
+
+* **modal** 
+
+Modal views from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). 
+
+```bash
+    yo appverse-html5:component modal --target=[view]
+```
+
+* **slider** 
+
+Adds [RZSlider](https://github.com/rzajac/angularjs-slider), slider directive for AngularJS.
+
+```bash
+    yo appverse-html5:component slider --target=[view]
+```
+
+* **tabs** 
+
+```bash
+    yo appverse-html5:component tabs --target=[view]
+```
+
+* **xeditable** 
+
+Adds [editable elements](http://vitalets.github.io/angular-xeditable/)
+
+```bash
+    yo appverse-html5:component xeditable --target=[view]
+```
+
+* **datepicker** 
+
+Date picker component from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). 
+
+```bash
+    yo appverse-html5:component datepicker --target=[view]
+```
+
+#### Build
 
 
 * Node-Webkit 
 Add Node-Webkit support to the project.
 
 ```bash
-    $ yo appverse-html5:webkit
+    yo appverse-html5:build webkit
 ```
 
 Package your application with Grunt as an executable file. 
 
 ```bash
-    $ grunt nodewebkit:dist
+    grunt nodewebkit:dist
 ``` 
 
 Start your application using the Node-Webkit browser
 
 ```bash
-    $ npm start 
+    npm start 
 ```
 
 * Mobile
@@ -207,14 +348,20 @@ Add Mobile builds to your project with grunt.
    * Configure your build server and credentials. 
    
 ```bash
-    $ yo appverse-html5:mobile
+    yo appverse-html5:build mobile
 ```
 
 Execute: 
 
 ```bash
-    $ grunt dist:mobile
+    grunt dist:mobile
 ``` 
+
+* Imagemin
+
+```bash
+    yo appverse-html5:build imagemin
+```
 
 The **grunt taks** will:
   * Create your mobile bundle
