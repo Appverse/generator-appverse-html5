@@ -71,6 +71,7 @@
     "grunt-mocha-istanbul": "^3.0.1",
     "grunt-npm": "0.0.2",
     "istanbul": "^0.3.13",
-    "mocha": "*"
+    "mocha": "*",
+    "nock": "^2.10.0"
   }
 }
