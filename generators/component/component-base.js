@@ -19,18 +19,13 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 'use strict';
-var util = require('util');
+
 var path = require('path');
 var chalk = require('chalk');
 var cheerio = require('cheerio');
-var _ = require('lodash');
-var fs = require('fs');
 var os = require('os');
-var esprima = require('esprima');
-var estraverse = require('estraverse');
-var escodegen = require('escodegen');
 var yeoman = require('yeoman-generator');
-var gen = require('../generator-base');
+require('../generator-base');
 
 var Generator = yeoman.generators.Base;
 
@@ -43,17 +38,26 @@ var Generator = yeoman.generators.Base;
  */
 Generator.prototype.help = function help() {
     this.components = require('./config/components.json');
-    this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:component [component] [option]"));
+    this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:component [<component>] [<option>]"));
     this.log(chalk.bgBlack.white(" Available component list:"));
     this.components.forEach(function (e) {
+        var required_options = "";
+        var optional_options = "";
         if (e.option) {
-            var options = "";
-            e.option.forEach(function (o) {
-               options += " --" + o + "=[value] ";
+            if (e.option.required) {
+            e.option.required.forEach(function (o) {
+               required_options += " --" + o + "=[value] ";
             });
-             console.log("\t" + chalk.bgBlack.cyan(e.name) + " " + chalk.bgBlack.cyan(options));
+          }
+            if (e.option.optional) {
+               optional_options = " optional: ";
+               e.option.optional.forEach(function (o) {
+               optional_options += " --" + o + "=[value] ";
+            });
+          }
+             console.log("\t" + chalk.bgBlack.cyan(e.name) + " " + chalk.bgBlack.green(required_options) + " " + chalk.bgBlack.yellow(optional_options) );
             if (e.types) {
-                 console.log(chalk.bgBlack.cyan("\t     Valid types: " + e.types));
+                 console.log(chalk.bgBlack.yellow("\t     Valid types: " + e.types));
             }
         } else {
             console.log("\t" + chalk.bgBlack.cyan(e.name));
@@ -72,8 +76,8 @@ function replaceAll(string, find, replace) {
  */
 Generator.prototype.resolveNamedTemplatePath = function resolveNamedTemplatePath(template, name, target) {
     var res = template.replace('$target', target);
-    var name = replaceAll (res, '$name', name);
-    return name;
+    var finalname = replaceAll (res, '$name', name);
+    return finalname;
 };
 
 Generator.prototype.validateTarget = function validateTarget (target) {
@@ -102,7 +106,8 @@ Generator.prototype.addToTargetView = function addToTargetView(template, name, t
  */
 Generator.prototype.moveNamedTemplate = function moveNamedTemplate(template, name, target) {
     this.name = name;
-    this.lodash = _;
+    this.lodash = require ('lodash');
+    require ('stringify-object');
     var base = path.join(this.templatepath, this.componentName);
     this.fs.copyTpl(
         path.join(base, template),
@@ -124,11 +129,11 @@ Generator.prototype.moveNamedTemplates = function moveNamedTemplates(templates, 
  *
  **/
 Generator.prototype.namedScripts = function namedScripts(scripts, name, target) {
-    var namedScripts = [];
+    var namedScriptsArray = [];
     scripts.forEach(function (script) {
-        namedScripts.push(this.resolveNamedTemplatePath(script, name, target));
+        namedScriptsArray.push(this.resolveNamedTemplatePath(script, name, target));
     }.bind(this));
-    this.addScriptsToIndex(namedScripts);
+    this.addScriptsToIndex(namedScriptsArray);
 };
 /**
  * ADD Routing
@@ -155,7 +160,7 @@ Generator.prototype.addLinkToNavBar = function addLinkToNavBar(name) {
     var indexHTML = cheerio.load(index);
     //ADD LINK
     var findlink = indexHTML('*[ui-sref="' + name + '"]');
-    if (_.isEmpty(findlink)) {
+    if (require('lodash').isEmpty(findlink)) {
         var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li>';
         indexHTML('ul.nav.navbar-nav').append(navLink);
     }
@@ -175,7 +180,7 @@ Generator.prototype.addDropDownOption = function addDropDownOption(name) {
     if (_.isEmpty(findlink)) {
         var findDropdown = indexHTML("a.dropdown-toggle:contains('" + this.menu + "')");
         //FIND THE DROPDOWN
-        if (_.isEmpty(findDropdown)) {
+        if (require('lodash').isEmpty(findDropdown)) {
             this.log(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
             //NOT EXISTS
             var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li></ul></li>';

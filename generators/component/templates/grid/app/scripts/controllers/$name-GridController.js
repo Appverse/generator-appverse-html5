@@ -28,39 +28,21 @@
 
  .controller('<%=name%>GridController', ['$scope',
      function ($scope) {
-
          $scope.name = '<%=name%>';
-
-         $scope.myData = [{
-                 name: "Moroni",
-                 age: 50
-             },
-             {
-                 name: "Tiancum",
-                 age: 43
-             },
-             {
-                 name: "Jacob",
-                 age: 27
-             },
-             {
-                 name: "Nephi",
-                 age: 29
-             },
-             {
-                 name: "Enos",
-                 age: 34
-             }];
+         $scope.myData = [];
+         <% mockentity.forEach(function(e) {
+           %> $scope.myData.push({id:<%=e.id%>, name:"<%=e.name%>"})
+         <% });%>
 
          $scope.gridOptions = {
              data: 'myData',
-             columnDefs: [{
-                 field: 'name',
-                 displayName: 'Name'
-             }, {
-                 field: 'age',
-                 displayName: 'Age'
-             }],
+             columnDefs: [ {
+                field: 'id',
+                displayName: 'ID'
+            },{
+                field: 'name',
+                displayName: 'Name'
+            }],
              rowHeight: 48,
              headerRowHeight: 48,
              filterOptions: {

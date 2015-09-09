@@ -20,18 +20,13 @@
  */
 'use strict';
 var yeoman = require('yeoman-generator');
-var fs = require('fs');
-var os = require('os');
-var path = require('path');
 var _ = require('lodash');
-var generator = require('./component-base');
-
-var util = require('util');
+require('./component-base');
+var jsf = require('json-schema-faker');
 
 module.exports = yeoman.generators.Base.extend({
     constructor: function () {
         yeoman.generators.Base.apply(this, arguments);
-
     },
     initializing: function () {
         this.conflicter.force = true;
@@ -41,16 +36,16 @@ module.exports = yeoman.generators.Base.extend({
             this.checkVersion();
         }
 
-        if (!this.options['templatePath']) {
+        if (!this.options.templatePath) {
             this.templatepath = this.templatePath();
         } else {
-            this.templatepath = this.options['templatePath'];
+            this.templatepath = this.options.templatePath;
         }
 
-        if (!this.options['config']) {
+        if (!this.options.config) {
             this.components = require('./config/components.json');
         } else {
-            this.components = require(this.options['config']);
+            this.components = require(this.options.config);
         }
 
         this.argument('componentName', {
@@ -65,8 +60,9 @@ module.exports = yeoman.generators.Base.extend({
 
         if (this.component) {
             this.log('Component found: ' + JSON.stringify(this.component.name));
-            if (this.component.option) {
-                this.component.option.forEach(function (option) {
+            //REQUIRED OPTIONS
+            if (this.component.option.required) {
+                this.component.option.required.forEach(function (option) {
                     if (!this.options[option]) {
                         this.warning('Can not find component options ' + option + '.');
                         this.warning('You need to provide the option --' + option + '=[option]');
@@ -87,6 +83,7 @@ module.exports = yeoman.generators.Base.extend({
                         }
                     }
                 }.bind(this));
+                //OPTIONAL
             }
         } else {
             this.warning('Can not find component ' + this.componentName + '.');
@@ -97,8 +94,8 @@ module.exports = yeoman.generators.Base.extend({
     writing: {
         schema: function () {
             //SCHEMA
-            if (this.options["schema"]) {
-                this.readJSONSchemaFileOrUrl(this.options['schema'], function (error, data) {
+            if (this.options.schema) {
+                this.readJSONSchemaFileOrUrl(this.options.schema, function (error, data) {
                     if (!data) {
                         this.warning("Can't find a valid schema definition there!");
                         process.exit();
@@ -107,37 +104,73 @@ module.exports = yeoman.generators.Base.extend({
                         this.model = data;
                         //CHECK IF THERE IS AN ID PROP
                         if (_.has(data, 'container')) {
-                            this.model["properties"] = data.container.properties;
+                            this.model.properties = data.container.properties;
                         }
                         if (!_.has(this.model.properties, 'id')) {
-                            this.model["properties"]["id"] = {
+                            this.model.properties.id  = {
                                 type: "integer",
                                 description: "id",
                                 required: false
-                            }
+                            };
                         }
                     }
                 }.bind(this));
-            }
+            } else {
+              //MOCK SCHEMA
+              this.model = {
+                   name: this.name,
+                   description: this.name,
+                   links: [],
+                   properties: {
+                     id: {
+                       type: "integer",
+                       description: "id",
+                       required: false
+                     },
+                     name: {
+                       type: "string",
+                       description: "name",
+                       required: false
+                     },
+              }
+            };
+          }
+        },
+        rows: function () {
+          this.mockentity = [];
+          this.rows = 10;
+          if (this.options.rows) {
+              this.rows = this.options.rows;
+          }
+          for (var i = 0; i < this.rows; i++) {
+               this.mockentity.push(jsf(this.model.properties));
+          }
+        },
+        api: function () {
+          //Write MOCK DATA to JSON File.
+          if (this.component.api) {
+            this.log('Writing api/' + this.entity + '.json');
+            this.fs.write(this.destinationPath('api/' + this.options.name + '.json'), JSON.stringify(this.mockentity));
+          }
         },
         templates: function () {
             //TEMPLATES
-            if (this.component['named-templates'] && this.options["name"]) {
-                this.moveNamedTemplates(this.component['named-templates'], this.options["name"], this.options["name"]);
+            if (this.component['named-templates'] && this.options.name) {
+                this.moveNamedTemplates(this.component['named-templates'], this.options.name, this.options.name);
             }
         },
         target: function () {
             //TARGET
-            if (this.options["target"]) {
-                 if (!this.validateTarget(this.options["target"])){
-                    this.warning('Can not find target view ' + this.options["target"]);
+            if (this.options.target) {
+                 if (!this.validateTarget(this.options.target)){
+                    this.warning('Can not find target view ' + this.options.target);
                     this.help();
                     process.exit();
                 }
-                this.target = this.options["target"];
-                this.name = this.options["target"];
-                if (this.options["type"]) {
-                     this.name = this.options["target"] + this.options["type"];
+                this.target = this.options.target;
+                this.name = this.options.target;
+                if (this.options.type) {
+                     this.name = this.options.target + this.options.type;
                 }
 
                 if (this.component['html-snippet']) {
@@ -157,18 +190,18 @@ module.exports = yeoman.generators.Base.extend({
         },
         scripts: function () {
             //SCRIPTS
-            if (this.component['named-scripts'] && this.options["name"]) {
-                this.namedScripts(this.component['named-scripts'], this.options["name"],this.options["name"]);
+            if (this.component['named-scripts'] && this.options.name) {
+                this.namedScripts(this.component['named-scripts'], this.options.name,this.options.name);
             }
         },
         navigation: function () {
             //NAVIGATION
             if (this.component.navigation) {
-                if (!this.options['menu']) {
-                    this.addLinkToNavBar(this.options["name"]);
+                if (!this.options.menu) {
+                    this.addLinkToNavBar(this.options.name);
                 } else {
-                    this.menu = this.options['menu'];
-                    this.addDropDownOption(this.options["name"]);
+                    this.menu = this.options.menu;
+                    this.addDropDownOption(this.options.name);
                 }
             }
         }
