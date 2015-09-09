@@ -28,7 +28,7 @@ angular.module('App.Controllers')
 .controller('<%=name%>FormController',
     function ($scope) {
 
-        $scope.title = '<%=name%>';
+        $scope.title = '<%=target%>';
 
         $scope.datepicker = [];
         $scope.openCalendar = function ($event, opened) {

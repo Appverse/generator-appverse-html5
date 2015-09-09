@@ -83,7 +83,7 @@ module.exports = yeoman.generators.Base.extend({
                         }
                     }
                 }.bind(this));
-                //OPTIONAL
+                //VALIDATE OPTIONAL OPTIONS
             }
         } else {
             this.warning('Can not find component ' + this.componentName + '.');
@@ -172,8 +172,8 @@ module.exports = yeoman.generators.Base.extend({
                 if (this.options.type) {
                      this.name = this.options.target + this.options.type;
                 }
-
-                if (this.component['html-snippet']) {
+                this.name += "_" + new Date().getTime();
+                if (this.component['html-snippet']) {                  
                     this.moveNamedTemplate(this.component['html-snippet'], this.name, this.target);
                     this.addToTargetView(this.component['html-snippet'], this.name, this.target);
                 }
