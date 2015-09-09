@@ -274,13 +274,24 @@ Adds [ng-grid](http://angular-ui.github.io/ui-grid/) grid to the view.
     yo appverse-html5:component grid --target=[view]
 ```
 
-* **form**
-
-It will generate a HTML Form from the [JSON Schema](http://json-schema.org/) provided.
-The schema option allows to use a file, with the full path or the JSON Schema URL.
+The sub-generator will create 10 rows of mock data for the generated Grid, use the **rows** option to set the numbers of rows you want to generate.  
 
 ```bash
-    yo appverse-html5:component form --target=[view] --schema=[schema.json]
+   yo appverse-html5:component grid --target=[view] --rows=[nrows]
+```
+
+* **form**
+
+
+
+```bash
+    yo appverse-html5:component form --target=[view]     
+```
+By default the **form** sub-generator will create a simple form with id and name fields.
+Use the **schema** option, with a JSON Schema file path or URL to generate HTML Form from the [JSON Schema](http://json-schema.org/) provided.
+
+```bash
+    yo appverse-html5:component form --target=[view]  --schema=[schema.json]
 ```
 
 * **modal**
@@ -300,6 +311,8 @@ Adds [RZSlider](https://github.com/rzajac/angularjs-slider), slider directive fo
 ```
 
 * **tabs**
+
+Adds a Tabs snippet to the target view.
 
 ```bash
     yo appverse-html5:component tabs --target=[view]
@@ -321,8 +334,43 @@ Date picker component from [UI Bootstrap](http://angular-ui.github.io/bootstrap/
     yo appverse-html5:component datepicker --target=[view]
 ```
 
-#### Build
+**crud**
 
+The sub-generator will create a REST CRUD component:
+
+  * A view to manage the Rest entity
+  * A controller for the view
+  * A MOCK JSON file for the mock server.
+  * A new option in the navigation bar.
+
+```bash
+   yo appverse-html5:component crud [name]
+```
+The **menu** option will add or update a dropdown menu.
+
+```bash
+   yo appverse-html5:component crud [name] --menu=[menu]
+```
+By default the **form** sub-generator will create a simple form with id and name fields.
+Use the **schema** option will be used to generate the entity form (add and edit)
+
+```bash
+   yo appverse-html5:component crud [name] --schema=[path or url to JSON Schema]
+```
+Add the **rows** option to generate some fake data rows at the mock server.
+
+```bash
+   yo appverse-html5:component crud [name] --rows=[nrows]
+```
+
+The **rows** option could be combined with the **schema** option, so the fake data generator will use the entity definition found at the schema.
+
+```bash
+   yo appverse-html5:component crud [name] --schema=[path or url to JSON Schema] --rows=[nrows]
+```
+
+
+#### Build
 
 * Node-Webkit
 Add Node-Webkit support to the project.
@@ -344,13 +392,11 @@ Start your application using the Node-Webkit browser
 ```
 
 * Mobile
-Add Mobile builds to your project with grunt.
-   * Configure your build server and credentials.
+Add [Appverse Mobile](https://github.com/Appverse/appverse-mobile) builds to your project with grunt.
 
 ```bash
     yo appverse-html5:build mobile
 ```
-
 Execute:
 
 ```bash
