@@ -107,7 +107,6 @@ Generator.prototype.addToTargetView = function addToTargetView(template, name, t
 Generator.prototype.moveNamedTemplate = function moveNamedTemplate(template, name, target) {
     this.name = name;
     this.lodash = require ('lodash');
-    require ('stringify-object');
     var base = path.join(this.templatepath, this.componentName);
     this.fs.copyTpl(
         path.join(base, template),
@@ -177,7 +176,7 @@ Generator.prototype.addDropDownOption = function addDropDownOption(name) {
     var indexHTML = cheerio.load(index);
     //ADD LINK
     var findlink = indexHTML('*[ui-sref="' + name + '"]');
-    if (_.isEmpty(findlink)) {
+    if (require('lodash').isEmpty(findlink)) {
         var findDropdown = indexHTML("a.dropdown-toggle:contains('" + this.menu + "')");
         //FIND THE DROPDOWN
         if (require('lodash').isEmpty(findDropdown)) {

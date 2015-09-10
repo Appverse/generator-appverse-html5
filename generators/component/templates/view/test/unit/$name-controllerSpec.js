@@ -7,7 +7,7 @@ describe("Unit: Testing <%=name%>", function () {
     it('should have a properly working <%=name%> controller', angular.mock.inject(function ($rootScope, $controller) {
 
         var scope = $rootScope.$new();
-        $controller('<%=name%>', {
+        $controller('<%=name%>Controller', {
             $scope: scope
         });
 
