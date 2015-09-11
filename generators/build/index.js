@@ -20,16 +20,15 @@
  */
 'use strict';
 var yeoman = require('yeoman-generator');
-var fs = require('fs');
-var os = require('os');
-var _ = require('lodash');
-var generator = require('./build-base');
+require('./build-base');
 var path = require('path');
 
 
 module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
+        this.props = {};
+        this.appName = this.getAppName();     
         if (!this.options['skip-welcome-message']) {
             this.welcome();
             this.checkVersion();
@@ -84,6 +83,11 @@ module.exports = yeoman.generators.Base.extend({
                     done();
                 }.bind(this));
             }
+          } else {
+          this.module.prompts.forEach (function(p){
+              var prop = p.name;
+              this.props[prop] = p.default;
+          }.bind(this));
         }
     },
     writing: function () {

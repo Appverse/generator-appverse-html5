@@ -99,7 +99,7 @@
             "bower_components/socket.io-client/dist/socket.io.min.js",
                    "bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"
                    ],
-        "angular": "appverse.serverpush",
+        "angular": "appverse.serverPush",
         "startprompt": true,
         "prompts": [
             {
@@ -113,7 +113,7 @@
             "name": "SERVERPUSH_CONFIG",
             "values": [{
                 "name": "BaseUrl",
-                "value": "this.BaseUrl"
+                "value": "http://127.0.0.1:3000"
             }]
         }
 }, {

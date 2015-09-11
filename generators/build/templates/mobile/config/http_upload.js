@@ -11,11 +11,11 @@
          // Builds iOS and Android\n" +
          mobileBuilder: {
              options: {
-                 url: '<%= props.builder.hostname %>/builder/service_5_0',
+                 url: '<%= props.hostname %>/builder/service_5_0',
                  method: 'POST',
                  rejectUnauthorized: false,
                  headers: {
-                     'Authorization': 'Basic ' + new Buffer('<%=props.builder.username%>:<%=props.builder.password%>').toString('base64')
+                     'Authorization': 'Basic ' + new Buffer('<%=props.username%>:<%=props.password%>').toString('base64')
                  },
                  data: {
                      // Addresses where to email the result (separated by commas)\n" +
@@ -38,11 +38,11 @@
          // Builds Windows phone\n" +
          windowsMobileBuilder: {
              options: {
-                 url: '<%= props.builder.hostname %>/builder-winphone/service_win_phone_5_0',
+                 url: '<%= props.hostname %>/builder-winphone/service_win_phone_5_0',
                  method: 'POST',
                  rejectUnauthorized: false,
                  headers: {
-                     'Authorization': 'Basic ' + new Buffer('<%=props.builder.username%>:<%=props.builder.password%>').toString('base64')
+                     'Authorization': 'Basic ' + new Buffer('<%=props.username%>:<%=props.password%>').toString('base64')
                  },
                  data: {
                      // Addresses where to email the result (separated by commas)\n" +

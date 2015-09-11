@@ -80,15 +80,24 @@ Generator.prototype.warning = function warning(message) {
 Generator.prototype.info = function warning(message) {
     this.log(chalk.bgBlack.green(os.EOL + message));
 };
+
 /*
- * Get the Generated angular application name
+ * Get the Generated application name
  */
-Generator.prototype.getApplicationName = function getApplicationName() {
+Generator.prototype.getAppName = function getAppName() {
     //APP NAME
     var pkgPath = this.destinationPath('package.json');
     var pkg = JSON.parse(this.fs.read(pkgPath));
-    return pkg.name + "App";
+    return pkg.name;
 };
+/*
+ * Get the Generated angular application name
+ */
+Generator.prototype.getApplicationName = function getApplicationName() { 
+    return this.getAppName() + "App";
+};
+
+
 
 // check if an element exists in array using a comparer function
 // comparer : function(currentElement)
@@ -329,7 +338,7 @@ Generator.prototype.addScriptsToIndex = function addScriptsToIndex(scripts) {
     var indexHTML = cheerio.load(index);
     var write = false;
     scripts.forEach(function (script) {
-        var scriptTag = os.EOL + '<script src=\"' + script + '\"></script>';
+        var scriptTag = '\n <script src=\"' + script + '\"></script>';
         var exists = false;
         for (var i = 0; i < indexHTML('script').length; i++) {
             var current = indexHTML('script').get()[i].attribs.src;

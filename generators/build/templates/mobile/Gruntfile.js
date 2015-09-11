@@ -39,8 +39,8 @@ module.exports = function (grunt) {
     var _ = require('lodash');
     var mobileDistDownloader = require('./tasks/grunt-helpers/download-mobile-dist');
     grunt.config.set('paths.mobileDist', 'dist/mobile');
-    grunt.config.set('mobileBuilder.hostname', <%= props.builder.hostname %>);
-    grunt.config.set('mobileBuilder.username', <%= props.builder.username %>);
-    grunt.config.set('mobileBuilder.password', <%= props.builder.password %>);
+    grunt.config.set('mobileBuilder.hostname', '<%= props.hostname %>');
+    grunt.config.set('mobileBuilder.username', '<%= props.username %>');
+    grunt.config.set('mobileBuilder.password', '<%= props.password %>');
 
 };

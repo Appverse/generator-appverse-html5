@@ -22,10 +22,18 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('server:dist', [
-        'connect:dist',
-        'open:dist',
-        'watch'
-    ]);
+            'dist',
+            'connect:dist',
+            'watch'
+        ]);
+
+      grunt.registerTask('server:dist:open', [
+            'dist',
+            'connect:dist',
+            'open:dist',
+            'watch'
+      ]);
+
 
     grunt.registerTask('server:doc', [
         'connect:doc',

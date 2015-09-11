@@ -21,7 +21,7 @@
  'use strict';
 
  /*
-  * Controller <%=name%>
+  * Controller <%=name%>Controller
   * Pay attention to injection of dependencies (factories, entities and Angular objects).
   */
  angular.module('App.Controllers')

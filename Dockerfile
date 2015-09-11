@@ -12,11 +12,10 @@ RUN mkdir src && chown yeoman:yeoman src && npm i -g yo bower grunt-cli && chown
 
 RUN git config --global url."https://".insteadOf git://
 
-EXPOSE 9001
+EXPOSE 9000
 
 COPY ./docker-entrypoint.sh /
 # RUN chmod u+x docker-entrypoint.sh
 ENTRYPOINT ["sh","docker-entrypoint.sh"]
 
 ADD . /home/yeoman/src/generator-appverse-html5
- 

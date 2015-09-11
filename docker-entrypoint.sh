@@ -9,7 +9,10 @@ echo "Generating a sample application..."
 mkdir /home/yeoman/generated
 chmod 777 /home/yeoman/generated
 cd /home/yeoman/generated
+# Generate application
 yo appverse-html5 generated
+
+# Add all modules
 yo appverse-html5:module cache
 yo appverse-html5:module rest --skip-prompts
 yo appverse-html5:module logging
@@ -18,6 +21,8 @@ yo appverse-html5:module performance
 yo appverse-html5:module serverpush --skip-prompts
 yo appverse-html5:module security
 yo appverse-html5:module translate
+
+# Add all components
 yo appverse-html5:component view --name=test1
 yo appverse-html5:component grid --target=test1
 yo appverse-html5:component xeditable --target=test1
@@ -41,8 +46,12 @@ yo appverse-html5:component crud --name=crud4 --schema=/home/yeoman/src/generato
 yo appverse-html5:component chart --type=polar-area --target=crud4
 yo appverse-html5:component crud --name=crud5  --rows=100
 yo appverse-html5:component crud --name=crud6  --rows=100 --menu=crud6
+ 
+# Run unit testing
 grunt karma:unit
 
-grunt server:dist
+# Start application with mock backend
+grunt mockserver
+
 EOF
 echo "Running..."
