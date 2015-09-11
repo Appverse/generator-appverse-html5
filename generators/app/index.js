@@ -22,9 +22,6 @@
 'use strict';
 var yeoman = require('yeoman-generator');
 var slug = require("underscore.string");
-var inquirer = require('inquirer');
-var _ = require('lodash');
-var fs = require('fs');
 var os = require('os');
 var path = require('path');
 var wiring = require('html-wiring');
