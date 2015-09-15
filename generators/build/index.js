@@ -28,7 +28,7 @@ module.exports = yeoman.generators.Base.extend({
     initializing: function () {
         this.conflicter.force = true;
         this.props = {};
-        this.appName = this.getAppName();     
+        this.appName = this.getAppName();
         if (!this.options['skip-welcome-message']) {
             this.welcome();
             this.checkVersion();
@@ -51,62 +51,61 @@ module.exports = yeoman.generators.Base.extend({
         });
         if (this.name) {
             this.log('Searching build type ' + this.name + '.');
-            this.module = this.findConfig(this.name, this.builds);
+            this.build = this.findConfig(this.name, this.builds);
         }
-        if (this.module) {
-            this.log('Build type found: ' + JSON.stringify(this.module.name));
+        if (this.build) {
+            this.log('Build type found: ' + JSON.stringify(this.build.name));
         } else {
             this.warning('Can not find ' + this.name + ' build type.');
             this.help();
             process.exit();
         }
         if (this.options['jsonproject']) {
-            this.jsonproject = this.options['jsonproject'];
-            if (this.jsonproject.modules[this.module.name].config) {
-                for (var key in this.jsonproject.modules[this.module.name].config) {
-                    this.props[key] = this.jsonproject.modules[this.module.name].config[key];
+            this.jsonproject = this.options['jsonproject']; 
+            if (this.jsonproject.builds[this.build.name].config) {
+                for (var key in this.jsonproject.builds[this.build.name].config) {
+                  this.build.prompts[key] = this.jsonproject.builds[this.build.name].config[key];
                 }
-                this.log(" >> JSON CONFIG >>> " + JSON.stringify(this.jsonproject));
             }
         }
     },
     //PROMPTING
     prompting: function () {
-        if (!this.options['skip-prompts']) {
-            if (this.module.prompts) {
-                var done = this.async();
-                var prompts = [];
-                Array.prototype.push.apply(prompts, this.module.prompts);
-                this.prompt(prompts, function (props) {
+        if (this.build.prompts) {
+           if (!this.options['skip-prompts']) {
+              var done = this.async();
+              var prompts = [];
+              Array.prototype.push.apply(prompts, this.build.prompts);
+              this.prompt(prompts, function (props) {
                     this.props = props;
                     // To access props later use this.props.someOption;
                     done();
-                }.bind(this));
-            }
-          } else {
-          this.module.prompts.forEach (function(p){
+              }.bind(this));
+            } else {
+              this.build.prompts.forEach (function(p){
               var prop = p.name;
               this.props[prop] = p.default;
           }.bind(this));
         }
+      }
     },
     writing: function () {
         //NPM
-        if (this.module.npm) {
+        if (this.build.npm) {
             this.newpacakages = true;
-            this.addPackage(this.module.npm, 'package.json', 'devDependencies');
+            this.addPackage(this.build.npm, 'package.json', 'devDependencies');
         }
         //NPM SCRIPTS
-        if (this.module.scripts) {
-            this.addScriptsToPackage(this.module.scripts);
+        if (this.build.scripts) {
+            this.addScriptsToPackage(this.build.scripts);
         }
         //FILES
-        if (this.module.files) {
-            this.moveFiles(path.join(this.templatepath, this.name), this.module.files);
+        if (this.build.files) {
+            this.moveFiles(path.join(this.templatepath, this.name), this.build.files);
         }
         //TEMPLATES
-        if (this.module.templates) {
-            this.moveTemplates(path.join(this.templatepath, this.name), this.module.templates);
+        if (this.build.templates) {
+            this.moveTemplates(path.join(this.templatepath, this.name), this.build.templates);
         }
     },
     install: function () {

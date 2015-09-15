@@ -24,12 +24,7 @@
                 "value": "nodewebkit ./dist/web"
         }
         ],
-        "startprompt": {
-            "type": "confirm",
-            "name": "webkit",
-            "message": "Do you want to package your application as a desktop application using Node-Webkit?",
-            "default": false
-        }
+        "startprompt": true
     },
     {
         "name": "mobile",
@@ -87,12 +82,7 @@
                 "default": "password"
             }
         ],
-        "startprompt": {
-            "type": "confirm",
-            "name": "mobile",
-            "message": "Do you want to add Mobile Builds?",
-            "default": false
-        }
+          "startprompt": true
     },
     {
         "name": "imagemin",

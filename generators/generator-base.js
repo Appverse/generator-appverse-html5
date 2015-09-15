@@ -93,7 +93,7 @@ Generator.prototype.getAppName = function getAppName() {
 /*
  * Get the Generated angular application name
  */
-Generator.prototype.getApplicationName = function getApplicationName() { 
+Generator.prototype.getApplicationName = function getApplicationName() {
     return this.getAppName() + "App";
 };
 
@@ -144,33 +144,12 @@ Generator.prototype.findConfig = function findModule(nameKey, configs) {
  * Find build for prompting on start
  *
  */
-Generator.prototype.promptBuilds = function promptBuilds(buildConfig) {
-    var modules = require(buildConfig);
+Generator.prototype.promptsConfig = function promptsConfig(config) {
+    var modules = require(config);
     var prompts = [];
     for (var i = 0; i < modules.length; i++) {
         if (modules[i].startprompt) {
-            prompts.push(modules[i].startprompt);
-        }
-    }
-    return prompts;
-};
-
-/**
- *
- * Find modules for prompting on start
- *
- */
-Generator.prototype.promptModules = function promptModules(modulesConfig) {
-    var modules = require(modulesConfig);
-    var prompts = [];
-    for (var i = 0; i < modules.length; i++) {
-        if (modules[i].startprompt) {
-            var p = {
-                name: _.capitalize(modules[i].name),
-                value: modules[i].name,
-                checked: false
-            }
-            prompts.push(p);
+            prompts.push(modules[i].name);
         }
     }
     return prompts;

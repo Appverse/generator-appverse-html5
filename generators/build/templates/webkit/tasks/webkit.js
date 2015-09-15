@@ -32,10 +32,6 @@ module.exports = function (grunt) {
         fs.writeFileSync(path.join(__dirname, '/../' + grunt.config.get('paths.dist') + '/package.json'), JSON.stringify(pkgKit));
     });
 
-    grunt.registerTask('nodewebkit:dist', [
-        'clean:dist',
-        'dist',
-        'webkit-manifest',
-        'nodewebkit'
-    ]);
+   grunt.registerTask('nodewebkit:dist', [ 'clean:dist', 'dist', 'webkit-manifest', 'nwjs' ]);
+
 };

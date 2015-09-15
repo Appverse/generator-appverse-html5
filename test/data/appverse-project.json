@@ -49,7 +49,7 @@
             "enabled": false
         },
         "webkit": {
-            "enabled": false
+            "enabled": true
         },
         "mobile": {
             "enabled": false,

@@ -71,15 +71,15 @@ module.exports = yeoman.generators.Base.extend({
             this.jsonproject = this.options['jsonproject'];
             if (this.jsonproject.modules[this.module.name].config) {
                 for (var key in this.jsonproject.modules[this.module.name].config) {
-                    this.props[key] = this.jsonproject.modules[this.module.name].config[key];
+                    this.module.prompts[key] = this.jsonproject.modules[this.module.name].config[key];
                 }
             }
         }
     },
     //PROMPTING
     prompting: function () {
-        if (!this.options['skip-prompts']) {
-            if (this.module.prompts) {
+        if (this.module.prompts) {
+           if (!this.options['skip-prompts']) {
                 var done = this.async();
                 var prompts = [];
                 Array.prototype.push.apply(prompts, this.module.prompts);
@@ -88,13 +88,13 @@ module.exports = yeoman.generators.Base.extend({
                     // To access props later use this.props.someOption;
                     done();
                 }.bind(this));
-            }
-        } else {
-          this.module.prompts.forEach (function(p){
-              var prop = p.name;
-              this.props[prop] = p.default;
-          }.bind(this));
-        }
+           } else {
+              this.module.prompts.forEach (function(p){
+                var prop = p.name;
+                this.props[prop] = p.default;
+              }.bind(this));
+          }
+       }
     },
     writing: function () {
         //SCRIPTS

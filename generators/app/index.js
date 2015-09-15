@@ -36,7 +36,8 @@ module.exports = yeoman.generators.Base.extend({
         this.conflicter.force = true;
         this.skipprompts = false;
         this.props = {};
-        this.props.coreOptions = [];
+        this.props.moduleOptions = [];
+        this.props.buildOptions = [];
         require('events').EventEmitter.defaultMaxListeners = 20;
 
         if (!this.options['skip-welcome-message']) {
@@ -82,15 +83,15 @@ module.exports = yeoman.generators.Base.extend({
                             for (var key in this.jsonproject.modules) {
                                 if (this.jsonproject.modules[key].enabled) {
                                     if (this.jsonproject.modules.hasOwnProperty(key)) {
-                                        this.props.coreOptions.push(key);
+                                        this.props.moduleOptions.push(key);
                                     }
                                 }
                             }
                             //ENABLED BUILDS
-                            for (var key in this.jsonproject.builds) {
-                                if (this.jsonproject.builds[key].enabled) {
-                                    if (this.jsonproject.modules.hasOwnProperty(key)) {
-                                        this.props[this.jsonproject.builds[key]] = key;
+                            for (var buildkey in this.jsonproject.builds) { 
+                                if (this.jsonproject.builds[buildkey].enabled) {
+                                    if (this.jsonproject.builds.hasOwnProperty(buildkey)) {
+                                        this.props.buildOptions.push(buildkey);
                                     }
                                 }
                             }
@@ -120,13 +121,16 @@ module.exports = yeoman.generators.Base.extend({
                     default: slug.slugify(this.appname)
                 }, {
                     type: 'checkbox',
-                    name: 'coreOptions',
+                    name: 'moduleOptions',
                     message: "Select core modules. \n You can add the modules later executing the subgenerators",
-                    choices: this.promptModules(this.modules)
+                    choices: this.promptsConfig(this.modules)
+                }, {
+                    type: 'checkbox',
+                    name: 'buildOptions',
+                    message: "Select build types. \n You can add the build types later executing the subgenerators",
+                    choices: this.promptsConfig(this.builds)
                 }
                 ];
-
-            Array.prototype.push.apply(prompts, this.promptBuilds(this.builds));
 
             this.prompt(prompts, function (props) {
                 if (prompts.length > 0) {
@@ -152,10 +156,10 @@ module.exports = yeoman.generators.Base.extend({
         this.write(this.destinationPath('app/index.html'), indexFile);
     },
     install: function () {
-        if (this.props.coreOptions) {
-            if (this.props.coreOptions.length > 0) {
+        if (this.props.moduleOptions) {
+            if (this.props.moduleOptions.length > 0) {
                 //MODULES
-                this.props.coreOptions.forEach(function (option) {
+                this.props.moduleOptions.forEach(function (option) {
                     this.composeWith('appverse-html5:module', {
                         args: option,
                         options: {
@@ -169,21 +173,22 @@ module.exports = yeoman.generators.Base.extend({
                 }.bind(this));
             }
         }
-        //BUILD OPTIONS
-        this.promptBuilds(this.builds).forEach(function (option) {
-            if (this.props[option.name]) {
-                this.composeWith('appverse-html5:build', {
-                    args: option.name,
-                    options: {
-                        'builds': this.builds,
-                        'skip-welcome-message': true,
-                        'skip-prompts': this.skipprompts,
-                        'jsonproject': this.jsonproject
-                    }
-                });
-            }
-        }.bind(this));
-
+        if (this.props.buildOptions) {
+            if (this.props.buildOptions.length > 0) {
+                //BUILDS
+                this.props.buildOptions.forEach(function (option) {
+                    this.composeWith('appverse-html5:build', {
+                       args: option,
+                       options: {
+                           'builds': this.builds,
+                           'skip-welcome-message': true,
+                           'skip-prompts': this.skipprompts,
+                           'jsonproject': this.jsonproject
+                         }
+                     });
+                 }.bind(this));
+             }
+         }
         this.installDependencies({
             skipInstall: this.options['skip-install'],
             callback: function () {
