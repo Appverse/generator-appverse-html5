@@ -43,34 +43,35 @@ Running
 
 * Create a new project using the **generator-appverse-html5**
 
-Create a directoy:
+  Create a directoy:
 
-```bash
+    ```bash
     mkdir testApp
-```
+    ```
 
-```bash
+    ```bash
     cd testApp
-```
-Execute the generator:
+    ```
+    
+    Execute the generator: 
 
-```bash
-    yo appverse-html5
-```
+    ```bash
+        yo appverse-html5
+    ```
 
-Yeoman will generate a boilerplate project with **Appverse - HTML5**.
-Execute grunt to test it:
+    Yeoman will generate a boilerplate project with **Appverse - HTML5**.
 
-```bash
-    grunt server
-```
-or
+    Execute grunt to test it:
 
-```bash
-    grunt server:open
-```
+    ```bash
+        grunt server
+    ``` 
+    or 
+    ```bash
+        grunt server:open
+    ```
 
-to auto open your default browser with the application.
+    to auto open your default browser with the application.
 
 #### From sources
 * Get sources from [GitHub](https://github.com/appverse/generator-appverse-html5)
@@ -121,25 +122,25 @@ Type --help option for available module list
 
 * **REST**: Adds the Appverse REST module to the project. The Integrated REST module includes communication. It is based on [Restangular](https://github.com/mgonto/restangular). Params configuration are set in app-configuration file as constants.
 
-Add a MOCK REST Server ([json-server](https://github.com/typicode/json-server)) as well.
+    Add a MOCK REST Server ([json-server](https://github.com/typicode/json-server)) as well.
 
-```bash
-    yo appverse-html5:module rest
-```
+    ```bash
+        yo appverse-html5:module rest
+    ```
 
-Mock server adds two new grunt tasks:
+    Mock server adds two new grunt tasks:
 
-```bash
-    grunt mockserver
-```
+    ```bash
+        grunt mockserver
+    ```
 
-Runs the application using the mock JSON server as REST backend, and:
+    Runs the application using the mock JSON server as REST backend, and:
 
-```bash
-    grunt mockserver:open
-```
+    ```bash
+        grunt mockserver:open
+    ```
 
-Runs the application using the mock JSON server as REST backend and open the default browser.
+    Runs the application using the mock JSON server as REST backend and open the default browser.
 
 * **Cache**: The Cache module includes several types of cache
   * Scope Cache: To be used in a limited scope. It does not persist when navigation.
@@ -147,23 +148,23 @@ Runs the application using the mock JSON server as REST backend and open the def
   * IndexedDB: It initializes indexed database at browser to handle data structures. Access is asynchronous.
   * Http Cache: It initializes cache for the $httpProvider. $http service instances will use this cache.
 
-```bash
-    yo appverse-html5:module cache
-```
+    ```bash
+        yo appverse-html5:module cache
+    ```
 
 * **Detection**: Provides browser and network detection.  
 
-```bash
-    yo appverse-html5:module detection
-```
+    ```bash
+        yo appverse-html5:module detection
+    ```
 
 * **Performance**: Services to handle usage of several performance elements
      * Webworkers. Multithreaded-parallelized execution of tasks separated of the main JavaScript thread.
      * High Performance UI directives support.
 
-```bash
-    yo appverse-html5:module performance
-```     
+    ```bash
+        yo appverse-html5:module performance
+    ```     
 
 * **Logging**: Handles several tasks with logging:     
      * It applies a decorator on native $log service in module ng.     
@@ -171,29 +172,28 @@ Runs the application using the mock JSON server as REST backend and open the def
 
         * Server side log
 
-      To handle JavaScript errors, we needed to intercept the core AngularJS
-      error handling and add a server-side communication aspect to it.
+            To handle JavaScript errors, we needed to intercept the core AngularJS error handling and add a server-side communication aspect to it.
 
         * Decorator way
 
-      The $provide service (which provides all angular services) needs 2 parameters to “decorate” something:
+            The $provide service (which provides all angular services) needs 2 parameters to “decorate” something:
 
-      1) the target service;
+            1) the target service
 
-      2) the callback to be executed every time someone asks for the target.
+            2) the callback to be executed every time someone asks for the target.
 
-      This way, we are telling in config time to [AngularJS](https://docs.angularjs.org/guide) that every time a service/controller/directive asks for $log instance [AngularJS](https://docs.angularjs.org/guide) will provide the result of the callback. As you can see, we are passing the original $log and formattedLogger (the API implementation) to the callback, and then, he returns a formattedLogger factory instance.
+            This way, we are telling in config time to [AngularJS](https://docs.angularjs.org/guide) that every time a service/controller/directive asks for $log instance [AngularJS](https://docs.angularjs.org/guide) will   provide the result of the callback. As you can see, we are passing the original $log and formattedLogger (the API implementation) to the callback, and then, he returns a formattedLogger factory instance.
 
-```bash
-    yo appverse-html5:module logging
-```   
+    ```bash
+        yo appverse-html5:module logging
+    ```   
 
 * **Server Push**: This module handles server data communication when it pushes them to the client exposing the factory SocketFactory, which is an API for instantiating sockets that are integrated with Angular's digest cycle.
 It is now based on [SocketIO](http://socket.io/)
 
-```bash
-    yo appverse-html5:module serverpush
-```
+    ```bash
+        yo appverse-html5:module serverpush
+    ```
 
 * **Translation**: The Internationalization module handles languages in application.  
 
@@ -222,152 +222,129 @@ You can type --help to get the full available component list.
     yo appverse-html5:component --help
 ```
 
-* **view**
-
-Add a new view/controller  
+* **view**: Add a new view/controller  
 Execute the subgenerator with the view name as argument. The subgenerator will create the HTML view and the [AngularJS](https://docs.angularjs.org/guide) controller.
 A new option in the navigation bar will be created as well.
 
-```bash
-    yo appverse-html5:component view [name]
-```
+    ```bash
+        yo appverse-html5:component view [name]
+    ```
 
-The menu option will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
+    The menu option will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
 
-```bash
-    yo appverse-html5:component view [name] --menu=[dropdownmenu]
-```
+    ```bash
+        yo appverse-html5:component view [name] --menu=[dropdownmenu]
+    ```
 
 Once a View/Controller is created, we can add different components to the new page.
 
-* **collapse**
+* **collapse**: Collapse from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). [AngularJS](https://docs.angularjs.org/guide) version of Bootstrap's collapse plugin. Provides a simple way to hide and show an element with a css transition
 
-Collapse from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). [AngularJS](https://docs.angularjs.org/guide) version of Bootstrap's collapse plugin. Provides a simple way to hide and show an element with a css transition
+    ```bash
+        yo appverse-html5:component collapse --target=[view]
+    ```
 
-```bash
-    yo appverse-html5:component collapse --target=[view]
-```
+* **accordion**: Accordion from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). The accordion directive builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header.
 
-* **accordion**
+    ```bash
+        yo appverse-html5:component accordion --target=[view]
+    ```
 
-Accordion from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). The accordion directive builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header.
+* **chart**: Adds a chart [Angular-ChartJS](http://jtblin.github.io/angular-chart.js) to the target view.
 
-```bash
-    yo appverse-html5:component accordion --target=[view]
-```
+    Chart types: line,bar,doughnut,radar,pie,polar-area
 
-* **chart**
+    ```bash
+        yo appverse-html5:component chart --type=[type] --target=[view]
+    ```
 
-Adds a chart [Angular-ChartJS](http://jtblin.github.io/angular-chart.js) to the target view.
+* **grid**: Adds [ng-grid](http://angular-ui.github.io/ui-grid/) grid to the view.
 
-Chart types: line,bar,doughnut,radar,pie,polar-area
+    ```bash
+        yo appverse-html5:component grid --target=[view]
+    ```
 
-```bash
-    yo appverse-html5:component chart --type=[type] --target=[view]
-```
+    The sub-generator will create 10 rows of mock data for the generated Grid, use the **rows** option to set the numbers of rows you want to generate.  
 
-* **grid**
+    ```bash
+        yo appverse-html5:component grid --target=[view] --rows=[nrows]
+    ```
 
-Adds [ng-grid](http://angular-ui.github.io/ui-grid/) grid to the view.
+* **form**: Add a Form component to the target view. 
 
-```bash
-    yo appverse-html5:component grid --target=[view]
-```
+    ```bash
+        yo appverse-html5:component form --target=[view]     
+    ```
 
-The sub-generator will create 10 rows of mock data for the generated Grid, use the **rows** option to set the numbers of rows you want to generate.  
+    By default the **form** sub-generator will create a simple form with id and name fields.
+    Use the **schema** option, with a JSON Schema file path or URL to generate HTML Form from the [JSON Schema](http://json-schema.org/) provided.
 
-```bash
-   yo appverse-html5:component grid --target=[view] --rows=[nrows]
-```
+    ```bash
+        yo appverse-html5:component form --target=[view]  --schema=[schema.json]
+    ```
 
-* **form**
+* **modal**: Modal views from [UI Bootstrap](http://angular-ui.github.io/bootstrap/).
 
+    ```bash
+        yo appverse-html5:component modal --target=[view]
+    ```
 
+* **slider**: Adds [RZSlider](https://github.com/rzajac/angularjs-slider), slider directive for AngularJS.
 
-```bash
-    yo appverse-html5:component form --target=[view]     
-```
-By default the **form** sub-generator will create a simple form with id and name fields.
-Use the **schema** option, with a JSON Schema file path or URL to generate HTML Form from the [JSON Schema](http://json-schema.org/) provided.
+    ```bash
+        yo appverse-html5:component slider --target=[view]
+    ```
 
-```bash
-    yo appverse-html5:component form --target=[view]  --schema=[schema.json]
-```
+* **tabs**: Adds a Tabs snippet to the target view.
 
-* **modal**
+    ```bash
+        yo appverse-html5:component tabs --target=[view]
+    ```
 
-Modal views from [UI Bootstrap](http://angular-ui.github.io/bootstrap/).
+* **xeditable**: Adds [editable elements](http://vitalets.github.io/angular-xeditable/)
 
-```bash
-    yo appverse-html5:component modal --target=[view]
-```
+    ```bash
+        yo appverse-html5:component xeditable --target=[view]
+    ```
 
-* **slider**
+* **datepicker**: Date picker component from [UI Bootstrap](http://angular-ui.github.io/bootstrap/).
 
-Adds [RZSlider](https://github.com/rzajac/angularjs-slider), slider directive for AngularJS.
+    ```bash
+        yo appverse-html5:component datepicker --target=[view]
+    ```
 
-```bash
-    yo appverse-html5:component slider --target=[view]
-```
+* **crud**: The sub-generator will create a REST CRUD component
 
-* **tabs**
+    * A view to manage the Rest entity
+    * A controller for the view
+    * A MOCK JSON file for the mock server.
+    * A new option in the navigation bar.
 
-Adds a Tabs snippet to the target view.
+    ```bash
+        yo appverse-html5:component crud [name]
+    ```
+    The **menu** option will add or update a dropdown menu.
 
-```bash
-    yo appverse-html5:component tabs --target=[view]
-```
+    ```bash
+        yo appverse-html5:component crud [name] --menu=[menu]
+    ```
+    By default the **form** sub-generator will create a simple form with id and name fields.
+    Use the **schema** option will be used to generate the entity form (add and edit)
 
-* **xeditable**
+    ```bash
+        yo appverse-html5:component crud [name] --schema=[path or url to JSON Schema]
+    ```
+    Add the **rows** option to generate some fake data rows at the mock server.
 
-Adds [editable elements](http://vitalets.github.io/angular-xeditable/)
+    ```bash
+        yo appverse-html5:component crud [name] --rows=[nrows]
+    ```
 
-```bash
-    yo appverse-html5:component xeditable --target=[view]
-```
+    The **rows** option could be combined with the **schema** option, so the fake data generator will use the entity definition found at the schema.
 
-* **datepicker**
-
-Date picker component from [UI Bootstrap](http://angular-ui.github.io/bootstrap/).
-
-```bash
-    yo appverse-html5:component datepicker --target=[view]
-```
-
-**crud**
-
-The sub-generator will create a REST CRUD component:
-
-  * A view to manage the Rest entity
-  * A controller for the view
-  * A MOCK JSON file for the mock server.
-  * A new option in the navigation bar.
-
-```bash
-   yo appverse-html5:component crud [name]
-```
-The **menu** option will add or update a dropdown menu.
-
-```bash
-   yo appverse-html5:component crud [name] --menu=[menu]
-```
-By default the **form** sub-generator will create a simple form with id and name fields.
-Use the **schema** option will be used to generate the entity form (add and edit)
-
-```bash
-   yo appverse-html5:component crud [name] --schema=[path or url to JSON Schema]
-```
-Add the **rows** option to generate some fake data rows at the mock server.
-
-```bash
-   yo appverse-html5:component crud [name] --rows=[nrows]
-```
-
-The **rows** option could be combined with the **schema** option, so the fake data generator will use the entity definition found at the schema.
-
-```bash
-   yo appverse-html5:component crud [name] --schema=[path or url to JSON Schema] --rows=[nrows]
-```
+    ```bash
+        yo appverse-html5:component crud [name] --schema=[path or url to JSON Schema] --rows=[nrows]
+    ```
 
 
 #### Build
@@ -471,7 +448,7 @@ It's possible to call the gerenetor using arguments and skipping prompts.
     $ yo appverse-html5 myWeb
 ```
 
-### Project JSON - Schema
+### Project as JSON - Schema
 It's possible to call the gerenetor using a JSON defition as argument. That will skip prompting by the generator.
 The JSON could be a file or URL.
 
