@@ -18,14 +18,7 @@
     "test": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
   },
   "files": [
-    "app-view",
-    "lib",
-    "bootstrap-theme",
-    "generators",
-    "rest-entity",
-    "webkit",
-    "imagemin",
-    "mobile"
+    "generators" 
   ],
   "keywords": [
     "yeoman",
@@ -63,7 +56,7 @@
     "z-schema": "^3.9.4"
   },
   "devDependencies": {
-    "fs-extra": "^0.18.2", 
+    "fs-extra": "^0.18.2",
     "istanbul": "^0.3.13",
     "mocha": "*",
     "nock": "^2.10.0"
