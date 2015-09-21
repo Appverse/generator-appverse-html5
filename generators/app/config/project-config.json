@@ -1,0 +1,63 @@
+{
+    "templates": [
+        "app/index.html",
+        "package.json",
+        "bower.json",
+        ".editorconfig",
+        ".jshintrc",
+        "README.md",
+        "sonar-project.properties",
+        "app/views/theme.html",
+        "app/views/home.html",
+        "app/scripts/controllers/home-controller.js",
+        "app/scripts/states/app-states.js",
+        "app/scripts/app.js"
+     ],
+    "files": [
+        ".yo-rc.json",
+        ".bowerrc",
+        "Gruntfile.js",
+        "LICENSE.md",
+        "app/views/components.html",
+        "app/views/modal-template.html",
+        "app/views/charts.html",
+        "app/scripts/controllers/components-controller.js",
+        "app/scripts/controllers/modal-controller.js",
+        "app/scripts/controllers/charts-controller.js",
+        "test",
+        "app/styles",
+        "config",
+        "tasks"
+    ],
+    "scripts": [
+        "bower_components/jquery/dist/jquery.min.js",
+        "bower_components/angular/angular.min.js",
+        "bower_components/angular-touch/angular-touch.min.js",
+        "bower_components/modernizr/modernizr.js",
+        "bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js",
+        "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
+        "bower_components/ng-grid/build/ng-grid.min.js",
+        "bower_components/venturocket-angular-slider/build/angular-slider.min.js",
+        "bower_components/angular-animate/angular-animate.min.js",
+        "bower_components/angular-xeditable/dist/js/xeditable.js",
+        "bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js",
+        "bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js",
+        "bower_components/angular-ui-router/release/angular-ui-router.min.js",
+        "bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js",
+        "bower_components/angular-ripple/angular-ripple.js",
+        "bower_components/angular-ui-select/dist/select.min.js",
+        "bower_components/angularjs-slider/dist/rzslider.min.js",
+        "bower_components/angular-resize/dist/angular-resize.min.js",
+        "bower_components/angular-sanitize/angular-sanitize.min.js",
+        "bower_components/Chart.js/Chart.min.js",
+        "bower_components/angular-chart.js/dist/angular-chart.min.js"
+    ],
+    "appScripts": [
+        "scripts/app.js",
+        "scripts/controllers/home-controller.js",
+        "scripts/controllers/components-controller.js",
+        "scripts/controllers/modal-controller.js",
+        "scripts/controllers/charts-controller.js",
+        "scripts/states/app-states.js"
+    ]
+}

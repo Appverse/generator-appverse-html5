@@ -1,0 +1,2 @@
+<%var obj = JSON.stringify(mockentity); obj.replace ("&#34;", "\""); %>
+<%=obj%>

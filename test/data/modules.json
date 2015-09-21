@@ -1,0 +1,82 @@
+[
+    {
+        "name": "modulemock0",
+        "scripts": ["bower_components/modulemock0.js",
+                   "bower_components/modulemock0.min.js"]
+    },
+    {
+        "name": "modulemock1",
+        "scripts": ["bower_components/modulemock1.js",
+                   "bower_components/modulemock1.min.js"],
+        "angular": "appverse.mock1"
+    },
+    {
+        "name": "modulemock2",
+        "scripts": ["bower_components/modulemock2.js",
+                   "bower_components/modulemock2.min.js"],
+        "angular": "appverse.mock2",
+        "config": {
+            "name": "MODULE_MOCK_CONFIG",
+            "values": [{
+                "name": "MODULE_MOCK_PARAM",
+                "value": "/mockmodule2"
+            }, {
+                "name": "MODULE_MOCK_PARAM1",
+                "value": "mockmodule2"
+            }]
+        }
+    },
+    {
+        "name": "modulemock3",
+        "scripts": ["bower_components/modulemock3.js",
+                   "bower_components/modulemock3.min.js"],
+        "angular": "appverse.mock3",
+        "files": [
+            "modulemock/modulemock3file1.js",
+            "modulemock/modulemock3file2.js",
+            "modulemock/modulemock3file3.js"
+        ]
+    },
+    {
+        "name": "modulemock4",
+        "scripts": ["bower_components/modulemock4.js",
+                   "bower_components/modulemock4.min.js"],
+        "angular": "appverse.mock4",
+        "config": {
+            "name": "MODULE_MOCK_CONFIG",
+            "values": [{
+                "name": "MODULE_MOCK_PARAM",
+                "value": "/mockmodule4"
+            }, {
+                "name": "MODULE_MOCK_PARAM1",
+                "value": "mockmodule4"
+            }]
+        },
+        "templates": [
+            "modulemock/modulemock4template1.js",
+            "modulemock/modulemock4template2.js",
+            "modulemock/modulemock4template3.js"
+        ],
+        "files": [
+            "modulemock/modulemock4file1.js",
+            "modulemock/modulemock4file2.js",
+            "modulemock/modulemock4file3.js"
+        ],
+        "npm": [{
+            "name": "modulemock4-npm-package",
+            "version": "0.0.1"
+        }, {
+            "name": "modulemock4-npm-package2",
+            "version": "0.0.2"
+        }],
+        "bower": [{
+            "name": "modulemock4-bower-package",
+            "version": "0.0.1"
+        }, {
+            "name": "modulemock4-bower-package2",
+            "version": "0.0.2"
+        }]
+    }
+
+
+ ]

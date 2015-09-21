@@ -1,0 +1,164 @@
+[
+  {
+    "name": "view",
+    "option": {
+      "required": [
+        "name"
+      ],
+      "optional": [
+        "menu"
+      ]
+    },
+    "named-templates": [
+      "app/scripts/controllers/$name-controller.js",
+      "app/views/$name/$name.html",
+      "test/e2e/controllers/$name-controllerSpec.js",
+      "test/e2e/$name-routesSpec.js",
+      "test/unit/$name-controllerSpec.js"
+    ],
+    "named-scripts": [
+      "scripts/controllers/$name-controller.js"
+    ],
+    "navigation": true
+  },
+  {
+    "name": "form",
+    "option": {
+      "required": [
+        "target"
+      ],
+      "optional": [
+        "schema"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Form.html",
+    "js-snippet": "app/scripts/controllers/$name-FormController.js"
+  },
+  {
+    "name": "slider",
+    "option": {
+      "required": [
+        "target"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Slider.html"
+  },
+  {
+    "name": "xeditable",
+    "option": {
+      "required": [
+        "target"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Xeditable.html"
+  },
+  {
+    "name": "chart",
+    "option": {
+      "required": [
+        "target",
+        "type"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Chart.html",
+    "js-snippet": "app/scripts/controllers/$name-ChartController.js",
+    "types": [
+      "line",
+      "bar",
+      "doughnut",
+      "radar",
+      "pie",
+      "polar-area"
+    ]
+  },
+  {
+    "name": "accordion",
+    "option": {
+      "required": [
+        "target"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Accordion.html",
+    "js-snippet": "app/scripts/controllers/$name-AccordionController.js"
+  },
+  {
+    "name": "collapse",
+    "option": {
+      "required": [
+        "target"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Collapse.html"
+  },
+  {
+    "name": "datepicker",
+    "option": {
+      "required": [
+        "target"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Datepicker.html",
+    "js-snippet": "app/scripts/controllers/$name-DatepickerController.js"
+  },
+  {
+    "name": "modal",
+    "option": {
+      "required": [
+        "target"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Modal.html",
+    "js-snippet": "app/scripts/controllers/$name-ModalController.js"
+  },
+  {
+    "name": "tabs",
+    "option": {
+      "required": [
+        "target"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Tabs.html",
+    "js-snippet": "app/scripts/controllers/$name-TabsController.js"
+  },
+  {
+    "name": "grid",
+    "option": {
+      "required": [
+        "target"
+      ],
+      "optional": [
+        "rows"
+      ]
+    },
+    "html-snippet": "app/views/$target/$name-Grid.html",
+    "js-snippet": "app/scripts/controllers/$name-GridController.js"
+  },
+  {
+    "name": "crud",
+    "option": {
+      "required": [
+        "name"
+      ],
+      "optional": [
+        "menu",
+        "schema",
+        "rows"
+      ]
+    },
+    "named-templates": [
+      "app/scripts/controllers/$name-controller.js",
+      "app/scripts/controllers/$name-modal-controller.js",
+      "app/views/$name/$name.html",
+      "app/views/$name/$nameModalForm.html",
+      "test/e2e/controllers/$name-controllerSpec.js",
+      "test/e2e/$name-routesSpec.js",
+      "test/unit/$name-controllerSpec.js"
+    ],
+    "named-scripts": [
+      "scripts/controllers/$name-controller.js",
+      "scripts/controllers/$name-modal-controller.js"
+    ],
+    "navigation": true,
+    "api":true
+  }
+]

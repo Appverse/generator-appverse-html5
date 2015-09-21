@@ -25,36 +25,27 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
+require("blanket");
+
+var config = require('../generators/app/config/project-config.json');
 
 describe('appverse-html5:generator', function () {
     var deps = [
-                [helpers.createDummyGenerator(), 'appverse-html5:imagemin'],
-                [helpers.createDummyGenerator(), 'appverse-html5:mobile'],
-                [helpers.createDummyGenerator(), 'appverse-html5:security'],
-                [helpers.createDummyGenerator(), 'appverse-html5:serverpush'],
-                [helpers.createDummyGenerator(), 'appverse-html5:translate'],
-                [helpers.createDummyGenerator(), 'appverse-html5:cache'],
-                [helpers.createDummyGenerator(), 'appverse-html5:detection'],
-                [helpers.createDummyGenerator(), 'appverse-html5:performance'],
-                [helpers.createDummyGenerator(), 'appverse-html5:logging'],
-                [helpers.createDummyGenerator(), 'appverse-html5:rest'],
-                [helpers.createDummyGenerator(), 'appverse-html5:app-view'],
-                [helpers.createDummyGenerator(), 'appverse-html5:rest-entity'],
-                [helpers.createDummyGenerator(), 'appverse-html5:bootstrap-theme'],
-                [helpers.createDummyGenerator(), 'appverse-html5:webkit']
+                [helpers.createDummyGenerator(), 'appverse-html5:module'],
+                [helpers.createDummyGenerator(), 'appverse-html5:build']
             ];
 
-    describe('when called with prompts', function () {
+    describe('when called with prompts (no modules - no builds)', function () {
         before(function (done) {
-            helpers.run(path.join(__dirname, '../app'))
+            helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../app/templates'), dir)
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
                 })
                 .withGenerators(deps)
                 .withPrompts({
-                    appName: 'testApp1',
-                    bootstrapTheme: false
+                    appName: 'test',
+                    coreOptions: []
                 })
                 .withOptions({
                     'skip-install': true,
@@ -63,12 +54,102 @@ describe('appverse-html5:generator', function () {
                 .on('end', done);
         });
 
-        it('should create files with defaults', function () {
-            assert.file(['bower.json', 'package.json', '.editorconfig', '.jshintrc']);
-            assert.fileContent('bower.json', 'testapp1');
-            assert.fileContent('app/index.html', 'bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js');
+        it('should create files', function () {
+            assert.file(config.files);
+        });
+        it('should move templates files', function () {
+            assert.file(config.templates);
+        });
+        it('should replace templates with application name', function () {
+            assert.fileContent('bower.json', 'test');
+            assert.fileContent('package.json', 'test');
+            assert.fileContent('app/index.html', '<body data-ng-app="testApp">');
+            assert.fileContent('app/scripts/app.js', 'angular.module(\'testApp\'');
+        });
+        it('should add sctipts to index.html', function () {
+            config.scripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+            config.appScripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
         });
 
+    });
+    describe('when called with argument name', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
+                })
+                .withGenerators(deps)
+                .withArguments(['test'])
+                .withOptions({
+                    'skip-install': true,
+                    'skip-welcome-message': true
+                }) // execute with options
+                .on('end', done);
+        });
+
+        it('should create files', function () {
+            assert.file(config.files);
+        });
+        it('should move templates files', function () {
+            assert.file(config.templates);
+        });
+        it('should replace templates with application name', function () {
+            assert.fileContent('bower.json', 'test');
+            assert.fileContent('package.json', 'test');
+            assert.fileContent('app/index.html', '<body data-ng-app="testApp">');
+            assert.fileContent('app/scripts/app.js', 'angular.module(\'testApp\'');
+        });
+        it('should add sctipts to index.html', function () {
+            config.scripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+            config.appScripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+        });
+    });
+    describe('when called with project (json) argument name', function () {
+        var project = path.join(__dirname, '/data/appverse-project.json');
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
+                })
+                .withGenerators(deps)
+                .withOptions({
+                    'skip-install': true,
+                    'skip-welcome-message': true,
+                    'project': project
+                }) // execute with options
+                .on('end', done);
+        });
+
+        it('should create files', function () {
+            assert.file(config.files);
+        });
+        it('should move templates files', function () {
+            assert.file(config.templates);
+        });
+        it('should replace templates with application name', function () {
+            assert.fileContent('bower.json', 'mytestproject');
+            assert.fileContent('package.json', 'mytestproject');
+            assert.fileContent('app/index.html', '<body data-ng-app="mytestprojectApp">');
+            assert.fileContent('app/scripts/app.js', 'angular.module(\'mytestprojectApp\'');
+        });
+        it('should add sctipts to index.html', function () {
+            config.scripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+            config.appScripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+        });
     });
 
 });
