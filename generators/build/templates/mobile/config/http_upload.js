@@ -19,7 +19,7 @@
                  },
                  data: {
                      // Addresses where to email the result (separated by commas)\n" +
-                     addressList: ''
+                     addressList: '<%= props.email %>'
                  },
                  onComplete: function (data) {
                      // Get build id from log and set is as grunt global variable \n" +
@@ -49,7 +49,7 @@
                      // In this case it is COMPULSORY to specify an address as\n" +
                      // you only download an encrypted .zip file. The password\n" +
                      // will be sent in the email\n" +
-                     addressList: ''
+                     addressList: '<%= props.email %>'
                  },
                  onComplete: function (data) {
                      // Get build id from log and set is as grunt global variable \n" +

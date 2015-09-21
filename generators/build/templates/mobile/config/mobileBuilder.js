@@ -3,7 +3,7 @@
  module.exports = function (grunt) {
      return {
          options: {
-             url: '<%= mobileBuilder.host %>' + '/builder/service_5_0',
+             url: '<%= props.hostname %>' + '/builder/service_5_0',
              method: 'POST',
              rejectUnauthorized: false,
              headers: {
@@ -11,7 +11,7 @@
              },
              data: {
                  // Addresses where to email the result (separated by commas)
-                 addressList: ''
+                 addressList: '<%= props.email %>'
              },
 
              onComplete: function (data) {

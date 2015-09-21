@@ -42,5 +42,6 @@ module.exports = function (grunt) {
     grunt.config.set('mobileBuilder.hostname', '<%= props.hostname %>');
     grunt.config.set('mobileBuilder.username', '<%= props.username %>');
     grunt.config.set('mobileBuilder.password', '<%= props.password %>');
+    grunt.config.set('mobileBuilder.email', '<%= props.email %>');
 
 };

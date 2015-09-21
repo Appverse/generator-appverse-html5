@@ -25,7 +25,6 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
-require("blanket");
 
 var config = require('../generators/app/config/project-config.json');
 
