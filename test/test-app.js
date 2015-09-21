@@ -25,12 +25,131 @@ var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
 var os = require('os');
 var fse = require('fs-extra');
+require("blanket");
 
+var config = require('../generators/app/config/project-config.json');
 
-describe('appverse generator', function () {
-    // not testing the actual run of generators yet
-    it('the generator can be required without throwing', function () {
-        this.app = require('../app');
+describe('appverse-html5:generator', function () {
+    var deps = [
+                [helpers.createDummyGenerator(), 'appverse-html5:module'],
+                [helpers.createDummyGenerator(), 'appverse-html5:build']
+            ];
+
+    describe('when called with prompts (no modules - no builds)', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
+                })
+                .withGenerators(deps)
+                .withPrompts({
+                    appName: 'test',
+                    coreOptions: []
+                })
+                .withOptions({
+                    'skip-install': true,
+                    'skip-welcome-message': true
+                }) // execute with options
+                .on('end', done);
+        });
+
+        it('should create files', function () {
+            assert.file(config.files);
+        });
+        it('should move templates files', function () {
+            assert.file(config.templates);
+        });
+        it('should replace templates with application name', function () {
+            assert.fileContent('bower.json', 'test');
+            assert.fileContent('package.json', 'test');
+            assert.fileContent('app/index.html', '<body data-ng-app="testApp">');
+            assert.fileContent('app/scripts/app.js', 'angular.module(\'testApp\'');
+        });
+        it('should add sctipts to index.html', function () {
+            config.scripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+            config.appScripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+        });
+
+    });
+    describe('when called with argument name', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
+                })
+                .withGenerators(deps)
+                .withArguments(['test'])
+                .withOptions({
+                    'skip-install': true,
+                    'skip-welcome-message': true
+                }) // execute with options
+                .on('end', done);
+        });
+
+        it('should create files', function () {
+            assert.file(config.files);
+        });
+        it('should move templates files', function () {
+            assert.file(config.templates);
+        });
+        it('should replace templates with application name', function () {
+            assert.fileContent('bower.json', 'test');
+            assert.fileContent('package.json', 'test');
+            assert.fileContent('app/index.html', '<body data-ng-app="testApp">');
+            assert.fileContent('app/scripts/app.js', 'angular.module(\'testApp\'');
+        });
+        it('should add sctipts to index.html', function () {
+            config.scripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+            config.appScripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+        });
+    });
+    describe('when called with project (json) argument name', function () {
+        var project = path.join(__dirname, '/data/appverse-project.json');
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
+                })
+                .withGenerators(deps)
+                .withOptions({
+                    'skip-install': true,
+                    'skip-welcome-message': true,
+                    'project': project
+                }) // execute with options
+                .on('end', done);
+        });
+
+        it('should create files', function () {
+            assert.file(config.files);
+        });
+        it('should move templates files', function () {
+            assert.file(config.templates);
+        });
+        it('should replace templates with application name', function () {
+            assert.fileContent('bower.json', 'mytestproject');
+            assert.fileContent('package.json', 'mytestproject');
+            assert.fileContent('app/index.html', '<body data-ng-app="mytestprojectApp">');
+            assert.fileContent('app/scripts/app.js', 'angular.module(\'mytestprojectApp\'');
+        });
+        it('should add sctipts to index.html', function () {
+            config.scripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+            config.appScripts.forEach(function (name) {
+                assert.fileContent('app/index.html', name);
+            });
+        });
     });
 
 });

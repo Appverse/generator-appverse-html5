@@ -1,0 +1,8 @@
+<div class="well">
+    <h3>Single Slider</h3>
+    <rzslider rz-slider-floor="0" rz-slider-ceil="450" rz-slider-model="singleSlider" rz-slider-always-show-bar="true" ng-init="singleSlider=200"></rzslider>
+    <p>Value: <b>{{singleSlider}}</b></p>
+    <h3>Range Slider</h3>
+    <rzslider rz-slider-floor="1900" rz-slider-ceil="2015" rz-slider-model="rangeSlider.low" rz-slider-high="rangeSlider.high" ng-init="rangeSlider={low:1978,high:1997}"></rzslider>
+    <p>Low: <b>{{rangeSlider.low}}</b> / High: <b>{{rangeSlider.high}}</b></p>
+</div>

@@ -1,0 +1,219 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://jsonschema.net",
+    "type": "object",
+    "properties": {
+        "project": {
+            "id": "http://jsonschema.net/project",
+            "type": "string"
+        },
+        "modules": {
+            "id": "http://jsonschema.net/modules",
+            "type": "object",
+            "properties": {
+                "serverpush": {
+                    "id": "http://jsonschema.net/modules/serverpush",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/serverpush/enabled",
+                            "type": "boolean"
+                        },
+                        "config": {
+                            "id": "http://jsonschema.net/modules/serverpush/config",
+                            "type": "object",
+                            "properties": {
+                                "BaseUrl": {
+                                    "id": "http://jsonschema.net/modules/serverpush/config/BaseUrl",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "rest": {
+                    "id": "http://jsonschema.net/modules/rest",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/rest/enabled",
+                            "type": "boolean"
+                        },
+                        "config": {
+                            "id": "http://jsonschema.net/modules/rest/config",
+                            "type": "object",
+                            "properties": {
+                                "restBaseUrl": {
+                                    "id": "http://jsonschema.net/modules/rest/config/restBaseUrl",
+                                    "type": "string"
+                                },
+                                "restBaseUrlPort": {
+                                    "id": "http://jsonschema.net/modules/rest/config/restBaseUrlPort",
+                                    "type": "integer"
+                                },
+                                "mockServerPort": {
+                                    "id": "http://jsonschema.net/modules/rest/config/mockServerPort",
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "cache": {
+                    "id": "http://jsonschema.net/modules/cache",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/cache/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "logging": {
+                    "id": "http://jsonschema.net/modules/logging",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/logging/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "performance": {
+                    "id": "http://jsonschema.net/modules/performance",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/performance/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "detection": {
+                    "id": "http://jsonschema.net/modules/detection",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/detection/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "qr": {
+                    "id": "http://jsonschema.net/modules/qr",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/qr/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "translate": {
+                    "id": "http://jsonschema.net/modules/translate",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/translate/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "security": {
+                    "id": "http://jsonschema.net/modules/security",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/modules/security/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "theme": {
+            "id": "http://jsonschema.net/theme",
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "id": "http://jsonschema.net/theme/enabled",
+                    "type": "boolean"
+                },
+                "config": {
+                    "id": "http://jsonschema.net/theme/config",
+                    "type": "object",
+                    "properties": {
+                        "scss": {
+                            "id": "http://jsonschema.net/theme/config/scss",
+                            "type": "string"
+                        },
+                        "scssVariables": {
+                            "id": "http://jsonschema.net/theme/config/scssVariables",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "builds": {
+            "id": "http://jsonschema.net/builds",
+            "type": "object",
+            "properties": {
+                "imagemin": {
+                    "id": "http://jsonschema.net/builds/imagemin",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/builds/imagemin/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "webkit": {
+                    "id": "http://jsonschema.net/builds/webkit",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/builds/webkit/enabled",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "mobile": {
+                    "id": "http://jsonschema.net/builds/mobile",
+                    "type": "object",
+                    "properties": {
+                        "enabled": {
+                            "id": "http://jsonschema.net/builds/mobile/enabled",
+                            "type": "boolean"
+                        },
+                        "config": {
+                            "id": "http://jsonschema.net/builds/mobile/config",
+                            "type": "object",
+                            "properties": {
+                                "hostname": {
+                                    "id": "http://jsonschema.net/builds/mobile/config/hostname",
+                                    "type": "string"
+                                },
+                                "username": {
+                                    "id": "http://jsonschema.net/builds/mobile/config/username",
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "id": "http://jsonschema.net/builds/mobile/config/password",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+    "project",
+    "modules",
+    "theme",
+    "builds"
+  ]
+}

@@ -1,42 +1,26 @@
 {
-    "name": "generator-appverse-html5",
-    "version": "0.16.5",
-    "description": "Appverse HTML 5 generator",
-    "license": "MIT",
-    "main": "app/index.js",
-    "repository": "appverse/generator-appverse-html5",
-    "author": {
-        "name": "Appverse",
-        "email": "github@appverse.org",
-        "url": "http://appverse.org"
-    },
-    "engines": {
-        "node": ">=0.10.0",
-        "npm": ">=1.4.5"
-    },
-    "scripts": {
-        "test": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
-    },
-    "files": [
-    "app",
-    "translate",
-    "qr",
-    "app-view",
-    "rest",
-    "cache",
-    "detection",
-    "performance",
-    "logging",
-    "serverpush",
-    "security",
-    "lib",
-    "bootstrap-theme",
-    "rest-entity",
-    "webkit",
-    "imagemin",
-    "mobile"
+  "name": "generator-appverse-html5",
+  "version": "1.0.0-alpha.1",
+  "description": "Appverse HTML 5 generator",
+  "license": "MIT",
+  "main": "app/index.js",
+  "repository": "appverse/generator-appverse-html5",
+  "author": {
+    "name": "Appverse",
+    "email": "github@appverse.org",
+    "url": "http://appverse.org"
+  },
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.4.5"
+  },
+  "scripts": {
+    "test": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
+  },
+  "files": [
+    "generators" 
   ],
-    "keywords": [
+  "keywords": [
     "yeoman",
     "appverse",
     "bootstrap",
@@ -50,33 +34,31 @@
     "bower",
     "grunt"
   ],
-    "dependencies": {
-        "chalk": "0.5.1",
-        "cheerio": "^0.19.0",
-        "escodegen": "^1.6.1",
-        "esprima": "2.1.0",
-        "estraverse": "3.1.0",
-        "grunt": "0.4.5",
-        "inquirer": "^0.8.2",
-        "insight": "0.4.3",
-        "install": "^0.1.8",
-        "json-schema-faker": "0.1.10",
-        "lodash": "^3.6.0",
-        "request": "^2.53.0",
-        "shelljs": "0.3.0",
-        "underscore.string": "2.3.3",
-        "update-notifier": "^0.3.1",
-        "urllib-sync": "^1.0.1",
-        "yeoman-generator": "^0.18.0",
-        "yosay": "^0.3.0",
-        "z-schema": "^3.9.4"
-    },
-    "devDependencies": {
-        "fs-extra": "^0.18.2",
-        "grunt-bumpup": "^0.6.2",
-        "grunt-git": "^0.3.5",
-        "grunt-npm": "0.0.2",
-        "istanbul": "^0.3.13",
-        "mocha": "*"
-    }
+  "dependencies": {
+    "chalk": "0.5.1",
+    "cheerio": "^0.19.0",
+    "escodegen": "^1.6.1",
+    "esprima": "2.1.0",
+    "estraverse": "3.1.0",
+    "html-wiring": "^1.2.0",
+    "inquirer": "^0.8.2",
+    "insight": "0.4.3",
+    "install": "^0.1.8",
+    "json-schema-faker": "0.1.10",
+    "lodash": "^3.6.0",
+    "request": "^2.53.0",
+    "shelljs": "0.3.0",
+    "underscore.string": "2.3.3",
+    "update-notifier": "^0.3.1",
+    "urllib-sync": "^1.0.1",
+    "yeoman-generator": "^0.20.0",
+    "yosay": "^0.3.0",
+    "z-schema": "^3.9.4"
+  },
+  "devDependencies": {
+    "fs-extra": "^0.18.2",
+    "istanbul": "^0.3.13",
+    "mocha": "*",
+    "nock": "^2.10.0"
+  }
 }

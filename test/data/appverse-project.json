@@ -1,23 +1,18 @@
 {
     "project": "myTestProject",
-    "components": {
+    "modules": {
         "serverpush": {
             "enabled": false,
             "config": {
-                "serverURL": "127.0.0.1"
+                "BaseUrl": "127.0.0.1"
             }
         },
         "rest": {
             "enabled": false,
             "config": {
-                "backend": {
-                    "host": "mybackendhost",
-                    "port": 8080
-                },
-                "mock": {
-                    "host": "127.0.0.1",
-                    "port": 9888
-                }
+                "restBaseUrl": "mybackendhost",
+                "restBaseUrlPort": 8000,
+                "mockServerPort": 8888
             }
         },
         "cache": {
@@ -49,23 +44,19 @@
             "scssVariables": "http://bootswatch.com/cerulean/_variables.scss"
         }
     },
-    "build": {
+    "builds": {
         "imagemin": {
             "enabled": false
-        }
-    },
-    "package": {
+        },
         "webkit": {
-            "enabled": false
+            "enabled": true
         },
         "mobile": {
             "enabled": false,
             "config": {
-                "builder": {
-                    "hostname": "http://hostname",
-                    "username": "username",
-                    "password": "password"
-                }
+                "hostname": "http://hostname",
+                "username": "username",
+                "password": "password"
             }
         }
     }
