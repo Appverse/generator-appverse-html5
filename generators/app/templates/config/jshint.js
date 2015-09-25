@@ -9,7 +9,9 @@ module.exports = {
     },
     all: [
         'Gruntfile.js',
-        'app/scripts/**/*.js',
+        'app/components/**/*.js',
+        'app/states/*.js',
+        'app/*.js',
         'test/*.js',
         'test/{e2e,unit}/**/*.js'
     ]

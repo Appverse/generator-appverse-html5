@@ -2,7 +2,7 @@
     "name": "generator-appverse-html5",
     "version": "1.0.0-alpha.2",
     "description": "Appverse HTML 5 generator",
-    "license": "MIT",
+    "license": "APL",
     "main": "app/index.js",
     "repository": "appverse/generator-appverse-html5",
     "author": {

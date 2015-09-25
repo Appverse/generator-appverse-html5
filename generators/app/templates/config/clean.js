@@ -12,6 +12,15 @@ module.exports = {
                     ]
                 }]
     },
-    server: '.tmp',
+    server: {
+       files: [{
+           dot: true,
+           src: [
+                       'app/styles/css/**',
+                       'app/styles/fonts/**',
+                       'app/resources/**'
+                   ]
+               }]
+   },
     doc: 'doc'
 };

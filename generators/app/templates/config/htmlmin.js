@@ -21,7 +21,7 @@ module.exports = {
             cwd: '<%= paths.dist %>',
             src: [
                         '*.html',
-                        'views/**/*.html',
+                        'components/**/*.html',
                         'template/**/*.html'
                     ],
             dest: '<%= paths.dist %>'

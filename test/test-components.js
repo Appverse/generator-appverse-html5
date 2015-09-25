@@ -55,7 +55,7 @@ describe('appverse-html5:component', function () {
                     generator.write(generator.destinationPath('app/index.html'), indexFile);
 
                     var html = "<div class=\"container\" scrolly-scroll></div>";
-                   generator.write(generator.destinationPath('app/views/mockview/mockview.html'), html);
+                   generator.write(generator.destinationPath('app/components/mockview/mockview.html'), html);
 
                 })
                 .withArguments([components[0].name])
@@ -74,14 +74,14 @@ describe('appverse-html5:component', function () {
         //Resolve timestamp on file name.
         /*
         it('should move http and js files', function () {
-            assert.file("app/views/mockview/mockview-MockHMTL.html");
+            assert.file("app/components/mockview/mockview-MockHMTL.html");
             assert.file("app/scripts/controllers/mockview-MockJS.js");
         }); */
         it('should add scripts to index', function () {
            assert.fileContent('app/index.html','MockJS.js');
         });
         it('should add content to the target view', function () {
-           assert.fileContent('app/views/mockview/mockview.html','MockHMTL.html');
+           assert.fileContent('app/components/mockview/mockview.html','MockHMTL.html');
         });
 
     });

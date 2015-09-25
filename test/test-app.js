@@ -63,7 +63,7 @@ describe('appverse-html5:generator', function () {
             assert.fileContent('bower.json', 'test');
             assert.fileContent('package.json', 'test');
             assert.fileContent('app/index.html', '<body data-ng-app="testApp">');
-            assert.fileContent('app/scripts/app.js', 'angular.module(\'testApp\'');
+            assert.fileContent('app/app.js', 'angular.module(\'testApp\'');
         });
         it('should add sctipts to index.html', function () {
             config.scripts.forEach(function (name) {

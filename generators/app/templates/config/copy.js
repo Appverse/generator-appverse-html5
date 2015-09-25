@@ -17,7 +17,7 @@ module.exports = {
                         'styles/fonts/*',
                         'styles/images/*',
                         '*.html',
-                        'views/**/*.html',
+                        'components/**/*.html',
                         'template/**/*.html'
                     ]
                 }, {
@@ -45,13 +45,13 @@ module.exports = {
     styles: {
         expand: true,
         cwd: '<%= paths.app %>' + '/styles',
-        dest: '.tmp/styles',
+        dest: '<%= paths.app %>/styles/css',
         src: '**/*.css'
     },
     i18n: {
         expand: true,
         cwd: '<%=paths.app%>/bower_components/angular-i18n',
-        dest: '.tmp/resources/i18n/angular',
+        dest: '<%= paths.app %>/resources/i18n/angular',
         src: [
                     '*en-us.js',
                     '*es-es.js',
@@ -62,7 +62,13 @@ module.exports = {
     fonts: {
         expand: true,
         cwd: '<%=paths.app%>/bower_components/bootstrap-sass/assets/fonts/bootstrap',
-        dest: '.tmp/fonts',
+        dest: 'app/styles/fonts',
         src: '**/*'
+    },
+    theme: {
+        expand: true,
+        cwd: '<%=paths.app%>/styles/sass/theme',
+        dest: 'app/styles/css/theme',
+        src: ['fonts/*', 'images/*']
     }
 };

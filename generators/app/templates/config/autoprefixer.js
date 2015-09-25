@@ -8,18 +8,18 @@ module.exports = {
         files: [
             {
                 expand: true,
-                cwd: '.tmp/styles/',
+                cwd: 'app/styles/sass',
                 src: '{,*/}*.css',
-                dest: '.tmp/styles/'
+                dest: 'app/styles/css'
    }
   ]
     },
     styles: {
         files: [{
             expand: true,
-            cwd: '<%=paths.app%>/styles/',
+            cwd: '<%=paths.app%>/styles/sass',
             src: '**/*.css',
-            dest: '.tmp/styles/'
+            dest: '<%=paths.app%>/styles/css'
                 }]
     }
 };

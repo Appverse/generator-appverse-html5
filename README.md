@@ -52,8 +52,8 @@ Running
     ```bash
     cd testApp
     ```
-    
-    Execute the generator: 
+
+    Execute the generator:
 
     ```bash
         yo appverse-html5
@@ -65,8 +65,8 @@ Running
 
     ```bash
         grunt server
-    ``` 
-    or 
+    ```
+    or
     ```bash
         grunt server:open
     ```
@@ -214,7 +214,7 @@ It is now based on [SocketIO](http://socket.io/)
 ```
 
 #### Component
-The component subg-generator allows you to add UI components to your project or to target views.
+The component subg-generator allows you to add UI components to your project or to target components.
 
 You can type --help to get the full available component list.
 
@@ -222,7 +222,7 @@ You can type --help to get the full available component list.
     yo appverse-html5:component --help
 ```
 
-* **view**: Add a new view/controller  
+* **view**: Add a new component (view & controller)
 Execute the subgenerator with the view name as argument. The subgenerator will create the HTML view and the [AngularJS](https://docs.angularjs.org/guide) controller.
 A new option in the navigation bar will be created as well.
 
@@ -270,7 +270,7 @@ Once a View/Controller is created, we can add different components to the new pa
         yo appverse-html5:component grid --target=[view] --rows=[nrows]
     ```
 
-* **form**: Add a Form component to the target view. 
+* **form**: Add a Form component to the target view.
 
     ```bash
         yo appverse-html5:component form --target=[view]     

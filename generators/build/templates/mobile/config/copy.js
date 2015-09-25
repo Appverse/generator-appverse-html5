@@ -17,7 +17,7 @@ module.exports = {
                         'styles/fonts/*',
                         'styles/images/*',
                         '*.html',
-                        'views/**/*.html',
+                        'components/**/*.html',
                         'template/**/*.html'
                     ]
                 }, {

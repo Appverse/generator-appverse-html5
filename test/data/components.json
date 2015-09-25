@@ -3,8 +3,8 @@
     {
         "name": "mockcomponent",
         "option": ["target"],
-        "html-snippet": "app/views/$target/$name-MockHMTL.html",
-        "js-snippet": "app/scripts/controllers/$name-MockJS.js"
+        "html-snippet": "app/components/$target/$name-MockHMTL.html",
+        "js-snippet": "app/components/$target/$name-MockJS.js"
 
     }
 ]

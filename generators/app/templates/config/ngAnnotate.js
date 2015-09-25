@@ -4,9 +4,9 @@ module.exports = {
     dist: {
         files: [{
             expand: true,
-            cwd: '.tmp/concat/scripts',
+            cwd: 'app/concat/scripts',
             src: '*.js',
-            dest: '.tmp/concat/scripts'
+            dest: 'app/concat/scripts'
                 }]
     }
 };

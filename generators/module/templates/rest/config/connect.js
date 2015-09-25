@@ -12,7 +12,7 @@ module.exports = {
         options: {
             open: false,
             base: [
-    '.tmp', '<%%= paths.app %>'
+   '<%%= paths.app %>'
    ],
             middleware: function (connect, options) {
                 if (!Array.isArray(options.base)) {
@@ -82,7 +82,7 @@ module.exports = {
         options: {
             port: '<%%= ports.test %>',
             base: [
-    '.tmp', 'test', '<%%= paths.app %>'
+     'test', '<%%= paths.app %>'
    ]
         }
     },

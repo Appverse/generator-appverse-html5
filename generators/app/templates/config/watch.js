@@ -24,8 +24,8 @@ module.exports = {
         },
         files: [
                    '<%=paths.app%>/**/*.html',
-                    '{.tmp, <%= paths.app %>}/styles/**/*.css',
-                    '{.tmp, <%= paths.app %>}/scripts/**/*.js',
+                    '{<%= paths.app %>}/styles/**/*.css',
+                    '{<%= paths.app %>}/scripts/**/*.js',
                     '<%= paths.app %>/resources/**/*'
                 ]
     }
