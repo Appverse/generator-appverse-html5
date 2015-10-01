@@ -23,8 +23,9 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-var os = require('os');
 var fse = require('fs-extra');
+
+var request = require('request');
 
 var nock = require('nock');
 
@@ -44,7 +45,9 @@ var api = {
       scssVariables: "https://appverse.gftlabs.com/theme/appverse-dark/_variables.scss"
     }
   ]
-}; 
+};
+
+
 describe('appverse-html5:theme', function () {
     describe('switch to dark ', function () {
 
@@ -55,20 +58,26 @@ describe('appverse-html5:theme', function () {
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
                     fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
-                })
+})
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
-                    var themeserver = nock('https://appverse.gftlabs.com')
-                                    .get('/theme')
-                                    .reply(200, api);
+                    //  nock.disableNetConnect();
+                      var themeserver = nock('https://appverse.gftlabs.com',{
+                                              reqheaders: {
+                                                'Content-Type': 'application/json'
+                                              }
+                                            })
+                                      .get('/theme')
+                                      .reply(200,api);
+                      var _theme = nock('https://appverse.gftlabs.com')
+                                            .get('/theme/appverse-dark/_theme.scss')
+                                            .replyWithFile(200, __dirname + '/data/_theme.scss');
 
-                    var _theme = nock('https://appverse.gftlabs.com')
-                                          .get('/theme/appverse-dark/_theme.scss')
-                                          .replyWithFile(200, __dirname + '/data/_theme.scss');
+                      var _variables = nock('https://appverse.gftlabs.com')
+                                        .get('/theme/appverse-dark/_variables.scss')
+                                        .replyWithFile(200, __dirname + '/data/_variables.scss');
+                      done();
 
-                    var _variables = nock('https://appverse.gftlabs.com')
-                                      .get('/theme/appverse-dark/_variables.scss')
-                                      .replyWithFile(200, __dirname + '/data/_variables.scss');
                 })
                 .withPrompts({
                     themes: "appverse-dark"
@@ -84,8 +93,8 @@ describe('appverse-html5:theme', function () {
         });
 
         it('Appverse theme switch to dark', function () {
-            assert.fileContent('app/styles/theme/_theme.scss', 'Appverse-dark');
-            assert.fileContent('app/styles/theme/_variables.scss', 'Appverse-dark');
+             assert.fileContent('app/styles/sass/theme/_theme.scss', 'Appverse');
+             assert.fileContent('app/styles/sass/theme/_variables.scss', 'Appverse');
         });
 
     });

@@ -8,7 +8,7 @@ module.exports = {
     app: {
         files: [{
             expand: true,
-            cwd: '<%= paths.app %>' + '/scripts',
+            cwd: '<%= paths.app %>' + '/components',
             src: '**/*.coffee',
             dest: '.tmp/scripts',
             ext: '.js'

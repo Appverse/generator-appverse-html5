@@ -246,12 +246,12 @@ describe('appverse-html5:module', function () {
             });
         });
         it('should define angular modules ', function () {
-            assert.fileContent('app/scripts/app.js', modules[4].angular);
+            assert.fileContent('app/app.js', modules[4].angular);
         });
         it('should define angular configuration ', function () {
-            assert.fileContent('app/scripts/app.js', modules[4].config.name);
-            assert.fileContent('app/scripts/app.js', modules[4].config.values[0].name);
-            assert.fileContent('app/scripts/app.js', modules[4].config.values[1].name);
+            assert.fileContent('app/app.js', modules[4].config.name);
+            assert.fileContent('app/app.js', modules[4].config.values[0].name);
+            assert.fileContent('app/app.js', modules[4].config.values[1].name);
         });
         it('should add package to bower.json', function () {
             assert.fileContent('bower.json', modules[4].bower[0].name);

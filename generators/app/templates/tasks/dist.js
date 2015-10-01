@@ -2,12 +2,12 @@
 
 module.exports = function (grunt) {
 
-    grunt.registerTask('dist', [
+  grunt.registerTask('dist', [
         'clean:dist',
         'useminPrepare',
         'concurrent:dist',
-        'autoprefixer',
         'concat',
+        'postcss:css',
         'copy:dist',
         'ngAnnotate',
         'cssmin',

@@ -10,37 +10,47 @@ module.exports = {
             cwd: '<%= paths.app %>',
             dest: '<%= paths.dist %>',
             src: [
-                        '*.{ico,png,txt}',
-                        '.htaccess',
-                        'images/{,*/}*.{gif,webp}',
-                        'resources/**',
-                        'styles/fonts/*',
-                        'styles/images/*',
-                        '*.html',
-                        'components/**/*.html',
-                        'template/**/*.html'
-                    ]
-                }, {
+                '*.{ico,png,txt}',
+                '.htaccess',
+                'images/{,*/}*.{gif,webp}',
+                'resources/**',
+                'styles/fonts/*',
+                'images/*',
+                '*.html',
+                'components/**/*.html',
+                'template/**/*.html'
+            ]
+        }, {
             expand: true,
             cwd: '<%=paths.app%>/bower_components/bootstrap-sass/assets/fonts/bootstrap',
-            dest: '<%=paths.dist%>/fonts',
+            dest: '<%=paths.dist%>/styles/fonts',
             src: '**/*'
-                }, {
+        }, {
             expand: true,
-            cwd: '.tmp/images',
+            cwd: '<%= paths.app %>/styles/css',
+            dest: '<%= paths.dist %>/styles/css',
+            src: '**/*'
+        }, {
+            expand: true,
+            cwd: '<%= paths.app %>/styles/sass/theme',
+            dest: '<%= paths.dist %>/styles/css/theme',
+            src: '**/*'
+        }, {
+            expand: true,
+            cwd: '<%=paths.app%>/images',
             dest: '<%=paths.dist%>/images',
             src: 'generated/*'
-                }, {
+        }, {
             expand: true,
             cwd: '<%=paths.app%>/bower_components/angular-i18n',
             dest: '<%=paths.dist%>/resources/i18n/angular',
             src: [
-                        '*en-us.js',
-                        '*es-es.js',
-                        '*ja-jp.js',
-                        '*ar-eg.js'
-                    ]
-                }]
+                '*en-us.js',
+                '*es-es.js',
+                '*ja-jp.js',
+                '*ar-eg.js'
+            ]
+        }]
     },
     styles: {
         expand: true,
@@ -53,11 +63,11 @@ module.exports = {
         cwd: '<%=paths.app%>/bower_components/angular-i18n',
         dest: '<%= paths.app %>/resources/i18n/angular',
         src: [
-                    '*en-us.js',
-                    '*es-es.js',
-                    '*ja-jp.js',
-                    '*ar-eg.js'
-                ]
+            '*en-us.js',
+            '*es-es.js',
+            '*ja-jp.js',
+            '*ar-eg.js'
+        ]
     },
     fonts: {
         expand: true,

@@ -6,6 +6,7 @@ module.exports = function (grunt) {
     grunt.loadTasks('./tasks');
     require('load-grunt-tasks')(grunt);
     require('time-grunt')(grunt);
+    grunt.loadNpmTasks('grunt-browser-sync');
 
     var options = {
         appName: require('./package.json').name,
@@ -19,10 +20,9 @@ module.exports = function (grunt) {
         },
         ports: {
             app: '9000',
-            dist: '9001',
-            doc: '9002',
-            test: '9003',
-            livereload: '35729'
+            dist: '9100',
+            doc: '9200',
+            test: '9300'
         }
     };
 

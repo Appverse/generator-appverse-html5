@@ -23,10 +23,7 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-var os = require('os');
 var fse = require('fs-extra');
-var fs = require('fs');
-
 var mockdata = path.join(__dirname, 'data/builds.json');
 var modules = require(mockdata);
 var templatePath = path.join(__dirname, 'temp/generators/build/templates');

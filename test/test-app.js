@@ -23,7 +23,6 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-var os = require('os');
 var fse = require('fs-extra');
 
 var config = require('../generators/app/config/project-config.json');
@@ -39,7 +38,7 @@ describe('appverse-html5:generator', function () {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .withGenerators(deps)
                 .withPrompts({
@@ -80,7 +79,7 @@ describe('appverse-html5:generator', function () {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .withGenerators(deps)
                 .withArguments(['test'])
@@ -101,7 +100,7 @@ describe('appverse-html5:generator', function () {
             assert.fileContent('bower.json', 'test');
             assert.fileContent('package.json', 'test');
             assert.fileContent('app/index.html', '<body data-ng-app="testApp">');
-            assert.fileContent('app/scripts/app.js', 'angular.module(\'testApp\'');
+            assert.fileContent('app/app.js', 'angular.module(\'testApp\'');
         });
         it('should add sctipts to index.html', function () {
             config.scripts.forEach(function (name) {
@@ -118,7 +117,7 @@ describe('appverse-html5:generator', function () {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir)
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .withGenerators(deps)
                 .withOptions({
@@ -139,7 +138,7 @@ describe('appverse-html5:generator', function () {
             assert.fileContent('bower.json', 'mytestproject');
             assert.fileContent('package.json', 'mytestproject');
             assert.fileContent('app/index.html', '<body data-ng-app="mytestprojectApp">');
-            assert.fileContent('app/scripts/app.js', 'angular.module(\'mytestprojectApp\'');
+            assert.fileContent('app/app.js', 'angular.module(\'mytestprojectApp\'');
         });
         it('should add sctipts to index.html', function () {
             config.scripts.forEach(function (name) {

@@ -6,7 +6,7 @@
  Redistribution and use in source and binary forms, with or without modification,
  are permitted provided that the conditions of the AppVerse Public License v2.0
  are met.
- THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS 'AS IS' AND
  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
  DISCLAIMED. EXCEPT IN CASE OF WILLFUL MISCONDUCT OR GROSS NEGLIGENCE, IN NO EVENT
@@ -30,7 +30,7 @@ angular.module('App.Controllers')
         function ($scope, $interval) {
         $scope.name = 'Charts';
         //Lines
-        $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
+        $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
         $scope.series = ['Series A', 'Series B'];
         $scope.data = [
     [65, 59, 80, 81, 56, 55, 40],
@@ -38,24 +38,24 @@ angular.module('App.Controllers')
   ];
         //Doughnut
         $scope.doughnutData = [300, 500, 100];
-        $scope.doughnutLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+        $scope.doughnutLabels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
 
         //Radar
-        $scope.radarLabels = ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"];
+        $scope.radarLabels = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
         $scope.radarData = [
     [65, 59, 90, 81, 56, 55, 40],
     [28, 48, 40, 19, 96, 27, 100]];
 
         //Pie
-        $scope.pieLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+        $scope.pieLabels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
         $scope.pieData = [300, 500, 100];
 
         //Polar Area Charts
-        $scope.polarLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
+        $scope.polarLabels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'Tele Sales', 'Corporate Sales'];
         $scope.polarData = [300, 500, 100, 40, 120];
 
         //Dynamic
-        $scope.dynLabels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
+        $scope.dynLabels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'Tele Sales', 'Corporate Sales'];
         $scope.dynData = [300, 500, 100, 40, 120];
         $scope.dynType = 'PolarArea';
 

@@ -247,7 +247,7 @@ angular.module('App.Controllers')
             };
 
             $scope.personAsync = {
-                selected: "wladimir@email.com"
+                selected: 'wladimir@email.com'
             };
             $scope.peopleAsync = [];
 

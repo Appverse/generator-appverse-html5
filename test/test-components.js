@@ -23,10 +23,7 @@
 var path = require('path');
 var assert = require('yeoman-generator').assert;
 var helpers = require('yeoman-generator').test;
-var os = require('os');
 var fse = require('fs-extra');
-var fs = require('fs');
-
 var mockdata = path.join(__dirname, 'data/components.json');
 var components = require(mockdata);
 var templatePath = path.join(__dirname, 'temp/generators/component/templates');
@@ -71,12 +68,7 @@ describe('appverse-html5:component', function () {
                     done();
                 });
         });
-        //Resolve timestamp on file name.
-        /*
-        it('should move http and js files', function () {
-            assert.file("app/components/mockview/mockview-MockHMTL.html");
-            assert.file("app/scripts/controllers/mockview-MockJS.js");
-        }); */
+        //Resolve timestamp on file name. 
         it('should add scripts to index', function () {
            assert.fileContent('app/index.html','MockJS.js');
         });
