@@ -10,14 +10,14 @@
       ]
     },
     "named-templates": [
-      "app/scripts/controllers/$name-controller.js",
-      "app/views/$name/$name.html",
+      "app/components/$name/$name-controller.js",
+      "app/components/$name/$name.html",
       "test/e2e/controllers/$name-controllerSpec.js",
       "test/e2e/$name-routesSpec.js",
       "test/unit/$name-controllerSpec.js"
     ],
     "named-scripts": [
-      "scripts/controllers/$name-controller.js"
+      "components/$name/$name-controller.js"
     ],
     "navigation": true
   },
@@ -31,8 +31,8 @@
         "schema"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Form.html",
-    "js-snippet": "app/scripts/controllers/$name-FormController.js"
+    "html-snippet": "app/components/$target/$name-Form.html",
+    "js-snippet": "app/components/$target/$name-FormController.js"
   },
   {
     "name": "slider",
@@ -41,7 +41,7 @@
         "target"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Slider.html"
+    "html-snippet": "app/components/$target/$name-Slider.html"
   },
   {
     "name": "xeditable",
@@ -50,7 +50,7 @@
         "target"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Xeditable.html"
+    "html-snippet": "app/components/$target/$name-Xeditable.html"
   },
   {
     "name": "chart",
@@ -60,8 +60,8 @@
         "type"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Chart.html",
-    "js-snippet": "app/scripts/controllers/$name-ChartController.js",
+    "html-snippet": "app/components/$target/$name-Chart.html",
+    "js-snippet": "app/components/$target/$name-ChartController.js",
     "types": [
       "line",
       "bar",
@@ -78,8 +78,8 @@
         "target"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Accordion.html",
-    "js-snippet": "app/scripts/controllers/$name-AccordionController.js"
+    "html-snippet": "app/components/$target/$name-Accordion.html",
+    "js-snippet": "app/components/$target/$name-AccordionController.js"
   },
   {
     "name": "collapse",
@@ -88,7 +88,7 @@
         "target"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Collapse.html"
+    "html-snippet": "app/components/$target/$name-Collapse.html"
   },
   {
     "name": "datepicker",
@@ -97,8 +97,8 @@
         "target"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Datepicker.html",
-    "js-snippet": "app/scripts/controllers/$name-DatepickerController.js"
+    "html-snippet": "app/components/$target/$name-Datepicker.html",
+    "js-snippet": "app/components/$target/$name-DatepickerController.js"
   },
   {
     "name": "modal",
@@ -107,8 +107,8 @@
         "target"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Modal.html",
-    "js-snippet": "app/scripts/controllers/$name-ModalController.js"
+    "html-snippet": "app/components/$target/$name-Modal.html",
+    "js-snippet": "app/components/$target/$name-ModalController.js"
   },
   {
     "name": "tabs",
@@ -117,8 +117,8 @@
         "target"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Tabs.html",
-    "js-snippet": "app/scripts/controllers/$name-TabsController.js"
+    "html-snippet": "app/components/$target/$name-Tabs.html",
+    "js-snippet": "app/components/$target/$name-TabsController.js"
   },
   {
     "name": "grid",
@@ -130,8 +130,8 @@
         "rows"
       ]
     },
-    "html-snippet": "app/views/$target/$name-Grid.html",
-    "js-snippet": "app/scripts/controllers/$name-GridController.js"
+    "html-snippet": "app/components/$target/$name-Grid.html",
+    "js-snippet": "app/components/$target/$name-GridController.js"
   },
   {
     "name": "crud",
@@ -146,17 +146,17 @@
       ]
     },
     "named-templates": [
-      "app/scripts/controllers/$name-controller.js",
-      "app/scripts/controllers/$name-modal-controller.js",
-      "app/views/$name/$name.html",
-      "app/views/$name/$nameModalForm.html",
+      "app/components/$name/$name-controller.js",
+      "app/components/$name/$name-modal-controller.js",
+      "app/components/$name/$name.html",
+      "app/components/$name/$nameModalForm.html",
       "test/e2e/controllers/$name-controllerSpec.js",
       "test/e2e/$name-routesSpec.js",
       "test/unit/$name-controllerSpec.js"
     ],
     "named-scripts": [
-      "scripts/controllers/$name-controller.js",
-      "scripts/controllers/$name-modal-controller.js"
+      "components/$name/$name-controller.js",
+      "components/$name/$name-modal-controller.js"
     ],
     "navigation": true,
     "api":true

@@ -1,6 +1,5 @@
 /node_modules
 /dist
-/.tmp
 /.sass-cache
 /report
 /app/bower_components
@@ -9,3 +8,6 @@
 /.sonar
 /coverage
 /doc
+/app/styles/css/
+/app/styles/fonts/
+/app/resources/

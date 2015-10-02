@@ -68,13 +68,12 @@
             }]
         },
         "templates": [
-            "config/connect.js",
             "tasks/mockserverTask.js",
             "tasks/server.js"
         ],
         "npm": [{
-            "name": "grunt-connect-proxy",
-            "version": "0.1.10"
+            "name": "http-proxy-middleware",
+            "version": "0.8.2"
         }, {
             "name": "json-server",
             "version": "0.6.10"

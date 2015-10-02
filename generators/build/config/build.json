@@ -29,7 +29,7 @@
     {
         "name": "mobile",
         "files": ["manifest", "tasks", "config", "mobile-builder-bundle"],
-        "templates": ["Gruntfile.js", "tasks/mobile.js", "config/http_upload.js", "mobile-builder-bundle/build.properties"],
+        "templates": ["Gruntfile.js", "tasks/mobile.js", "config/http_upload.js", "config/mobileBuilder.js", "mobile-builder-bundle/build.properties"],
         "npm": [
             {
                 "name": "lodash",
@@ -69,7 +69,7 @@
                 "type": "input",
                 "name": "hostname",
                 "message": "Mobile Builder Host name",
-                "default": "https://yourhostname"
+                "default": "https://builderhostname"
              }, {
                 "type": "input",
                 "name": "username",
@@ -80,9 +80,14 @@
                 "name": "password",
                 "message": "Password",
                 "default": "password"
+            }, {
+                "type": "input",
+                "name": "email",
+                "message": "E-mail",
+                "default": ""
             }
         ],
-          "startprompt": true
+        "startprompt": true
     },
     {
         "name": "imagemin",

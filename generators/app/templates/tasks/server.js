@@ -1,42 +1,46 @@
-/*jshint node:true */
 'use strict';
+
+function hasValue(obj, val) {
+    for (var prop in obj) {
+        if (obj.hasOwnProperty(prop) && obj[prop] === val) {
+            return true;
+        }
+    }
+    return false;
+};
 
 module.exports = function (grunt) {
 
-    grunt.registerTask('server', [
+    grunt.task.registerTask('server', 'Serves de application.', function (arg1, arg2) {
+        var isOpen = hasValue(arguments, "open");
+        var isDist = hasValue(arguments, "dist");
+        grunt.config.merge({
+            browserSync: {
+                options: {
+                    open: isOpen
+                }
+            }
+        });
+        if (!isDist) {
+            grunt.log.writeln("Running Server");
+            grunt.task.run('serve');
+        } else {
+            grunt.task.run('distribution');
+        }
+
+    });
+
+    grunt.registerTask('serve', [
         'clean:server',
         'concurrent:server',
-        'autoprefixer',
-        'connect:livereload',
+        'postcss:css',
+        'browserSync:dev',
         'watch'
     ]);
 
-    grunt.registerTask('server:open', [
-        'clean:server',
-        'concurrent:server',
-        'autoprefixer',
-        'connect:livereload',
-        'open:server',
-        'watch'
-    ]);
-
-    grunt.registerTask('server:dist', [
+    grunt.registerTask('distribution', [
         'dist',
-        'connect:dist',
+        'browserSync:dist',
         'watch'
     ]);
-
-    grunt.registerTask('server:dist:open', [
-        'dist',
-        'connect:dist',
-        'open:dist',
-        'watch'
-    ]);
-
-    grunt.registerTask('server:doc', [
-        'connect:doc',
-        'open:doc',
-        'watch:doc'
-    ]);
-
 };

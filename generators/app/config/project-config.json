@@ -5,25 +5,29 @@
         "bower.json",
         ".editorconfig",
         ".jshintrc",
+        ".jscsrc",
+        ".jshintignore",
+        ".jsbeautifyrc",
         "README.md",
         "sonar-project.properties",
-        "app/views/theme.html",
-        "app/views/home.html",
-        "app/scripts/controllers/home-controller.js",
-        "app/scripts/states/app-states.js",
-        "app/scripts/app.js"
+        "app/components/theme/theme.html",
+        "app/components/home/home.html",
+        "app/components/home/home-controller.js",
+        "app/states/app-states.js",
+        "app/app.js"
      ],
     "files": [
         ".yo-rc.json",
         ".bowerrc",
         "Gruntfile.js",
         "LICENSE.md",
-        "app/views/components.html",
-        "app/views/modal-template.html",
-        "app/views/charts.html",
-        "app/scripts/controllers/components-controller.js",
-        "app/scripts/controllers/modal-controller.js",
-        "app/scripts/controllers/charts-controller.js",
+        "app/favicon.ico",
+        "app/components/components/components.html",
+        "app/components/components/modal-template.html",
+        "app/components/charts/charts.html",
+        "app/components/components/components-controller.js",
+        "app/components/components/modal-controller.js",
+        "app/components/charts/charts-controller.js",
         "test",
         "app/styles",
         "config",
@@ -53,11 +57,11 @@
         "bower_components/angular-chart.js/dist/angular-chart.min.js"
     ],
     "appScripts": [
-        "scripts/app.js",
-        "scripts/controllers/home-controller.js",
-        "scripts/controllers/components-controller.js",
-        "scripts/controllers/modal-controller.js",
-        "scripts/controllers/charts-controller.js",
-        "scripts/states/app-states.js"
+        "app.js",
+        "components/home/home-controller.js",
+        "components/components/components-controller.js",
+        "components/components/modal-controller.js",
+        "components/charts/charts-controller.js",
+        "states/app-states.js"
     ]
 }

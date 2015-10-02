@@ -6,12 +6,22 @@ module.exports = {
         files: [{
             dot: true,
             src: [
-                        '.tmp',
+                        'app/styles/css/**',
+                        'app/styles/fonts/**',
+                        'app/resources/**',
                         '<%= paths.dist %>/*',
                         '!' + '<%= paths.dist %>/.git*'
                     ]
                 }]
     },
-    server: '.tmp',
-    doc: 'doc'
+    server: {
+        files: [{
+            dot: true,
+            src: [
+                        'app/styles/css/**',
+                        'app/styles/fonts/**',
+                        'app/resources/**'
+                    ]
+                }]
+    }
 };

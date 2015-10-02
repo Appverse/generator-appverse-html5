@@ -25,6 +25,10 @@
     "maxcomplexity": 8,
     "maxlen": 120,
 
+    "nocomma": true,
+    "singleGroups": true,
+    "strict": true,
+
     "asi": false,
     "boss": false,
     "debug": false,
@@ -53,9 +57,28 @@
 
     "browser": true,
     "node": true,
+    "jasmine": true,
+    "jquery": true,
 
     "globals": {
-        "angular": false,
-        "$": false
+      "angular":false,
+      "Appverse": false,
+      "$":false,
+      "console":false,
+      "after":false,
+      "afterEach":false,
+      "angular":false,
+      "before":false,
+      "beforeEach":false,
+      "browser":false,
+      "describe":false,
+      "element":false,
+      "by": false,
+      "protractor": false,
+      "expect":false,
+      "inject":false,
+      "it":false,
+      "jasmine":false,
+      "spyOn":false
     }
 }

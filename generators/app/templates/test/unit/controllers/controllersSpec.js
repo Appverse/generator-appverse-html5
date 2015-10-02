@@ -1,6 +1,6 @@
 'use strict';
 
-describe("Unit: Testing Controllers", function () {
+describe('Unit: Testing Controllers', function () {
 
     beforeEach(angular.mock.module('App.Controllers'));
 

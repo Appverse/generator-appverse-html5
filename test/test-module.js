@@ -103,7 +103,7 @@ describe('appverse-html5:module', function () {
             });
         });
         it('should define angular modules ', function () {
-            assert.fileContent('app/scripts/app.js', modules[1].angular);
+            assert.fileContent('app/app.js', modules[1].angular);
         });
 
     });
@@ -142,12 +142,12 @@ describe('appverse-html5:module', function () {
             });
         });
         it('should define angular modules ', function () {
-            assert.fileContent('app/scripts/app.js', modules[2].angular);
+            assert.fileContent('app/app.js', modules[2].angular);
         });
         it('should define angular configuration ', function () {
-            assert.fileContent('app/scripts/app.js', modules[2].config.name);
-            assert.fileContent('app/scripts/app.js', modules[2].config.values[0].name);
-            assert.fileContent('app/scripts/app.js', modules[2].config.values[1].name);
+            assert.fileContent('app/app.js', modules[2].config.name);
+            assert.fileContent('app/app.js', modules[2].config.values[0].name);
+            assert.fileContent('app/app.js', modules[2].config.values[1].name);
         });
 
     });
@@ -192,7 +192,7 @@ describe('appverse-html5:module', function () {
             });
         });
         it('should define angular modules ', function () {
-            assert.fileContent('app/scripts/app.js', modules[3].angular);
+            assert.fileContent('app/app.js', modules[3].angular);
         });
         it('should move files ', function () {
             assert.file(modules[3].files);
@@ -246,12 +246,12 @@ describe('appverse-html5:module', function () {
             });
         });
         it('should define angular modules ', function () {
-            assert.fileContent('app/scripts/app.js', modules[4].angular);
+            assert.fileContent('app/app.js', modules[4].angular);
         });
         it('should define angular configuration ', function () {
-            assert.fileContent('app/scripts/app.js', modules[4].config.name);
-            assert.fileContent('app/scripts/app.js', modules[4].config.values[0].name);
-            assert.fileContent('app/scripts/app.js', modules[4].config.values[1].name);
+            assert.fileContent('app/app.js', modules[4].config.name);
+            assert.fileContent('app/app.js', modules[4].config.values[0].name);
+            assert.fileContent('app/app.js', modules[4].config.values[1].name);
         });
         it('should add package to bower.json', function () {
             assert.fileContent('bower.json', modules[4].bower[0].name);

@@ -5,13 +5,12 @@
 
 module.exports = {
     server: [
-                'coffee',
                 'sass',
                 'copy:i18n',
-                'copy:fonts'
+                'copy:fonts',
+                'copy:theme'
             ],
     dist: [
-                'coffee',
                 'sass'
             ]
 };

@@ -12,13 +12,15 @@ module.exports = function (config) {
 
     conf.files = [
         'app/bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js',
-        'app/scripts/**/*.js',
+        'app/*.js',
+        'app/states/*.js',
+        'app/components/**/*.js',
         'test/e2e/**/*.js'
     ];
 
     conf.proxies = {
         '/': 'http://localhost:9003/',
-        '/scripts/': 'http://localhost:9876/base/app/scripts/'
+        '/scripts/': 'http://localhost:9876/base/app/'
     };
 
     conf.urlRoot = '/__karma__/';

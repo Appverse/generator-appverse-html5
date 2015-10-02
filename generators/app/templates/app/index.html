@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <!-- build:css styles/vendor.css -->
+    <!-- build:css styles/css/vendor.css -->
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
     <link rel="stylesheet" type="text/css" href="bower_components/ng-grid/ng-grid.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-select/dist/select.min.css">
@@ -26,11 +26,11 @@
     <link rel="stylesheet" type="text/css" href="bower_components/angular-chart.js/dist/angular-chart.css">
     <!-- endbuild -->
 
-    <!-- build:css(.tmp) styles/styles.css -->
-    <link rel="stylesheet" href="styles/bootstrap.css">
-    <link rel="stylesheet" href="styles/animations.css">
-    <link rel="stylesheet" href="styles/grid.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <!-- build:css styles/css/styles.css -->
+    <link rel="stylesheet" href="styles/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/css/animations.css">
+    <link rel="stylesheet" href="styles/css/grid.css">
+    <link rel="stylesheet" href="styles/css/main.css">
     <!-- endbuild -->
 </head>
 
@@ -50,7 +50,7 @@
 
     <!-- HEADER/NAVIGATION BAR
      This is the unnamed root, aka index.html
-     You can place here your views in the ui-view points.
+     You can place here your components in the ui-view points.
     -->
     <nav class="navbar navbar-default navbar-fixed-top">
 
@@ -96,8 +96,6 @@
     <!-- MAIN INSERTION POINT
          Here is the main ui-view (it is unnamed) as the main content insertion point.
          It replaces the default Angular's ng-view directive.
-         It will be populate by its immediate children's templates/views unless otherwise
-         explicitly named views are targeted.
      -->
     <div ui-view class="fade-in" autoscroll="false"></div>
 

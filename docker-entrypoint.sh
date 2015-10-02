@@ -51,7 +51,7 @@ yo appverse-html5:component crud --name=crud6  --rows=100 --menu=crud6
 grunt karma:unit
 
 # Start application with mock backend
-grunt mockserver
+grunt server:mock:dist
 
 EOF
 echo "Running..."

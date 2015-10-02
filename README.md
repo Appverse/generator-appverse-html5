@@ -2,6 +2,8 @@
 ![](http://appversed.files.wordpress.com/2012/12/logo.png)
 
 ![](https://img.shields.io/npm/v/generator-appverse-html5.svg) ![](https://img.shields.io/npm/dm/generator-appverse-html5.svg) ![](https://img.shields.io/npm/l/generator-appverse-html5.svg)
+[![Dependency Status](https://david-dm.org/appverse/generator-appverse-html5.svg)](https://david-dm.org/appverse/generator-appverse-html5)
+[![devDependency Status](https://david-dm.org/appverse/generator-appverse-html5.svg)](https://david-dm.org/appverse/generator-appverse-html5#info=devDependencies)
 
 ### generator-appverse-html5
 
@@ -52,8 +54,8 @@ Running
     ```bash
     cd testApp
     ```
-    
-    Execute the generator: 
+
+    Execute the generator:
 
     ```bash
         yo appverse-html5
@@ -65,13 +67,15 @@ Running
 
     ```bash
         grunt server
-    ``` 
-    or 
+    ```
+    or
     ```bash
         grunt server:open
     ```
 
     to auto open your default browser with the application.
+
+
 
 #### From sources
 * Get sources from [GitHub](https://github.com/appverse/generator-appverse-html5)
@@ -131,13 +135,13 @@ Type --help option for available module list
     Mock server adds two new grunt tasks:
 
     ```bash
-        grunt mockserver
+        grunt server:mock
     ```
 
     Runs the application using the mock JSON server as REST backend, and:
 
     ```bash
-        grunt mockserver:open
+        grunt server:mock:open
     ```
 
     Runs the application using the mock JSON server as REST backend and open the default browser.
@@ -214,7 +218,7 @@ It is now based on [SocketIO](http://socket.io/)
 ```
 
 #### Component
-The component subg-generator allows you to add UI components to your project or to target views.
+The component subg-generator allows you to add UI components to your project or to target components.
 
 You can type --help to get the full available component list.
 
@@ -222,7 +226,7 @@ You can type --help to get the full available component list.
     yo appverse-html5:component --help
 ```
 
-* **view**: Add a new view/controller  
+* **view**: Add a new component (view & controller)
 Execute the subgenerator with the view name as argument. The subgenerator will create the HTML view and the [AngularJS](https://docs.angularjs.org/guide) controller.
 A new option in the navigation bar will be created as well.
 
@@ -270,7 +274,7 @@ Once a View/Controller is created, we can add different components to the new pa
         yo appverse-html5:component grid --target=[view] --rows=[nrows]
     ```
 
-* **form**: Add a Form component to the target view. 
+* **form**: Add a Form component to the target view.
 
     ```bash
         yo appverse-html5:component form --target=[view]     
@@ -553,6 +557,53 @@ If --skip-install was used, 'grunt list' wont be executed, as it needs node_modu
 ```bash
     grunt list
 ```
+
+###Troubleshoting
+
+* Browser-Sync
+
+Browser-Sync is a tool for synchronized cross-device testing; useful when you’re targeting the multi-device web.
+Having trouble installing Browsersync on Windows? The most common reason for npm to throw errors when compiling **Browser-Sync** is that some of the dependencies (e.g. node-gypneed Visual C++ runtime libraries.The way to resolve this is to install [Visual Studio](https://www.visualstudio.com). At the time of this writing (Feb 2015) the compilation works fine with Visual Studio 2013 Update 4. You can then tell **npm** which version of Visual Studio you are using by the following command:
+
+```bash
+   npm install -g browser-sync --msvs_version=2013
+```
+
+  With [Visual Studio 2015](https://www.visualstudio.com)
+
+  ```bash
+      npm install -g browser-sync --msvs_version=2015
+  ```
+
+  This package depends on socket.io, follow this link to solve installation problems with socket.io or other packages that executes C++ compilation on postinstall script: [fix-node-gyp-rebuild-error-on-windows](https://www.robertkehoe.com/2015/03/fix-node-gyp-rebuild-error-on-windows)
+
+* node-gyp
+
+Some dependant pagackages use **node-gyp**, a cross-platform command-line tool written in Node.js for compiling native addon modules for Node.js.
+* On Unix:
+  python (v2.7 recommended, v3.x.x is not supported)
+  make
+  A proper C/C++ compiler toolchain, like GCC
+* On Mac OS X:
+  python (v2.7 recommended, v3.x.x is not supported) (already installed on Mac OS X)
+  Xcode
+  You also need to install the Command Line Tools via Xcode. You can find this under the menu Xcode -> Preferences -> Downloads
+  This step will install gcc and the related toolchain containing make
+* On Windows:
+  * Python (v2.7.3 recommended, v3.x.x is not supported)
+    Make sure that you have a PYTHON environment variable, and it is set to drive:\path\to\python.exe not to a folder
+  * Windows XP/Vista/7:
+    [Microsoft Visual Studio C++ 2013](https://www.visualstudio.com) (Express version works well)
+    If the install fails, try uninstalling any C++ 2010 x64&x86 Redistributable that you have installed first
+    If you get errors that the 64-bit compilers are not installed you may also need the compiler update for the Windows SDK 7.1
+  * Windows 7/8:
+    [Microsoft Visual Studio C++ 2013](https://www.visualstudio.com) for Windows Desktop (Express version works well)**
+  * All Windows Versions
+    For 64-bit builds of node and native modules you will also need the **Windows 7 64-bit SDK**
+    You may need to run one of the following commands if your build complains about WindowsSDKDir not being set, and you are sure you have already installed the SDK:
+
+    call "C:\Program Files\Microsoft SDKs\Windows\v7.1\bin\Setenv.cmd" /Release /x86
+    call "C:\Program Files\Microsoft SDKs\Windows\v7.1\bin\Setenv.cmd" /Release /x64
 
 
 ## Appverse Showcase

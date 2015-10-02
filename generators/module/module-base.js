@@ -56,7 +56,7 @@ Generator.prototype.help = function help() {
  **/
 Generator.prototype.checkAngularModule = function (moduleName) {
     //CHECK IF moduleName IS AVAILABLE
-    var file = this.fs.read(this.destinationPath('app/scripts/app.js'));
+    var file = this.fs.read(this.destinationPath('app/app.js'));
     //PARSE FILE
     var astCode = esprima.parse(file);
     var installedModule = false;
@@ -76,7 +76,7 @@ Generator.prototype.addAngularModule = function (moduleName) {
     if (!this.checkAngularModule(moduleName)) {
         //ANGULAR MODULES
         this.log(" > " + this.name + ': Writing angular modules (app.js).');
-        var file = this.fs.read(this.destinationPath('app/scripts/app.js'));
+        var file = this.fs.read(this.destinationPath('app/app.js'));
         //PARSE FILE
         var astCode = esprima.parse(file);
         //ANGULAR MODULE
@@ -99,7 +99,7 @@ Generator.prototype.addAngularModule = function (moduleName) {
             }
         });
         var finalCode = escodegen.generate(moduleCode);
-        this.fs.write(this.destinationPath('app/scripts/app.js'), finalCode);
+        this.fs.write(this.destinationPath('app/app.js'), finalCode);
     } else {
         this.info(" > " + this.name + ": Angular module already installed");
     }
@@ -110,7 +110,7 @@ Generator.prototype.addAngularModule = function (moduleName) {
  */
 Generator.prototype.addConfig = function addConfig(configuration) {
     this.log(this.name + ': Writing angular configuration (app.js)');
-    var file = this.fs.read(this.destinationPath('app/scripts/app.js'));
+    var file = this.fs.read(this.destinationPath('app/app.js'));
     //PARSE FILE
     var astCode = esprima.parse(file);
     var config = {
@@ -157,5 +157,5 @@ Generator.prototype.addConfig = function addConfig(configuration) {
         }
     });
     var finalCode = escodegen.generate(configCode);
-    this.fs.write(this.destinationPath('app/scripts/app.js'), finalCode);
+    this.fs.write(this.destinationPath('app/app.js'), finalCode);
 };

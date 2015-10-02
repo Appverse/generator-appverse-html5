@@ -81,7 +81,7 @@ Generator.prototype.resolveNamedTemplatePath = function resolveNamedTemplatePath
 };
 
 Generator.prototype.validateTarget = function validateTarget (target) {
-    var fullTarget = 'app/views/' + target + '/' + target + '.html';
+    var fullTarget = 'app/components/' + target + '/' + target + '.html';
     return this.fs.exists(this.destinationPath (fullTarget));
 };
 
@@ -94,7 +94,7 @@ Generator.prototype.addToTargetView = function addToTargetView(template, name, t
     var replacement = new RegExp('\\bapp/\\b', 'g');
     var res = includePath.replace(replacement, '');
     var include = '<div class=\"row\"><div class=\"col-lg-12\"><div ng-include src=\"\'' + res + '\'\"></div></div></div>';
-    var targetPath = this.destinationPath('app/views/' + target + '/' + target + '.html');
+    var targetPath = this.destinationPath('app/components/' + target + '/' + target + '.html');
     var targetView = this.fs.read(targetPath);
     var targetHTML = cheerio.load(targetView);
     targetHTML('.container').append(include);
@@ -140,9 +140,9 @@ Generator.prototype.namedScripts = function namedScripts(scripts, name, target) 
 Generator.prototype.addRouteState = function addRouteState(name) {
     //STATES
     var hook = '$stateProvider',
-        path = this.destinationPath('app/scripts/states/app-states.js'),
+        path = this.destinationPath('app/states/app-states.js'),
         file = this.fs.read(path),
-        insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'views/" + name + "/" + name + ".html',controller: '" + name + "Controller'})";
+        insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html',controller: '" + name + "Controller'})";
 
     if (file.indexOf(insert) === -1) {
         var pos = file.lastIndexOf(hook) + hook.length;

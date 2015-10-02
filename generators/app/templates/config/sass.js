@@ -10,9 +10,9 @@ module.exports = {
     server: {
         files: [{
             expand: true,
-            cwd: '<%=paths.app%>/styles',
+            cwd: '<%=paths.app%>/styles/sass',
             src: '*.{scss,sass}',
-            dest: '.tmp/styles',
+            dest: '<%=paths.app%>/styles/css',
             ext: '.css'
                 }]
     }

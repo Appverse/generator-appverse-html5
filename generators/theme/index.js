@@ -112,7 +112,7 @@ module.exports = yeoman.generators.Base.extend({
                 request(this.theme.scss, function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         this.log("Rewriting _theme.scss");
-                        this.fs.write(this.destinationPath('app/styles/theme/_theme.scss'), body);
+                        this.fs.write(this.destinationPath('app/styles/sass/theme/_theme.scss'), body);
                     } else {
                         this.log("Connection error.");
                     }
@@ -126,7 +126,7 @@ module.exports = yeoman.generators.Base.extend({
                 request(this.theme.scssVariables, function (error, response, body) {
                     if (!error && response.statusCode === 200) {
                         this.log("Rewriting variables.scss");
-                        this.fs.write(this.destinationPath('./app/styles/theme/_variables.scss'), body);
+                        this.fs.write(this.destinationPath('./app/styles/sass/theme/_variables.scss'), body);
                     } else {
                         this.log("Connection error.");
                     }
