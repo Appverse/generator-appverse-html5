@@ -4,7 +4,7 @@
 ![](https://img.shields.io/npm/v/generator-appverse-html5.svg) ![](https://img.shields.io/npm/dm/generator-appverse-html5.svg) ![](https://img.shields.io/npm/l/generator-appverse-html5.svg)
 [![Dependency Status](https://img.shields.io/david/appverse/generator-appverse-html5.svg?style=flat-square)](https://david-dm.org/appverse/generator-appverse-html5)
 [![devDependency Status](https://img.shields.io/david/dev/appverse/generator-appverse-html5.svg?style=flat-square)](https://david-dm.org/appverse/generator-appverse-html5#info=devDependencies)
-[![Inline docs](http://inch-ci.org/github/appverse/generator-appverse-html5.svg)](http://inch-ci.org/github/appverse/generator-appverse-html5.svg)
+[![Inline docs](http://inch-ci.org/github/appverse/generator-appverse-html5.svg)](http://inch-ci.org/github/appverse/generator-appverse-html5)
 
 ### generator-appverse-html5
 
