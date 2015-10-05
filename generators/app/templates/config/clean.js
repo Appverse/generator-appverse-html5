@@ -8,7 +8,7 @@ module.exports = {
             src: [
                         'app/styles/css/**',
                         'app/styles/fonts/**',
-                        'app/resources/**',
+                        'app/resources/i18n/angular/**',
                         '<%= paths.dist %>/*',
                         '!' + '<%= paths.dist %>/.git*'
                     ]
@@ -20,7 +20,7 @@ module.exports = {
             src: [
                         'app/styles/css/**',
                         'app/styles/fonts/**',
-                        'app/resources/**'
+                        'app/resources/i18n/angular/**'
                     ]
                 }]
     }

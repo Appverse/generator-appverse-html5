@@ -12,7 +12,10 @@
         "name": "detection",
         "scripts": ["bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js"],
         "angular": "appverse.detection",
-        "startprompt": true
+        "startprompt": true,
+        "files": [
+          "app/resources/detection"
+      ]
     },
     {
         "name": "logging",
