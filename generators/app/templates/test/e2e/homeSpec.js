@@ -12,7 +12,7 @@ describe('E2E: Testing home view', function () {
     });
 
     it('should have a greeting title', function () {
-        expect(element(by.binding('greeting')).getText()).toBe('Welcome to Appverse Showcase');
+        expect(element(by.binding('greeting')).getText()).toBe('Welcome to \'<%=appName%>\'');
     });
 
 });

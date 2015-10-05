@@ -14,7 +14,8 @@
         "app/components/home/home.html",
         "app/components/home/home-controller.js",
         "app/states/app-states.js",
-        "app/app.js"
+        "app/app.js",
+        "test/e2e/homeSpec.js"
      ],
     "files": [
         ".yo-rc.json",

@@ -44,7 +44,7 @@ module.exports = {
     test: {
         options: {
             server: {
-                baseDir: ['./<%= paths.app %>', 'test/coverage/instrument' ]
+                baseDir: ['./test/coverage/instrument/app', './<%= paths.app %>' ]
             },
             ports: {
                 min: 9200,

@@ -12,6 +12,6 @@ describe('E2E: Testing <%=name%> view', function () {
     });
 
     it ('should have a div with <%=name%>'), function () {
-       expect(element('[class="col-lg-12"]').html()).toContain('<%=name%>');
+       expect(element(by.binding('name')).getText()).toBe('<%=name%>');
     });
 });

@@ -1,5 +1,5 @@
 /*jshint node:true */
-"use strict";
+'use strict';
 
 describe('E2E: Testing <%=name%> view', function () {
 
@@ -11,7 +11,7 @@ describe('E2E: Testing <%=name%> view', function () {
         expect(browser.getLocationAbsUrl()).toBe('/<%=name%>');
     });
 
-    it ('should have a div with <%=name%>'), function () {
-        expect(element('[class="lead"]').html()).toContain('<%=name%>');
+    it ('should have a div with <%=name%>', function () {
+       expect(element(by.binding('name')).getText()).toBe('Name: <%=name%>');
     });
 });
