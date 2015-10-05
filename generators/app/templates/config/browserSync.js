@@ -27,14 +27,6 @@ module.exports = {
                 min: 9000,
                 max: 9100
             },
-            plugins: [
-                {
-                    module: "bs-html-injector",
-                    options: {
-                        files: ["./<%= paths.app %>/**/*.html", "./<%= paths.app %>/*.html"]
-                    }
-                }
-            ],
             injectChanges: true
         }
     },
