@@ -11,8 +11,8 @@ module.exports = {
         },
         open: false,
         // Open the site in Chrome & Firefox
-        browser: ["google chrome", "firefox"],
-        logLevel: "info"
+        browser: ['google chrome', 'firefox'],
+        logLevel: 'info'
     },
     dev: {
         options: {
@@ -38,6 +38,17 @@ module.exports = {
             ports: {
                 min: 9100,
                 max: 9200
+            }
+        }
+    },
+    test: {
+        options: {
+            server: {
+                baseDir: ['./<%= paths.app %>', 'test/coverage/instrument' ]
+            },
+            ports: {
+                min: 9200,
+                max: 9300
             }
         }
     }

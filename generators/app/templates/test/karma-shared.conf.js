@@ -13,7 +13,7 @@ module.exports = function () {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul)
-            'app/components/**/*.js': 'coverage'
+            'app/**/*.js': 'coverage'
         },
 
         // optionally, configure the reporter
@@ -24,7 +24,7 @@ module.exports = function () {
         },
 
         junitReporter: {
-            outputFile: 'test/unit/test-results.xml'
+            outputFile: 'test/reports/unit/junit-results.xml'
         },
 
         autoWatch: true,
@@ -70,8 +70,7 @@ module.exports = function () {
             'app/bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.js',
             'app/bower_components/appverse-web-html5-core/dist/appverse-performance/appverse-performance.js',
             'app/app.js',
-            'app/components/*.js',
-            'app/states/*.js',
+            'app/**/**.js'
         ]
     };
 };
