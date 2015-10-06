@@ -16,14 +16,14 @@ exports.config = {
     getPageTimeout: 20000,
     baseUrl: 'http://localhost:9200',
     framework: 'jasmine2',
-    multiCapabilities: [ //{
-        //    browserName: 'phantomjs',
-        // 'phantomjs.binary.path': require('phantomjs').path,
-        //    'phantomjs.cli.args': ['--ignore-ssl-errors=true', '--web-security=false'],
-        //}
-        {
-            browserName: 'chrome'
+    multiCapabilities: [{
+            browserName: 'phantomjs',
+            'phantomjs.binary.path': require('phantomjs').path,
+            'phantomjs.cli.args': ['--ignore-ssl-errors=true', '--web-security=false'],
         }
+        //{
+        //    browserName: 'chrome'
+        //}
         //        , {
         //            browserName: 'firefox'
         //        }, {
