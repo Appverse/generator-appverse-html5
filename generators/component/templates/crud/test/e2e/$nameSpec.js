@@ -11,7 +11,7 @@ describe('E2E: Testing <%=name%> view', function () {
         expect(browser.getLocationAbsUrl()).toBe('/<%=name%>');
     });
 
-    it ('should have a div with <%=name%>'), function () {
+    it ('should have a div with <%=name%>', function () {
        expect(element(by.binding('name')).getText()).toBe('<%=name%>');
     });
 });
