@@ -48,7 +48,7 @@ yo appverse-html5:component crud --name=crud5  --rows=100
 yo appverse-html5:component crud --name=crud6  --rows=100 --menu=crud6
 
 # Run unit testing
-grunt karma:unit
+grunt test:unit
 
 # Start application with mock backend
 grunt server:mock:dist
