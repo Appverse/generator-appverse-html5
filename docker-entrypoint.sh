@@ -47,8 +47,8 @@ yo appverse-html5:component chart --type=polar-area --target=crud4
 yo appverse-html5:component crud --name=crud5  --rows=100
 yo appverse-html5:component crud --name=crud6  --rows=100 --menu=crud6
 
-# Run unit testing
-grunt test:unit
+# Run test. Unit + E2E
+grunt test
 
 # Start application with mock backend
 grunt server:mock:dist
