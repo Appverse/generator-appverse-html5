@@ -1,19 +1,29 @@
 'use strict';
-
 // Empties folders to start fresh
 module.exports = {
     dist: {
         files: [{
             dot: true,
             src: [
-                        '.tmp',
+                        'app/styles/css/**',
+                        'app/styles/fonts/**',
+                        'app/resources/i18n/angular**',
                         '<%= paths.dist %>/*',
                         '!' + '<%= paths.dist %>/.git*'
                     ]
                 }]
     },
-    server: '.tmp',
-    doc: 'doc',
+    server: {
+        files: [{
+            dot: true,
+            src: [
+                        'app/styles/css/**',
+                        'app/styles/fonts/**',
+                        'app/resources/i18n/angular/**'
+                    ]
+                }]
+    },
+    reports: ['test/reports', 'test/coverage'],
     mobileBuilderBundle: '.tmp/mobile-build-bundle.zip',
     mobileDist: '<%= paths.mobileDist %>'
 };
