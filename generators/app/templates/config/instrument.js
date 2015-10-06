@@ -3,7 +3,7 @@
 // Empties folders to start fresh
 module.exports = {
 
-    files: 'app/**/*.js',
+     files: ['app/components/**/*.js', 'app/states/*.js', 'app/app.js'],
     options: {
         lazy: true,
         basePath: 'test/coverage/instrument/'

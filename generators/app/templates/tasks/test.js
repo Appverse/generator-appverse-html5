@@ -1,27 +1,36 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
-    grunt.registerTask('testserver', [
+    grunt.registerTask('test:e2e', [
+        'clean:reports',
         'clean:server',
         'concurrent:server',
-        'autoprefixer',
-        'connect:test'
-    ]);
-
-    grunt.registerTask('test', [
-        'karma:unit',
-        'testserver',
-        'karma:e2e'
+        'postcss:css',
+        'instrument',
+        'browserSync:test',
+        'shell:jasmine2'
     ]);
 
     grunt.registerTask('test:unit', [
+        'clean:reports',
+        'karma:unit'
+    ]);
+
+    grunt.registerTask('test', [
+        'clean:reports',
+        'karma:unit',
+        'clean:server',
+        'concurrent:server',
+        'postcss:css',
+        'instrument',
+        'browserSync:test',
+        'shell:jasmine2'
+    ]);
+
+    grunt.registerTask('test:unit:auto', [
         'karma:unit_auto'
     ]);
 
-    grunt.registerTask('test:e2e', [
-        'testserver',
-        'karma:e2e_auto'
-    ]);
 
 };

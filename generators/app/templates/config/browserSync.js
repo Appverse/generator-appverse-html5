@@ -11,8 +11,8 @@ module.exports = {
         },
         open: false,
         // Open the site in Chrome & Firefox
-        browser: ["google chrome", "firefox"],
-        logLevel: "info"
+        browser: ['google chrome', 'firefox'],
+        logLevel: 'info'
     },
     dev: {
         options: {
@@ -27,14 +27,6 @@ module.exports = {
                 min: 9000,
                 max: 9100
             },
-            plugins: [
-                {
-                    module: "bs-html-injector",
-                    options: {
-                        files: ["./<%= paths.app %>/**/*.html", "./<%= paths.app %>/*.html"]
-                    }
-                }
-            ],
             injectChanges: true
         }
     },
@@ -46,6 +38,17 @@ module.exports = {
             ports: {
                 min: 9100,
                 max: 9200
+            }
+        }
+    },
+    test: {
+        options: {
+            server: {
+                baseDir: ['./test/coverage/instrument/app', './<%= paths.app %>' ]
+            },
+            ports: {
+                min: 9200,
+                max: 9300
             }
         }
     }

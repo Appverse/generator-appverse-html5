@@ -88,7 +88,7 @@ module.exports = yeoman.generators.Base.extend({
                                 }
                             }
                             //ENABLED BUILDS
-                            for (var buildkey in this.jsonproject.builds) { 
+                            for (var buildkey in this.jsonproject.builds) {
                                 if (this.jsonproject.builds[buildkey].enabled) {
                                     if (this.jsonproject.builds.hasOwnProperty(buildkey)) {
                                         this.props.buildOptions.push(buildkey);
@@ -145,15 +145,15 @@ module.exports = yeoman.generators.Base.extend({
         }
     },
     writing: function () {
-        //TEMPLATES
-        this.moveTemplates(this.templatePath(), project.templates);
-        //FILES
-        this.moveFiles(this.templatePath(), project.files);
-        //SCRIPTS
-        var indexFile = this.fs.read(this.destinationPath('app/index.html'));
-        Array.prototype.push.apply(project.scripts, project.appScripts);
-        indexFile = wiring.appendScripts(indexFile, 'scripts/scripts.js', project.scripts);
-        this.write(this.destinationPath('app/index.html'), indexFile);
+      //FILES
+      this.moveFiles(this.templatePath(), project.files);
+      //TEMPLATES
+      this.moveTemplates(this.templatePath(), project.templates);      
+      //SCRIPTS
+      var indexFile = this.fs.read(this.destinationPath('app/index.html'));
+      Array.prototype.push.apply(project.scripts, project.appScripts);
+      indexFile = wiring.appendScripts(indexFile, 'scripts/scripts.js', project.scripts);
+      this.write(this.destinationPath('app/index.html'), indexFile);
     },
     install: function () {
         if (this.props.moduleOptions) {

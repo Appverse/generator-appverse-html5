@@ -3,18 +3,24 @@
 
 describe('E2E: Testing Routes', function () {
 
-    beforeEach(function () {
-        browser().navigateTo('/');
-    });
-
     it('should jump to the /home path when / is accessed', function () {
-        browser().navigateTo('#/');
-        expect(browser().location().path()).toBe('/home');
+        browser.setLocation('');
+        expect(browser.getLocationAbsUrl()).toBe('/home');
     });
 
-    it('should have a working /home route', function () {
-        browser().navigateTo('#/home');
-        expect(browser().location().path()).toBe('/home');
+    it('should have a working /theme route', function () {
+        browser.setLocation('theme');
+        expect(browser.getLocationAbsUrl()).toBe('/theme');
+    });
+
+    it('should have a working /components route', function () {
+        browser.setLocation('theme');
+        expect(browser.getLocationAbsUrl()).toBe('/theme');
+    });
+
+    it('should have a working /charts route', function () {
+        browser.setLocation('charts');
+        expect(browser.getLocationAbsUrl()).toBe('/charts');
     });
 
 });

@@ -7,13 +7,13 @@ function hasValue(obj, val) {
         }
     }
     return false;
-};
+}
 
 module.exports = function (grunt) {
 
     grunt.task.registerTask('server', 'Serves de application.', function (arg1, arg2) {
-        var isOpen = hasValue(arguments, "open");
-        var isDist = hasValue(arguments, "dist");
+        var isOpen = hasValue(arguments, 'open');
+        var isDist = hasValue(arguments, 'dist');
         grunt.config.merge({
             browserSync: {
                 options: {
@@ -22,7 +22,7 @@ module.exports = function (grunt) {
             }
         });
         if (!isDist) {
-            grunt.log.writeln("Running Server");
+            grunt.log.writeln('Running Server');
             grunt.task.run('serve');
         } else {
             grunt.task.run('distribution');
