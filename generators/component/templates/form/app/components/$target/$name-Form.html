@@ -10,8 +10,7 @@
                     </label>
                     <div class="col-sm-10">
                         <select class="form-control" name="<%=key%>" ng-model='item.<%=key%>' <% if (fields[key].required==true) { %>required>
-                            <% } else if (lodash.lastIndexOf(model.required, key)>= 0) { %>required><% } else { %>><% } %>
-                    </div>
+                            <% } else if (lodash.lastIndexOf(model.required, key)>= 0) { %>required><% } else { %>><% } %>                  
                     <% for (var i=0 ; i < fields[key].enum.length; i++ ) { %>
                         <option value='<%=fields[key].enum[i]%>'>
                             <%=fields[key].enum[i]%>
