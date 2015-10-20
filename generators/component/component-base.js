@@ -19,16 +19,12 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 'use strict';
-
-var path = require('path');
 var chalk = require('chalk');
 var cheerio = require('cheerio');
 var os = require('os');
-var yeoman = require('yeoman-generator');
-require('../generator-base');
+var appverseHTML5Generator = require('../generator-base');
 
-var Generator = yeoman.generators.Base;
-
+var componentGenerator = appverseHTML5Generator.extend({
 /**
  *
  * This method rewrites the yeoman.help()  generator/lib/actions/help.js
@@ -36,7 +32,7 @@ var Generator = yeoman.generators.Base;
  * This method adds dynamic help from the modules.json.
  *
  */
-Generator.prototype.help = function help() {
+ help: function help() {
     this.components = require('./config/components.json');
     this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:component [<component>] [<option>]"));
     this.log(chalk.bgBlack.white(" Available component list:"));
@@ -64,32 +60,22 @@ Generator.prototype.help = function help() {
         }
     });
     return "";
-};
-function escapeRegExp(string) {
-    return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
-}
-function replaceAll(string, find, replace) {
-  return string.replace(new RegExp(escapeRegExp(find), 'g'), replace);
-}
+},
 /**
- *
- */
-Generator.prototype.resolveNamedTemplatePath = function resolveNamedTemplatePath(template, name, target) {
-    var res = template.replace('$target', target);
-    var finalname = replaceAll (res, '$name', name);
-    return finalname;
-};
-
-Generator.prototype.validateTarget = function validateTarget (target) {
+* Check if target component exists
+* @param {string} target - Component name
+**/
+validateTarget : function validateTarget (target) {
     var fullTarget = 'app/components/' + target + '/' + target + '.html';
     return this.fs.exists(this.destinationPath (fullTarget));
-};
-
+},
 /**
  * Link generated html to target view
- *
+ * @param {string} template - Template
+ * @param {string} name - Name
+ * @param {string} target - Target
  **/
-Generator.prototype.addToTargetView = function addToTargetView(template, name, target) {
+ addToTargetView : function addToTargetView(template, name, target) {
     var includePath = this.resolveNamedTemplatePath(template, name, target);
     var replacement = new RegExp('\\bapp/\\b', 'g');
     var res = includePath.replace(replacement, '');
@@ -99,45 +85,25 @@ Generator.prototype.addToTargetView = function addToTargetView(template, name, t
     var targetHTML = cheerio.load(targetView);
     targetHTML('.container').append(include);
     this.fs.write(targetPath, targetHTML.html());
-};
-/**
- * Move Named template
- *
- */
-Generator.prototype.moveNamedTemplate = function moveNamedTemplate(template, name, target) {
-    this.name = name;
-    this.lodash = require ('lodash');
-    var base = path.join(this.templatepath, this.componentName);
-    this.fs.copyTpl(
-        path.join(base, template),
-        this.destinationPath(this.resolveNamedTemplatePath(template, name, target)),
-        this
-    );
-};
-/**
- * Fill and Move named templates to target path
- *
- **/
-Generator.prototype.moveNamedTemplates = function moveNamedTemplates(templates, name, target) {
-    templates.forEach(function (template) {
-        this.moveNamedTemplate(template, name, target);
-    }.bind(this));
-};
+},
 /**
  * Add named scripts to index
- *
+ * @param {string[]} scripts - Scripts to add
+ * @param {string} name - Name
+ * @param {string} target - Target
  **/
-Generator.prototype.namedScripts = function namedScripts(scripts, name, target) {
+ namedScripts : function namedScripts(scripts, name, target) {
     var namedScriptsArray = [];
     scripts.forEach(function (script) {
         namedScriptsArray.push(this.resolveNamedTemplatePath(script, name, target));
     }.bind(this));
     this.addScriptsToIndex(namedScriptsArray);
-};
+},
 /**
- * ADD Routing
+ * Add Routing
+ * @param {string} name - rounting name
  **/
-Generator.prototype.addRouteState = function addRouteState(name) {
+addRouteState : function addRouteState(name) {
     //STATES
     var hook = '$stateProvider',
         path = this.destinationPath('app/states/app-states.js'),
@@ -149,11 +115,12 @@ Generator.prototype.addRouteState = function addRouteState(name) {
         var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
         this.fs.write(path, output);
     }
-};
+},
 /**
- * ADD Link to NAV Bar.
+ * Add Link to NAV Bar.
+ * @param {string} name - rounting name
  **/
-Generator.prototype.addLinkToNavBar = function addLinkToNavBar(name) {
+addLinkToNavBar : function addLinkToNavBar(name) {
     var indexPath = this.destinationPath('app/index.html');
     var index = this.fs.read(indexPath);
     var indexHTML = cheerio.load(index);
@@ -165,12 +132,12 @@ Generator.prototype.addLinkToNavBar = function addLinkToNavBar(name) {
     }
     this.fs.write(indexPath, indexHTML.html());
     this.addRouteState(name);
-};
+},
 /**
  * ADD Drop Down to NAV
+ * @param {string} name - Dropdown name
  **/
-
-Generator.prototype.addDropDownOption = function addDropDownOption(name) {
+ addDropDownOption : function addDropDownOption(name) {
     var indexPath = this.destinationPath('app/index.html');
     var index = this.fs.read(indexPath);
     var indexHTML = cheerio.load(index);
@@ -180,19 +147,22 @@ Generator.prototype.addDropDownOption = function addDropDownOption(name) {
         var findDropdown = indexHTML("a.dropdown-toggle:contains('" + this.menu + "')");
         //FIND THE DROPDOWN
         if (require('lodash').isEmpty(findDropdown)) {
-            this.log(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
+            this.info(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
             //NOT EXISTS
             var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li></ul></li>';
-            this.log(" Adding new option " + name + " to dropdown menu. ");
+            this.info(" Adding new option " + name + " to dropdown menu. ");
             indexHTML('ul.nav.navbar-nav').append(htmlCode);
         } else {
-            this.log(" Dropdown menu found. ");
+            this.info(" Dropdown menu found. ");
             //EXISTS
-            this.log(" Adding new option " + name + " to dropdown menu. ");
+            this.info(" Adding new option " + name + " to dropdown menu. ");
             var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li>';
             indexHTML(findDropdown).next().append(navLink);
         }
         this.fs.write(indexPath, indexHTML.html());
         this.addRouteState(name);
     }
-};
+}
+});
+
+module.exports = componentGenerator;

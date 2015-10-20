@@ -19,27 +19,19 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 'use strict';
-var yeoman = require('yeoman-generator');
-var _ = require('lodash');
-require('./component-base');
-var jsf = require('json-schema-faker');
 
-module.exports = yeoman.generators.Base.extend({
-    constructor: function () {
-        yeoman.generators.Base.apply(this, arguments);
-    },
+var _ = require('lodash');
+var path = require('path');
+var componentGenerator = require('./component-base');
+var jsf = require('json-schema-faker');
+var pkg = require('../../package.json');
+
+module.exports = componentGenerator.extend({
     initializing: function () {
         this.conflicter.force = true;
-
         if (!this.options['skip-welcome-message']) {
-            this.welcome();
+            this.welcome(pkg);
             this.checkVersion();
-        }
-
-        if (!this.options.templatePath) {
-            this.templatepath = this.templatePath();
-        } else {
-            this.templatepath = this.options.templatePath;
         }
 
         if (!this.options.config) {
@@ -47,19 +39,17 @@ module.exports = yeoman.generators.Base.extend({
         } else {
             this.components = require(this.options.config);
         }
-
         this.argument('componentName', {
             required: true,
             type: String,
             desc: 'The component name'
         });
         if (this.componentName) {
-            this.log('Searching component ' + this.componentName + '.');
+            this.info('Searching component ' + this.componentName + '.');
             this.component = this.findConfig(this.componentName, this.components);
         }
-
         if (this.component) {
-            this.log('Component found: ' + JSON.stringify(this.component.name));
+            this.info('Component found: ' + JSON.stringify(this.component.name));
             //REQUIRED OPTIONS
             if (this.component.option.required) {
                 this.component.option.required.forEach(function (option) {
@@ -71,13 +61,13 @@ module.exports = yeoman.generators.Base.extend({
                     }
                     //If there is a type options, there is a types array
                     if (option === 'type') {
-                        var validType = this.component.types.inArray (function (e) {
+                        var validType = this.component.types.inArray(function (e) {
                             return e === this.options[option];
                         }.bind(this));
                         if (!validType) {
-                              this.warning('Invalid type value: ' + this.options[option]);
-                              this.info("Valid types: " + this.component.types);
-                              process.exit();
+                            this.warning('Invalid type value: ' + this.options[option]);
+                            this.info("Valid types: " + this.component.types);
+                            process.exit();
                         } else {
                             this.type = this.options[option];
                         }
@@ -89,6 +79,11 @@ module.exports = yeoman.generators.Base.extend({
             this.warning('Can not find component ' + this.componentName + '.');
             this.help();
             process.exit();
+        }
+        if (!this.options.templatePath) {
+            this.templatepath = path.join(this.templatePath(), this.componentName);
+        } else {
+            this.templatepath = path.join(this.options.templatePath, this.componentName);
         }
     },
     writing: {
@@ -107,7 +102,7 @@ module.exports = yeoman.generators.Base.extend({
                             this.model.properties = data.container.properties;
                         }
                         if (!_.has(this.model.properties, 'id')) {
-                            this.model.properties.id  = {
+                            this.model.properties.id = {
                                 type: "integer",
                                 description: "id",
                                 required: false
@@ -116,53 +111,53 @@ module.exports = yeoman.generators.Base.extend({
                     }
                 }.bind(this));
             } else {
-              //MOCK SCHEMA
-              this.model = {
-                   name: this.name,
-                   description: this.name,
-                   links: [],
-                   properties: {
-                     id: {
-                       type: "integer",
-                       description: "id",
-                       required: false
-                     },
-                     name: {
-                       type: "string",
-                       description: "name",
-                       required: false
-                     },
-              }
-            };
-          }
+                //MOCK SCHEMA
+                this.model = {
+                    name: this.name,
+                    description: this.name,
+                    links: [],
+                    properties: {
+                        id: {
+                            type: "integer",
+                            description: "id",
+                            required: false
+                        },
+                        name: {
+                            type: "string",
+                            description: "name",
+                            required: false
+                        },
+                    }
+                };
+            }
         },
         rows: function () {
-          this.mockentity = [];
-          this.rows = 10;
-          if (this.options.rows) {
-              this.rows = this.options.rows;
-          }
-          for (var i = 0; i < this.rows; i++) {
-               this.mockentity.push(jsf(this.model.properties));
-          }
+            this.mockentity = [];
+            this.rows = 10;
+            if (this.options.rows) {
+                this.rows = this.options.rows;
+            }
+            for (var i = 0; i < this.rows; i++) {
+                this.mockentity.push(jsf(this.model.properties));
+            }
         },
         api: function () {
-          //Write MOCK DATA to JSON File.
-          if (this.component.api) {
-            this.log('Writing api/' + this.entity + '.json');
-            this.fs.write(this.destinationPath('api/' + this.options.name + '.json'), JSON.stringify(this.mockentity));
-          }
+            //Write MOCK DATA to JSON File.
+            if (this.component.api) {
+                this.info('Writing api/' + this.entity + '.json');
+                this.fs.write(this.destinationPath('api/' + this.options.name + '.json'), JSON.stringify(this.mockentity));
+            }
         },
         templates: function () {
             //TEMPLATES
             if (this.component['named-templates'] && this.options.name) {
-                this.moveNamedTemplates(this.component['named-templates'], this.options.name, this.options.name);
+                this.moveNamedTemplates(this.templatepath, this.component['named-templates'], this.options.name, this.options.name);
             }
         },
         target: function () {
             //TARGET
             if (this.options.target) {
-                 if (!this.validateTarget(this.options.target)){
+                if (!this.validateTarget(this.options.target)) {
                     this.warning('Can not find target view ' + this.options.target);
                     this.help();
                     process.exit();
@@ -170,15 +165,15 @@ module.exports = yeoman.generators.Base.extend({
                 this.target = this.options.target;
                 this.name = this.options.target;
                 if (this.options.type) {
-                     this.name = this.options.target + this.options.type;
+                    this.name = this.options.target + this.options.type;
                 }
                 this.name += "_" + new Date().getTime();
-                if (this.component['html-snippet']) {                  
-                    this.moveNamedTemplate(this.component['html-snippet'], this.name, this.target);
+                if (this.component['html-snippet']) {
+                    this.moveNamedTemplate(this.templatepath, this.component['html-snippet'], this.name, this.target);
                     this.addToTargetView(this.component['html-snippet'], this.name, this.target);
                 }
                 if (this.component['js-snippet']) {
-                    this.moveNamedTemplate(this.component['js-snippet'], this.name, this.target);
+                    this.moveNamedTemplate(this.templatepath, this.component['js-snippet'], this.name, this.target);
                     var scripts = [];
                     var scriptPath = this.resolveNamedTemplatePath(this.component['js-snippet'], this.name, this.target);
                     var replacement = new RegExp('\\bapp/\\b', 'g');
@@ -191,7 +186,7 @@ module.exports = yeoman.generators.Base.extend({
         scripts: function () {
             //SCRIPTS
             if (this.component['named-scripts'] && this.options.name) {
-                this.namedScripts(this.component['named-scripts'], this.options.name,this.options.name);
+                this.namedScripts(this.component['named-scripts'], this.options.name, this.options.name);
             }
         },
         navigation: function () {

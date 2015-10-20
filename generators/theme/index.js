@@ -20,13 +20,13 @@
  */
 'use strict';
 var yeoman = require('yeoman-generator');
-var gen = require('../generator-base');
+var appverseHtml5Gen = require('../generator-base');
 var _ = require('lodash');
 var request = require('request');
 
 
-module.exports = yeoman.generators.Base.extend({
-    initializing: function () {
+module.exports = appverseHtml5Gen.extend({
+    initializing: function() {
         this.conflicter.force = true;
         if (!this.options['skip-welcome-message']) {
             this.welcome();
@@ -67,10 +67,10 @@ module.exports = yeoman.generators.Base.extend({
             };
             var done = this.async();
             this.info(" Getting themes from " + this.provider);
-            request(this.provider, function (error, response, body) {
+            request(this.provider, function(error, response, body) {
                 if (!error && response.statusCode === 200) {
                     this.remotethemes = JSON.parse(body.toString());
-                    this.remotethemes.themes.forEach(function (entry) {
+                    this.remotethemes.themes.forEach(function(entry) {
                         var option = entry.name;
                         prompts.choices.push(option);
                     }.bind(this));
@@ -84,9 +84,9 @@ module.exports = yeoman.generators.Base.extend({
             prompts = {};
         }
     },
-    prompting: function () {
+    prompting: function() {
         var done = this.async();
-        this.prompt(this.themeprompts, function (props) {
+        this.prompt(this.themeprompts, function(props) {
             if (this.themeprompts.length > 0) {
                 this.selectedTheme = props.themes;
             }
@@ -94,7 +94,7 @@ module.exports = yeoman.generators.Base.extend({
         }.bind(this));
     },
     writing: {
-        prepare: function () {
+        prepare: function() {
             function search(nameKey, myArray) {
                 for (var i = 0; i < myArray.length; i++) {
                     if (myArray[i].name === nameKey) {
@@ -106,10 +106,10 @@ module.exports = yeoman.generators.Base.extend({
                 this.theme = search(this.selectedTheme, this.remotethemes.themes);
             }
         },
-        theme: function () {
+        theme: function() {
             if (!this.skipprompts || this.bootstrapTheme) {
                 var done = this.async();
-                request(this.theme.scss, function (error, response, body) {
+                request(this.theme.scss, function(error, response, body) {
                     if (!error && response.statusCode === 200) {
                         this.log("Rewriting _theme.scss");
                         this.fs.write(this.destinationPath('app/styles/sass/theme/_theme.scss'), body);
@@ -120,10 +120,10 @@ module.exports = yeoman.generators.Base.extend({
                 }.bind(this));
             }
         },
-        variables: function () {
+        variables: function() {
             if (!this.skipprompts || this.bootstrapTheme) {
                 var done = this.async();
-                request(this.theme.scssVariables, function (error, response, body) {
+                request(this.theme.scssVariables, function(error, response, body) {
                     if (!error && response.statusCode === 200) {
                         this.log("Rewriting variables.scss");
                         this.fs.write(this.destinationPath('./app/styles/sass/theme/_variables.scss'), body);
@@ -135,7 +135,7 @@ module.exports = yeoman.generators.Base.extend({
             }
         }
     },
-    end: function () {
+    end: function() {
         this.log("Finish.");
     }
 });

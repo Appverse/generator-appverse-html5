@@ -8,7 +8,7 @@
 
 ### generator-appverse-html5
 
-This is a Yeoman Generator for Appverse - HTML5
+This is a [Yeoman](http://yeoman.io) Generator for Appverse - HTML5
 
 [![NPM](https://nodei.co/npm/generator-appverse-html5.png)](https://nodei.co/npm/generator-appverse-html5/)
 
@@ -62,7 +62,7 @@ Running
         yo appverse-html5
     ```
 
-    Yeoman will generate a boilerplate project with **Appverse - HTML5**.
+    [Yeoman](http://yeoman.io) will generate a boilerplate project with **Appverse - HTML5**.
 
     Execute grunt to test it:
 

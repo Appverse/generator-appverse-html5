@@ -19,20 +19,14 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 'use strict';
-var util = require('util');
-var path = require('path');
 var chalk = require('chalk');
-var cheerio = require('cheerio');
-var fs = require('fs');
-var os = require('os');
+var os = require('os'); 
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
-var yeoman = require('yeoman-generator');
-var gen = require('../generator-base');
+var appverseHTML5Generator = require('../generator-base');
 
-var Generator = yeoman.generators.Base;
-
+var moduleGenerator = appverseHTML5Generator.extend({
 /**
  *
  * This method rewrites the yeoman.help()  generator/lib/actions/help.js
@@ -40,7 +34,7 @@ var Generator = yeoman.generators.Base;
  * This method adds dynamic help from the modules.json.
  *
  */
-Generator.prototype.help = function help() {
+ help: function help() {
     this.modules = require('./config/modules.json');
     this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:module [module]" + os.EOL));
     this.log(chalk.bgBlack.white(" Available module list:"));
@@ -48,13 +42,12 @@ Generator.prototype.help = function help() {
         console.log("\t" + chalk.bgBlack.cyan(e.name));
     });
     return "";
-};
-
-
+},
 /**
- * Check if angular module is loaded
+ * Check if AngularJS module is loaded
+ * @param {string} moduleName - Module name
  **/
-Generator.prototype.checkAngularModule = function (moduleName) {
+ checkAngularModule : function (moduleName) {
     //CHECK IF moduleName IS AVAILABLE
     var file = this.fs.read(this.destinationPath('app/app.js'));
     //PARSE FILE
@@ -68,14 +61,15 @@ Generator.prototype.checkAngularModule = function (moduleName) {
         }
     });
     return installedModule;
-};
+},
 /**
- * ADD angular module
+ * Add angular module
+* @param {string} moduleName - Module name
  **/
-Generator.prototype.addAngularModule = function (moduleName) {
+addAngularModule : function (moduleName) {
     if (!this.checkAngularModule(moduleName)) {
         //ANGULAR MODULES
-        this.log(" > " + this.name + ': Writing angular modules (app.js).');
+        this.info(" > " + this.name + ': Writing angular modules (app.js).');
         var file = this.fs.read(this.destinationPath('app/app.js'));
         //PARSE FILE
         var astCode = esprima.parse(file);
@@ -103,13 +97,13 @@ Generator.prototype.addAngularModule = function (moduleName) {
     } else {
         this.info(" > " + this.name + ": Angular module already installed");
     }
-};
-
+},
 /**
- * Add environment configuration
- */
-Generator.prototype.addConfig = function addConfig(configuration) {
-    this.log(this.name + ': Writing angular configuration (app.js)');
+* Add environment configuration
+* @param {Object} configuration - Configuration
+*/
+ addConfig : function addConfig(configuration) {
+    this.info(this.name + ': Writing angular configuration (app.js)');
     var file = this.fs.read(this.destinationPath('app/app.js'));
     //PARSE FILE
     var astCode = esprima.parse(file);
@@ -158,4 +152,7 @@ Generator.prototype.addConfig = function addConfig(configuration) {
     });
     var finalCode = escodegen.generate(configCode);
     this.fs.write(this.destinationPath('app/app.js'), finalCode);
-};
+}
+});
+
+module.exports = moduleGenerator;
