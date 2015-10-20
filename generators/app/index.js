@@ -20,18 +20,15 @@
  */
 
 'use strict';
-var yeoman = require('yeoman-generator');
 var slug = require("underscore.string");
 var os = require('os');
 var path = require('path');
 var wiring = require('html-wiring');
 var project = require('./config/project-config.json');
-var gen = require('../generator-base');
+var pkg = require("../../package.json");
+var appverseHtml5Gen = require('../generator-base');
 
-module.exports = yeoman.generators.Base.extend({
-    constructor: function () {
-        yeoman.generators.Base.apply(this, arguments);
-    },
+module.exports = appverseHtml5Gen.extend({
     initializing: function () {
         this.conflicter.force = true;
         this.skipprompts = false;
@@ -41,22 +38,20 @@ module.exports = yeoman.generators.Base.extend({
         require('events').EventEmitter.defaultMaxListeners = 20;
 
         if (!this.options['skip-welcome-message']) {
-            this.welcome();
+            this.welcome(pkg);
             this.checkVersion();
         }
-
-        if (!this.options['modules']) {
+        if (!this.options.modules) {
             this.modules = path.join(__dirname, '../module/config/modules.json');
         } else {
-            this.modules = this.options['modules'];
+            this.modules = this.options.modules;
         }
 
-        if (!this.options['builds']) {
+        if (!this.options.builds) {
             this.builds = path.join(__dirname, '../build/config/build.json');
         } else {
-            this.builds = this.options['builds'];
+            this.builds = this.options.builds;
         }
-
         // This makes `appname` an argument.
         this.argument('application', {
             type: String,
@@ -71,8 +66,8 @@ module.exports = yeoman.generators.Base.extend({
 
         // This makes `project` an option. --project=project.json
         // Get a JSON path or URL as value. The JSON defines the project and must validate against schema/appverse-project-schema.json
-        if (this.options['project']) {
-            this.project = this.options['project'];
+        if (this.options.project) {
+            this.project = this.options.project;
             this.readJSONFileOrUrl(this.project, function (error, data) {
                 if (!error) {
                     this.jsonproject = data;
@@ -148,7 +143,7 @@ module.exports = yeoman.generators.Base.extend({
       //FILES
       this.moveFiles(this.templatePath(), project.files);
       //TEMPLATES
-      this.moveTemplates(this.templatePath(), project.templates);      
+      this.moveTemplates(this.templatePath(),project.templates);
       //SCRIPTS
       var indexFile = this.fs.read(this.destinationPath('app/index.html'));
       Array.prototype.push.apply(project.scripts, project.appScripts);

@@ -21,10 +21,8 @@
 'use strict';
 var chalk = require('chalk');
 var os = require('os');
-var yeoman = require('yeoman-generator');
-require('../generator-base'); 
-var Generator = yeoman.generators.Base;
-
+var appverseHTML5Generator = require('../generator-base');
+var  buildGenerator = appverseHTML5Generator.extend({
 /**
  *
  * This method rewrites the yeoman.help()  generator/lib/actions/help.js
@@ -32,11 +30,14 @@ var Generator = yeoman.generators.Base;
  * This method adds dynamic help from the modules.json.
  *
  */
-Generator.prototype.help = function help() {
+  help : function help() {
     this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:build [buildType]" + os.EOL));
     this.log(chalk.bgBlack.white(" Available build type list:"));
     require('./config/build.json').forEach(function (e) {
         console.log("\t" + chalk.bgBlack.cyan(e.name));
     });
     return "";
-};
+}
+});
+
+module.exports =  buildGenerator;

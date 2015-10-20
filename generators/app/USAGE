@@ -1,7 +1,7 @@
 Description:
     Creates a default Appverse HTML5 - AngularJS app
-    
-Exection
+
+Execution
 
      yo appverse-html5
      yo appverse-html5 [<options>]
@@ -10,20 +10,17 @@ Exection
 
   args
      name: The application name. It will skip initial prompts.
-  
-  options: 
+
+  options:
         --help: Shows help.
-        --project: Project JSON Defintion. It will skip initial prompts 
-        --skip-install: Skip npm and bower install process. 
-        
+        --project: Project JSON Defintion. It will skip initial prompts
+        --skip-install: Skip npm and bower install process.
+
   subgenerators
-  
+
     module: Installs a module
        args
-         name: Module name  
-       options  
+         name: Module name
+       options
          --help: Shows module help.
-         --skip-install: Skip npm and bower install process. 
-         
-        
-       
+         --skip-install: Skip npm and bower install process.

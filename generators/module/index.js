@@ -19,34 +19,22 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 'use strict';
-var yeoman = require('yeoman-generator');
- var path = require('path');
-require('./module-base');
+var path = require('path');
+var moduleGenerator = require('./module-base');
+var pkg = require("../../package.json");
 
-
-module.exports = yeoman.generators.Base.extend({
-    constructor: function () {
-        yeoman.generators.Base.apply(this, arguments);
-
-    },
-    initializing: function () {
+module.exports = moduleGenerator.extend({
+    initializing: function() {
         this.conflicter.force = true;
         this.props = {};
         if (!this.options['skip-welcome-message']) {
-            this.welcome();
+            this.welcome(pkg);
             this.checkVersion();
-        }
-
-        if (!this.options['templatePath']) {
-            this.templatepath = this.templatePath();
-        } else {
-            this.templatepath = this.options['templatePath'];
-        }
-
-        if (!this.options['config']) {
+        } 
+        if (!this.options.config) {
             this.modules = require('./config/modules.json');
         } else {
-            this.modules = require(this.options['config']);
+            this.modules = require(this.options.config);
         }
 
         this.argument('name', {
@@ -55,48 +43,53 @@ module.exports = yeoman.generators.Base.extend({
             desc: 'The subgenerator name'
         });
         if (this.name) {
-            this.log('Searching module ' + this.name + '.');
+            this.info('Searching module ' + this.name + '.');
             this.module = this.findConfig(this.name, this.modules);
         }
 
         if (this.module) {
-            this.log('Module found: ' + JSON.stringify(this.module.name));
+            this.info('Module found: ' + JSON.stringify(this.module.name));
         } else {
             this.warning('Can not find module ' + this.name + '.');
             this.help();
             process.exit();
         }
 
-        if (this.options['jsonproject']) {
-            this.jsonproject = this.options['jsonproject'];
+        if (this.options.jsonproject) {
+            this.jsonproject = this.options.jsonproject;
             if (this.jsonproject.modules[this.module.name].config) {
                 for (var key in this.jsonproject.modules[this.module.name].config) {
                     this.module.prompts[key] = this.jsonproject.modules[this.module.name].config[key];
                 }
             }
         }
+        if (!this.options.templatePath) {
+            this.templatepath = path.join(this.templatePath(), this.module.name);
+        } else {
+            this.templatepath = path.join(this.options.templatePath, this.module.name);
+        }
     },
     //PROMPTING
-    prompting: function () {
+    prompting: function() {
         if (this.module.prompts) {
-           if (!this.options['skip-prompts']) {
+            if (!this.options['skip-prompts']) {
                 var done = this.async();
                 var prompts = [];
                 Array.prototype.push.apply(prompts, this.module.prompts);
-                this.prompt(prompts, function (props) {
+                this.prompt(prompts, function(props) {
                     this.props = props;
                     // To access props later use this.props.someOption;
                     done();
                 }.bind(this));
-           } else {
-              this.module.prompts.forEach (function(p){
-                var prop = p.name;
-                this.props[prop] = p.default;
-              }.bind(this));
-          }
-       }
+            } else {
+                this.module.prompts.forEach(function(p) {
+                    var prop = p.name;
+                    this.props[prop] = p.default;
+                }.bind(this));
+            }
+        }
     },
-    writing: function () {
+    writing: function() {
         //SCRIPTS
         if (this.module.scripts) {
             this.addScriptsToIndex(this.module.scripts);
@@ -118,25 +111,25 @@ module.exports = yeoman.generators.Base.extend({
         }
         //FILES
         if (this.module.files) {
-            this.moveFiles(path.join(this.templatepath, this.name), this.module.files);
+            this.moveFiles(this.templatepath, this.module.files);
         }
         //TEMPLATES
         if (this.module.templates) {
-            this.moveTemplates(path.join(this.templatepath, this.name), this.module.templates);
+            this.moveTemplates(this.templatepath, this.module.templates);
         }
         //CONFIG
         if (this.module.config) {
             this.addConfig(this.module.config);
         }
     },
-    install: function () {
+    install: function() {
         if (this.newpacakages) {
             this.installDependencies({
                 skipInstall: this.options['skip-install']
             });
         }
     },
-    end: function () {
+    end: function() {
         this.info("Finish " + this.name);
     }
 

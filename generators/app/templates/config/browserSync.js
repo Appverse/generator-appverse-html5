@@ -18,11 +18,11 @@ module.exports = {
         options: {
             server: {
                 baseDir: ['./<%= paths.app %>']
-            },
-            files: [
-                         'app/scripts/**/*.js',
-                         'app/scripts/*.js'
-                      ],
+            }, 
+              files: [
+                'app/**/*.js',
+                'app/**/*.html'
+              ],
             ports: {
                 min: 9000,
                 max: 9100
