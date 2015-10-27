@@ -39,4 +39,19 @@
         mobileBrowser: {}
     });
 
+
+    //you can inject stuff!
+  angular.module('<%=appName%>App').animation('.fade-in', function () {
+  return {
+    enter: function(element, done) {
+      element.css({
+        opacity: 0
+      })
+      .animate({
+        opacity: 1
+        }, 1000, done);
+    }
+  };
+});
+
 })();
