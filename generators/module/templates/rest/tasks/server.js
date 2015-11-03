@@ -80,12 +80,12 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('mock', [
-        'jserver',
+        'jsonserver',
         'serve',
     ]);
 
     grunt.registerTask('mock:dist', [
-        'jserver',
+        'jsonserver',
         'distribution'
     ]);
 

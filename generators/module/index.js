@@ -30,7 +30,7 @@ module.exports = moduleGenerator.extend({
         if (!this.options['skip-welcome-message']) {
             this.welcome(pkg);
             this.checkVersion();
-        } 
+        }
         if (!this.options.config) {
             this.modules = require('./config/modules.json');
         } else {
@@ -101,12 +101,12 @@ module.exports = moduleGenerator.extend({
         //PACKAGES
         //BOWER
         if (this.module.bower) {
-            this.newpacakages = true;
+            this.newpackages = true;
             this.addPackage(this.module.bower, 'bower.json', 'dependencies');
         }
         //NPM
         if (this.module.npm) {
-            this.newpacakages = true;
+            this.newpackages = true;
             this.addPackage(this.module.npm, 'package.json', 'devDependencies');
         }
         //FILES
@@ -123,7 +123,7 @@ module.exports = moduleGenerator.extend({
         }
     },
     install: function() {
-        if (this.newpacakages) {
+        if (this.newpackages) {
             this.installDependencies({
                 skipInstall: this.options['skip-install']
             });

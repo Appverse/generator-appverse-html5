@@ -79,7 +79,7 @@
             "version": "0.8.2"
         }, {
             "name": "grunt-appverse-jsonserver",
-            "version": "0.0.1"
+            "version": "0.0.2"
         }]
 }, {
         "name": "security",

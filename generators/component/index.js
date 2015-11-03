@@ -144,7 +144,7 @@ module.exports = componentGenerator.extend({
         api: function () {
             //Write MOCK DATA to JSON File.
             if (this.component.api) {
-                this.info('Writing api/' + this.entity + '.json');
+                this.info('Writing api/' + this.options.name + '.json');
                 this.fs.write(this.destinationPath('api/' + this.options.name + '.json'), JSON.stringify(this.mockentity));
             }
         },
