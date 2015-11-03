@@ -19,22 +19,22 @@
         "test": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
     },
     "files": [
-    "generators"
-  ],
+        "generators"
+    ],
     "keywords": [
-    "yeoman",
-    "appverse",
-    "bootstrap",
-    "yeoman-generator",
-    "appverse-html5-generator",
-    "scaffold",
-    "generator",
-    "framework",
-    "ui",
-    "angular",
-    "bower",
-    "grunt"
-  ],
+        "yeoman",
+        "appverse",
+        "bootstrap",
+        "yeoman-generator",
+        "appverse-html5-generator",
+        "scaffold",
+        "generator",
+        "framework",
+        "ui",
+        "angular",
+        "bower",
+        "grunt"
+    ],
     "dependencies": {
         "appverse-generator-commons": "0.0.2",
         "chalk": "^1.1.1",
@@ -45,7 +45,7 @@
         "html-wiring": "^1.2.0",
         "inquirer": "^0.11.0",
         "insight": "^0.7.0",
-        "install": "^0.1.8",
+        "install": "^0.2.3",
         "json-schema-faker": "0.2.1",
         "lodash": "^3.6.0",
         "request": "^2.53.0",
@@ -58,7 +58,7 @@
     },
     "devDependencies": {
         "fs-extra": "^0.26.0",
-        "istanbul":"^0.4.0",
+        "istanbul": "^0.4.0",
         "mocha": "*",
         "nock": "^2.10.0"
     }
