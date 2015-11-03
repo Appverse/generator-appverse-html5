@@ -71,15 +71,15 @@
             }]
         },
         "templates": [
-            "tasks/mockserverTask.js",
-            "tasks/server.js"
+            "tasks/server.js",
+            "config/jsonserver.js"
         ],
         "npm": [{
             "name": "http-proxy-middleware",
             "version": "0.8.2"
         }, {
-            "name": "json-server",
-            "version": "0.6.10"
+            "name": "grunt-appverse-jsonserver",
+            "version": "0.0.1"
         }]
 }, {
         "name": "security",

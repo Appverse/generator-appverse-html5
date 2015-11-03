@@ -68,6 +68,8 @@ module.exports = function (grunt) {
         'concurrent:server',
         'postcss:css',
         'browserSync:dev',
+        'jshint:all',
+        'test:dev:unit',
         'watch'
     ]);
 
@@ -78,12 +80,12 @@ module.exports = function (grunt) {
     ]);
 
     grunt.registerTask('mock', [
-        'jsonserver',
+        'jserver',
         'serve',
     ]);
 
     grunt.registerTask('mock:dist', [
-        'jsonserver',
+        'jserver',
         'distribution'
     ]);
 
