@@ -12,6 +12,14 @@ module.exports = {
             spawn: false,
             livereload: false
         }
+    },
+    karma: {
+      files: ['app/app.js', 'app/states/*.js', 'app/components/**/*.js'],
+      tasks: ['karma:unit:run']
+    },
+    jshint: {
+      files: ['app/app.js', 'app/states/*.js', 'app/components/**/*.js'],
+      tasks: ['jshint']
     }
 
 };

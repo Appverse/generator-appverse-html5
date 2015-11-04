@@ -68,6 +68,8 @@ module.exports = function (grunt) {
         'concurrent:server',
         'postcss:css',
         'browserSync:dev',
+        'jshint:all',
+        'test:dev:unit',
         'watch'
     ]);
 

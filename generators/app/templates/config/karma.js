@@ -4,9 +4,13 @@ module.exports = {
     unit: {
         configFile: './test/karma-unit.conf.js',
         autoWatch: false,
-        singleRun: true
+        background: true,
+        singleRun: false
     },
-    unit_auto: {
-        configFile: './test/karma-unit.conf.js'
-    }
+    //continuous integration mode: run tests once in PhantomJS browser.
+  continuous: {
+    configFile: './test/karma-unit.conf.js',
+    singleRun: true,
+    browsers: ['PhantomJS']
+  }
 };

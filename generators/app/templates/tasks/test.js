@@ -14,12 +14,17 @@ module.exports = function(grunt) {
 
     grunt.registerTask('test:unit', [
         'clean:reports',
+        'karma:continuous'
+    ]);
+
+    grunt.registerTask('test:dev:unit', [
+        'clean:reports',
         'karma:unit'
     ]);
 
     grunt.registerTask('test', [
         'clean:reports',
-        'karma:unit',
+        'karma:continuous',
         'clean:server',
         'concurrent:server',
         'postcss:css',

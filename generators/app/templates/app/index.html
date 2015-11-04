@@ -14,7 +14,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css styles/css/vendor.css -->
@@ -35,13 +35,12 @@
 </head>
 
 <!--Include the module with the app scope-->
-
 <body data-ng-app="<%=appName%>App">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-     <!--[if lt IE 10]>
+    <!--[if lt IE 10]>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/es5-shim/es5-sham.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -53,7 +52,6 @@
      You can place here your components in the ui-view points.
     -->
     <nav class="navbar navbar-default navbar-fixed-top">
-
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -70,7 +68,6 @@
                 <%=appName%>
             </a>
         </div>
-
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
             <ul class="nav navbar-nav">
                 <!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
@@ -82,25 +79,20 @@
                 <li data-ng-class="{ active: $state.includes('theme') }">
                     <a angular-ripple ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
                 </li>
-                 <li data-ng-class="{ active: $state.includes('components') }">
+                <li data-ng-class="{ active: $state.includes('components') }">
                     <a angular-ripple ui-sref="components"><i class="glyphicon glyphicon-book"></i> Components</a>
                 </li>
-                 <li data-ng-class="{ active: $state.includes('charts') }">
+                <li data-ng-class="{ active: $state.includes('charts') }">
                     <a angular-ripple ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
                 </li>
             </ul>
         </div>
-
     </nav>
-
     <!-- MAIN INSERTION POINT
          Here is the main ui-view (it is unnamed) as the main content insertion point.
          It replaces the default Angular's ng-view directive.
      -->
     <div ui-view class="fade-in" autoscroll="false"></div>
 
-
-
 </body>
-
 </html>
