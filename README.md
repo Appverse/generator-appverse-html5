@@ -114,7 +114,7 @@ Test:
 Later on you can add any of the Appverse modules to your project running the module subgenerator.
 
 ```bash
-    yo appverse-html5:module [name]
+    yo appverse-html5:module [<name>]
 ```
 
 Where *name* is the module name you want to add.
