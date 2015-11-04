@@ -234,14 +234,14 @@ Execute the subgenerator with the view name as argument. The subgenerator will c
 A new option in the navigation bar will be created as well.
 
     ```bash
-        yo appverse-html5:component view [name]        
+        yo appverse-html5:component view [<name>]        
     ```
     Where *name* is the View/Controller name you want to add.
 
     The menu option will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
 
     ```bash
-        yo appverse-html5:component view [name] --menu=[dropdownmenu]
+        yo appverse-html5:component view [<name>]  --menu=[<dropdownmenu>]
     ```
 
     Where *name* is the View/Controller name you want to add.
@@ -252,7 +252,7 @@ Once a View/Controller is created, we can add different components to the new pa
 * **collapse**: Collapse from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). [AngularJS](https://docs.angularjs.org/guide) version of Bootstrap's collapse plugin. Provides a simple way to hide and show an element with a css transition
 
     ```bash
-        yo appverse-html5:component collapse --target=[view]
+        yo appverse-html5:component collapse --target=[<view>]
     ```
 
       Where *view* is the target View/Controller name where you want to include your component.
@@ -260,7 +260,7 @@ Once a View/Controller is created, we can add different components to the new pa
 * **accordion**: Accordion from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). The accordion directive builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header.
 
     ```bash
-        yo appverse-html5:component accordion --target=[view]
+        yo appverse-html5:component accordion --target=[<view>]
     ```
 
     Where *view* is the target View/Controller name where you want to include your component.
@@ -270,7 +270,7 @@ Once a View/Controller is created, we can add different components to the new pa
     Chart types: line,bar,doughnut,radar,pie,polar-area
 
     ```bash
-        yo appverse-html5:component chart --type=[type] --target=[view]
+        yo appverse-html5:component chart --type=[type] --target=[<view>]
     ```
 
     Where *view* is the target View/Controller name where you want to include your component.
@@ -279,13 +279,13 @@ Once a View/Controller is created, we can add different components to the new pa
 * **grid**: Adds [ng-grid](http://angular-ui.github.io/ui-grid/) grid to the view.
 
     ```bash
-        yo appverse-html5:component grid --target=[view]
+        yo appverse-html5:component grid --target=[<view>]
     ```
 
     The sub-generator will create 10 rows of mock data for the generated Grid, use the **rows** option to set the numbers of rows you want to generate.  
 
     ```bash
-        yo appverse-html5:component grid --target=[view] --rows=[nrows]
+        yo appverse-html5:component grid --target=[<view>] --rows=[<nrows>]
     ```
 
     Where *nrows* is the number of rows to generate.
@@ -293,44 +293,44 @@ Once a View/Controller is created, we can add different components to the new pa
 * **form**: Add a Form component to the target view.
 
     ```bash
-        yo appverse-html5:component form --target=[view]     
+        yo appverse-html5:component form --target=[<view>]  
     ```
 
     By default the **form** sub-generator will create a simple form with id and name fields.
     Use the **schema** option, with a JSON Schema file path or URL to generate HTML Form from the [JSON Schema](http://json-schema.org/) provided.
 
     ```bash
-        yo appverse-html5:component form --target=[view]  --schema=[schema.json]
+        yo appverse-html5:component form --target=[<view>]  --schema=[<schema.json>]
     ```
 
 * **modal**: Modal views from [UI Bootstrap](http://angular-ui.github.io/bootstrap/).
 
     ```bash
-        yo appverse-html5:component modal --target=[view]
+        yo appverse-html5:component modal --target=[<view>]
     ```
 
 * **slider**: Adds [RZSlider](https://github.com/rzajac/angularjs-slider), slider directive for AngularJS.
 
     ```bash
-        yo appverse-html5:component slider --target=[view]
+        yo appverse-html5:component slider --target=[<view>]
     ```
 
 * **tabs**: Adds a Tabs snippet to the target view.
 
     ```bash
-        yo appverse-html5:component tabs --target=[view]
+        yo appverse-html5:component tabs --target=[<view>]
     ```
 
 * **xeditable**: Adds [editable elements](http://vitalets.github.io/angular-xeditable/)
 
     ```bash
-        yo appverse-html5:component xeditable --target=[view]
+        yo appverse-html5:component xeditable --target=[<view>]
     ```
 
 * **datepicker**: Date picker component from [UI Bootstrap](http://angular-ui.github.io/bootstrap/).
 
     ```bash
-        yo appverse-html5:component datepicker --target=[view]
+        yo appverse-html5:component datepicker --target=[<view>]
     ```
 
 * **crud**: The sub-generator will create a REST CRUD component
@@ -341,29 +341,29 @@ Once a View/Controller is created, we can add different components to the new pa
     * A new option in the navigation bar.
 
     ```bash
-        yo appverse-html5:component crud [name]
+        yo appverse-html5:component crud [<name>]
     ```
     The **menu** option will add or update a dropdown menu.
 
     ```bash
-        yo appverse-html5:component crud [name] --menu=[menu]
+        yo appverse-html5:component crud [<name>] --menu=[<menu>]
     ```
     By default the **form** sub-generator will create a simple form with id and name fields.
     Use the **schema** option will be used to generate the entity form (add and edit)
 
     ```bash
-        yo appverse-html5:component crud [name] --schema=[path or url to JSON Schema]
+        yo appverse-html5:component crud [<name>] --schema=[<path or url to JSON Schema>]
     ```
     Add the **rows** option to generate some fake data rows at the mock server.
 
     ```bash
-        yo appverse-html5:component crud [name] --rows=[nrows]
+        yo appverse-html5:component crud [<name>] --rows=[<nrows>]
     ```
 
     The **rows** option could be combined with the **schema** option, so the fake data generator will use the entity definition found at the schema.
 
     ```bash
-        yo appverse-html5:component crud [name] --schema=[path or url to JSON Schema] --rows=[nrows]
+        yo appverse-html5:component crud [<name>] --schema=[<path or url to JSON Schema>] --rows=[<nrows>]
     ```
 
 
