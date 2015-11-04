@@ -117,6 +117,8 @@ Later on you can add any of the Appverse modules to your project running the mod
     yo appverse-html5:module [name]
 ```
 
+Where *name* is the module name you want to add.
+
 Type --help option for available module list
 
 ```bash
@@ -232,14 +234,18 @@ Execute the subgenerator with the view name as argument. The subgenerator will c
 A new option in the navigation bar will be created as well.
 
     ```bash
-        yo appverse-html5:component view [name]
+        yo appverse-html5:component view [name]        
     ```
+    Where *name* is the View/Controller name you want to add.
 
     The menu option will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
 
     ```bash
         yo appverse-html5:component view [name] --menu=[dropdownmenu]
     ```
+
+    Where *name* is the View/Controller name you want to add.
+    Where *dropdownmenu* is the target dropdown menu name where want to add your navigation.
 
 Once a View/Controller is created, we can add different components to the new page.
 
@@ -249,11 +255,15 @@ Once a View/Controller is created, we can add different components to the new pa
         yo appverse-html5:component collapse --target=[view]
     ```
 
+      Where *view* is the target View/Controller name where you want to include your component.
+
 * **accordion**: Accordion from [UI Bootstrap](http://angular-ui.github.io/bootstrap/). The accordion directive builds on top of the collapse directive to provide a list of items, with collapsible bodies that are collapsed or expanded by clicking on the item's header.
 
     ```bash
         yo appverse-html5:component accordion --target=[view]
     ```
+
+    Where *view* is the target View/Controller name where you want to include your component.
 
 * **chart**: Adds a chart [Angular-ChartJS](http://jtblin.github.io/angular-chart.js) to the target view.
 
@@ -262,6 +272,9 @@ Once a View/Controller is created, we can add different components to the new pa
     ```bash
         yo appverse-html5:component chart --type=[type] --target=[view]
     ```
+
+    Where *view* is the target View/Controller name where you want to include your component.
+    Where *type* is the chart type.
 
 * **grid**: Adds [ng-grid](http://angular-ui.github.io/ui-grid/) grid to the view.
 
@@ -274,6 +287,8 @@ Once a View/Controller is created, we can add different components to the new pa
     ```bash
         yo appverse-html5:component grid --target=[view] --rows=[nrows]
     ```
+
+    Where *nrows* is the number of rows to generate.
 
 * **form**: Add a Form component to the target view.
 
@@ -423,10 +438,10 @@ For example, for the given response:
     }
   ]
 }
-
-The **theme** provider will prompt the user to select one of both appverse themes.
-
 ```
+
+The **theme** provider will prompt the user to select one of both Appverse themes.
+
 * The sub-generator will connect to the provider SCSS URL's to get the files from the selected them.
 * It will apply the selected theme to the generated project.
 
