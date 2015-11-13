@@ -29,7 +29,7 @@ module.exports = appverseHtml5Gen.extend({
     initializing: function() {
         this.conflicter.force = true;
         if (!this.options['skip-welcome-message']) {
-            this.welcome();
+            this.welcome(pkg);
             this.checkVersion();
         }
         if (!this.options['provider']) {
