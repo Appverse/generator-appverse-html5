@@ -19,10 +19,10 @@
  POSSIBILITY OF SUCH DAMAGE.
  */
 'use strict';
-var yeoman = require('yeoman-generator');
 var appverseHtml5Gen = require('../generator-base');
 var _ = require('lodash');
 var request = require('request');
+var pkg = require("../../package.json");
 
 
 module.exports = appverseHtml5Gen.extend({
