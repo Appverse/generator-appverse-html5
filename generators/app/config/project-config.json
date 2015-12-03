@@ -19,8 +19,7 @@
      ],
     "files": [
         ".yo-rc.json",
-        ".bowerrc",
-        ".gitignore",
+        ".bowerrc", 
         "Gruntfile.js",
         "LICENSE.md",
         "app/favicon.ico",
