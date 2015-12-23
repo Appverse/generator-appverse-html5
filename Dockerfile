@@ -15,9 +15,10 @@ RUN mkdir src && chown yeoman:yeoman src && npm i -g yo \
 
 RUN git config --global url."https://".insteadOf git://
 
-EXPOSE 9100 
+EXPOSE 9100
 
 ADD . /home/yeoman/src/generator-appverse-html5
+WORKDIR /home/yeoman/src/generator-appverse-html5
+RUN chmod u+x docker-entrypoint.sh && bash -C 'docker-entrypoint.sh'
 
-# RUN chmod u+x docker-entrypoint.sh
-ENTRYPOINT ["sh","/home/yeoman/src/generator-appverse-html5/docker-entrypoint.sh"]
+ENTRYPOINT ["grunt", "mock:dist"]

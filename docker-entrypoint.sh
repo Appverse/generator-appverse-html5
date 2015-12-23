@@ -21,6 +21,9 @@ yo appverse-html5:module performance
 yo appverse-html5:module serverpush --skip-prompts
 yo appverse-html5:module security
 yo appverse-html5:module translate
+yo appverse-html5:module ionic
+yo appverse-html5:module notifications
+yo appverse-html5:module native
 
 # Add all components
 yo appverse-html5:component view --name=test1

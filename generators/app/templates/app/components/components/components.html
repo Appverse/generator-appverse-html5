@@ -8,39 +8,39 @@
             <h2>Collapsible Panels</h2>
             <p><b>Only one at a time</b>
             </p>
-            <accordion close-others="oneAtATime">
-                <accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+            <uib-accordion close-others="oneAtATime">
+                <uib-accordion-group heading="Static Header, initially expanded" is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
                     This content is straight in the template.
-                </accordion-group>
-                <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+                </uib-accordion-group>
+                <uib-accordion-group heading="{{group.title}}" ng-repeat="group in groups">
                     {{group.content}}
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
 
             <p><b>All at the same time</b>
             </p>
-            <accordion close-others="">
-                <accordion-group heading="Static Header, initially expanded" is-open="status2.isFirstOpen" is-disabled="status2.isFirstDisabled">
+            <uib-accordion close-others="">
+                <uib-accordion-group heading="Static Header, initially expanded" is-open="status2.isFirstOpen" is-disabled="status2.isFirstDisabled">
                     This content is straight in the template.
-                </accordion-group>
-                <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+                </uib-accordion-group>
+                <uib-accordion-group heading="{{group.title}}" ng-repeat="group in groups">
                     {{group.content}}
-                </accordion-group>
-            </accordion>
+                </uib-accordion-group>
+            </uib-accordion>
             <br>
             <br>
             <h2>Carousel</h2>
             <div class="row">
                 <div class="col-md-6">
-                    <carousel interval="myInterval">
-                        <slide ng-repeat="slide in slides" active="slide.active">
+                    <uib-carousel interval="myInterval">
+                        <uib-slide ng-repeat="slide in slides" active="slide.active">
                             <img ng-src="{{slide.image}}" style="margin:auto;">
                             <div class="carousel-caption">
                                 <h4>Slide {{$index}}</h4>
                                 <p>{{slide.text}}</p>
                             </div>
-                        </slide>
-                    </carousel>
+                        </uib-slide>
+                    </uib-carousel>
                 </div>
             </div>
 
@@ -49,7 +49,7 @@
             <br>
             <b>Inline</b>
             <div>
-                <datepicker ng-model="dt" min-date="minDate" show-weeks="false" class="datepicker" custom-class="getDayClass(date, mode)"></datepicker>
+                <uib-datepicker ng-model="dt" min-date="minDate" show-weeks="false" class="datepicker" custom-class="getDayClass(date, mode)"></uib-datepicker>
             </div>
             <br>
             <br>
@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="input-group">
-                        <input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2099-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <input type="text" class="form-control datepicker" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2099-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                         <span class="input-group-btn">
                             <button type="button" angular-ripple class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
@@ -74,24 +74,24 @@
 
             <br>
             <h2>Pagination</h2>
-            <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
+            <uib-pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></uib-pagination>
             <br>
 
             <br>
             <h2>Tooltip</h2>
             <p>This is a
-                <button angular-ripple class="btn btn-primary" tooltip="{{dynamicTooltip}}">{{dynamicTooltipText}}</button>
+                <button angular-ripple class="btn btn-primary" uib-tooltip="{{dynamicTooltip}}">{{dynamicTooltipText}}</button>
             </p>
             <br>
 
             <br>
             <h2>Tabs</h2>
-            <tabset>
-                <tab heading="Static title">Static content</tab>
-                <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+            <uib-tabset>
+                <uib-tab heading="Static title">Static content</uib-tab>
+                <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
                     {{tab.content}}
-                </tab>
-            </tabset>
+                </uib-tab>
+            </uib-tabset>
 
             <br>
             <h2>UI Selects</h2>

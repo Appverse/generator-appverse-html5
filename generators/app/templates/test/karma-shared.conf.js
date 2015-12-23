@@ -4,8 +4,8 @@
 module.exports = function() {
     return {
         basePath: '../',
-        frameworks: ['jasmine'],
-
+        frameworks: ['jasmine', 'sinon'],
+        
         // coverage reporter generates the coverage
         reporters: ['progress', 'coverage', 'junit', 'notify'],
 
@@ -39,7 +39,7 @@ module.exports = function() {
             'app/bower_components/jquery/dist/jquery.min.js',
             'app/bower_components/angular/angular.min.js',
             'app/bower_components/angular-touch/angular-touch.min.js',
-            'app/bower_components/modernizr/modernizr.js',
+            'node_modules/ng-describe/dist/ng-describe.js',
             'app/bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
             'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
             'app/bower_components/ng-grid/build/ng-grid.min.js',

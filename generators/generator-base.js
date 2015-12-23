@@ -24,8 +24,7 @@ var fs = require('fs');
 var appverse = require ('appverse-generator-commons');
 var chalk = require('chalk');
 var ZSchema = require('z-schema');
-var request = require('request');
-var cheerio = require('cheerio');
+var request = require('request'); 
 
 var appverseHTML5Generator = appverse.extend({
 /**
@@ -164,36 +163,6 @@ validateJson : function validateJson(json, tpath, callback) {
         callback(JSON.stringify(this.schema), null);
     }
     callback(null, true);
-},
-/**
- * Add Scripts tag to index.html
- * @param {string[]} scripts - Scripts path array
- **/
- addScriptsToIndex: function addScriptsToIndex(scripts) {
-    this.info(" Adding scripts to index.html");
-    var index = this.fs.read(this.destinationPath('app/index.html'));
-    var indexHTML = cheerio.load(index);
-    var write = false;
-    scripts.forEach(function (script) {
-        var scriptTag = '\n <script src=\"' + script + '\"></script>';
-        var exists = false;
-        for (var i = 0; i < indexHTML('script').length; i++) {
-            var current = indexHTML('script').get()[i].attribs.src;
-            if (current === script) {
-                exists = true;
-                break;
-            }
-        }
-        if (!exists) {
-            write = true;
-            indexHTML(scriptTag).insertAfter(indexHTML('script').get()[indexHTML('script').length - 1]);
-        }
-    });
-    if (write) {
-        this.fs.write(this.destinationPath('app/index.html'), indexHTML.html());
-    } else {
-        this.info(" >< Scripts already exists at index.html");
-    }
 }
 });
 module.exports = appverseHTML5Generator;

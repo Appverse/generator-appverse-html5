@@ -18,10 +18,15 @@
         'ngGrid',
         'appverse.router',
         'App.Controllers',
-        'appverse'
+        'appverse',
+        'ngMdIcons'
     ]).run(function ($log,editableOptions) {
         $log.debug('testAlphaApp run');
         editableOptions.theme = 'bs3';
+        $('#menu-toggle').click(function(e) {
+            e.preventDefault();
+            $('#wrapper').toggleClass('toggled');
+       });
     });
 
     AppInit.setConfig({

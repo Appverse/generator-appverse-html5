@@ -19,7 +19,7 @@
      ],
     "files": [
         ".yo-rc.json",
-        ".bowerrc", 
+        ".bowerrc",
         "Gruntfile.js",
         "LICENSE.md",
         "app/favicon.ico",
@@ -29,6 +29,8 @@
         "app/components/components/components-controller.js",
         "app/components/components/modal-controller.js",
         "app/components/charts/charts-controller.js",
+        "app/components/icons/icons-controller.js",
+        "app/components/icons/icons.html",
         "test",
         "app/styles",
         "config",
@@ -38,11 +40,9 @@
         "bower_components/jquery/dist/jquery.min.js",
         "bower_components/angular/angular.min.js",
         "bower_components/angular-touch/angular-touch.min.js",
-        "bower_components/modernizr/modernizr.js",
         "bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js",
         "bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js",
         "bower_components/ng-grid/build/ng-grid.min.js",
-        "bower_components/venturocket-angular-slider/build/angular-slider.min.js",
         "bower_components/angular-animate/angular-animate.min.js",
         "bower_components/angular-xeditable/dist/js/xeditable.js",
         "bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js",
@@ -55,7 +55,9 @@
         "bower_components/angular-resize/dist/angular-resize.min.js",
         "bower_components/angular-sanitize/angular-sanitize.min.js",
         "bower_components/Chart.js/Chart.min.js",
-        "bower_components/angular-chart.js/dist/angular-chart.min.js"
+        "bower_components/angular-chart.js/dist/angular-chart.min.js",
+        "bower_components/svg-morpheus/compile/minified/svg-morpheus.js",
+        "bower_components/angular-material-icons/angular-material-icons.min.js"
     ],
     "appScripts": [
         "app.js",
@@ -63,6 +65,7 @@
         "components/components/components-controller.js",
         "components/components/modal-controller.js",
         "components/charts/charts-controller.js",
+        "components/icons/icons-controller.js",
         "states/app-states.js"
     ]
 }

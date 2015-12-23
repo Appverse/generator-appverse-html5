@@ -3,7 +3,7 @@
 angular.module('App.Controllers')
 
 .controller('ModalController',
-    function ($scope, $modalInstance, items) {
+    function ($scope, $uibModalInstance, items) {
 
         $scope.items = items;
         $scope.selected = {
@@ -11,10 +11,10 @@ angular.module('App.Controllers')
         };
 
         $scope.ok = function () {
-            $modalInstance.close($scope.selected.item);
+            $uibModalInstance.close($scope.selected.item);
         };
 
         $scope.cancel = function () {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
     });

@@ -63,7 +63,7 @@ module.exports = moduleGenerator.extend({
                 }
             }
         }
-        if (!this.options.templatePath) {            
+        if (!this.options.templatePath) {
             this.templatepath = path.join(this.templatePath(), this.module.name);
         } else {
             this.templatepath = path.join(this.options.templatePath, this.module.name);
@@ -120,6 +120,9 @@ module.exports = moduleGenerator.extend({
         //CONFIG
         if (this.module.config) {
             this.addConfig(this.module.config);
+        }
+        if (this.module.css) {
+            this.addCSSToIndex(this.module.css);
         }
     },
     install: function() {
