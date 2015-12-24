@@ -53,8 +53,5 @@ yo appverse-html5:component crud --name=crud6  --rows=100 --menu=crud6
 # Run test. Unit
 grunt test
 
-# Start application with mock backend
-grunt server:mock:dist
-
 EOF
 echo "Running..."

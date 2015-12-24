@@ -21,4 +21,5 @@ ADD . /home/yeoman/src/generator-appverse-html5
 WORKDIR /home/yeoman/src/generator-appverse-html5
 RUN chmod u+x docker-entrypoint.sh && bash -C 'docker-entrypoint.sh'
 
-ENTRYPOINT ["grunt", "mock:dist"]
+WORKDIR /home/yeoman/generated
+CMD ["grunt", "server:mock:dist"]
