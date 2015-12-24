@@ -167,6 +167,7 @@
     "name": "notifications",
     "scripts": [
       "bower_components/classie/classie.js",
+      "bower_components/appverse.notifications/dist/modernizr-custom.js",
       "bower_components/appverse.notifications/dist/notification-fx.js",
       "bower_components/appverse.notifications/dist/appverse.notifications.js"
     ],

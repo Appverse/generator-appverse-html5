@@ -19,7 +19,8 @@
         'appverse.router',
         'App.Controllers',
         'appverse',
-        'ngMdIcons'
+        'ngMdIcons',
+        'angular-loading-bar'
     ]).run(function ($log,editableOptions) {
         $log.debug('testAlphaApp run');
         editableOptions.theme = 'bs3';
@@ -27,7 +28,9 @@
             e.preventDefault();
             $('#wrapper').toggleClass('toggled');
        });
-    });
+    }).config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+      cfpLoadingBarProvider.includeSpinner = false;
+    }]);
 
     AppInit.setConfig({
 
@@ -44,19 +47,17 @@
         mobileBrowser: {}
     });
 
-
-    //you can inject stuff!
-  angular.module('<%=appName%>App').animation('.fade-in', function () {
-  return {
-    enter: function(element, done) {
-      element.css({
-        opacity: 0
-      })
-      .animate({
-        opacity: 1
-        }, 1000, done);
-    }
-  };
-});
+    //Animation for views transition.
+    angular.module('<%=appName%>App').animation('.fade-in', function () {
+          return {
+              enter: function (element, done) {
+                  element.css({ opacity: 0 }).animate({ opacity: 1 }, 1000, done);
+              },
+              leave: function (element, done) {
+                  element.css({ opacity: 0 });
+                  done();
+              }
+          };
+      });
 
 })();

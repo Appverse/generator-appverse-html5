@@ -57,7 +57,8 @@
         "bower_components/Chart.js/Chart.min.js",
         "bower_components/angular-chart.js/dist/angular-chart.min.js",
         "bower_components/svg-morpheus/compile/minified/svg-morpheus.js",
-        "bower_components/angular-material-icons/angular-material-icons.min.js"
+        "bower_components/angular-material-icons/angular-material-icons.min.js",
+        "bower_components/angular-loading-bar/build/loading-bar.min.js"
     ],
     "appScripts": [
         "app.js",
