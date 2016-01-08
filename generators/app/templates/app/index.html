@@ -88,7 +88,7 @@
             </ul>
         </div>
     </nav>
-    <div id="wrapper" class="container mainview">
+    <div id="wrapper" class="container-fluid mainview">
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
           <ul class="sidebar-nav">
@@ -97,17 +97,23 @@
               <span class="text">Sidebar Title</span>
             </a>
             </li>
-            <li data-ng-class="{ active: $state.includes('theme')}">
-              <a angular-ripple="" ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i><span class="text">Theme</span></a>
+            <li data-ng-class="{ active: $state.includes('home') }">
+                <a angular-ripple="" ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
             </li>
-            <li data-ng-class="{ active: $state.includes('ui-bootstrap')}">
-                <a angular-ripple="" ui-sref="ui-bootstrap"><i class="glyphicon glyphicon-book"></i><span class="text">UI-Bootstrap</span></a>
+            <li data-ng-class="{ active: $state.includes('theme') }">
+                <a angular-ripple="" ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
             </li>
-            <li data-ng-class="{ active: $state.includes('ui-select')}">
-                <a angular-ripple="" ui-sref="ui-select"><i class="glyphicon glyphicon-triangle-bottom"></i><span class="text">UI-Select</span></a>
+            <li data-ng-class="{ active: $state.includes('components') }">
+                <a angular-ripple="" ui-sref="components"><i class="glyphicon glyphicon-book"></i> Components</a>
             </li>
+            <li data-ng-class="{ active: $state.includes('charts') }">
+                <a angular-ripple="" ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
+            </li>
+            <li data-ng-class="{ active: $state.includes('icons') }">
+              <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
+          </li>
             </ul>
-              <a href="#menu-toggle" angular-ripple class="btn btn-primary menu-toggle" id="menu-toggle">
+              <a href="#menu-toggle" angular-ripple="" class="btn btn-primary menu-toggle" id="menu-toggle">
              <i class="glyphicon glyphicon-triangle-left"></i>
             </a>
             </div>
@@ -116,7 +122,7 @@
          Here is the main ui-view (it is unnamed) as the main content insertion point.
          It replaces the default Angular's ng-view directive.
      -->
-    <div ui-view class="fade-in" autoscroll="false"></div>
+    <div ui-view="" class="fade-in" autoscroll="false"></div>
 </div>
 </body>
 </html>
