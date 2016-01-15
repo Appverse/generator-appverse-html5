@@ -33,68 +33,81 @@ module.exports = appverseHtml5Gen.extend({
             this.checkVersion();
         }
         if (!this.options['provider']) {
-            this.provider = 'http://appverse.gftlabs.com/theme';
+            this.provider = 'https://bootswatch.com/api/3.json';
         } else {
             this.provider = this.options['provider'];
         }
-        var prompts = [];
+       
         this.themeprompts = [];
         this.remotethemes = {};
         this.bootstrapTheme = false;
+        this.remote = false;
 
         if (this.options['skip-prompts']) {
             this.skipprompts = true;
         } else {
             this.skipprompts = false;
-        }
-
-        if (!_.isUndefined(this.options['jsonproject'])) {
-            this.bootstrapTheme = this.options['jsonproject'].theme.enabled;
-            this.skipprompts = false;
-            if (this.bootstrapTheme) {
-                this.theme = {};
-                this.theme.scss = this.options['config'].theme.config.scss;
-                this.theme.scssVariables = this.options['config'].theme.config.scssVariables;
-            }
-        }
-
-        if (!this.options['skip-prompts']) {
-            prompts = {
+        } 
+         var done = this.async();
+         this.bthemes = [];
+         this.info(" Getting themes from " + this.provider);
+         request(this.provider, function(error, response, body) {
+           if (!error && response.statusCode === 200) {
+           this.remotethemes = JSON.parse(body.toString());
+           this.remotethemes.themes.forEach(function(entry) {
+                var option = { name: entry.name, value: entry.name};           
+                this.bthemes.push(option);
+           }.bind(this));              
+           done();
+          } else {
+             this.log("Connection error." + error);
+          }
+         }.bind(this));  
+         if (!this.options['skip-prompts']) {
+            this.themeprompts = {
                 type: 'list',
                 name: 'themes',
                 message: "Select theme:",
-                choices: []
-            };
-            var done = this.async();
-            this.info(" Getting themes from " + this.provider);
-            request(this.provider, function(error, response, body) {
-                if (!error && response.statusCode === 200) {
-                    this.remotethemes = JSON.parse(body.toString());
-                    this.remotethemes.themes.forEach(function(entry) {
-                        var option = entry.name;
-                        prompts.choices.push(option);
-                    }.bind(this));
-                    this.themeprompts.push(prompts);
-                    done();
-                } else {
-                    this.log("Connection error." + error);
-                }
-            }.bind(this));
+                choices: [
+                     {name: 'appverse', value: 'appvese'}, 
+                     {name: 'appverse-dark', value: 'appverse-dark'}, 
+                     {name: 'bootswatch', value: 'bootswatch'}
+                     ], 
+                default: 0
+            }          
         } else {
-            prompts = {};
+            this.themeprompts = {};
         }
-    },
-    prompting: function() {
+    },    
+    prompting:  {
+        theme : function () {
         var done = this.async();
-        this.prompt(this.themeprompts, function(props) {
-            if (this.themeprompts.length > 0) {
-                this.selectedTheme = props.themes;
-            }
+        this.prompt(this.themeprompts, function(props) { 
+            this.remote = false;
+            this.selectedTheme = props.themes;  
             done();
         }.bind(this));
+        },
+        bootswatch: function () {
+          if ( this.selectedTheme === 'bootswatch') {
+            var done = this.async();
+            this.prompt ({       
+             type: "list",
+             name: "bthemes",
+             message: "Select Bootswatch theme:",
+             choices: this.bthemes
+            }, function (props) { 
+                 this.remote = true;
+                 this.selectedTheme = props.bthemes; 
+                 this.info ('Selected: ' + this.selectedTheme);                
+                 done();             
+            }.bind(this));
+          }                   
+        }   
     },
-    writing: {
+    writing: {     
         prepare: function() {
+            if (this.remote) {
             function search(nameKey, myArray) {
                 for (var i = 0; i < myArray.length; i++) {
                     if (myArray[i].name === nameKey) {
@@ -105,36 +118,41 @@ module.exports = appverseHtml5Gen.extend({
             if (!this.skipprompts) {
                 this.theme = search(this.selectedTheme, this.remotethemes.themes);
             }
+            }
         },
-        theme: function() {
-            if (!this.skipprompts || this.bootstrapTheme) {
-                var done = this.async();
+        theme: function() {          
+          if (this.remote) {
+               var done = this.async();
                 request(this.theme.scss, function(error, response, body) {
                     if (!error && response.statusCode === 200) {
                         this.log("Rewriting _theme.scss");
-                        this.fs.write(this.destinationPath('app/styles/sass/theme/_theme.scss'), body);
+                        this.fs.write(this.destinationPath('app/styles/sass/_theme.scss'), body);
                     } else {
                         this.log("Connection error.");
                     }
                     done();
-                }.bind(this));
-            }
+                }.bind(this)); 
+            }    
         },
-        variables: function() {
-            if (!this.skipprompts || this.bootstrapTheme) {
-                var done = this.async();
-                request(this.theme.scssVariables, function(error, response, body) {
-                    if (!error && response.statusCode === 200) {
-                        this.log("Rewriting variables.scss");
-                        this.fs.write(this.destinationPath('./app/styles/sass/theme/_variables.scss'), body);
-                    } else {
-                        this.log("Connection error.");
-                    }
-                    done();
-                }.bind(this));
+        variables: function() {          
+           if(this.remote) {
+               var done = this.async();
+               request(this.theme.scssVariables, function(error, response, body) {
+                  if (!error && response.statusCode === 200) {
+                     this.log("Rewriting variables.scss");
+                     this.fs.write(this.destinationPath('app/styles/sass/_variables.scss'), body);
+                  } else {
+                       this.log("Connection error.");
+                  }
+                done();
+              }.bind(this));
+            } else {  
+              this.fs.copyTpl (this.templatePath('config/sass.js'), 
+                        this.destinationPath('config/sass.js'), 
+                        this); 
             }
-        }
-    },
+        }                   
+    }, 
     end: function() {
         this.log("Finish.");
     }

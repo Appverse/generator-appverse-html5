@@ -52,7 +52,7 @@
   {
     "name": "rest",
     "scripts": [
-      "bower_components/lodash/lodash.min.js",
+      "bower_components/lodash/dist/lodash.min.js",
       "bower_components/restangular/dist/restangular.min.js",
       "bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"
     ],
@@ -115,7 +115,7 @@
       "bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"
     ],
     "angular": "appverse.security",
-    "startprompt": true,
+    "startprompt": false,
     "bower": [
       {
         "name": "appverse-web-html5-security",
@@ -214,6 +214,6 @@
       "bower_components/appverse-web-html5-core/dist/appverse-native/appverse-native.min.js"
     ],
     "angular": "appverse.native",
-    "startprompt": true
+    "startprompt": false
   }
 ]
