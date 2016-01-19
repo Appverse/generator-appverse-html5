@@ -8,7 +8,8 @@ module.exports = {
                 'sass',
                 'copy:i18n',
                 'copy:fonts',
-                'copy:theme'
+                'copy:themeFonts',
+                'copy:themeImages',
             ],
     dist: [
                 'sass'

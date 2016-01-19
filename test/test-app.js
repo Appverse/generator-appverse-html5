@@ -21,8 +21,8 @@
 'use strict';
 
 var path = require('path');
-var assert = require('yeoman-generator').assert;
-var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-assert');
+var helpers = require('yeoman-test');
 var fse = require('fs-extra');
 
 var config = require('../generators/app/config/project-config.json');

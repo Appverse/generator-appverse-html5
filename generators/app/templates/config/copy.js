@@ -25,7 +25,20 @@ module.exports = {
             cwd: '<%=paths.app%>/bower_components/bootstrap-sass/assets/fonts/bootstrap',
             dest: '<%=paths.dist%>/styles/fonts',
             src: '**/*'
-        }, {
+        },
+        {
+            expand: true,
+            cwd: '<%=paths.app%>/bower_components/appverse-bootstrap-sass-theme/appverse/bootstrap-theme/fonts',
+            dest: '<%=paths.dist%>/styles/css/fonts',
+            src: '**/*'
+        },
+         {
+            expand: true,
+            cwd: '<%=paths.app%>/bower_components/appverse-bootstrap-sass-theme/appverse/bootstrap-theme/images',
+            dest: '<%=paths.dist%>/styles/images',
+            src: ['**/*']
+        }, 
+         {
             expand: true,
             cwd: '<%= paths.app %>/styles/css',
             dest: '<%= paths.dist %>/styles/css',
@@ -75,10 +88,16 @@ module.exports = {
         dest: 'app/styles/fonts',
         src: '**/*'
     },
-    theme: {
+    themeFonts: {
+          expand: true,
+          cwd: '<%=paths.app%>/bower_components/appverse-bootstrap-sass-theme/appverse/bootstrap-theme',
+          dest: 'app/styles/css',
+          src: ['fonts/*']
+    },
+    themeImages: {
         expand: true,
-        cwd: '<%=paths.app%>/styles/sass/theme',
-        dest: 'app/styles/css/theme',
-        src: ['fonts/*', 'images/*']
+        cwd: '<%=paths.app%>/bower_components/appverse-bootstrap-sass-theme/appverse/bootstrap-theme',
+        dest: 'app/styles',
+        src: ['images/*']
     }
 };

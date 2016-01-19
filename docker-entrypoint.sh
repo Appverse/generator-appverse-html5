@@ -19,8 +19,11 @@ yo appverse-html5:module logging
 yo appverse-html5:module detection
 yo appverse-html5:module performance
 yo appverse-html5:module serverpush --skip-prompts
-yo appverse-html5:module security
+# yo appverse-html5:module security
 yo appverse-html5:module translate
+yo appverse-html5:module ionic
+yo appverse-html5:module notifications
+# yo appverse-html5:module native
 
 # Add all components
 yo appverse-html5:component view --name=test1
@@ -46,11 +49,9 @@ yo appverse-html5:component crud --name=crud4 --schema=/home/yeoman/src/generato
 yo appverse-html5:component chart --type=polar-area --target=crud4
 yo appverse-html5:component crud --name=crud5  --rows=100
 yo appverse-html5:component crud --name=crud6  --rows=100 --menu=crud6
-# Run test. Unit 
-grunt test:unit
 
-# Start application with mock backend
-grunt server:mock:dist
+# Run test. Unit
+grunt test
 
 EOF
 echo "Running..."

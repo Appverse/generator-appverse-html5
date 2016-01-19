@@ -24,12 +24,10 @@
     <link rel="stylesheet" type="text/css" href="bower_components/angularjs-slider/dist/rzslider.min.css">
     <link rel="stylesheet" type="text/css" href="bower_components/selectize/dist/css/selectize.css">
     <link rel="stylesheet" type="text/css" href="bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/angular-loading-bar/build/loading-bar.min.css" media="all">
     <!-- endbuild -->
 
     <!-- build:css styles/css/styles.css -->
-    <link rel="stylesheet" href="styles/css/bootstrap.css">
-    <link rel="stylesheet" href="styles/css/animations.css">
-    <link rel="stylesheet" href="styles/css/grid.css">
     <link rel="stylesheet" href="styles/css/main.css">
     <!-- endbuild -->
 </head>
@@ -65,7 +63,6 @@
                  to the 'home' state. Behind the scenes the directive also adds the correct href attr
                  and url. -->
             <a class="navbar-brand" ui-sref="home">
-                <%=appName%>
             </a>
         </div>
         <div class="collapse navbar-collapse" id="main-navbar-collapse">
@@ -85,14 +82,47 @@
                 <li data-ng-class="{ active: $state.includes('charts') }">
                     <a angular-ripple ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
                 </li>
+                <li data-ng-class="{ active: $state.includes('icons') }">
+                  <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
+              </li>
             </ul>
         </div>
     </nav>
+    <div id="wrapper" class="container-fluid mainview">
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+          <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+            <a href="#">
+              <span class="text">Sidebar Title</span>
+            </a>
+            </li>
+            <li data-ng-class="{ active: $state.includes('home') }">
+                <a angular-ripple="" ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
+            </li>
+            <li data-ng-class="{ active: $state.includes('theme') }">
+                <a angular-ripple="" ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
+            </li>
+            <li data-ng-class="{ active: $state.includes('components') }">
+                <a angular-ripple="" ui-sref="components"><i class="glyphicon glyphicon-book"></i> Components</a>
+            </li>
+            <li data-ng-class="{ active: $state.includes('charts') }">
+                <a angular-ripple="" ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
+            </li>
+            <li data-ng-class="{ active: $state.includes('icons') }">
+              <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
+          </li>
+            </ul>
+              <a href="#menu-toggle" angular-ripple="" class="btn btn-primary menu-toggle" id="menu-toggle">
+             <i class="glyphicon glyphicon-triangle-left"></i>
+            </a>
+            </div>
+    <!-- /#sidebar-wrapper -->
     <!-- MAIN INSERTION POINT
          Here is the main ui-view (it is unnamed) as the main content insertion point.
          It replaces the default Angular's ng-view directive.
      -->
-    <div ui-view class="fade-in" autoscroll="false"></div>
-
+    <div ui-view="" class="fade-in" autoscroll="false"></div>
+</div>
 </body>
 </html>

@@ -1,7 +1,6 @@
 {
-
     "name": "generator-appverse-html5",
-    "version": "1.0.0-alpha.7",
+    "version": "1.0.0-alpha.8",
     "description": "Appverse HTML 5 generator",
     "license": "MPL-2.0",
     "main": "app/index.js",
@@ -12,8 +11,8 @@
         "url": "http://appverse.org"
     },
     "engines": {
-        "node": ">=0.10.0",
-        "npm": ">=1.4.5"
+        "node": ">=4.2.0",
+        "npm": ">=2.14.0"
     },
     "scripts": {
         "test": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
@@ -36,16 +35,13 @@
         "grunt"
     ],
     "dependencies": {
-        "appverse-generator-commons": "0.0.2",
+        "appverse-generator-commons": "0.0.4",
         "chalk": "^1.1.1",
         "cheerio": "^0.19.0",
         "escodegen": "^1.6.1",
         "esprima": "^2.6.0",
         "estraverse": "^4.1.0",
         "html-wiring": "^1.2.0",
-        "inquirer": "^0.11.0",
-        "insight": "^0.7.0",
-        "install": "^0.2.3",
         "json-schema-faker": "0.2.1",
         "lodash": "^3.6.0",
         "request": "^2.53.0",
@@ -53,13 +49,12 @@
         "underscore.string": "^3.2.2",
         "urllib-sync": "^1.0.1",
         "yosay": "^1.0.5",
-        "yeoman-generator": "^0.21.1",
+        "yeoman-generator": "^0.22.1",
         "z-schema": "^3.9.4"
     },
     "devDependencies": {
         "fs-extra": "^0.26.0",
         "istanbul": "^0.4.0",
-        "mocha": "*",
-        "nock": "^2.10.0"
+        "mocha": "*" 
     }
 }

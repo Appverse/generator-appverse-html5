@@ -12,13 +12,17 @@ module.exports = {
         open: false,
         // Open the site in Chrome & Firefox
         browser: ['google chrome', 'firefox'],
-        logLevel: 'info'
+        logLevel: 'info',
+        files: [
+          'app/**/*.js',
+          'app/**/*.html'
+        ]
     },
     dev: {
         options: {
             server: {
                 baseDir: ['./<%= paths.app %>']
-            }, 
+            },
               files: [
                 'app/**/*.js',
                 'app/**/*.html'

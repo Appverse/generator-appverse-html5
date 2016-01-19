@@ -26,8 +26,8 @@
  */
 angular.module('App.Controllers')
 
-.controller('ComponentsController', ['$scope', '$modal', '$log', '$http', '$timeout',
-            function ($scope, $modal, $log, $http, $timeout) {
+.controller('ComponentsController', ['$scope', '$uibModal', '$log', '$http', '$timeout',
+            function ($scope, $uibModal, $log, $http, $timeout) {
             $scope.name = 'Components';
 
             /*COLLAPSIBLE MENU*/
@@ -143,7 +143,7 @@ angular.module('App.Controllers')
             $scope.items = ['item1', 'item2', 'item3'];
 
             $scope.openModal = function (size) {
-                var modalInstance = $modal.open({
+                var modalInstance = $uibModal.open({
                     animation: $scope.animationsEnabled,
                     templateUrl: 'components/components/modal-template.html',
                     controller: 'ModalController',

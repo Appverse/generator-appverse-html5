@@ -1,135 +1,219 @@
 [
-    {
-        "name": "cache",
-        "scripts": [
-            "bower_components/angular-cache/dist/angular-cache.min.js",
-            "bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"
-        ],
-        "angular": "appverse.cache",
-        "startprompt": true
-    },
-    {
-        "name": "detection",
-        "scripts": ["bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js"],
-        "angular": "appverse.detection",
-        "startprompt": true,
-        "files": [
-          "app/resources/detection"
-      ]
-    },
-    {
-        "name": "logging",
-        "scripts": ["bower_components/appverse-web-html5-core/dist/appverse-logging/appverse-logging.min.js"],
-        "angular": "appverse.logging",
-        "startprompt": true
-    },
-    {
-        "name": "performance",
-        "scripts": ["bower_components/appverse-web-html5-core/dist/appverse-performance/appverse-performance.min.js"],
-        "angular": "appverse.performance",
-        "startprompt": true
-    },
-    {
-        "name": "qr",
-        "scripts": ["bower_components/qrcode/lib/qrcode.min.js",
-                      "bower_components/angular-qr/angular-qr.min.js"],
-        "startprompt": false
-    },
-    {
-        "name": "rest",
-        "scripts": ["bower_components/lodash/lodash.min.js",
-                    "bower_components/restangular/dist/restangular.min.js",
-                    "bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"],
-        "angular": "appverse.rest",
-        "startprompt": true,
-        "prompts": [
-            {
-                "type": "input",
-                "name": "restBaseUrl",
-                "message": "Configure your REST backend URL",
-                "default": "http://127.0.0.1"
-             }, {
-                "type": "input",
-                "name": "restBaseUrlPort",
-                "message": "Configure your REST backend URL Port",
-                "default": "8000"
-             }, {
-                "type": "input",
-                "name": "mockServerPort",
-                "message": "Configure your REST MOCK server PORT",
-                "default": "8888"
-            }
-       ],
-        "config": {
-            "name": "REST_CONFIG",
-            "values": [{
-                "name": "BaseUrl",
-                "value": "/api"
-            }, {
-                "name": "RequestSuffix",
-                "value": ""
-            }]
+  {
+    "name": "cache",
+    "scripts": [
+      "bower_components/angular-cache/dist/angular-cache.min.js",
+      "bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"
+    ],
+    "angular": "appverse.cache",
+    "startprompt": true
+  },
+  {
+    "name": "detection",
+    "scripts": [
+      "bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js"
+    ],
+    "angular": "appverse.detection",
+    "startprompt": true,
+    "files": [
+      "app/resources/detection"
+    ]
+  },
+  {
+    "name": "logging",
+    "scripts": [
+      "bower_components/appverse-web-html5-core/dist/appverse-logging/appverse-logging.min.js"
+    ],
+    "angular": "appverse.logging",
+    "startprompt": true
+  },
+  {
+    "name": "performance",
+    "scripts": [
+      "bower_components/appverse-web-html5-core/dist/appverse-performance/appverse-performance.min.js"
+    ],
+    "angular": "appverse.performance",
+    "startprompt": true
+  },
+  {
+    "name": "qr",
+    "scripts": [
+      "bower_components/qrcode/lib/qrcode.min.js",
+      "bower_components/angular-qr/angular-qr.min.js"
+    ],
+    "startprompt": false,
+    "bower": [
+      {
+        "name": "angular-qr",
+        "version": "~0.1.4"
+      }
+    ]
+  },
+  {
+    "name": "rest",
+    "scripts": [
+      "bower_components/lodash/lodash.min.js",
+      "bower_components/restangular/dist/restangular.min.js",
+      "bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"
+    ],
+    "angular": "appverse.rest",
+    "startprompt": true,
+    "prompts": [
+      {
+        "type": "input",
+        "name": "restBaseUrl",
+        "message": "Configure your REST backend URL",
+        "default": "http://127.0.0.1"
+      },
+      {
+        "type": "input",
+        "name": "restBaseUrlPort",
+        "message": "Configure your REST backend URL Port",
+        "default": "8000"
+      },
+      {
+        "type": "input",
+        "name": "mockServerPort",
+        "message": "Configure your REST MOCK server PORT",
+        "default": "8888"
+      }
+    ],
+    "config": {
+      "name": "REST_CONFIG",
+      "values": [
+        {
+          "name": "BaseUrl",
+          "value": "/api"
         },
-        "templates": [
-            "tasks/server.js",
-            "config/jsonserver.js"
-        ],
-        "npm": [{
-            "name": "http-proxy-middleware",
-            "version": "0.8.2"
-        }, {
-            "name": "grunt-appverse-jsonserver",
-            "version": "0.0.2"
-        }]
-}, {
-        "name": "security",
-        "scripts": [
-            "bower_components/angular-cookies/angular-cookies.min.js",
-                   "bower_components/angular-sanitize/angular-sanitize.min.js",
-                   "bower_components/angular-resource/angular-resource.min.js",
-                   "bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"
-                   ],
-        "angular": "appverse.security",
-        "startprompt": true,
-        "bower": [{
-            "name": "appverse-web-html5-security",
-            "version": "~0.5.0"
-        }]
-}, {
-        "name": "serverpush",
-        "scripts": [
-            "bower_components/socket.io-client/dist/socket.io.min.js",
-                   "bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"
-                   ],
-        "angular": "appverse.serverPush",
-        "startprompt": true,
-        "prompts": [
-            {
-                "type": "input",
-                "message": "Server push base URL?",
-                "name": "BaseUrl",
-                "default": "http://127.0.0.1:3000"
-          }
-       ],
-        "config": {
-            "name": "SERVERPUSH_CONFIG",
-            "values": [{
-                "name": "BaseUrl",
-                "value": "http://127.0.0.1:3000"
-            }]
+        {
+          "name": "RequestSuffix",
+          "value": ""
         }
-}, {
-        "name": "translate",
-        "scripts": [
-            "bower_components/angular-translate/angular-translate.min.js",
-                   "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
-                   "bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js",
-                   "bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"
-        ],
-        "angular": "appverse.translate",
-        "startprompt": true,
-        "files": [
-          "app/resources/i18n"
       ]
-}
+    },
+    "templates": [
+      "tasks/server.js",
+      "config/jsonserver.js"
+    ],
+    "npm": [
+      {
+        "name": "http-proxy-middleware",
+        "version": "0.8.2"
+      },
+      {
+        "name": "grunt-appverse-jsonserver",
+        "version": "0.0.2"
+      }
+    ]
+  },
+  {
+    "name": "security",
+    "scripts": [
+      "bower_components/angular-cookies/angular-cookies.min.js",
+      "bower_components/angular-sanitize/angular-sanitize.min.js",
+      "bower_components/angular-resource/angular-resource.min.js",
+      "bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"
+    ],
+    "angular": "appverse.security",
+    "startprompt": false,
+    "bower": [
+      {
+        "name": "appverse-web-html5-security",
+        "version": "~0.5.0"
+      }
+    ]
+  },
+  {
+    "name": "serverpush",
+    "scripts": [
+      "bower_components/socket.io-client/dist/socket.io.min.js",
+      "bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"
+    ],
+    "angular": "appverse.serverPush",
+    "startprompt": true,
+    "prompts": [
+      {
+        "type": "input",
+        "message": "Server push base URL?",
+        "name": "BaseUrl",
+        "default": "http://127.0.0.1:3000"
+      }
+    ],
+    "config": {
+      "name": "SERVERPUSH_CONFIG",
+      "values": [
+        {
+          "name": "BaseUrl",
+          "value": "http://127.0.0.1:3000"
+        }
+      ]
+    }
+  },
+  {
+    "name": "translate",
+    "scripts": [
+      "bower_components/angular-translate/angular-translate.min.js",
+      "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
+      "bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js",
+      "bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"
+    ],
+    "angular": "appverse.translate",
+    "startprompt": true,
+    "files": [
+      "app/resources/i18n"
+    ]
+  },
+  {
+    "name": "notifications",
+    "scripts": [
+      "bower_components/classie/classie.js",
+      "bower_components/appverse.notifications/dist/modernizr-custom.js",
+      "bower_components/appverse.notifications/dist/notification-fx.js",
+      "bower_components/appverse.notifications/dist/appverse.notifications.js"
+    ],
+    "angular": "appverse.notifications",
+    "bower": [
+      {
+        "name": "appverse.notifications",
+        "version": "~0.2.5"
+      }
+    ],
+    "startprompt": true,
+    "css": [
+      "bower_components/appverse.notifications/dist/notification-bar.css"
+    ]
+  },
+  {
+    "name": "ionic",
+    "scripts": [
+      "bower_components/appverse-web-html5-core/dist/appverse-ionic/appverse-ionic.min.js"
+    ],
+    "angular": "appverse.ionic",
+    "startprompt": true,
+    "config": {
+      "name": "IONIC_CONFIG",
+      "values": [
+        {
+          "name": "modalPrompt",
+          "value": true
+        },
+        {
+          "name": "redirectionPath",
+          "value": "/"
+        },
+        {
+          "name": "suffix",
+          "value": "-mobile"
+        }
+      ]
+    }
+  },
+  {
+    "name": "native",
+    "scripts": [
+      "bower_components/appverse-web-html5-core/dist/appverse-native/appverse-native.min.js"
+    ],
+    "angular": "appverse.native",
+    "startprompt": false
+  }
 ]

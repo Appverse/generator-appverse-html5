@@ -121,6 +121,9 @@ module.exports = moduleGenerator.extend({
         if (this.module.config) {
             this.addConfig(this.module.config);
         }
+        if (this.module.css) {
+            this.addCSSToIndex(this.module.css);
+        }
     },
     install: function() {
         if (this.newpackages) {

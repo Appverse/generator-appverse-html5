@@ -27,8 +27,6 @@ angular.module('<%=appName%>App')
 
                 // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
                     .otherwise('/home');
-
-
                 //////////////////////////
                 // 2-State Configurations
                 // Several states hav been configured:
@@ -36,41 +34,34 @@ angular.module('<%=appName%>App')
                 // tasks
                 //
                 //////////////////////////
-
                 // We must configure states using $stateProvider.
                 $stateProvider
-
                 //////////
                 // Home //
                 //////////
-
-                    .state('home', {
-                    // Use a url of '/' to set a states as the 'index'.
-                    url: '/home',
-                    templateUrl: 'components/home/home.html'
-
+                .state('home', {
+                  // Use a url of '/' to set a states as the 'index'.
+                  url: '/home',
+                  templateUrl: 'components/home/home.html'
                 })
-
                 .state('theme', {
-                    // Use a url of '/' to set a states as the 'index'.
-                    url: '/theme',
-                    templateUrl: 'components/theme/theme.html'
-
+                  url: '/theme',
+                  templateUrl: 'components/theme/theme.html'
                 })
-
-                   .state('components', {
-                    // Use a url of '/' to set a states as the 'index'.
-                    url: '/components',
-                    templateUrl: 'components/components/components.html',
-                    controller: 'ComponentsController'
+                .state('components', {
+                  url: '/components',
+                  templateUrl: 'components/components/components.html',
+                  controller: 'ComponentsController'
                 })
-
-                  .state('charts', {
-                    // Use a url of '/' to set a states as the 'index'.
-                    url: '/charts',
-                    templateUrl: 'components/charts/charts.html',
-                    controller: 'ChartsController'
+                .state('charts', {
+                  url: '/charts',
+                  templateUrl: 'components/charts/charts.html',
+                  controller: 'ChartsController'
                 })
-
+                .state('icons', {
+                  url: '/icons',
+                  templateUrl: 'components/icons/icons.html',
+                  controller: 'IconsController'
+              })
                 ;
             }]);

@@ -1,9 +1,14 @@
-/*
-http://getbootstrap.com/components/#navbar-fixed-top
-The fixed navbar will overlay your other content, unless you add padding to the top of the <body>. Try out your own values or use our snippet below. Tip: By default, the navbar is 50px high.
-Make sure to include this after the core Bootstrap CSS.
-*/
+/* Import specific css here */
+@import "variables";
 
-body {
-    padding-top: 70px;
+@mixin box-shadow($shadow1, $shadow2:false) {
+ $params: $shadow1;
+  @if $shadow2 
+    { $params: $shadow1, $shadow2; }
+  -webkit-box-shadow: $params;
+     -moz-box-shadow: $params;
+          box-shadow: $params;
 }
+@import "theme"; 
+/* Import the theme */
+@import "bootstrap-theme";
