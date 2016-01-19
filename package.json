@@ -11,8 +11,8 @@
         "url": "http://appverse.org"
     },
     "engines": {
-        "node": ">=0.10.0",
-        "npm": ">=1.4.5"
+        "node": ">=4.2.0",
+        "npm": ">=2.14.0"
     },
     "scripts": {
         "test": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
@@ -55,7 +55,6 @@
     "devDependencies": {
         "fs-extra": "^0.26.0",
         "istanbul": "^0.4.0",
-        "mocha": "*",
-        "nock": "^3.5.0"
+        "mocha": "*" 
     }
 }

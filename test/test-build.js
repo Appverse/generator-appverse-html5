@@ -21,8 +21,8 @@
 'use strict';
 
 var path = require('path');
-var assert = require('yeoman-generator').assert;
-var helpers = require('yeoman-generator').test;
+var assert = require('yeoman-assert');
+var helpers = require('yeoman-test');
 var fse = require('fs-extra');
 var mockdata = path.join(__dirname, 'data/builds.json');
 var modules = require(mockdata);

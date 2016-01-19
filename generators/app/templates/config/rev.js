@@ -6,8 +6,7 @@ module.exports = {
         files: {
             src: [
                         '<%=paths.dist%>/**/*.js',
-                        '<%=paths.dist%>/styles/**/*.css',
-                        '<%=paths.dist%>/styles/images/**/*',
+                        '<%=paths.dist%>/styles/**/*.css', 
                         '<%=paths.dist%>/fonts/**/*'
                     ]
         }

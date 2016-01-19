@@ -415,35 +415,10 @@ Minify images seamlessly. Adds [imagemin](https://github.com/imagemin/imagemin) 
 
 
 #### Theme
-The Appverse HTML5 generator allows to switch the theme.
-* The Appverse HTML5 **theme** sub-generator will connect to the [Appverse theme](https://appverse.gftlabs.com/theme) provider to get the available themes list.
+The Appverse HTML5 generator allows to switch the [Appverse Theme](https://github.com/Appverse/Appverse-Bootstrap-Sass-Theme).
+The **theme** subgenerator will prompt the user to select one of both Appverse themes.
 
-For example, for the given response:
-
-```json
-{
-  "version": "0.0.1",
-  "themes": [
-    {
-      "name": "appverse",
-      "description": "Appverse theme",
-      "scss": "https://appverse.gftlabs.com/theme/appverse/_theme.scss",
-      "scssVariables": "https://appverse.gftlabs.com/theme/appverse/_variables.scss"
-    },
-    {
-      "name": "appverse-dark",
-      "description": "Appverse Dark theme",
-      "scss": "https://appverse.gftlabs.com/theme/appverse-dark/_theme.scss",
-      "scssVariables": "https://appverse.gftlabs.com/theme/appverse-dark/_variables.scss"
-    }
-  ]
-}
-```
-
-The **theme** provider will prompt the user to select one of both Appverse themes.
-
-* The sub-generator will connect to the provider SCSS URL's to get the files from the selected them.
-* It will apply the selected theme to the generated project.
+[Bootswatch](https://bootswatch.com/) themes are included as well, the subgenerator will connect to [Bootswatch API](https://bootswatch.com/api/3.json) to get the available theme list. 
 
 Execution:
 
@@ -451,11 +426,7 @@ Execution:
     yo appverse-html5:theme    
 ```
 
-It's possible to use another theme provider, like [Bootstrap](http://getbootstrap.com)
 
-```bash
-    yo appverse-html5:theme --provider=http://api.bootswatch.com/3/
-```
 
 
 ### Arguments and options
