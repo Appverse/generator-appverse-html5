@@ -413,6 +413,51 @@ Minify images seamlessly. Adds [imagemin](https://github.com/imagemin/imagemin) 
     yo appverse-html5:build imagemin
 ```
 
+#### Runtime
+The Appverse HTML5 runtime subgenerator will add necesary Docker files to run your application using Docker. 
+ * *Dockerfile* - It will provide a based NGINX Dockerfile to run your *dist* folder. 
+ * *docker-compose.yml* - Docker compose file to run your project with a load balancer using HAProxy. 
+
+The first step is to create your aplication distribution:
+ 
+```bash
+   grunt dist 
+```
+
+Now, you have two options: 
+
+* Run the application using Docker  
+
+  - Build the image: 
+  
+```bash
+   docker build -t myapp/nginx .
+```   
+  - Run:
+   
+```bash  
+    docker run -p 80:80 --name myapp -d myapp/nginx
+```
+
+Where *myapp* is your application name. Then access the URL http://<yourdockerhost> 
+
+* Run the application with Docker-Compose and HAProxy image that balances between linked containers.  
+
+```bash
+   docker-compose up -d 
+```
+Then access the URL http://<yourdockerhost>
+
+- Scale N instances
+For example, if you want to set up 3 instances of 'myapp' application: 
+
+```bash
+   docker-compose scale myapp=3
+   docker-compose up -d -force-recreate
+```
+
+Then access the URL http://<yourdockerhost>, and load balancer will use the 3 instances. You can access the HAProxy dashboard with http://<yourdockerhost>:1936 to check load balancer metrics.  
+ 
 
 #### Theme
 The Appverse HTML5 generator allows to switch the [Appverse Theme](https://github.com/Appverse/Appverse-Bootstrap-Sass-Theme).
@@ -424,10 +469,7 @@ Execution:
 
 ```bash
     yo appverse-html5:theme    
-```
-
-
-
+```  
 
 ### Arguments and options
 

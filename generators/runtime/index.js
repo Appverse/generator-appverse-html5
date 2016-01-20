@@ -30,32 +30,28 @@ var appverseHtml5Gen = require('../generator-base');
 module.exports = appverseHtml5Gen.extend({
   initializing: function() {
       this.conflicter.force = true;
+      this.appName = require(this.destinationPath('package.json')).name.toLowerCase();
       if (!this.options['skip-welcome-message']) {
           this.welcome(pkg);
           this.checkVersion();
       }
   },
-  writing: function() {
-      //FILES
-      if (this.module.files) {
-          this.moveFiles(this.templatepath, this.module.files);
-      }
-      //TEMPLATES
-      if (this.module.templates) {
-          this.moveTemplates(this.templatepath, this.module.templates);
-      }
-  },
-  install: function() {
-      if (this.newpackages) {
-          this.installDependencies({
-              skipInstall: this.options['skip-install']
-          });
-      }
-  },
+  writing: function() {   
+      //TEMPLATES          
+       this.fs.copyTpl (this.templatePath('docker/Dockerfile'), this.destinationPath('Dockerfile'), this);
+       this.fs.copyTpl (this.templatePath('docker/docker-compose.yml'), this.destinationPath('docker-compose.yml'), this);  
+  }, 
   end: function() {
-      this.info("Finish " + this.name);
-  }
-
-});
-
+      this.log('\n Docker commands');
+      this.log('***************');     
+      this.log(' Load Balancer:' ); 
+      this.log('     Build and run: $ docker-compose up -d' ); 
+      this.log('     http://<dockerhost>' ); 
+      this.log(' Scale N instances:' );
+      this.log('     $ docker-compose scale ' + this.appName + '=N' );
+      this.log('     $ docker-compose up -d -force-recreate' );
+      this.log(' HAproxy dashboard:' );
+      this.log('     http://<dockerhost>:1936' );
+      this.log('     User: stats / stats' ); 
+  } 
 });

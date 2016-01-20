@@ -1,0 +1,20 @@
+# Balancer: 
+#    Build and run: docker-compose up -d
+#    http://<dockerhost>
+# Scale N instances: 
+#    docker-compose scale <%=appName%>=N
+#    docker-compose up -d -force-recreate
+# HAproxy dashboard: 
+#    http://<dockerhost>:1936  
+#    User: stats / stats   
+<%=appName%>:
+  build: .
+  ports:
+    - "8080"
+haproxy:
+  image: tutum/haproxy
+  links:
+    - <%=appName%>
+  ports:
+    - "80:80"
+    - "1936:1936" 
