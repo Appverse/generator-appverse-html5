@@ -1,7 +1,7 @@
 <div class="well" ng-controller="<%=name%>Controller">
     <b>Inline</b>
             <div>
-                <datepicker ng-model="dt" min-date="minDate" show-weeks="false" class="datepicker" custom-class="getDayClass(date, mode)"></datepicker>
+                <uib-datepicker ng-model="dt" min-date="minDate" show-weeks="false" class="datepicker" custom-class="getDayClass(date, mode)"></uib-datepicker>
             </div>
             <br>
             <br>
@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <p class="input-group">
-                        <input type="text" class="form-control datepicker" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2099-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+                        <input type="text" class="form-control datepicker" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2099-06-22'" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
                         <span class="input-group-btn">
                             <button type="button" angular-ripple class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                         </span>
