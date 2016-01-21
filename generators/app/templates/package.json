@@ -25,6 +25,7 @@
         "grunt-license-report": "0.0.8",
         "grunt-ng-annotate": "0.10.0",
         "grunt-postcss": "^0.6.0",
+        "grunt-release": "^0.13.0",
         "grunt-rev": "0.1.0",
         "grunt-sass": "1.1.0",
         "grunt-shell": "^1.1.2",
