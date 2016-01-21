@@ -50,6 +50,9 @@ yo appverse-html5:component chart --type=polar-area --target=crud4
 yo appverse-html5:component crud --name=crud5  --rows=100
 yo appverse-html5:component crud --name=crud6  --rows=100 --menu=crud6
 
+#Add runtime
+yo appverse-html5:runtime 
+
 # Run test. Unit
 grunt test
 
