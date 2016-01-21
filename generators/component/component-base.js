@@ -83,7 +83,7 @@ validateTarget : function validateTarget (target) {
     var targetPath = this.destinationPath('app/components/' + target + '/' + target + '.html');
     var targetView = this.fs.read(targetPath);
     var targetHTML = cheerio.load(targetView);
-    targetHTML('.container').append(include);
+    targetHTML('div').eq(0).append(include);
     this.fs.write(targetPath, targetHTML.html());
 },
 /**
