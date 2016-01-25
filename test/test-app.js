@@ -30,7 +30,8 @@ var config = require('../generators/app/config/project-config.json');
 describe('appverse-html5:generator', function () {
     var deps = [
                 [helpers.createDummyGenerator(), 'appverse-html5:module'],
-                [helpers.createDummyGenerator(), 'appverse-html5:build']
+                [helpers.createDummyGenerator(), 'appverse-html5:build'],
+                [helpers.createDummyGenerator(), 'appverse-html5:runtime']
             ];
 
     describe('when called with prompts (no modules - no builds)', function () {

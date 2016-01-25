@@ -124,6 +124,11 @@ module.exports = appverseHtml5Gen.extend({
                     name: 'buildOptions',
                     message: "Select build types. \n You can add the build types later executing the subgenerators",
                     choices: this.promptsConfig(this.builds)
+                }, {
+                    type: "confirm",
+                    name: "docker",
+                    message: "Do you want to add Docker runtime? \n I will add a Dockerfile and Docker Compose files to run your application with a NGINX container and HAProxy.",
+                    default: true
                 }
                 ];
 
@@ -132,8 +137,7 @@ module.exports = appverseHtml5Gen.extend({
                     this.appName = slug.slugify(props.appName);
                     this.props = props;
                     this.env.options.appPath = this.options.appPath || 'app';
-                    this.config.set('appPath', this.env.options.appPath);
-                    this.appBootstrapSelector = props.bootstrapTheme;
+                    this.config.set('appPath', this.env.options.appPath);                   
                 }
                 done();
             }.bind(this));
@@ -183,6 +187,14 @@ module.exports = appverseHtml5Gen.extend({
                      });
                  }.bind(this));
              }
+         }
+         if (this.props.docker) {
+             this.composeWith('appverse-html5:runtime', {           
+               options: {              
+                 'skip-welcome-message': true,
+                 'skip-install': true
+               }
+              });             
          }
         this.installDependencies({
             skipInstall: this.options['skip-install'],
