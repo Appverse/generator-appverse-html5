@@ -60,7 +60,8 @@ angular.module('App.Controllers')
                 var newWidth = 600 + slides.length + 1;
                 slides.push({
                     image: 'http://placekitten.com/' + newWidth + '/300',
-                    text: ['More', 'Extra', 'Lots of', 'Surplus'][slides.length % 4] + ' ' + ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+                    text: ['More', 'Extra', 'Lots of', 'Surplus'][slides.length % 4] + ' ' + 
+                          ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
                 });
             };
             for (var i = 0; i < 4; i++) {
@@ -80,7 +81,7 @@ angular.module('App.Controllers')
 
             // Disable weekend selection
             $scope.disabled = function (date, mode) {
-                return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+                return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
             };
 
             $scope.toggleMin = function () {
@@ -233,16 +234,18 @@ angular.module('App.Controllers')
                         params: params
                     }
                 ).then(function (response) {
-                    $scope.addresses = response.data.results
+                    $scope.addresses = response.data.results;
                 });
             };
             $scope.someGroupFn = function (item) {
 
-                if (item.name[0] >= 'A' && item.name[0] <= 'M')
+                if (item.name[0] >= 'A' && item.name[0] <= 'M') {
                     return 'From A - M';
+                }
 
-                if (item.name[0] >= 'N' && item.name[0] <= 'Z')
+                if (item.name[0] >= 'N' && item.name[0] <= 'Z') {
                     return 'From N - Z';
+                }
 
             };
 
@@ -1377,19 +1380,20 @@ angular.module('App.Controllers')
             /*MATERIAL ICONS*/
             $scope.clickIcon = 'list';
             $scope.clickIconMorph = function () {
-                if ($scope.clickIcon == 'list')
+                if ($scope.clickIcon === 'list') {
                     $scope.clickIcon = 'apps';
-                else
-                    $scope.clickIcon = 'list';
-            }
+                } else {
+                        $scope.clickIcon = 'list';
+                }
+            };
             $scope.hoverIcon = 'add';
             $scope.hoverIconMorph = function () {
                 $scope.hoverIcon = 'remove';
-            }
+            };
             $scope.blurIconMorph = function () {
-                    $scope.hoverIcon = 'add';
-                }
-                /*EO MATERIAL ICONS*/
+                $scope.hoverIcon = 'add';
+            };
+            /*EO MATERIAL ICONS*/
             }
         ])
     .filter('propsFilter', function () {
@@ -1420,5 +1424,5 @@ angular.module('App.Controllers')
             }
 
             return out;
-        }
+        };
     });
