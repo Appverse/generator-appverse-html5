@@ -148,10 +148,6 @@ module.exports = appverseHtml5Gen.extend({
       this.moveFiles(this.templatePath(), project.files);
       //TEMPLATES
       this.moveTemplates(this.templatePath(),project.templates);
-      //STYLESHEETS
-      var entryPoint = '\n    <!-- include: "type": "css", "files": "styles/**/*.css" -->'
-                     + '\n    <!-- /include -->\n';
-      indexFile = wiring.domUpdate(indexFile, 'head', entryPoint, 'a');
       //STATIC SCRIPTS
       var indexFile = this.fs.read(this.destinationPath('app/index.html'));
       indexFile = wiring.appendScripts(indexFile, 'scripts/scripts.js', project.scripts);
@@ -161,6 +157,10 @@ module.exports = appverseHtml5Gen.extend({
                    + '    <!-- /include -->\n';
         indexFile = wiring.domUpdate(indexFile, 'body', line, 'a');
       });
+      //STYLESHEETS
+      var entryPoint = '\n    <!-- include: "type": "css", "files": "styles/**/*.css" -->'
+                     + '\n    <!-- /include -->\n';
+      indexFile = wiring.domUpdate(indexFile, 'head', entryPoint, 'a');
       this.write(this.destinationPath('app/index.html'), indexFile);
     },
     install: function () {
