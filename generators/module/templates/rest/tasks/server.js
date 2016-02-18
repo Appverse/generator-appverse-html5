@@ -67,9 +67,9 @@ module.exports = function (grunt) {
         'clean:server',
         'concurrent:server',
         'postcss:css',
-        'includeSource',
         'browserSync:dev',
         'jshint:all',
+        'includeSource',
         'test:dev:unit',
         'watch'
     ]);

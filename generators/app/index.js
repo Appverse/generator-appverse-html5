@@ -148,6 +148,9 @@ module.exports = appverseHtml5Gen.extend({
       this.moveFiles(this.templatePath(), project.files);
       //TEMPLATES
       this.moveTemplates(this.templatePath(),project.templates);
+      //STYLESHEETS
+      var entryPoint = '\n    <!-- include: "type": "css", "files": "styles/**/*.css" -->'
+                     + '\n    <!-- /include -->\n';
       //STATIC SCRIPTS
       var indexFile = this.fs.read(this.destinationPath('app/index.html'));
       indexFile = wiring.appendScripts(indexFile, 'scripts/scripts.js', project.scripts);
