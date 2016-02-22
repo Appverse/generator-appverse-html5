@@ -20,10 +20,11 @@
  */
 'use strict';
 var chalk = require('chalk');
-var os = require('os'); 
+var os = require('os');
 var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
+var _ = require('lodash');
 var appverseHTML5Generator = require('../generator-base');
 
 var moduleGenerator = appverseHTML5Generator.extend({
@@ -152,6 +153,15 @@ addAngularModule : function (moduleName) {
     });
     var finalCode = escodegen.generate(configCode);
     this.fs.write(this.destinationPath('app/app.js'), finalCode);
+},
+
+addWiredepConfig: function(wiredep, fileName) {
+    var target = fileName || 'config/wiredep.js';
+    var file = require(this.destionationPath(target)); //parse file
+    _.merge(file.task.options.overrides, wiredep.overrides);
+    Array.prototype.push.apply(file.task.options.exclude, wiredep.exlude);
+    var serialized = modularize(file);
+    this.fs.write(this.destinationPath(target), serialized);
 }
 });
 

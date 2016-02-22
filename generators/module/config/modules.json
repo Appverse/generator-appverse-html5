@@ -1,6 +1,21 @@
 [
   {
     "name": "cache",
+    "wiredep": {
+        "overrides": {
+            "cache": {
+                    "main": [
+                                "dist/angular-cache.min.js"
+                    ]
+            },
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-cache/appverse-cache.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/angular-cache/dist/angular-cache.min.js",
       "bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"
@@ -10,6 +25,16 @@
   },
   {
     "name": "detection",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-detection/appverse-detection.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js"
     ],
@@ -21,6 +46,16 @@
   },
   {
     "name": "logging",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-logging/appverse-logging.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/appverse-web-html5-core/dist/appverse-logging/appverse-logging.min.js"
     ],
@@ -29,6 +64,16 @@
   },
   {
     "name": "performance",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-performance/appverse-performance.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/appverse-web-html5-core/dist/appverse-performance/appverse-performance.min.js"
     ],
@@ -37,6 +82,21 @@
   },
   {
     "name": "qr",
+    "wiredep": {
+        "overrides": {
+            "qrcode": {
+                    "main": [
+                                "dqrcode/lib/qrcode.min.js"
+                    ]
+            },
+            "angular-qr": {
+                "main": [
+                                "angular-qr.min.js"
+                ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/qrcode/lib/qrcode.min.js",
       "bower_components/angular-qr/angular-qr.min.js"
@@ -51,6 +111,26 @@
   },
   {
     "name": "rest",
+    "wiredep": {
+        "overrides": {
+            "lodash": {
+                    "main": [
+                                "lodash.min.js"
+                    ]
+            },
+            "restangular": {
+                "main": [
+                                "dist/restangular.min.js"
+                ]
+            },
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-rest/appverse-rest.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/lodash/lodash.min.js",
       "bower_components/restangular/dist/restangular.min.js",
@@ -108,6 +188,31 @@
   },
   {
     "name": "security",
+    "wiredep": {
+        "overrides": {
+            "angular-cookies": {
+                    "main": [
+                                "angular-cookies.min.js"
+                    ]
+            },
+            "angular-sanitize": {
+                "main": [
+                                "angular-sanitize.min.js"
+                ]
+            },
+            "angular-resouce": {
+                "main": [
+                                "angular-resource.min.js"
+                ]
+            },
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-rest/appverse-rest.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/angular-cookies/angular-cookies.min.js",
       "bower_components/angular-sanitize/angular-sanitize.min.js",
@@ -125,6 +230,21 @@
   },
   {
     "name": "serverpush",
+    "wiredep": {
+        "overrides": {
+            "socket.io-client": {
+                    "main": [
+                                "dist/socket.io.min.js"
+                    ]
+            },
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-serverpush/appverse-serverpush.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/socket.io-client/dist/socket.io.min.js",
       "bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"
@@ -151,6 +271,31 @@
   },
   {
     "name": "translate",
+    "wiredep": {
+        "overrides": {
+            "angular-translate": {
+                    "main": [
+                                "angular-translate.min.js"
+                    ]
+            },
+            "angular-translate-loader-static-files": {
+                "main": [
+                                "angular-translate-loader-static-files.min.js"
+                ]
+            },
+            "angular-dynamic-locale": {
+                "main": [
+                                "src/tmhDynamicLocale.js"
+                ]
+            },
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-translate/appverse-translate.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/angular-translate/angular-translate.min.js",
       "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
@@ -165,6 +310,23 @@
   },
   {
     "name": "notifications",
+    "wiredep": {
+        "overrides": {
+            "classie": {
+                    "main": [
+                                "classie.js"
+                    ]
+            },
+            "appverse.notifications": {
+                "main": [
+                                "dist/modernizr-custom.js",
+                                "dist/notification-fx.js",
+                                "dist/appverse.notifications.js"
+                ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/classie/classie.js",
       "bower_components/appverse.notifications/dist/modernizr-custom.js",
@@ -185,6 +347,16 @@
   },
   {
     "name": "ionic",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-ionic/appverse-ionic.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/appverse-web-html5-core/dist/appverse-ionic/appverse-ionic.min.js"
     ],
@@ -210,6 +382,16 @@
   },
   {
     "name": "native",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                    "main": [
+                                "dist/appverse-native/appverse-native.min.js"
+                    ]
+            }
+        },
+        "excludes": []
+    },
     "scripts": [
       "bower_components/appverse-web-html5-core/dist/appverse-native/appverse-native.min.js"
     ],

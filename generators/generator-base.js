@@ -20,11 +20,13 @@
  */
 'use strict';
 var path = require('path');
-var fs = require('fs');
+var fs = require('fs-extra');
 var appverse = require ('appverse-generator-commons');
 var chalk = require('chalk');
 var ZSchema = require('z-schema');
-var request = require('request'); 
+var request = require('request');
+var beautify = require('js-beautify').js_beautify;
+
 
 var appverseHTML5Generator = appverse.extend({
 /**
@@ -197,4 +199,15 @@ Array.prototype.unshiftIfNotExist = function (element, comparer) {
     if (!this.inArray(comparer)) {
         this.unshift(element);
     }
+};
+
+/**
+Serialize object to module with beautify
+* @param  {Object} plain - Element
+*
+**/
+function modularize( plain ){
+    return beautify( '\'use strict\'; \n module.exports = ' + util.inspect( plain,
+            { depth : null }) + ';',
+            { indent_size : 2 });
 };
