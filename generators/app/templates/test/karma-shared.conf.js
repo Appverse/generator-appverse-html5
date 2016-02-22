@@ -5,7 +5,7 @@ module.exports = function() {
     return {
         basePath: '../',
         frameworks: ['jasmine', 'sinon'],
-        
+
         // coverage reporter generates the coverage
         reporters: ['progress', 'coverage', 'junit', 'notify'],
 
@@ -42,7 +42,6 @@ module.exports = function() {
             'node_modules/ng-describe/dist/ng-describe.js',
             'app/bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
             'app/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-            'app/bower_components/venturocket-angular-slider/build/angular-slider.min.js',
             'app/bower_components/ag-grid/dist/ag-grid.min.js',
             'app/bower_components/angular-animate/angular-animate.min.js',
             'app/bower_components/angular-xeditable/dist/js/xeditable.js',
@@ -57,7 +56,6 @@ module.exports = function() {
             'app/bower_components/angular-sanitize/angular-sanitize.min.js',
             'app/bower_components/Chart.js/Chart.min.js',
             'app/bower_components/angular-chart.js/dist/angular-chart.min.js',
-            'app/bower_components/venturocket-angular-slider/build/angular-slider.min.js',
             'app/bower_components/angular-animate/angular-animate.min.js',
             'app/bower_components/angular-cache/dist/angular-cache.min.js',
             'app/bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js',
@@ -67,9 +65,6 @@ module.exports = function() {
             'app/bower_components/lodash/lodash.min.js',
             'app/bower_components/restangular/dist/restangular.min.js',
             'app/bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js',
-            'app/bower_components/angular-cookies/angular-cookies.min.js',
-            'app/bower_components/angular-resource/angular-resource.min.js',
-            'app/bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js',
             'app/bower_components/socket.io-client/dist/socket.io.min.js',
             'app/bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js',
             'app/bower_components/angular-translate/angular-translate.min.js',
