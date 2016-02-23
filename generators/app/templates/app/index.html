@@ -4,13 +4,11 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <!--<html class="no-js" manifest="cache.manifest">-->
-<html class="no-js">
+<html class="no-js" ng-app="<%=appName%>App">
 <!--<![endif]-->
 
 <head>
-    <title data-ng-bind="$state.current.name">
-        <%=appName%>
-    </title>
+    <title data-ng-bind="'<%=appName%> - ' + $state.current.name"></title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
@@ -19,18 +17,18 @@
 
     <!-- build:css styles/css/vendor.css -->
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/ng-grid/ng-grid.min.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/angular-ui-select/dist/select.min.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/angularjs-slider/dist/rzslider.min.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/selectize/dist/css/selectize.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/angular-chart.js/dist/angular-chart.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/angular-loading-bar/build/loading-bar.min.css" media="all">
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.min.css">
+    <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css">
+    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.css">
+    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css" media="all">
     <!-- endbuild -->
 
 </head>
 
 <!--Include the module with the app scope-->
-<body data-ng-app="<%=appName%>App">
+
+<body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -80,39 +78,40 @@
                     <a angular-ripple ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
                 </li>
                 <li data-ng-class="{ active: $state.includes('icons') }">
-                  <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
-              </li>
+                    <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
+                </li>
             </ul>
         </div>
     </nav>
-    <div id="wrapper" class="container-fluid mainview">
-      <!-- Sidebar -->
-      <div id="sidebar-wrapper">
-          <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-            <a href="#">
-              <span class="text">Sidebar Title</span>
-            </a>
-            </li>
-            <li data-ng-class="{ active: $state.includes('home') }">
-                <a angular-ripple="" ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
-            </li>
-            <li data-ng-class="{ active: $state.includes('theme') }">
-                <a angular-ripple="" ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
-            </li>
-            <li data-ng-class="{ active: $state.includes('components') }">
-                <a angular-ripple="" ui-sref="components"><i class="glyphicon glyphicon-book"></i> Components</a>
-            </li>
-            <li data-ng-class="{ active: $state.includes('charts') }">
-                <a angular-ripple="" ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
-            </li>
-            <li data-ng-class="{ active: $state.includes('icons') }">
-              <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
-          </li>
+    <div id="wrapper" class="container-fluid mainview toggled">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        <span class="text">Sidebar Title</span>
+                    </a>
+                </li>
+                <li data-ng-class="{ active: $state.includes('home') }">
+                    <a angular-ripple="" ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
+                </li>
+                <li data-ng-class="{ active: $state.includes('theme') }">
+                    <a angular-ripple="" ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
+                </li>
+                <li data-ng-class="{ active: $state.includes('components') }">
+                    <a angular-ripple="" ui-sref="components"><i class="glyphicon glyphicon-book"></i> Components</a>
+                </li>
+                <li data-ng-class="{ active: $state.includes('charts') }">
+                    <a angular-ripple="" ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
+                </li>
+                <li data-ng-class="{ active: $state.includes('icons') }">
+                    <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
+                </li>
             </ul>
-              <a href="#menu-toggle" angular-ripple="" class="btn btn-primary menu-toggle" id="menu-toggle">
-             <i class="glyphicon glyphicon-triangle-left"></i>
+            <a href="#menu-toggle" angular-ripple="" class="btn btn-primary menu-toggle" id="menu-toggle">
+                <i class="glyphicon glyphicon-triangle-left"></i>
             </a>
+
             </div>
         <!-- /#sidebar-wrapper -->
         <!-- MAIN INSERTION POINT
@@ -123,4 +122,5 @@
     </div>
 
 </body>
+
 </html>

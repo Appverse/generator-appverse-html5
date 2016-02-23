@@ -1,0 +1,21 @@
+<div ng-hide="data.$removing || data.$saving">
+    <button ng-click="open(data)" class="btn btn-primary glyphicon glyphicon-pencil"></button>
+    <button ng-click="open(data,true)" class="btn btn-default glyphicon glyphicon-duplicate"></button>
+    <button av-rest-remove="data" rest-if="confirm(data)" class="btn btn-danger glyphicon glyphicon-trash"></button>
+</div>
+
+<div ng-show="data.$removing">
+    <div class="progress">
+        <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            Removing...
+        </div>
+    </div>
+</div>
+
+<div ng-show="data.$saving">
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            Saving...
+        </div>
+    </div>
+</div>

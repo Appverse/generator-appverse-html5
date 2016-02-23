@@ -1,5 +1,5 @@
 /*jshint node:true */
-"use strict";
+'use strict';
 
 describe('E2E: Testing <%=name%> view', function() {
 
