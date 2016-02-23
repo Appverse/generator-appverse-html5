@@ -22,7 +22,7 @@ module.exports = {
       tasks: ['jshint']
     },
     includeSource: {
-        files: ['app/index.html'],
+        files: ['app/app.js', 'app/states/*.js', 'app/components/**/*.js'],
         tasks: ['includeSource']
     }
 
