@@ -152,13 +152,11 @@ module.exports = appverseHtml5Gen.extend({
       var indexFile = this.fs.read(this.destinationPath('app/index.html'));
       indexFile = wiring.appendScripts(indexFile, 'scripts/scripts.js', project.scripts);
       //DINAMIC SCRIPTS
-      [].forEach.call(project.appScripts, function (elem) {
-        var line = '\n    <!-- include: "type": "js", "files": "' + elem + '" -->\n'
+      var line = '\n    <!-- include: "type": "js", "files": "<%= scripts %>" -->\n'
                    + '    <!-- /include -->\n';
-        indexFile = wiring.domUpdate(indexFile, 'body', line, 'a');
-      });
+      indexFile = wiring.domUpdate(indexFile, 'body', line, 'a');
       //STYLESHEETS
-      var entryPoint = '\n    <!-- include: "type": "css", "files": "styles/**/*.css" -->'
+      var entryPoint = '\n    <!-- include: "type": "css", "files": "<%= css %>" -->'
                      + '\n    <!-- /include -->\n';
       indexFile = wiring.domUpdate(indexFile, 'head', entryPoint, 'a');
       this.write(this.destinationPath('app/index.html'), indexFile);
