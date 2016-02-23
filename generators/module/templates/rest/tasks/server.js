@@ -69,6 +69,7 @@ module.exports = function (grunt) {
         'postcss:css',
         'browserSync:dev',
         'jshint:all',
+        'includeSource',
         'test:dev:unit',
         'watch'
     ]);

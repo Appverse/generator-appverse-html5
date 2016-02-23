@@ -62,11 +62,7 @@
     ],
     "appScripts": [
         "app.js",
-        "components/home/home-controller.js",
-        "components/components/components-controller.js",
-        "components/components/modal-controller.js",
-        "components/charts/charts-controller.js",
-        "components/icons/icons-controller.js",
-        "states/app-states.js"
+        "components/**/*.js",
+        "states/**/*.js"
     ]
 }

@@ -24,9 +24,6 @@
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css" media="all">
     <!-- endbuild -->
 
-    <!-- build:css styles/css/styles.css -->
-    <link rel="stylesheet" href="styles/css/main.css">
-    <!-- endbuild -->
 </head>
 
 <!--Include the module with the app scope-->
@@ -114,14 +111,16 @@
             <a href="#menu-toggle" angular-ripple="" class="btn btn-primary menu-toggle" id="menu-toggle">
                 <i class="glyphicon glyphicon-triangle-left"></i>
             </a>
-        </div>
+
+            </div>
         <!-- /#sidebar-wrapper -->
         <!-- MAIN INSERTION POINT
-         Here is the main ui-view (it is unnamed) as the main content insertion point.
-         It replaces the default Angular's ng-view directive.
-     -->
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        -->
         <div ui-view="" class="fade-in" autoscroll="false"></div>
     </div>
+
 </body>
 
 </html>

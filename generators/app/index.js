@@ -137,7 +137,7 @@ module.exports = appverseHtml5Gen.extend({
                     this.appName = slug.slugify(props.appName);
                     this.props = props;
                     this.env.options.appPath = this.options.appPath || 'app';
-                    this.config.set('appPath', this.env.options.appPath);                   
+                    this.config.set('appPath', this.env.options.appPath);
                 }
                 done();
             }.bind(this));
@@ -148,10 +148,17 @@ module.exports = appverseHtml5Gen.extend({
       this.moveFiles(this.templatePath(), project.files);
       //TEMPLATES
       this.moveTemplates(this.templatePath(),project.templates);
-      //SCRIPTS
+      //STATIC SCRIPTS
       var indexFile = this.fs.read(this.destinationPath('app/index.html'));
-      Array.prototype.push.apply(project.scripts, project.appScripts);
       indexFile = wiring.appendScripts(indexFile, 'scripts/scripts.js', project.scripts);
+      //DINAMIC SCRIPTS
+      var line = '\n    <!-- include: "type": "js", "files": "<%= scripts %>" -->\n'
+                   + '    <!-- /include -->\n';
+      indexFile = wiring.domUpdate(indexFile, 'body', line, 'a');
+      //STYLESHEETS
+      var entryPoint = '\n    <!-- include: "type": "css", "files": "<%= css %>" -->'
+                     + '\n    <!-- /include -->\n';
+      indexFile = wiring.domUpdate(indexFile, 'head', entryPoint, 'a');
       this.write(this.destinationPath('app/index.html'), indexFile);
     },
     install: function () {
@@ -189,12 +196,12 @@ module.exports = appverseHtml5Gen.extend({
              }
          }
          if (this.props.docker) {
-             this.composeWith('appverse-html5:runtime', {           
-               options: {              
+             this.composeWith('appverse-html5:runtime', {
+               options: {
                  'skip-welcome-message': true,
                  'skip-install': true
                }
-              });             
+              });
          }
         this.installDependencies({
             skipInstall: this.options['skip-install'],
