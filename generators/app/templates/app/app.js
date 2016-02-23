@@ -1,5 +1,7 @@
 (function() {
     'use strict';
+    //Instantiate agGrid Module to be used in angular
+    agGrid.initialiseAgGridWithAngular1(angular);
 
     angular.module('App.Controllers', []);
 

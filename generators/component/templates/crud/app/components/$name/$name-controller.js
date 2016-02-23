@@ -19,8 +19,8 @@
        POSSIBILITY OF SUCH DAMAGE.
        */
  'use strict';
-
- agGrid.initialiseAgGridWithAngular1(angular);
+// TODO: TO BE CALLED only when CRUD module is required
+//  agGrid.initialiseAgGridWithAngular1(angular);
 
  angular.module('App.Controllers')
 
