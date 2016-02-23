@@ -1,162 +1,150 @@
-[
-  {
+[{
     "name": "view",
     "option": {
-      "required": [
-        "name"
-      ],
-      "optional": [
-        "menu"
-      ]
+        "required": [
+            "name"
+        ],
+        "optional": [
+            "menu"
+        ]
     },
     "named-templates": [
-      "app/components/$name/$name-controller.js",
-      "app/components/$name/$name.html",
-      "test/e2e/$nameSpec.js",
-      "test/unit/$name-controllerSpec.js"
+        "app/components/$name/$name-controller.js",
+        "app/components/$name/$name.html",
+        "test/e2e/$nameSpec.js",
+        "test/unit/$name-controllerSpec.js"
     ],
     "named-scripts": [
-      "components/$name/$name-controller.js"
+        "components/$name/$name-controller.js"
     ],
     "navigation": true
-  },
-  {
+}, {
     "name": "form",
     "option": {
-      "required": [
-        "target"
-      ],
-      "optional": [
-        "schema"
-      ]
+        "required": [
+            "target"
+        ],
+        "optional": [
+            "schema"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Form.html",
     "js-snippet": "app/components/$target/$name-FormController.js"
-  },
-  {
+}, {
     "name": "slider",
     "option": {
-      "required": [
-        "target"
-      ]
+        "required": [
+            "target"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Slider.html"
-  },
-  {
+}, {
     "name": "xeditable",
     "option": {
-      "required": [
-        "target"
-      ]
+        "required": [
+            "target"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Xeditable.html"
-  },
-  {
+}, {
     "name": "chart",
     "option": {
-      "required": [
-        "target",
-        "type"
-      ]
+        "required": [
+            "target",
+            "type"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Chart.html",
     "js-snippet": "app/components/$target/$name-ChartController.js",
     "types": [
-      "line",
-      "bar",
-      "doughnut",
-      "radar",
-      "pie",
-      "polar-area"
+        "line",
+        "bar",
+        "doughnut",
+        "radar",
+        "pie",
+        "polar-area"
     ]
-  },
-  {
+}, {
     "name": "accordion",
     "option": {
-      "required": [
-        "target"
-      ]
+        "required": [
+            "target"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Accordion.html",
     "js-snippet": "app/components/$target/$name-AccordionController.js"
-  },
-  {
+}, {
     "name": "collapse",
     "option": {
-      "required": [
-        "target"
-      ]
+        "required": [
+            "target"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Collapse.html"
-  },
-  {
+}, {
     "name": "datepicker",
     "option": {
-      "required": [
-        "target"
-      ]
+        "required": [
+            "target"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Datepicker.html",
     "js-snippet": "app/components/$target/$name-DatepickerController.js"
-  },
-  {
+}, {
     "name": "modal",
     "option": {
-      "required": [
-        "target"
-      ]
+        "required": [
+            "target"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Modal.html",
     "js-snippet": "app/components/$target/$name-ModalController.js"
-  },
-  {
+}, {
     "name": "tabs",
     "option": {
-      "required": [
-        "target"
-      ]
+        "required": [
+            "target"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Tabs.html",
     "js-snippet": "app/components/$target/$name-TabsController.js"
-  },
-  {
+}, {
     "name": "grid",
     "option": {
-      "required": [
-        "target"
-      ],
-      "optional": [
-        "rows"
-      ]
+        "required": [
+            "target"
+        ],
+        "optional": [
+            "rows"
+        ]
     },
     "html-snippet": "app/components/$target/$name-Grid.html",
     "js-snippet": "app/components/$target/$name-GridController.js"
-  },
-  {
+}, {
     "name": "crud",
     "option": {
-      "required": [
-        "name"
-      ],
-      "optional": [
-        "menu",
-        "schema",
-        "rows"
-      ]
+        "required": [
+            "name"
+        ],
+        "optional": [
+            "menu",
+            "schema",
+            "rows"
+        ]
     },
     "named-templates": [
-      "app/components/$name/$name-controller.js",
-      "app/components/$name/$name-modal-controller.js",
-      "app/components/$name/$name.html",
-      "app/components/$name/$nameModalForm.html",
-      "test/e2e/$nameSpec.js",
-      "test/unit/$name-controllerSpec.js"
+        "app/components/$name/$name-controller.js",
+        "app/components/$name/$name-modal-controller.js",
+        "app/components/$name/$name.html",
+        "app/components/$name/$nameModalForm.html",
+        "app/components/$name/actions-template.html",
+        "test/e2e/$nameSpec.js",
+        "test/unit/$name-controllerSpec.js"
     ],
     "named-scripts": [
-      "components/$name/$name-controller.js",
-      "components/$name/$name-modal-controller.js"
+        "components/$name/$name-controller.js",
+        "components/$name/$name-modal-controller.js"
     ],
     "navigation": true,
-    "api":true
-  }
-]
+    "api": true
+}]

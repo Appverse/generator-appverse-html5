@@ -1,14 +1,49 @@
 /* Import specific css here */
 @import "variables";
-
 @mixin box-shadow($shadow1, $shadow2:false) {
- $params: $shadow1;
-  @if $shadow2 
-    { $params: $shadow1, $shadow2; }
-  -webkit-box-shadow: $params;
-     -moz-box-shadow: $params;
-          box-shadow: $params;
+    $params: $shadow1;
+    @if $shadow2 {
+        $params: $shadow1, $shadow2;
+    }
+    -webkit-box-shadow: $params;
+    -moz-box-shadow: $params;
+    box-shadow: $params;
 }
-@import "theme"; 
-/* Import the theme */
+@import "theme";
 @import "bootstrap-theme";
+/* START ag-grid */
+.ag-root {
+    background: white !important;
+    border: 1px #DBDBDB solid !important;
+}
+.ag-header {
+    background: white !important;
+    border-bottom: 1px #DBDBDB solid !important;
+}
+.ag-header-row {
+    text-transform: uppercase;
+    color: #A6A6A6;
+    font-weight: bold;
+}
+.ag-header-cell {
+    padding: 10px;
+    border: none !important;
+    text-align: left !important;
+}
+.ag-row {
+    background: white !important;
+    border-bottom: 1px #DBDBDB solid !important;
+    &:hover {
+        background: darken(white, 5%) !important;
+    }
+}
+.ag-cell {
+    padding: 10px !important;
+    border: none !important;
+    p {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+/* END ag-grid */
