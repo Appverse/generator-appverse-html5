@@ -3,23 +3,22 @@ module.exports = {
     update: {
         src: ['app/index.html'],
         options:{
-            exclude: [
-                /lodash/,
-                /sockjs-client/,
-                /sifter/,
-                /json3/,
-                /microplugin/,
-                /selectize/,
-                /placeholders/,
-                /angular-highlightjs/,
-                /angular-cache/,
-                /angular-dynamic-locale/,
-                /angular-translate/,
-                /angular-translate-loader-static-files/,
-                /restangular/,
-                /stomp-websocket/
+            "exclude": [
+                "/lodash/",
+                "/sockjs-client/",
+                "/sifter/",
+                "/json3/",
+                "/microplugin/",
+                "/placeholders/",
+                "/angular-highlightjs/",
+                "/angular-cache/",
+                "/angular-dynamic-locale/",
+                "/angular-translate/",
+                "/angular-translate-loader-static-files/",
+                "/restangular/",
+                "/stomp-websocket/"
             ],
-            overrides: {
+            "overrides": {
                 "jquery": {
                     "main": [
                                 "dist/jquery.min.js"
@@ -42,7 +41,8 @@ module.exports = {
                 },
                 "angular-chart.js": {
                     "main": [
-                                "dist/angular-chart.min.js"
+                                "dist/angular-chart.min.js",
+                                "dist/angular-chart.css"
                     ]
                 },
                 "bootstrap-sass": {
@@ -57,7 +57,8 @@ module.exports = {
                 },
                 "ng-grid": {
                     "main": [
-                                "build/ng-grid.min.js"
+                                "build/ng-grid.min.js",
+                                "ng-grid.min.css"
                     ]
                 },
                 "angular-animate": {
@@ -72,12 +73,14 @@ module.exports = {
                 },
                 "angular-ui-select": {
                     "main": [
-                                "dist/select.min.js"
+                                "dist/select.min.js",
+                                "dist/select.min.css"
                     ]
                 },
                 "angularjs-slider": {
                     "main": [
-                                "dist/rzslider.min.js"
+                                "dist/rzslider.min.js",
+                                "dist/rzslider.min.css"
                     ]
                 },
                 "angular-resize": {
@@ -92,12 +95,23 @@ module.exports = {
                 },
                 "angular-loading-bar": {
                     "main": [
-                                "build/loading-bar.min.js"
+                                "build/loading-bar.min.js",
+                                "build/loading-bar.min.css"
                     ]
                 },
                 "angular-ripple": {
                     "main": [
                                 "angular-ripple.js"
+                            ]
+                },
+                "angular-xeditable": {
+                    "main": [
+                                "dist/css/xeditable.css"
+                            ]
+                },
+                "selectize": {
+                    "main": [
+                                "dist/css/selectize.css"
                             ]
                 },
                 "appverse-web-html5-core": {
