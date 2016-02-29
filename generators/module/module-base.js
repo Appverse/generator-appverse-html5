@@ -156,11 +156,25 @@ addAngularModule : function (moduleName) {
     var finalCode = escodegen.generate(configCode);
     this.fs.write(this.destinationPath('app/app.js'), finalCode);
 },
-
+/**
+ * Completes wiredep configuration using the added module
+ * @param {Object} wiredep - Module's wiredep configuration
+ * @param {String} fileName - Wiredep's main config file name
+ */
 addWiredepConfig: function(wiredep, fileName) {
     var target = fileName || 'config/wiredep.js';
     var file = require(this.destinationPath(target)); //parse file
     _.merge(file.update.options.overrides, wiredep.overrides);
+    console.log(file.update.options.exclude);
+    // Deletes the excludes of the new modules.
+    for (var key in wiredep.overrides) {
+        if (wiredep.overrides.hasOwnProperty(key)) {
+            var index = file.update.options.exclude.indexOf("/" + key + "/");
+            if (index > -1) {
+                file.update.options.exclude.splice(index, 1);
+            }
+        }
+    }
     Array.prototype.push.apply(file.update.options.exclude, wiredep.exlude);
     var serialized = modularize(file);
     this.fs.write(this.destinationPath(target), serialized);
@@ -172,8 +186,7 @@ module.exports = moduleGenerator;
 /**
 * Serialize object to module with beautify
 * @param  {Object} plain - Element
-*
-**/
+*/
 function modularize( plain ){
     return beautify( '\'use strict\'; \n module.exports = ' + util.inspect( plain,
             { depth : null }) + ';',
