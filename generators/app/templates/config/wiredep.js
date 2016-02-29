@@ -61,6 +61,11 @@ module.exports = {
                                 "ng-grid.min.css"
                     ]
                 },
+                "ag-grid": {
+                    "main": [
+                                "dist/ag-grid.min.js"
+                    ]
+                },
                 "angular-animate": {
                     "main": [
                                 "angular-animate.min.js"
@@ -106,7 +111,8 @@ module.exports = {
                 },
                 "angular-xeditable": {
                     "main": [
-                                "dist/css/xeditable.css"
+                                "dist/css/xeditable.css",
+                                "dist/js/xeditable.js"
                             ]
                 },
                 "selectize": {
