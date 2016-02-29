@@ -165,7 +165,6 @@ addWiredepConfig: function(wiredep, fileName) {
     var target = fileName || 'config/wiredep.js';
     var file = require(this.destinationPath(target)); //parse file
     _.merge(file.update.options.overrides, wiredep.overrides);
-    console.log(file.update.options.exclude);
     // Deletes the excludes of the new modules.
     for (var key in wiredep.overrides) {
         if (wiredep.overrides.hasOwnProperty(key)) {
