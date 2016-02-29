@@ -25,6 +25,8 @@ var esprima = require('esprima');
 var estraverse = require('estraverse');
 var escodegen = require('escodegen');
 var _ = require('lodash');
+var beautify = require('js-beautify').js_beautify;
+var util = require('util');
 var appverseHTML5Generator = require('../generator-base');
 
 var moduleGenerator = appverseHTML5Generator.extend({
@@ -157,12 +159,23 @@ addAngularModule : function (moduleName) {
 
 addWiredepConfig: function(wiredep, fileName) {
     var target = fileName || 'config/wiredep.js';
-    var file = require(this.destionationPath(target)); //parse file
-    _.merge(file.task.options.overrides, wiredep.overrides);
-    Array.prototype.push.apply(file.task.options.exclude, wiredep.exlude);
+    var file = require(this.destinationPath(target)); //parse file
+    _.merge(file.update.options.overrides, wiredep.overrides);
+    Array.prototype.push.apply(file.update.options.exclude, wiredep.exlude);
     var serialized = modularize(file);
     this.fs.write(this.destinationPath(target), serialized);
 }
 });
 
 module.exports = moduleGenerator;
+
+/**
+* Serialize object to module with beautify
+* @param  {Object} plain - Element
+*
+**/
+function modularize( plain ){
+    return beautify( '\'use strict\'; \n module.exports = ' + util.inspect( plain,
+            { depth : null }) + ';',
+            { indent_size : 2 });
+};

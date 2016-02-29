@@ -124,6 +124,9 @@ module.exports = moduleGenerator.extend({
         if (this.module.css) {
             this.addCSSToIndex(this.module.css);
         }
+        if (this.module.wiredep) {
+            this.addWiredepConfig(this.module.wiredep);
+        }
     },
     install: function() {
         if (this.newpackages) {

@@ -202,7 +202,7 @@ Array.prototype.unshiftIfNotExist = function (element, comparer) {
 };
 
 /**
-Serialize object to module with beautify
+* Serialize object to module with beautify
 * @param  {Object} plain - Element
 *
 **/
