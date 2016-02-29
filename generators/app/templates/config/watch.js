@@ -24,6 +24,9 @@ module.exports = {
     includeSource: {
         files: ['app/app.js', 'app/states/*.js', 'app/components/**/*.js'],
         tasks: ['includeSource']
+    },
+    wiredep: {
+        files: ['app/bower_components/'],
+        tasks: ['wiredep']
     }
-
 };
