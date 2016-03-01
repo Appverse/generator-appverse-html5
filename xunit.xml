@@ -1,0 +1,1952 @@
+<testsuite name="Mocha Tests" tests="36" failures="6" errors="6" skipped="0" timestamp="2016-03-01T12:45:30" time="3.307">
+<testcase classname="appverse-html5:generator when called with prompts (no modules - no builds)" name="should create files" time="0.001"/>
+<testcase classname="appverse-html5:generator when called with prompts (no modules - no builds)" name="should move templates files" time="0.001"/>
+<testcase classname="appverse-html5:generator when called with prompts (no modules - no builds)" name="should replace templates with application name" time="0.008"><failure message="app/index.html did not match '&amp;lt;body data-ng-app=&amp;quot;testApp&amp;quot;&amp;gt;'. Contained:
+
+&amp;lt;!doctype html&amp;gt;
+&amp;lt;!--[if lt IE 7]&amp;gt;      &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8 lt-ie7&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 7]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 8]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if gt IE 8]&amp;gt;&amp;lt;!--&amp;gt;
+&amp;lt;!--&amp;lt;html class=&amp;quot;no-js&amp;quot; manifest=&amp;quot;cache.manifest&amp;quot;&amp;gt;--&amp;gt;
+&amp;lt;html class=&amp;quot;no-js&amp;quot; ng-app=&amp;quot;testApp&amp;quot;&amp;gt;
+&amp;lt;!--&amp;lt;![endif]--&amp;gt;
+
+&amp;lt;head&amp;gt;
+    &amp;lt;title data-ng-bind=&amp;quot;'test - ' + $state.current.name&amp;quot;&amp;gt;&amp;lt;/title&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;description&amp;quot; content=&amp;quot;&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1, maximum-scale=1&amp;quot;&amp;gt;
+    &amp;lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&amp;gt;
+
+    &amp;lt;!-- build:css styles/css/vendor.css --&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-xeditable/dist/css/xeditable.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-ui-select/dist/select.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/selectize/dist/css/selectize.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.css&amp;quot; media=&amp;quot;all&amp;quot;&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;css&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= css %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;!--Include the module with the app scope--&amp;gt;
+
+&amp;lt;body&amp;gt;
+    &amp;lt;!--[if lt IE 7]&amp;gt;
+      &amp;lt;p class=&amp;quot;browsehappy&amp;quot;&amp;gt;You are using an &amp;lt;strong&amp;gt;outdated&amp;lt;/strong&amp;gt; browser. Please &amp;lt;a href=&amp;quot;http://browsehappy.com/&amp;quot;&amp;gt;upgrade your browser&amp;lt;/a&amp;gt; to improve your experience.&amp;lt;/p&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!--[if lt IE 10]&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-shim.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-sham.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/json3/lib/json3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/placeholders/dist/placeholders.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&amp;gt;
+    &amp;lt;nav class=&amp;quot;navbar navbar-default navbar-fixed-top&amp;quot;&amp;gt;
+        &amp;lt;div class=&amp;quot;navbar-header&amp;quot;&amp;gt;
+            &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;navbar-toggle&amp;quot; data-toggle=&amp;quot;collapse&amp;quot; data-target=&amp;quot;#main-navbar-collapse&amp;quot;&amp;gt;
+                &amp;lt;span class=&amp;quot;sr-only&amp;quot;&amp;gt;Toggle navigation&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+            &amp;lt;/button&amp;gt;
+            &amp;lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&amp;gt;
+            &amp;lt;a class=&amp;quot;navbar-brand&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div class=&amp;quot;collapse navbar-collapse&amp;quot; id=&amp;quot;main-navbar-collapse&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;nav navbar-nav&amp;quot;&amp;gt;
+                &amp;lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/nav&amp;gt;
+    &amp;lt;div id=&amp;quot;wrapper&amp;quot; class=&amp;quot;container-fluid mainview toggled&amp;quot;&amp;gt;
+        &amp;lt;!-- Sidebar --&amp;gt;
+        &amp;lt;div id=&amp;quot;sidebar-wrapper&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;sidebar-nav&amp;quot;&amp;gt;
+                &amp;lt;li class=&amp;quot;sidebar-brand&amp;quot;&amp;gt;
+                    &amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;
+                        &amp;lt;span class=&amp;quot;text&amp;quot;&amp;gt;Sidebar Title&amp;lt;/span&amp;gt;
+                    &amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+            &amp;lt;a href=&amp;quot;#menu-toggle&amp;quot; angular-ripple=&amp;quot;&amp;quot; class=&amp;quot;btn btn-primary menu-toggle&amp;quot; id=&amp;quot;menu-toggle&amp;quot;&amp;gt;
+                &amp;lt;i class=&amp;quot;glyphicon glyphicon-triangle-left&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+            &amp;lt;/a&amp;gt;
+
+            &amp;lt;/div&amp;gt;
+        &amp;lt;!-- /#sidebar-wrapper --&amp;gt;
+        &amp;lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&amp;gt;
+        &amp;lt;div ui-view=&amp;quot;&amp;quot; class=&amp;quot;fade-in&amp;quot; autoscroll=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+
+    &amp;lt;!-- build:js scripts/scripts.js --&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/jquery/dist/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular/angular.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-touch/angular-touch.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/ag-grid/dist/ag-grid.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-animate/angular-animate.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-xeditable/dist/js/xeditable.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ripple/angular-ripple.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-select/dist/select.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-resize/dist/angular-resize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-sanitize/angular-sanitize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/Chart.js/Chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-material-icons/angular-material-icons.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;js&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= scripts %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;"><![CDATA[AssertionError: app/index.html did not match '&lt;body data-ng-app=&quot;testApp&quot;&gt;'. Contained:
+
+&lt;!doctype html&gt;
+&lt;!--[if lt IE 7]&gt;      &lt;html class=&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 7]&gt;         &lt;html class=&quot;no-js lt-ie9 lt-ie8&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 8]&gt;         &lt;html class=&quot;no-js lt-ie9&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+&lt;!--&lt;html class=&quot;no-js&quot; manifest=&quot;cache.manifest&quot;&gt;--&gt;
+&lt;html class=&quot;no-js&quot; ng-app=&quot;testApp&quot;&gt;
+&lt;!--&lt;![endif]--&gt;
+
+&lt;head&gt;
+    &lt;title data-ng-bind=&quot;'test - ' + $state.current.name&quot;&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;
+    &lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&gt;
+
+    &lt;!-- build:css styles/css/vendor.css --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-xeditable/dist/css/xeditable.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-ui-select/dist/select.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angularjs-slider/dist/rzslider.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/selectize/dist/css/selectize.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-chart.js/dist/angular-chart.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-loading-bar/build/loading-bar.min.css&quot; media=&quot;all&quot;&gt;
+    &lt;!-- endbuild --&gt;
+
+
+    &lt;!-- include: &quot;type&quot;: &quot;css&quot;, &quot;files&quot;: &quot;&lt;%= css %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/head&gt;
+
+&lt;!--Include the module with the app scope--&gt;
+
+&lt;body&gt;
+    &lt;!--[if lt IE 7]&gt;
+      &lt;p class=&quot;browsehappy&quot;&gt;You are using an &lt;strong&gt;outdated&lt;/strong&gt; browser. Please &lt;a href=&quot;http://browsehappy.com/&quot;&gt;upgrade your browser&lt;/a&gt; to improve your experience.&lt;/p&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!--[if lt IE 10]&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-shim.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-sham.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/json3/lib/json3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/placeholders/dist/placeholders.min.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&gt;
+    &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#main-navbar-collapse&quot;&gt;
+                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&gt;
+            &lt;a class=&quot;navbar-brand&quot; ui-sref=&quot;home&quot;&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;main-navbar-collapse&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;div id=&quot;wrapper&quot; class=&quot;container-fluid mainview toggled&quot;&gt;
+        &lt;!-- Sidebar --&gt;
+        &lt;div id=&quot;sidebar-wrapper&quot;&gt;
+            &lt;ul class=&quot;sidebar-nav&quot;&gt;
+                &lt;li class=&quot;sidebar-brand&quot;&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                        &lt;span class=&quot;text&quot;&gt;Sidebar Title&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;a href=&quot;#menu-toggle&quot; angular-ripple=&quot;&quot; class=&quot;btn btn-primary menu-toggle&quot; id=&quot;menu-toggle&quot;&gt;
+                &lt;i class=&quot;glyphicon glyphicon-triangle-left&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+
+            &lt;/div&gt;
+        &lt;!-- /#sidebar-wrapper --&gt;
+        &lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&gt;
+        &lt;div ui-view=&quot;&quot; class=&quot;fade-in&quot; autoscroll=&quot;false&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;!-- build:js scripts/scripts.js --&gt;
+    &lt;script src=&quot;bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-touch/angular-touch.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/ag-grid/dist/ag-grid.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-animate/angular-animate.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-xeditable/dist/js/xeditable.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ripple/angular-ripple.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-select/dist/select.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angularjs-slider/dist/rzslider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-resize/dist/angular-resize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-sanitize/angular-sanitize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/Chart.js/Chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-chart.js/dist/angular-chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-material-icons/angular-material-icons.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-loading-bar/build/loading-bar.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- endbuild --&gt;
+
+    &lt;!-- include: &quot;type&quot;: &quot;js&quot;, &quot;files&quot;: &quot;&lt;%= scripts %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+    at Array.forEach (native)
+    at Context.&lt;anonymous&gt; (C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:65:20)]]></failure></testcase>
+<testcase classname="appverse-html5:generator when called with prompts (no modules - no builds)" name="should add sctipts to index.html" time="0.003"><failure message="app/index.html did not match 'app.js'. Contained:
+
+&amp;lt;!doctype html&amp;gt;
+&amp;lt;!--[if lt IE 7]&amp;gt;      &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8 lt-ie7&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 7]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 8]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if gt IE 8]&amp;gt;&amp;lt;!--&amp;gt;
+&amp;lt;!--&amp;lt;html class=&amp;quot;no-js&amp;quot; manifest=&amp;quot;cache.manifest&amp;quot;&amp;gt;--&amp;gt;
+&amp;lt;html class=&amp;quot;no-js&amp;quot; ng-app=&amp;quot;testApp&amp;quot;&amp;gt;
+&amp;lt;!--&amp;lt;![endif]--&amp;gt;
+
+&amp;lt;head&amp;gt;
+    &amp;lt;title data-ng-bind=&amp;quot;'test - ' + $state.current.name&amp;quot;&amp;gt;&amp;lt;/title&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;description&amp;quot; content=&amp;quot;&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1, maximum-scale=1&amp;quot;&amp;gt;
+    &amp;lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&amp;gt;
+
+    &amp;lt;!-- build:css styles/css/vendor.css --&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-xeditable/dist/css/xeditable.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-ui-select/dist/select.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/selectize/dist/css/selectize.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.css&amp;quot; media=&amp;quot;all&amp;quot;&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;css&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= css %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;!--Include the module with the app scope--&amp;gt;
+
+&amp;lt;body&amp;gt;
+    &amp;lt;!--[if lt IE 7]&amp;gt;
+      &amp;lt;p class=&amp;quot;browsehappy&amp;quot;&amp;gt;You are using an &amp;lt;strong&amp;gt;outdated&amp;lt;/strong&amp;gt; browser. Please &amp;lt;a href=&amp;quot;http://browsehappy.com/&amp;quot;&amp;gt;upgrade your browser&amp;lt;/a&amp;gt; to improve your experience.&amp;lt;/p&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!--[if lt IE 10]&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-shim.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-sham.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/json3/lib/json3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/placeholders/dist/placeholders.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&amp;gt;
+    &amp;lt;nav class=&amp;quot;navbar navbar-default navbar-fixed-top&amp;quot;&amp;gt;
+        &amp;lt;div class=&amp;quot;navbar-header&amp;quot;&amp;gt;
+            &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;navbar-toggle&amp;quot; data-toggle=&amp;quot;collapse&amp;quot; data-target=&amp;quot;#main-navbar-collapse&amp;quot;&amp;gt;
+                &amp;lt;span class=&amp;quot;sr-only&amp;quot;&amp;gt;Toggle navigation&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+            &amp;lt;/button&amp;gt;
+            &amp;lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&amp;gt;
+            &amp;lt;a class=&amp;quot;navbar-brand&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div class=&amp;quot;collapse navbar-collapse&amp;quot; id=&amp;quot;main-navbar-collapse&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;nav navbar-nav&amp;quot;&amp;gt;
+                &amp;lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/nav&amp;gt;
+    &amp;lt;div id=&amp;quot;wrapper&amp;quot; class=&amp;quot;container-fluid mainview toggled&amp;quot;&amp;gt;
+        &amp;lt;!-- Sidebar --&amp;gt;
+        &amp;lt;div id=&amp;quot;sidebar-wrapper&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;sidebar-nav&amp;quot;&amp;gt;
+                &amp;lt;li class=&amp;quot;sidebar-brand&amp;quot;&amp;gt;
+                    &amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;
+                        &amp;lt;span class=&amp;quot;text&amp;quot;&amp;gt;Sidebar Title&amp;lt;/span&amp;gt;
+                    &amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+            &amp;lt;a href=&amp;quot;#menu-toggle&amp;quot; angular-ripple=&amp;quot;&amp;quot; class=&amp;quot;btn btn-primary menu-toggle&amp;quot; id=&amp;quot;menu-toggle&amp;quot;&amp;gt;
+                &amp;lt;i class=&amp;quot;glyphicon glyphicon-triangle-left&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+            &amp;lt;/a&amp;gt;
+
+            &amp;lt;/div&amp;gt;
+        &amp;lt;!-- /#sidebar-wrapper --&amp;gt;
+        &amp;lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&amp;gt;
+        &amp;lt;div ui-view=&amp;quot;&amp;quot; class=&amp;quot;fade-in&amp;quot; autoscroll=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+
+    &amp;lt;!-- build:js scripts/scripts.js --&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/jquery/dist/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular/angular.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-touch/angular-touch.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/ag-grid/dist/ag-grid.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-animate/angular-animate.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-xeditable/dist/js/xeditable.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ripple/angular-ripple.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-select/dist/select.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-resize/dist/angular-resize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-sanitize/angular-sanitize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/Chart.js/Chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-material-icons/angular-material-icons.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;js&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= scripts %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;"><![CDATA[AssertionError: app/index.html did not match 'app.js'. Contained:
+
+&lt;!doctype html&gt;
+&lt;!--[if lt IE 7]&gt;      &lt;html class=&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 7]&gt;         &lt;html class=&quot;no-js lt-ie9 lt-ie8&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 8]&gt;         &lt;html class=&quot;no-js lt-ie9&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+&lt;!--&lt;html class=&quot;no-js&quot; manifest=&quot;cache.manifest&quot;&gt;--&gt;
+&lt;html class=&quot;no-js&quot; ng-app=&quot;testApp&quot;&gt;
+&lt;!--&lt;![endif]--&gt;
+
+&lt;head&gt;
+    &lt;title data-ng-bind=&quot;'test - ' + $state.current.name&quot;&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;
+    &lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&gt;
+
+    &lt;!-- build:css styles/css/vendor.css --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-xeditable/dist/css/xeditable.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-ui-select/dist/select.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angularjs-slider/dist/rzslider.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/selectize/dist/css/selectize.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-chart.js/dist/angular-chart.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-loading-bar/build/loading-bar.min.css&quot; media=&quot;all&quot;&gt;
+    &lt;!-- endbuild --&gt;
+
+
+    &lt;!-- include: &quot;type&quot;: &quot;css&quot;, &quot;files&quot;: &quot;&lt;%= css %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/head&gt;
+
+&lt;!--Include the module with the app scope--&gt;
+
+&lt;body&gt;
+    &lt;!--[if lt IE 7]&gt;
+      &lt;p class=&quot;browsehappy&quot;&gt;You are using an &lt;strong&gt;outdated&lt;/strong&gt; browser. Please &lt;a href=&quot;http://browsehappy.com/&quot;&gt;upgrade your browser&lt;/a&gt; to improve your experience.&lt;/p&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!--[if lt IE 10]&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-shim.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-sham.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/json3/lib/json3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/placeholders/dist/placeholders.min.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&gt;
+    &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#main-navbar-collapse&quot;&gt;
+                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&gt;
+            &lt;a class=&quot;navbar-brand&quot; ui-sref=&quot;home&quot;&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;main-navbar-collapse&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;div id=&quot;wrapper&quot; class=&quot;container-fluid mainview toggled&quot;&gt;
+        &lt;!-- Sidebar --&gt;
+        &lt;div id=&quot;sidebar-wrapper&quot;&gt;
+            &lt;ul class=&quot;sidebar-nav&quot;&gt;
+                &lt;li class=&quot;sidebar-brand&quot;&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                        &lt;span class=&quot;text&quot;&gt;Sidebar Title&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;a href=&quot;#menu-toggle&quot; angular-ripple=&quot;&quot; class=&quot;btn btn-primary menu-toggle&quot; id=&quot;menu-toggle&quot;&gt;
+                &lt;i class=&quot;glyphicon glyphicon-triangle-left&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+
+            &lt;/div&gt;
+        &lt;!-- /#sidebar-wrapper --&gt;
+        &lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&gt;
+        &lt;div ui-view=&quot;&quot; class=&quot;fade-in&quot; autoscroll=&quot;false&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;!-- build:js scripts/scripts.js --&gt;
+    &lt;script src=&quot;bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-touch/angular-touch.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/ag-grid/dist/ag-grid.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-animate/angular-animate.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-xeditable/dist/js/xeditable.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ripple/angular-ripple.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-select/dist/select.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angularjs-slider/dist/rzslider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-resize/dist/angular-resize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-sanitize/angular-sanitize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/Chart.js/Chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-chart.js/dist/angular-chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-material-icons/angular-material-icons.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-loading-bar/build/loading-bar.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- endbuild --&gt;
+
+    &lt;!-- include: &quot;type&quot;: &quot;js&quot;, &quot;files&quot;: &quot;&lt;%= scripts %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+    at Array.forEach (native)
+    at C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:73:24
+    at Array.forEach (native)
+    at Context.&lt;anonymous&gt; (C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:72:31)]]></failure></testcase>
+<testcase classname="appverse-html5:generator when called with argument name" name="should create files" time="0.003"/>
+<testcase classname="appverse-html5:generator when called with argument name" name="should move templates files" time="0.001"/>
+<testcase classname="appverse-html5:generator when called with argument name" name="should replace templates with application name" time="0.009"><failure message="app/index.html did not match '&amp;lt;body data-ng-app=&amp;quot;testApp&amp;quot;&amp;gt;'. Contained:
+
+&amp;lt;!doctype html&amp;gt;
+&amp;lt;!--[if lt IE 7]&amp;gt;      &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8 lt-ie7&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 7]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 8]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if gt IE 8]&amp;gt;&amp;lt;!--&amp;gt;
+&amp;lt;!--&amp;lt;html class=&amp;quot;no-js&amp;quot; manifest=&amp;quot;cache.manifest&amp;quot;&amp;gt;--&amp;gt;
+&amp;lt;html class=&amp;quot;no-js&amp;quot; ng-app=&amp;quot;testApp&amp;quot;&amp;gt;
+&amp;lt;!--&amp;lt;![endif]--&amp;gt;
+
+&amp;lt;head&amp;gt;
+    &amp;lt;title data-ng-bind=&amp;quot;'test - ' + $state.current.name&amp;quot;&amp;gt;&amp;lt;/title&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;description&amp;quot; content=&amp;quot;&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1, maximum-scale=1&amp;quot;&amp;gt;
+    &amp;lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&amp;gt;
+
+    &amp;lt;!-- build:css styles/css/vendor.css --&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-xeditable/dist/css/xeditable.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-ui-select/dist/select.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/selectize/dist/css/selectize.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.css&amp;quot; media=&amp;quot;all&amp;quot;&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;css&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= css %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;!--Include the module with the app scope--&amp;gt;
+
+&amp;lt;body&amp;gt;
+    &amp;lt;!--[if lt IE 7]&amp;gt;
+      &amp;lt;p class=&amp;quot;browsehappy&amp;quot;&amp;gt;You are using an &amp;lt;strong&amp;gt;outdated&amp;lt;/strong&amp;gt; browser. Please &amp;lt;a href=&amp;quot;http://browsehappy.com/&amp;quot;&amp;gt;upgrade your browser&amp;lt;/a&amp;gt; to improve your experience.&amp;lt;/p&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!--[if lt IE 10]&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-shim.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-sham.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/json3/lib/json3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/placeholders/dist/placeholders.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&amp;gt;
+    &amp;lt;nav class=&amp;quot;navbar navbar-default navbar-fixed-top&amp;quot;&amp;gt;
+        &amp;lt;div class=&amp;quot;navbar-header&amp;quot;&amp;gt;
+            &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;navbar-toggle&amp;quot; data-toggle=&amp;quot;collapse&amp;quot; data-target=&amp;quot;#main-navbar-collapse&amp;quot;&amp;gt;
+                &amp;lt;span class=&amp;quot;sr-only&amp;quot;&amp;gt;Toggle navigation&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+            &amp;lt;/button&amp;gt;
+            &amp;lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&amp;gt;
+            &amp;lt;a class=&amp;quot;navbar-brand&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div class=&amp;quot;collapse navbar-collapse&amp;quot; id=&amp;quot;main-navbar-collapse&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;nav navbar-nav&amp;quot;&amp;gt;
+                &amp;lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/nav&amp;gt;
+    &amp;lt;div id=&amp;quot;wrapper&amp;quot; class=&amp;quot;container-fluid mainview toggled&amp;quot;&amp;gt;
+        &amp;lt;!-- Sidebar --&amp;gt;
+        &amp;lt;div id=&amp;quot;sidebar-wrapper&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;sidebar-nav&amp;quot;&amp;gt;
+                &amp;lt;li class=&amp;quot;sidebar-brand&amp;quot;&amp;gt;
+                    &amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;
+                        &amp;lt;span class=&amp;quot;text&amp;quot;&amp;gt;Sidebar Title&amp;lt;/span&amp;gt;
+                    &amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+            &amp;lt;a href=&amp;quot;#menu-toggle&amp;quot; angular-ripple=&amp;quot;&amp;quot; class=&amp;quot;btn btn-primary menu-toggle&amp;quot; id=&amp;quot;menu-toggle&amp;quot;&amp;gt;
+                &amp;lt;i class=&amp;quot;glyphicon glyphicon-triangle-left&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+            &amp;lt;/a&amp;gt;
+
+            &amp;lt;/div&amp;gt;
+        &amp;lt;!-- /#sidebar-wrapper --&amp;gt;
+        &amp;lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&amp;gt;
+        &amp;lt;div ui-view=&amp;quot;&amp;quot; class=&amp;quot;fade-in&amp;quot; autoscroll=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+
+    &amp;lt;!-- build:js scripts/scripts.js --&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/jquery/dist/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular/angular.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-touch/angular-touch.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/ag-grid/dist/ag-grid.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-animate/angular-animate.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-xeditable/dist/js/xeditable.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ripple/angular-ripple.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-select/dist/select.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-resize/dist/angular-resize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-sanitize/angular-sanitize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/Chart.js/Chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-material-icons/angular-material-icons.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;js&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= scripts %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;"><![CDATA[AssertionError: app/index.html did not match '&lt;body data-ng-app=&quot;testApp&quot;&gt;'. Contained:
+
+&lt;!doctype html&gt;
+&lt;!--[if lt IE 7]&gt;      &lt;html class=&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 7]&gt;         &lt;html class=&quot;no-js lt-ie9 lt-ie8&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 8]&gt;         &lt;html class=&quot;no-js lt-ie9&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+&lt;!--&lt;html class=&quot;no-js&quot; manifest=&quot;cache.manifest&quot;&gt;--&gt;
+&lt;html class=&quot;no-js&quot; ng-app=&quot;testApp&quot;&gt;
+&lt;!--&lt;![endif]--&gt;
+
+&lt;head&gt;
+    &lt;title data-ng-bind=&quot;'test - ' + $state.current.name&quot;&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;
+    &lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&gt;
+
+    &lt;!-- build:css styles/css/vendor.css --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-xeditable/dist/css/xeditable.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-ui-select/dist/select.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angularjs-slider/dist/rzslider.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/selectize/dist/css/selectize.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-chart.js/dist/angular-chart.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-loading-bar/build/loading-bar.min.css&quot; media=&quot;all&quot;&gt;
+    &lt;!-- endbuild --&gt;
+
+
+    &lt;!-- include: &quot;type&quot;: &quot;css&quot;, &quot;files&quot;: &quot;&lt;%= css %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/head&gt;
+
+&lt;!--Include the module with the app scope--&gt;
+
+&lt;body&gt;
+    &lt;!--[if lt IE 7]&gt;
+      &lt;p class=&quot;browsehappy&quot;&gt;You are using an &lt;strong&gt;outdated&lt;/strong&gt; browser. Please &lt;a href=&quot;http://browsehappy.com/&quot;&gt;upgrade your browser&lt;/a&gt; to improve your experience.&lt;/p&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!--[if lt IE 10]&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-shim.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-sham.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/json3/lib/json3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/placeholders/dist/placeholders.min.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&gt;
+    &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#main-navbar-collapse&quot;&gt;
+                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&gt;
+            &lt;a class=&quot;navbar-brand&quot; ui-sref=&quot;home&quot;&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;main-navbar-collapse&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;div id=&quot;wrapper&quot; class=&quot;container-fluid mainview toggled&quot;&gt;
+        &lt;!-- Sidebar --&gt;
+        &lt;div id=&quot;sidebar-wrapper&quot;&gt;
+            &lt;ul class=&quot;sidebar-nav&quot;&gt;
+                &lt;li class=&quot;sidebar-brand&quot;&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                        &lt;span class=&quot;text&quot;&gt;Sidebar Title&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;a href=&quot;#menu-toggle&quot; angular-ripple=&quot;&quot; class=&quot;btn btn-primary menu-toggle&quot; id=&quot;menu-toggle&quot;&gt;
+                &lt;i class=&quot;glyphicon glyphicon-triangle-left&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+
+            &lt;/div&gt;
+        &lt;!-- /#sidebar-wrapper --&gt;
+        &lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&gt;
+        &lt;div ui-view=&quot;&quot; class=&quot;fade-in&quot; autoscroll=&quot;false&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;!-- build:js scripts/scripts.js --&gt;
+    &lt;script src=&quot;bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-touch/angular-touch.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/ag-grid/dist/ag-grid.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-animate/angular-animate.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-xeditable/dist/js/xeditable.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ripple/angular-ripple.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-select/dist/select.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angularjs-slider/dist/rzslider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-resize/dist/angular-resize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-sanitize/angular-sanitize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/Chart.js/Chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-chart.js/dist/angular-chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-material-icons/angular-material-icons.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-loading-bar/build/loading-bar.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- endbuild --&gt;
+
+    &lt;!-- include: &quot;type&quot;: &quot;js&quot;, &quot;files&quot;: &quot;&lt;%= scripts %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+    at Array.forEach (native)
+    at Context.&lt;anonymous&gt; (C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:103:20)]]></failure></testcase>
+<testcase classname="appverse-html5:generator when called with argument name" name="should add sctipts to index.html" time="0.004"><failure message="app/index.html did not match 'app.js'. Contained:
+
+&amp;lt;!doctype html&amp;gt;
+&amp;lt;!--[if lt IE 7]&amp;gt;      &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8 lt-ie7&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 7]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 8]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if gt IE 8]&amp;gt;&amp;lt;!--&amp;gt;
+&amp;lt;!--&amp;lt;html class=&amp;quot;no-js&amp;quot; manifest=&amp;quot;cache.manifest&amp;quot;&amp;gt;--&amp;gt;
+&amp;lt;html class=&amp;quot;no-js&amp;quot; ng-app=&amp;quot;testApp&amp;quot;&amp;gt;
+&amp;lt;!--&amp;lt;![endif]--&amp;gt;
+
+&amp;lt;head&amp;gt;
+    &amp;lt;title data-ng-bind=&amp;quot;'test - ' + $state.current.name&amp;quot;&amp;gt;&amp;lt;/title&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;description&amp;quot; content=&amp;quot;&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1, maximum-scale=1&amp;quot;&amp;gt;
+    &amp;lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&amp;gt;
+
+    &amp;lt;!-- build:css styles/css/vendor.css --&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-xeditable/dist/css/xeditable.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-ui-select/dist/select.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/selectize/dist/css/selectize.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.css&amp;quot; media=&amp;quot;all&amp;quot;&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;css&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= css %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;!--Include the module with the app scope--&amp;gt;
+
+&amp;lt;body&amp;gt;
+    &amp;lt;!--[if lt IE 7]&amp;gt;
+      &amp;lt;p class=&amp;quot;browsehappy&amp;quot;&amp;gt;You are using an &amp;lt;strong&amp;gt;outdated&amp;lt;/strong&amp;gt; browser. Please &amp;lt;a href=&amp;quot;http://browsehappy.com/&amp;quot;&amp;gt;upgrade your browser&amp;lt;/a&amp;gt; to improve your experience.&amp;lt;/p&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!--[if lt IE 10]&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-shim.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-sham.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/json3/lib/json3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/placeholders/dist/placeholders.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&amp;gt;
+    &amp;lt;nav class=&amp;quot;navbar navbar-default navbar-fixed-top&amp;quot;&amp;gt;
+        &amp;lt;div class=&amp;quot;navbar-header&amp;quot;&amp;gt;
+            &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;navbar-toggle&amp;quot; data-toggle=&amp;quot;collapse&amp;quot; data-target=&amp;quot;#main-navbar-collapse&amp;quot;&amp;gt;
+                &amp;lt;span class=&amp;quot;sr-only&amp;quot;&amp;gt;Toggle navigation&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+            &amp;lt;/button&amp;gt;
+            &amp;lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&amp;gt;
+            &amp;lt;a class=&amp;quot;navbar-brand&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div class=&amp;quot;collapse navbar-collapse&amp;quot; id=&amp;quot;main-navbar-collapse&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;nav navbar-nav&amp;quot;&amp;gt;
+                &amp;lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/nav&amp;gt;
+    &amp;lt;div id=&amp;quot;wrapper&amp;quot; class=&amp;quot;container-fluid mainview toggled&amp;quot;&amp;gt;
+        &amp;lt;!-- Sidebar --&amp;gt;
+        &amp;lt;div id=&amp;quot;sidebar-wrapper&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;sidebar-nav&amp;quot;&amp;gt;
+                &amp;lt;li class=&amp;quot;sidebar-brand&amp;quot;&amp;gt;
+                    &amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;
+                        &amp;lt;span class=&amp;quot;text&amp;quot;&amp;gt;Sidebar Title&amp;lt;/span&amp;gt;
+                    &amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+            &amp;lt;a href=&amp;quot;#menu-toggle&amp;quot; angular-ripple=&amp;quot;&amp;quot; class=&amp;quot;btn btn-primary menu-toggle&amp;quot; id=&amp;quot;menu-toggle&amp;quot;&amp;gt;
+                &amp;lt;i class=&amp;quot;glyphicon glyphicon-triangle-left&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+            &amp;lt;/a&amp;gt;
+
+            &amp;lt;/div&amp;gt;
+        &amp;lt;!-- /#sidebar-wrapper --&amp;gt;
+        &amp;lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&amp;gt;
+        &amp;lt;div ui-view=&amp;quot;&amp;quot; class=&amp;quot;fade-in&amp;quot; autoscroll=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+
+    &amp;lt;!-- build:js scripts/scripts.js --&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/jquery/dist/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular/angular.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-touch/angular-touch.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/ag-grid/dist/ag-grid.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-animate/angular-animate.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-xeditable/dist/js/xeditable.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ripple/angular-ripple.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-select/dist/select.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-resize/dist/angular-resize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-sanitize/angular-sanitize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/Chart.js/Chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-material-icons/angular-material-icons.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;js&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= scripts %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;"><![CDATA[AssertionError: app/index.html did not match 'app.js'. Contained:
+
+&lt;!doctype html&gt;
+&lt;!--[if lt IE 7]&gt;      &lt;html class=&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 7]&gt;         &lt;html class=&quot;no-js lt-ie9 lt-ie8&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 8]&gt;         &lt;html class=&quot;no-js lt-ie9&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+&lt;!--&lt;html class=&quot;no-js&quot; manifest=&quot;cache.manifest&quot;&gt;--&gt;
+&lt;html class=&quot;no-js&quot; ng-app=&quot;testApp&quot;&gt;
+&lt;!--&lt;![endif]--&gt;
+
+&lt;head&gt;
+    &lt;title data-ng-bind=&quot;'test - ' + $state.current.name&quot;&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;
+    &lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&gt;
+
+    &lt;!-- build:css styles/css/vendor.css --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-xeditable/dist/css/xeditable.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-ui-select/dist/select.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angularjs-slider/dist/rzslider.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/selectize/dist/css/selectize.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-chart.js/dist/angular-chart.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-loading-bar/build/loading-bar.min.css&quot; media=&quot;all&quot;&gt;
+    &lt;!-- endbuild --&gt;
+
+
+    &lt;!-- include: &quot;type&quot;: &quot;css&quot;, &quot;files&quot;: &quot;&lt;%= css %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/head&gt;
+
+&lt;!--Include the module with the app scope--&gt;
+
+&lt;body&gt;
+    &lt;!--[if lt IE 7]&gt;
+      &lt;p class=&quot;browsehappy&quot;&gt;You are using an &lt;strong&gt;outdated&lt;/strong&gt; browser. Please &lt;a href=&quot;http://browsehappy.com/&quot;&gt;upgrade your browser&lt;/a&gt; to improve your experience.&lt;/p&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!--[if lt IE 10]&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-shim.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-sham.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/json3/lib/json3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/placeholders/dist/placeholders.min.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&gt;
+    &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#main-navbar-collapse&quot;&gt;
+                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&gt;
+            &lt;a class=&quot;navbar-brand&quot; ui-sref=&quot;home&quot;&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;main-navbar-collapse&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;div id=&quot;wrapper&quot; class=&quot;container-fluid mainview toggled&quot;&gt;
+        &lt;!-- Sidebar --&gt;
+        &lt;div id=&quot;sidebar-wrapper&quot;&gt;
+            &lt;ul class=&quot;sidebar-nav&quot;&gt;
+                &lt;li class=&quot;sidebar-brand&quot;&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                        &lt;span class=&quot;text&quot;&gt;Sidebar Title&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;a href=&quot;#menu-toggle&quot; angular-ripple=&quot;&quot; class=&quot;btn btn-primary menu-toggle&quot; id=&quot;menu-toggle&quot;&gt;
+                &lt;i class=&quot;glyphicon glyphicon-triangle-left&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+
+            &lt;/div&gt;
+        &lt;!-- /#sidebar-wrapper --&gt;
+        &lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&gt;
+        &lt;div ui-view=&quot;&quot; class=&quot;fade-in&quot; autoscroll=&quot;false&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;!-- build:js scripts/scripts.js --&gt;
+    &lt;script src=&quot;bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-touch/angular-touch.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/ag-grid/dist/ag-grid.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-animate/angular-animate.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-xeditable/dist/js/xeditable.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ripple/angular-ripple.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-select/dist/select.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angularjs-slider/dist/rzslider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-resize/dist/angular-resize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-sanitize/angular-sanitize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/Chart.js/Chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-chart.js/dist/angular-chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-material-icons/angular-material-icons.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-loading-bar/build/loading-bar.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- endbuild --&gt;
+
+    &lt;!-- include: &quot;type&quot;: &quot;js&quot;, &quot;files&quot;: &quot;&lt;%= scripts %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+    at Array.forEach (native)
+    at C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:111:24
+    at Array.forEach (native)
+    at Context.&lt;anonymous&gt; (C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:110:31)]]></failure></testcase>
+<testcase classname="appverse-html5:generator when called with project (json) argument name" name="should create files" time="0.001"/>
+<testcase classname="appverse-html5:generator when called with project (json) argument name" name="should move templates files" time="0"/>
+<testcase classname="appverse-html5:generator when called with project (json) argument name" name="should replace templates with application name" time="0.007"><failure message="app/index.html did not match '&amp;lt;body data-ng-app=&amp;quot;mytestprojectApp&amp;quot;&amp;gt;'. Contained:
+
+&amp;lt;!doctype html&amp;gt;
+&amp;lt;!--[if lt IE 7]&amp;gt;      &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8 lt-ie7&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 7]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 8]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if gt IE 8]&amp;gt;&amp;lt;!--&amp;gt;
+&amp;lt;!--&amp;lt;html class=&amp;quot;no-js&amp;quot; manifest=&amp;quot;cache.manifest&amp;quot;&amp;gt;--&amp;gt;
+&amp;lt;html class=&amp;quot;no-js&amp;quot; ng-app=&amp;quot;mytestprojectApp&amp;quot;&amp;gt;
+&amp;lt;!--&amp;lt;![endif]--&amp;gt;
+
+&amp;lt;head&amp;gt;
+    &amp;lt;title data-ng-bind=&amp;quot;'mytestproject - ' + $state.current.name&amp;quot;&amp;gt;&amp;lt;/title&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;description&amp;quot; content=&amp;quot;&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1, maximum-scale=1&amp;quot;&amp;gt;
+    &amp;lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&amp;gt;
+
+    &amp;lt;!-- build:css styles/css/vendor.css --&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-xeditable/dist/css/xeditable.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-ui-select/dist/select.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/selectize/dist/css/selectize.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.css&amp;quot; media=&amp;quot;all&amp;quot;&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;css&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= css %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;!--Include the module with the app scope--&amp;gt;
+
+&amp;lt;body&amp;gt;
+    &amp;lt;!--[if lt IE 7]&amp;gt;
+      &amp;lt;p class=&amp;quot;browsehappy&amp;quot;&amp;gt;You are using an &amp;lt;strong&amp;gt;outdated&amp;lt;/strong&amp;gt; browser. Please &amp;lt;a href=&amp;quot;http://browsehappy.com/&amp;quot;&amp;gt;upgrade your browser&amp;lt;/a&amp;gt; to improve your experience.&amp;lt;/p&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!--[if lt IE 10]&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-shim.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-sham.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/json3/lib/json3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/placeholders/dist/placeholders.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&amp;gt;
+    &amp;lt;nav class=&amp;quot;navbar navbar-default navbar-fixed-top&amp;quot;&amp;gt;
+        &amp;lt;div class=&amp;quot;navbar-header&amp;quot;&amp;gt;
+            &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;navbar-toggle&amp;quot; data-toggle=&amp;quot;collapse&amp;quot; data-target=&amp;quot;#main-navbar-collapse&amp;quot;&amp;gt;
+                &amp;lt;span class=&amp;quot;sr-only&amp;quot;&amp;gt;Toggle navigation&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+            &amp;lt;/button&amp;gt;
+            &amp;lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&amp;gt;
+            &amp;lt;a class=&amp;quot;navbar-brand&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div class=&amp;quot;collapse navbar-collapse&amp;quot; id=&amp;quot;main-navbar-collapse&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;nav navbar-nav&amp;quot;&amp;gt;
+                &amp;lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/nav&amp;gt;
+    &amp;lt;div id=&amp;quot;wrapper&amp;quot; class=&amp;quot;container-fluid mainview toggled&amp;quot;&amp;gt;
+        &amp;lt;!-- Sidebar --&amp;gt;
+        &amp;lt;div id=&amp;quot;sidebar-wrapper&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;sidebar-nav&amp;quot;&amp;gt;
+                &amp;lt;li class=&amp;quot;sidebar-brand&amp;quot;&amp;gt;
+                    &amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;
+                        &amp;lt;span class=&amp;quot;text&amp;quot;&amp;gt;Sidebar Title&amp;lt;/span&amp;gt;
+                    &amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+            &amp;lt;a href=&amp;quot;#menu-toggle&amp;quot; angular-ripple=&amp;quot;&amp;quot; class=&amp;quot;btn btn-primary menu-toggle&amp;quot; id=&amp;quot;menu-toggle&amp;quot;&amp;gt;
+                &amp;lt;i class=&amp;quot;glyphicon glyphicon-triangle-left&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+            &amp;lt;/a&amp;gt;
+
+            &amp;lt;/div&amp;gt;
+        &amp;lt;!-- /#sidebar-wrapper --&amp;gt;
+        &amp;lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&amp;gt;
+        &amp;lt;div ui-view=&amp;quot;&amp;quot; class=&amp;quot;fade-in&amp;quot; autoscroll=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+
+    &amp;lt;!-- build:js scripts/scripts.js --&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/jquery/dist/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular/angular.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-touch/angular-touch.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/ag-grid/dist/ag-grid.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-animate/angular-animate.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-xeditable/dist/js/xeditable.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ripple/angular-ripple.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-select/dist/select.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-resize/dist/angular-resize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-sanitize/angular-sanitize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/Chart.js/Chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-material-icons/angular-material-icons.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;js&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= scripts %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;"><![CDATA[AssertionError: app/index.html did not match '&lt;body data-ng-app=&quot;mytestprojectApp&quot;&gt;'. Contained:
+
+&lt;!doctype html&gt;
+&lt;!--[if lt IE 7]&gt;      &lt;html class=&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 7]&gt;         &lt;html class=&quot;no-js lt-ie9 lt-ie8&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 8]&gt;         &lt;html class=&quot;no-js lt-ie9&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+&lt;!--&lt;html class=&quot;no-js&quot; manifest=&quot;cache.manifest&quot;&gt;--&gt;
+&lt;html class=&quot;no-js&quot; ng-app=&quot;mytestprojectApp&quot;&gt;
+&lt;!--&lt;![endif]--&gt;
+
+&lt;head&gt;
+    &lt;title data-ng-bind=&quot;'mytestproject - ' + $state.current.name&quot;&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;
+    &lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&gt;
+
+    &lt;!-- build:css styles/css/vendor.css --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-xeditable/dist/css/xeditable.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-ui-select/dist/select.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angularjs-slider/dist/rzslider.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/selectize/dist/css/selectize.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-chart.js/dist/angular-chart.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-loading-bar/build/loading-bar.min.css&quot; media=&quot;all&quot;&gt;
+    &lt;!-- endbuild --&gt;
+
+
+    &lt;!-- include: &quot;type&quot;: &quot;css&quot;, &quot;files&quot;: &quot;&lt;%= css %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/head&gt;
+
+&lt;!--Include the module with the app scope--&gt;
+
+&lt;body&gt;
+    &lt;!--[if lt IE 7]&gt;
+      &lt;p class=&quot;browsehappy&quot;&gt;You are using an &lt;strong&gt;outdated&lt;/strong&gt; browser. Please &lt;a href=&quot;http://browsehappy.com/&quot;&gt;upgrade your browser&lt;/a&gt; to improve your experience.&lt;/p&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!--[if lt IE 10]&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-shim.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-sham.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/json3/lib/json3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/placeholders/dist/placeholders.min.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&gt;
+    &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#main-navbar-collapse&quot;&gt;
+                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&gt;
+            &lt;a class=&quot;navbar-brand&quot; ui-sref=&quot;home&quot;&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;main-navbar-collapse&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;div id=&quot;wrapper&quot; class=&quot;container-fluid mainview toggled&quot;&gt;
+        &lt;!-- Sidebar --&gt;
+        &lt;div id=&quot;sidebar-wrapper&quot;&gt;
+            &lt;ul class=&quot;sidebar-nav&quot;&gt;
+                &lt;li class=&quot;sidebar-brand&quot;&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                        &lt;span class=&quot;text&quot;&gt;Sidebar Title&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;a href=&quot;#menu-toggle&quot; angular-ripple=&quot;&quot; class=&quot;btn btn-primary menu-toggle&quot; id=&quot;menu-toggle&quot;&gt;
+                &lt;i class=&quot;glyphicon glyphicon-triangle-left&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+
+            &lt;/div&gt;
+        &lt;!-- /#sidebar-wrapper --&gt;
+        &lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&gt;
+        &lt;div ui-view=&quot;&quot; class=&quot;fade-in&quot; autoscroll=&quot;false&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;!-- build:js scripts/scripts.js --&gt;
+    &lt;script src=&quot;bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-touch/angular-touch.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/ag-grid/dist/ag-grid.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-animate/angular-animate.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-xeditable/dist/js/xeditable.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ripple/angular-ripple.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-select/dist/select.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angularjs-slider/dist/rzslider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-resize/dist/angular-resize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-sanitize/angular-sanitize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/Chart.js/Chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-chart.js/dist/angular-chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-material-icons/angular-material-icons.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-loading-bar/build/loading-bar.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- endbuild --&gt;
+
+    &lt;!-- include: &quot;type&quot;: &quot;js&quot;, &quot;files&quot;: &quot;&lt;%= scripts %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+    at Array.forEach (native)
+    at Context.&lt;anonymous&gt; (C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:141:20)]]></failure></testcase>
+<testcase classname="appverse-html5:generator when called with project (json) argument name" name="should add sctipts to index.html" time="0.004"><failure message="app/index.html did not match 'app.js'. Contained:
+
+&amp;lt;!doctype html&amp;gt;
+&amp;lt;!--[if lt IE 7]&amp;gt;      &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8 lt-ie7&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 7]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9 lt-ie8&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if IE 8]&amp;gt;         &amp;lt;html class=&amp;quot;no-js lt-ie9&amp;quot;&amp;gt; &amp;lt;![endif]--&amp;gt;
+&amp;lt;!--[if gt IE 8]&amp;gt;&amp;lt;!--&amp;gt;
+&amp;lt;!--&amp;lt;html class=&amp;quot;no-js&amp;quot; manifest=&amp;quot;cache.manifest&amp;quot;&amp;gt;--&amp;gt;
+&amp;lt;html class=&amp;quot;no-js&amp;quot; ng-app=&amp;quot;mytestprojectApp&amp;quot;&amp;gt;
+&amp;lt;!--&amp;lt;![endif]--&amp;gt;
+
+&amp;lt;head&amp;gt;
+    &amp;lt;title data-ng-bind=&amp;quot;'mytestproject - ' + $state.current.name&amp;quot;&amp;gt;&amp;lt;/title&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot;&amp;gt;
+    &amp;lt;meta http-equiv=&amp;quot;X-UA-Compatible&amp;quot; content=&amp;quot;IE=edge&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;description&amp;quot; content=&amp;quot;&amp;quot;&amp;gt;
+    &amp;lt;meta name=&amp;quot;viewport&amp;quot; content=&amp;quot;width=device-width, initial-scale=1, maximum-scale=1&amp;quot;&amp;gt;
+    &amp;lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&amp;gt;
+
+    &amp;lt;!-- build:css styles/css/vendor.css --&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-xeditable/dist/css/xeditable.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-ui-select/dist/select.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/selectize/dist/css/selectize.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.css&amp;quot;&amp;gt;
+    &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.css&amp;quot; media=&amp;quot;all&amp;quot;&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;css&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= css %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/head&amp;gt;
+
+&amp;lt;!--Include the module with the app scope--&amp;gt;
+
+&amp;lt;body&amp;gt;
+    &amp;lt;!--[if lt IE 7]&amp;gt;
+      &amp;lt;p class=&amp;quot;browsehappy&amp;quot;&amp;gt;You are using an &amp;lt;strong&amp;gt;outdated&amp;lt;/strong&amp;gt; browser. Please &amp;lt;a href=&amp;quot;http://browsehappy.com/&amp;quot;&amp;gt;upgrade your browser&amp;lt;/a&amp;gt; to improve your experience.&amp;lt;/p&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!--[if lt IE 10]&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-shim.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/es5-shim/es5-sham.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/json3/lib/json3.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+      &amp;lt;script src=&amp;quot;bower_components/placeholders/dist/placeholders.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;![endif]--&amp;gt;
+
+    &amp;lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&amp;gt;
+    &amp;lt;nav class=&amp;quot;navbar navbar-default navbar-fixed-top&amp;quot;&amp;gt;
+        &amp;lt;div class=&amp;quot;navbar-header&amp;quot;&amp;gt;
+            &amp;lt;button type=&amp;quot;button&amp;quot; class=&amp;quot;navbar-toggle&amp;quot; data-toggle=&amp;quot;collapse&amp;quot; data-target=&amp;quot;#main-navbar-collapse&amp;quot;&amp;gt;
+                &amp;lt;span class=&amp;quot;sr-only&amp;quot;&amp;gt;Toggle navigation&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+                &amp;lt;span class=&amp;quot;icon-bar&amp;quot;&amp;gt;&amp;lt;/span&amp;gt;
+            &amp;lt;/button&amp;gt;
+            &amp;lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&amp;gt;
+            &amp;lt;a class=&amp;quot;navbar-brand&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;
+            &amp;lt;/a&amp;gt;
+        &amp;lt;/div&amp;gt;
+        &amp;lt;div class=&amp;quot;collapse navbar-collapse&amp;quot; id=&amp;quot;main-navbar-collapse&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;nav navbar-nav&amp;quot;&amp;gt;
+                &amp;lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+        &amp;lt;/div&amp;gt;
+    &amp;lt;/nav&amp;gt;
+    &amp;lt;div id=&amp;quot;wrapper&amp;quot; class=&amp;quot;container-fluid mainview toggled&amp;quot;&amp;gt;
+        &amp;lt;!-- Sidebar --&amp;gt;
+        &amp;lt;div id=&amp;quot;sidebar-wrapper&amp;quot;&amp;gt;
+            &amp;lt;ul class=&amp;quot;sidebar-nav&amp;quot;&amp;gt;
+                &amp;lt;li class=&amp;quot;sidebar-brand&amp;quot;&amp;gt;
+                    &amp;lt;a href=&amp;quot;#&amp;quot;&amp;gt;
+                        &amp;lt;span class=&amp;quot;text&amp;quot;&amp;gt;Sidebar Title&amp;lt;/span&amp;gt;
+                    &amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('home') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;home&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-home&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Home&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('theme') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;theme&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-pencil&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Theme&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('components') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;components&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-book&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Components&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('charts') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;charts&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-stats&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Charts&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+                &amp;lt;li data-ng-class=&amp;quot;{ active: $state.includes('icons') }&amp;quot;&amp;gt;
+                    &amp;lt;a angular-ripple=&amp;quot;&amp;quot; ui-sref=&amp;quot;icons&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;glyphicon glyphicon-th&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; Icons&amp;lt;/a&amp;gt;
+                &amp;lt;/li&amp;gt;
+            &amp;lt;/ul&amp;gt;
+            &amp;lt;a href=&amp;quot;#menu-toggle&amp;quot; angular-ripple=&amp;quot;&amp;quot; class=&amp;quot;btn btn-primary menu-toggle&amp;quot; id=&amp;quot;menu-toggle&amp;quot;&amp;gt;
+                &amp;lt;i class=&amp;quot;glyphicon glyphicon-triangle-left&amp;quot;&amp;gt;&amp;lt;/i&amp;gt;
+            &amp;lt;/a&amp;gt;
+
+            &amp;lt;/div&amp;gt;
+        &amp;lt;!-- /#sidebar-wrapper --&amp;gt;
+        &amp;lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&amp;gt;
+        &amp;lt;div ui-view=&amp;quot;&amp;quot; class=&amp;quot;fade-in&amp;quot; autoscroll=&amp;quot;false&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+
+
+    &amp;lt;!-- build:js scripts/scripts.js --&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/jquery/dist/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular/angular.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-touch/angular-touch.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/ag-grid/dist/ag-grid.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-animate/angular-animate.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-xeditable/dist/js/xeditable.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ripple/angular-ripple.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-ui-select/dist/select.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angularjs-slider/dist/rzslider.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-resize/dist/angular-resize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-sanitize/angular-sanitize.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/Chart.js/Chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-chart.js/dist/angular-chart.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-material-icons/angular-material-icons.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;bower_components/angular-loading-bar/build/loading-bar.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;!-- endbuild --&amp;gt;
+
+    &amp;lt;!-- include: &amp;quot;type&amp;quot;: &amp;quot;js&amp;quot;, &amp;quot;files&amp;quot;: &amp;quot;&amp;lt;%= scripts %&amp;gt;&amp;quot; --&amp;gt;
+    &amp;lt;!-- /include --&amp;gt;
+&amp;lt;/body&amp;gt;
+
+&amp;lt;/html&amp;gt;"><![CDATA[AssertionError: app/index.html did not match 'app.js'. Contained:
+
+&lt;!doctype html&gt;
+&lt;!--[if lt IE 7]&gt;      &lt;html class=&quot;no-js lt-ie9 lt-ie8 lt-ie7&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 7]&gt;         &lt;html class=&quot;no-js lt-ie9 lt-ie8&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if IE 8]&gt;         &lt;html class=&quot;no-js lt-ie9&quot;&gt; &lt;![endif]--&gt;
+&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+&lt;!--&lt;html class=&quot;no-js&quot; manifest=&quot;cache.manifest&quot;&gt;--&gt;
+&lt;html class=&quot;no-js&quot; ng-app=&quot;mytestprojectApp&quot;&gt;
+&lt;!--&lt;![endif]--&gt;
+
+&lt;head&gt;
+    &lt;title data-ng-bind=&quot;'mytestproject - ' + $state.current.name&quot;&gt;&lt;/title&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, maximum-scale=1&quot;&gt;
+    &lt;!-- Place favicon.ico and apple-touch-icon.png in the root directory --&gt;
+
+    &lt;!-- build:css styles/css/vendor.css --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-xeditable/dist/css/xeditable.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-ui-select/dist/select.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angularjs-slider/dist/rzslider.min.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/selectize/dist/css/selectize.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-chart.js/dist/angular-chart.css&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/angular-loading-bar/build/loading-bar.min.css&quot; media=&quot;all&quot;&gt;
+    &lt;!-- endbuild --&gt;
+
+
+    &lt;!-- include: &quot;type&quot;: &quot;css&quot;, &quot;files&quot;: &quot;&lt;%= css %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/head&gt;
+
+&lt;!--Include the module with the app scope--&gt;
+
+&lt;body&gt;
+    &lt;!--[if lt IE 7]&gt;
+      &lt;p class=&quot;browsehappy&quot;&gt;You are using an &lt;strong&gt;outdated&lt;/strong&gt; browser. Please &lt;a href=&quot;http://browsehappy.com/&quot;&gt;upgrade your browser&lt;/a&gt; to improve your experience.&lt;/p&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!--[if lt IE 10]&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-shim.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/es5-shim/es5-sham.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/json3/lib/json3.min.js&quot;&gt;&lt;/script&gt;
+      &lt;script src=&quot;bower_components/placeholders/dist/placeholders.min.js&quot;&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;
+
+    &lt;!-- HEADER/NAVIGATION BAR
+     This is the unnamed root, aka index.html
+     You can place here your components in the ui-view points.
+    --&gt;
+    &lt;nav class=&quot;navbar navbar-default navbar-fixed-top&quot;&gt;
+        &lt;div class=&quot;navbar-header&quot;&gt;
+            &lt;button type=&quot;button&quot; class=&quot;navbar-toggle&quot; data-toggle=&quot;collapse&quot; data-target=&quot;#main-navbar-collapse&quot;&gt;
+                &lt;span class=&quot;sr-only&quot;&gt;Toggle navigation&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+                &lt;span class=&quot;icon-bar&quot;&gt;&lt;/span&gt;
+            &lt;/button&gt;
+            &lt;!-- ui-sref is a directive from ui-router for linking a state location with an anchor link.
+                 We should almost always use ui-sref instead of href on our links when we want
+                 then to navigate to a state. When this link is clicked it will take the application
+                 to the 'home' state. Behind the scenes the directive also adds the correct href attr
+                 and url. --&gt;
+            &lt;a class=&quot;navbar-brand&quot; ui-sref=&quot;home&quot;&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;main-navbar-collapse&quot;&gt;
+            &lt;ul class=&quot;nav navbar-nav&quot;&gt;
+                &lt;!-- Here you can see ui-sref in action again. Also notice the use of $state.includes, which
+                 will set the links to 'active' if, for example on the first link, 'contacts' or any of
+                 its descendant states are activated. --&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/nav&gt;
+    &lt;div id=&quot;wrapper&quot; class=&quot;container-fluid mainview toggled&quot;&gt;
+        &lt;!-- Sidebar --&gt;
+        &lt;div id=&quot;sidebar-wrapper&quot;&gt;
+            &lt;ul class=&quot;sidebar-nav&quot;&gt;
+                &lt;li class=&quot;sidebar-brand&quot;&gt;
+                    &lt;a href=&quot;#&quot;&gt;
+                        &lt;span class=&quot;text&quot;&gt;Sidebar Title&lt;/span&gt;
+                    &lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('home') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;home&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-home&quot;&gt;&lt;/i&gt; Home&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('theme') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;theme&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pencil&quot;&gt;&lt;/i&gt; Theme&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('components') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;components&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-book&quot;&gt;&lt;/i&gt; Components&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('charts') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;charts&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-stats&quot;&gt;&lt;/i&gt; Charts&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li data-ng-class=&quot;{ active: $state.includes('icons') }&quot;&gt;
+                    &lt;a angular-ripple=&quot;&quot; ui-sref=&quot;icons&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-th&quot;&gt;&lt;/i&gt; Icons&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;a href=&quot;#menu-toggle&quot; angular-ripple=&quot;&quot; class=&quot;btn btn-primary menu-toggle&quot; id=&quot;menu-toggle&quot;&gt;
+                &lt;i class=&quot;glyphicon glyphicon-triangle-left&quot;&gt;&lt;/i&gt;
+            &lt;/a&gt;
+
+            &lt;/div&gt;
+        &lt;!-- /#sidebar-wrapper --&gt;
+        &lt;!-- MAIN INSERTION POINT
+            Here is the main ui-view (it is unnamed) as the main content insertion point.
+            It replaces the default Angular's ng-view directive.
+        --&gt;
+        &lt;div ui-view=&quot;&quot; class=&quot;fade-in&quot; autoscroll=&quot;false&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+
+    &lt;!-- build:js scripts/scripts.js --&gt;
+    &lt;script src=&quot;bower_components/jquery/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular/angular.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-touch/angular-touch.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/ag-grid/dist/ag-grid.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-animate/angular-animate.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-xeditable/dist/js/xeditable.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse/appverse.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-router/appverse-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-router/release/angular-ui-router.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/appverse-web-html5-core/dist/appverse-utils/appverse-utils.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ripple/angular-ripple.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-ui-select/dist/select.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angularjs-slider/dist/rzslider.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-resize/dist/angular-resize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-sanitize/angular-sanitize.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/Chart.js/Chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-chart.js/dist/angular-chart.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/svg-morpheus/compile/minified/svg-morpheus.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-material-icons/angular-material-icons.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;bower_components/angular-loading-bar/build/loading-bar.min.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- endbuild --&gt;
+
+    &lt;!-- include: &quot;type&quot;: &quot;js&quot;, &quot;files&quot;: &quot;&lt;%= scripts %&gt;&quot; --&gt;
+    &lt;!-- /include --&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+    at Array.forEach (native)
+    at C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:149:24
+    at Array.forEach (native)
+    at Context.&lt;anonymous&gt; (C:\Users\MOCR\Documents\generator-appverse-html5\test\test-app.js:148:31)]]></failure></testcase>
+<testcase classname="appverse-html5:build build" name="should add package to package.json" time="0.003"/>
+<testcase classname="appverse-html5:build build" name="should add scripts to package.json" time="0.001"/>
+<testcase classname="appverse-html5:build build" name="should move files " time="0"/>
+<testcase classname="appverse-html5:build build" name="should move templates " time="0"/>
+<testcase classname="appverse-html5:component add component" name="should add scripts to index" time="0.005"/>
+<testcase classname="appverse-html5:component add component" name="should add content to the target view" time="0.002"/>
+<testcase classname="appverse-html5:module module with scripts" name="should add scripts to index" time="0.005"/>
+<testcase classname="appverse-html5:module module with scripts and angular" name="should add scripts to index" time="0.005"/>
+<testcase classname="appverse-html5:module module with scripts and angular" name="should define angular modules " time="0.002"/>
+<testcase classname="appverse-html5:module module with scripts angular and config" name="should add scripts to index" time="0.005"/>
+<testcase classname="appverse-html5:module module with scripts angular and config" name="should define angular modules " time="0.002"/>
+<testcase classname="appverse-html5:module module with scripts angular and config" name="should define angular configuration " time="0"/>
+<testcase classname="appverse-html5:module add module with scripts angular and files " name="should add scripts to index" time="0.005"/>
+<testcase classname="appverse-html5:module add module with scripts angular and files " name="should define angular modules " time="0.002"/>
+<testcase classname="appverse-html5:module add module with scripts angular and files " name="should move files " time="0"/>
+<testcase classname="appverse-html5:module add module with all the options " name="should add scripts to index" time="0.004"/>
+<testcase classname="appverse-html5:module add module with all the options " name="should define angular modules " time="0.002"/>
+<testcase classname="appverse-html5:module add module with all the options " name="should define angular configuration " time="0.001"/>
+<testcase classname="appverse-html5:module add module with all the options " name="should add package to bower.json" time="0.002"/>
+<testcase classname="appverse-html5:module add module with all the options " name="should add package to package.json" time="0.003"/>
+<testcase classname="appverse-html5:module add module with all the options " name="should move files " time="0"/>
+<testcase classname="appverse-html5:module add module with all the options " name="should move templates " time="0.001"/>
+<testcase classname="appverse-html5:runtime docker runtime " name="Appverse Docker runtime" time="0"/>
+<testcase classname="appverse-html5:theme switch to dark " name="Appverse theme switch to dark" time="0.003"/>
+</testsuite>
