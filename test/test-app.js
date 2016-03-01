@@ -62,18 +62,9 @@ describe('appverse-html5:generator', function () {
         it('should replace templates with application name', function () {
             assert.fileContent('bower.json', 'test');
             assert.fileContent('package.json', 'test');
-            assert.fileContent('app/index.html', '<body data-ng-app="testApp">');
+            assert.fileContent('app/index.html', '<html class="no-js" ng-app="testApp">');
             assert.fileContent('app/app.js', 'angular.module(\'testApp\'');
         });
-        it('should add sctipts to index.html', function () {
-            config.scripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
-            });
-            config.appScripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
-            });
-        });
-
     });
     describe('when called with argument name', function () {
         before(function (done) {
@@ -100,16 +91,8 @@ describe('appverse-html5:generator', function () {
         it('should replace templates with application name', function () {
             assert.fileContent('bower.json', 'test');
             assert.fileContent('package.json', 'test');
-            assert.fileContent('app/index.html', '<body data-ng-app="testApp">');
+            assert.fileContent('app/index.html', '<html class="no-js" ng-app="testApp">');
             assert.fileContent('app/app.js', 'angular.module(\'testApp\'');
-        });
-        it('should add sctipts to index.html', function () {
-            config.scripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
-            });
-            config.appScripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
-            });
         });
     });
     describe('when called with project (json) argument name', function () {
@@ -138,16 +121,8 @@ describe('appverse-html5:generator', function () {
         it('should replace templates with application name', function () {
             assert.fileContent('bower.json', 'mytestproject');
             assert.fileContent('package.json', 'mytestproject');
-            assert.fileContent('app/index.html', '<body data-ng-app="mytestprojectApp">');
+            assert.fileContent('app/index.html', '<html class="no-js" ng-app="mytestprojectApp">');
             assert.fileContent('app/app.js', 'angular.module(\'mytestprojectApp\'');
-        });
-        it('should add sctipts to index.html', function () {
-            config.scripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
-            });
-            config.appScripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
-            });
         });
     });
 
