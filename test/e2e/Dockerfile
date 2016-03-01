@@ -11,10 +11,15 @@ ENV LANG en_US.UTF-8
 
 RUN mkdir src && chown yeoman:yeoman src && npm i -g yo \
     && chown -R yeoman: ~/.npm \
-    && chown -R yeoman: /usr/local/lib/node_modules 
- 
+    && chown -R yeoman: /usr/local/lib/node_modules
+
+RUN git config --global url."https://".insteadOf git://
+
+EXPOSE 9100
 
 ADD . /home/yeoman/src/generator-appverse-html5
 WORKDIR /home/yeoman/src/generator-appverse-html5
-RUN npm install && npm link  
-CMD ["npm", "test"]
+RUN chmod u+x docker-entrypoint.sh && bash -C 'docker-entrypoint.sh'
+
+WORKDIR /home/yeoman/generated
+CMD ["grunt", "server:mock:dist"]
