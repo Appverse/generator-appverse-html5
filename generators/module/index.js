@@ -98,6 +98,9 @@ module.exports = moduleGenerator.extend({
         if (this.module.angular) {
             this.addAngularModule(this.module.angular);
         }
+        if (this.module.wiredep) {
+            this.addWiredepConfig(this.module.wiredep);
+        }
         //PACKAGES
         //BOWER
         if (this.module.bower) {
