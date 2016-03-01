@@ -98,6 +98,9 @@ module.exports = moduleGenerator.extend({
         if (this.module.angular) {
             this.addAngularModule(this.module.angular);
         }
+        if (this.module.wiredep) {
+            this.addWiredepConfig(this.module.wiredep);
+        }
         //PACKAGES
         //BOWER
         if (this.module.bower) {
@@ -123,9 +126,6 @@ module.exports = moduleGenerator.extend({
         }
         if (this.module.css) {
             this.addCSSToIndex(this.module.css);
-        }
-        if (this.module.wiredep) {
-            this.addWiredepConfig(this.module.wiredep);
         }
     },
     install: function() {

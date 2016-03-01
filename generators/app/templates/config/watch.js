@@ -26,7 +26,7 @@ module.exports = {
         tasks: ['includeSource']
     },
     wiredep: {
-        files: ['app/bower_components/'],
+        files: ['app/bower_components/', 'config/wiredep.js'],
         tasks: ['wiredep']
     }
 };

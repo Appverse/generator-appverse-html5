@@ -16,10 +16,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/angular-cache/dist/angular-cache.min.js",
-      "bower_components/appverse-web-html5-core/dist/appverse-cache/appverse-cache.min.js"
-    ],
     "angular": "appverse.cache",
     "startprompt": true
   },
@@ -35,9 +31,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/appverse-web-html5-core/dist/appverse-detection/appverse-detection.min.js"
-    ],
     "angular": "appverse.detection",
     "startprompt": true,
     "files": [
@@ -56,9 +49,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/appverse-web-html5-core/dist/appverse-logging/appverse-logging.min.js"
-    ],
     "angular": "appverse.logging",
     "startprompt": true
   },
@@ -74,9 +64,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/appverse-web-html5-core/dist/appverse-performance/appverse-performance.min.js"
-    ],
     "angular": "appverse.performance",
     "startprompt": true
   },
@@ -97,10 +84,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/qrcode/lib/qrcode.min.js",
-      "bower_components/angular-qr/angular-qr.min.js"
-    ],
     "startprompt": false,
     "bower": [
       {
@@ -131,11 +114,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/lodash/lodash.min.js",
-      "bower_components/restangular/dist/restangular.min.js",
-      "bower_components/appverse-web-html5-core/dist/appverse-rest/appverse-rest.min.js"
-    ],
     "angular": "appverse.rest",
     "startprompt": true,
     "prompts": [
@@ -213,12 +191,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/angular-cookies/angular-cookies.min.js",
-      "bower_components/angular-sanitize/angular-sanitize.min.js",
-      "bower_components/angular-resource/angular-resource.min.js",
-      "bower_components/appverse-web-html5-security/dist/appverse-html5-security.min.js"
-    ],
     "angular": "appverse.security",
     "startprompt": false,
     "bower": [
@@ -245,10 +217,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/socket.io-client/dist/socket.io.min.js",
-      "bower_components/appverse-web-html5-core/dist/appverse-serverpush/appverse-serverpush.min.js"
-    ],
     "angular": "appverse.serverPush",
     "startprompt": true,
     "prompts": [
@@ -296,12 +264,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/angular-translate/angular-translate.min.js",
-      "bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js",
-      "bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js",
-      "bower_components/appverse-web-html5-core/dist/appverse-translate/appverse-translate.min.js"
-    ],
     "angular": "appverse.translate",
     "startprompt": true,
     "files": [
@@ -327,12 +289,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/classie/classie.js",
-      "bower_components/appverse.notifications/dist/modernizr-custom.js",
-      "bower_components/appverse.notifications/dist/notification-fx.js",
-      "bower_components/appverse.notifications/dist/appverse.notifications.js"
-    ],
     "angular": "appverse.notifications",
     "bower": [
       {
@@ -357,9 +313,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/appverse-web-html5-core/dist/appverse-ionic/appverse-ionic.min.js"
-    ],
     "angular": "appverse.ionic",
     "startprompt": true,
     "config": {
@@ -392,9 +345,6 @@
         },
         "excludes": []
     },
-    "scripts": [
-      "bower_components/appverse-web-html5-core/dist/appverse-native/appverse-native.min.js"
-    ],
     "angular": "appverse.native",
     "startprompt": false
   }
