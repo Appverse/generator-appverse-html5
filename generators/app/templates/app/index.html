@@ -15,15 +15,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <!-- build:css styles/css/vendor.css -->
-    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
-    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.min.css">
-    <link rel="stylesheet" href="bower_components/angularjs-slider/dist/rzslider.min.css">
-    <link rel="stylesheet" href="bower_components/selectize/dist/css/selectize.css">
-    <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css" media="all">
-    <!-- endbuild -->
+    <!-- bower:css -->
+    <!-- endbower -->
 
+    <!-- include: "type": "css", "files": "<%%= css %>" -->
+    <!-- /include -->
 </head>
 
 <!--Include the module with the app scope-->
@@ -120,6 +116,12 @@
         -->
         <div ui-view="" class="fade-in" autoscroll="false"></div>
     </div>
+
+    <!-- bower:js -->
+    <!-- endbower -->
+
+    <!-- include: "type": "js", "files": "<%%= scripts %>" -->
+    <!-- /include -->
 
 </body>
 

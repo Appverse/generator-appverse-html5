@@ -32,7 +32,7 @@ module.exports = function (grunt) {
             '!components/**/*.spec.js'
         ],
         css: [
-            "styles/**/*.css"
+            'styles/**/*.css'
         ]
     };
 

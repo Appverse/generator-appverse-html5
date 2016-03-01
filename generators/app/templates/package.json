@@ -31,6 +31,7 @@
         "grunt-sass": "1.1.0",
         "grunt-shell": "^1.1.2",
         "grunt-usemin": "3.0.0",
+        "grunt-wiredep": "^2.0.0",
         "jshint-stylish": "^2.0.1",
         "karma": "^0.13.0",
         "karma-chrome-launcher": "0.1.8",
