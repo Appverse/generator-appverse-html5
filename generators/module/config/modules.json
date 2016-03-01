@@ -3,7 +3,7 @@
     "name": "cache",
     "wiredep": {
         "overrides": {
-            "cache": {
+            "angular-cache": {
                     "main": [
                                 "dist/angular-cache.min.js"
                     ]

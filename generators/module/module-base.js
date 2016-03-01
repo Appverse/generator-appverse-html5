@@ -164,7 +164,14 @@ addAngularModule : function (moduleName) {
 addWiredepConfig: function(wiredep, fileName) {
     var target = fileName || 'config/wiredep.js';
     var file = require(this.destinationPath(target)); //parse file
-    _.merge(file.update.options.overrides, wiredep.overrides);
+
+    _.merge(file.update.options.overrides, wiredep.overrides, function(a, b) {
+        // Handles existing overrides
+        if(_.isArray(a)) {
+            return _.union(a, b);
+        }
+    });
+
     // Deletes the excludes of the new modules.
     for (var key in wiredep.overrides) {
         if (wiredep.overrides.hasOwnProperty(key)) {
