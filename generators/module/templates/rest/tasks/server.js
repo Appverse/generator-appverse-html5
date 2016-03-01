@@ -70,11 +70,9 @@ module.exports = function (grunt) {
         'browserSync:dev',
         'jshint:all',
         'wiredep',
-
         'includeSource',
         'test:dev:unit',
-        'watch',
-        'wiredep',
+        'watch'
     ]);
 
     grunt.registerTask('distribution', [
