@@ -14,8 +14,8 @@
     "node": ">=4.2.0",
     "npm": ">=2.14.0"
   },
-  "scripts": {
-    "test": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha --recursive --reporter node_modules/xunit-file ./test"
+  "scripts": { 
+    "test": "node node_modules/mocha/bin/_mocha --reporter node_modules/xunit-file | node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha" 
   },
   "files": [
     "generators"
@@ -55,7 +55,7 @@
   "devDependencies": {
     "fs-extra": "^0.26.0",
     "istanbul": "^0.4.0",
-    "mocha": "*",
+    "mocha": "*",    
     "xunit-file": "0.0.9",
     "yeoman-assert": "^2.1.1",
     "yeoman-test": "^1.1.0"
