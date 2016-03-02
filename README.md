@@ -234,14 +234,14 @@ Execute the subgenerator with the view name as argument. The subgenerator will c
 A new option in the navigation bar will be created as well.
 
     ```bash
-        yo appverse-html5:component view [<name>]        
+        yo appverse-html5:component view --name=[<name>]        
     ```
     Where *name* is the View/Controller name you want to add.
 
     The menu option will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
 
     ```bash
-        yo appverse-html5:component view [<name>]  --menu=[<dropdownmenu>]
+        yo appverse-html5:component view --name=[<name>]  --menu=[<dropdownmenu>]
     ```
 
     Where *name* is the View/Controller name you want to add.
@@ -341,29 +341,29 @@ Once a View/Controller is created, we can add different components to the new pa
     * A new option in the navigation bar.
 
     ```bash
-        yo appverse-html5:component crud [<name>]
+        yo appverse-html5:component crud --name=[<name>]
     ```
     The **menu** option will add or update a dropdown menu.
 
     ```bash
-        yo appverse-html5:component crud [<name>] --menu=[<menu>]
+        yo appverse-html5:component crud --name=[<name>] --menu=[<menu>]
     ```
     By default the **form** sub-generator will create a simple form with id and name fields.
     Use the **schema** option will be used to generate the entity form (add and edit)
 
     ```bash
-        yo appverse-html5:component crud [<name>] --schema=[<path or url to JSON Schema>]
+        yo appverse-html5:component crud --name=[<name>] --schema=[<path or url to JSON Schema>]
     ```
     Add the **rows** option to generate some fake data rows at the mock server.
 
     ```bash
-        yo appverse-html5:component crud [<name>] --rows=[<nrows>]
+        yo appverse-html5:component crud --name=[<name>] --rows=[<nrows>]
     ```
 
     The **rows** option could be combined with the **schema** option, so the fake data generator will use the entity definition found at the schema.
 
     ```bash
-        yo appverse-html5:component crud [<name>] --schema=[<path or url to JSON Schema>] --rows=[<nrows>]
+        yo appverse-html5:component crud --name=[<name>] --schema=[<path or url to JSON Schema>] --rows=[<nrows>]
     ```
 
 
