@@ -55,12 +55,6 @@ module.exports = {
                                 "ui-bootstrap-tpls.min.js"
                     ]
                 },
-                "ng-grid": {
-                    "main": [
-                                "build/ng-grid.min.js",
-                                "ng-grid.min.css"
-                    ]
-                },
                 "ag-grid": {
                     "main": [
                                 "dist/ag-grid.min.js"
