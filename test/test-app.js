@@ -65,6 +65,18 @@ describe('appverse-html5:generator', function () {
             assert.fileContent('app/index.html', '<html class=\"no-js\" ng-app=\"testApp\">');
             assert.fileContent('app/app.js', 'angular.module(\'testApp\'');
         });
+        it('should add style placeholders to index', function () {
+            assert.fileContent('app/index.html', '<!-- bower:css -->');
+            assert.fileContent('app/index.html', '<!-- endbower -->');
+            assert.fileContent('app/index.html', '<!-- include: \"type\": \"css\", \"files\": \"<%= css %>\" -->');
+            assert.fileContent('app/index.html', '<!-- /include -->');
+        });
+        it('should add script placeholders to index', function () {
+            assert.fileContent('app/index.html', '<!-- bower:js -->');
+            assert.fileContent('app/index.html', '<!-- endbower -->');
+            assert.fileContent('app/index.html', '<!-- include: \"type\": \"js\", \"files\": \"<%= scripts %>\" -->');
+            assert.fileContent('app/index.html', '<!-- /include -->');
+        });
     });
     describe('when called with argument name', function () {
         before(function (done) {
@@ -94,6 +106,18 @@ describe('appverse-html5:generator', function () {
             assert.fileContent('app/index.html', '<html class=\"no-js\" ng-app=\"testApp\">');
             assert.fileContent('app/app.js', 'angular.module(\'testApp\'');
         });
+        it('should add style placeholders to index', function () {
+            assert.fileContent('app/index.html', '<!-- bower:css -->');
+            assert.fileContent('app/index.html', '<!-- endbower -->');
+            assert.fileContent('app/index.html', '<!-- include: \"type\": \"css\", \"files\": \"<%= css %>\" -->');
+            assert.fileContent('app/index.html', '<!-- /include -->');
+        });
+        it('should add script placeholders to index', function () {
+            assert.fileContent('app/index.html', '<!-- bower:js -->');
+            assert.fileContent('app/index.html', '<!-- endbower -->');
+            assert.fileContent('app/index.html', '<!-- include: \"type\": \"js\", \"files\": \"<%= scripts %>\" -->');
+            assert.fileContent('app/index.html', '<!-- /include -->');
+        });
     });
     describe('when called with project (json) argument name', function () {
         var project = path.join(__dirname, '/data/appverse-project.json');
@@ -119,10 +143,22 @@ describe('appverse-html5:generator', function () {
             assert.file(config.templates);
         });
         it('should replace templates with application name', function () {
-            assert.fileContent('bower.json', 'mytestproject');
-            assert.fileContent('package.json', 'mytestproject');
-            assert.fileContent('app/index.html', '<html class="no-js" ng-app="mytestprojectApp">');
+            assert.fileContent('bower.json', '\"name\": \"mytestproject\"');
+            assert.fileContent('package.json', '\"name\": \"mytestproject\"');
+            assert.fileContent('app/index.html', '<html class=\"no-js\" ng-app=\"mytestprojectApp\">');
             assert.fileContent('app/app.js', 'angular.module(\'mytestprojectApp\'');
+        });
+        it('should add style placeholders to index', function () {
+            assert.fileContent('app/index.html', '<!-- bower:css -->');
+            assert.fileContent('app/index.html', '<!-- endbower -->');
+            assert.fileContent('app/index.html', '<!-- include: \"type\": \"css\", \"files\": \"<%= css %>\" -->');
+            assert.fileContent('app/index.html', '<!-- /include -->');
+        });
+        it('should add script placeholders to index', function () {
+            assert.fileContent('app/index.html', '<!-- bower:js -->');
+            assert.fileContent('app/index.html', '<!-- endbower -->');
+            assert.fileContent('app/index.html', '<!-- include: \"type\": \"js\", \"files\": \"<%= scripts %>\" -->');
+            assert.fileContent('app/index.html', '<!-- /include -->');
         });
     });
 
