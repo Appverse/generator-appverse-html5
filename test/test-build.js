@@ -61,14 +61,18 @@ describe('appverse-html5:build', function () {
         });
 
         it('should add package to package.json', function () {
-            assert.fileContent('package.json', modules[0].npm[0].name);
-            assert.fileContent('package.json', modules[0].npm[0].version);
-            assert.fileContent('package.json', modules[0].npm[1].name);
-            assert.fileContent('package.json', modules[0].npm[1].version);
+            assert.fileContent([
+                    [ 'package.json', '\"name": \"' + modules[0].npm[0].name + '\"' ],
+                    [ 'package.json', '\"version": \"' + modules[0].npm[0].version + '\"' ],
+                    [ 'package.json', '\"name": \"' + modules[0].npm[1].name + '\"' ],
+                    [ 'package.json', '\"version": \"' + modules[0].npm[1].version + '\"' ]
+            ]);
         });
         it('should add scripts to package.json', function () {
-            assert.fileContent('package.json', modules[0].scripts[0].name);
-            assert.fileContent('package.json', modules[0].scripts[0].value);
+            assert.fileContent([
+                [ 'package.json', modules[0].scripts[0].name ],
+                [ 'package.json', modules[0].scripts[0].value ]
+            ]);
         });
         it('should move files ', function () {
             assert.file(modules[0].files);
