@@ -178,6 +178,11 @@ describe('appverse-html5:generator', function () {
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
         });
+        it('should add module files to bower.json', function () {
+            assert.fileContent([
+                [ 'config/wiredep.js', 'angular-cache']
+            ])
+        })
     });
 
 });
