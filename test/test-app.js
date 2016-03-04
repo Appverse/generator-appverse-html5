@@ -60,9 +60,9 @@ describe('appverse-html5:generator', function () {
             assert.file(config.templates);
         });
         it('should replace templates with application name', function () {
-            assert.fileContent('bower.json', 'test');
-            assert.fileContent('package.json', 'test');
-            assert.fileContent('app/index.html', '<html class="no-js" ng-app="testApp">');
+            assert.fileContent('bower.json', '\"name\": \"test\"');
+            assert.fileContent('package.json', '\"name\": \"test\"');
+            assert.fileContent('app/index.html', '<html class=\"no-js\" ng-app=\"testApp\">');
             assert.fileContent('app/app.js', 'angular.module(\'testApp\'');
         });
     });
@@ -89,9 +89,9 @@ describe('appverse-html5:generator', function () {
             assert.file(config.templates);
         });
         it('should replace templates with application name', function () {
-            assert.fileContent('bower.json', 'test');
-            assert.fileContent('package.json', 'test');
-            assert.fileContent('app/index.html', '<html class="no-js" ng-app="testApp">');
+            assert.fileContent('bower.json', '\"name\": \"test\"');
+            assert.fileContent('package.json', '\"name\": \"test\"');
+            assert.fileContent('app/index.html', '<html class=\"no-js\" ng-app=\"testApp\">');
             assert.fileContent('app/app.js', 'angular.module(\'testApp\'');
         });
     });
