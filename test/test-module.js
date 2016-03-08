@@ -28,11 +28,14 @@ var fse = require('fs-extra');
 var fs = require('fs');
 
 var mockdata = path.join(__dirname, 'data/modules.json');
+var mockproject = path.join(__dirname, 'data/modules-project.json');
 var modules = require(mockdata);
+var projectmodules = require(mockproject);
 var templatePath = path.join(__dirname, 'temp/generators/module/templates');
 
 describe('appverse-html5:module', function () {
-    describe('module with scripts', function () {
+
+    describe('add module with scripts, angular and config. Prompts', function () {
         before(function (done) {
             //console.log('moving to temp!')
             fse.removeSync(path.join(__dirname, '../temp'));
@@ -43,13 +46,12 @@ describe('appverse-html5:module', function () {
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
-                    var indexFile = generator.fs.read(generator.destinationPath('app/index.html'));
-                    var restJS = ['<script src="bower_components/angular/angular.min.js"></script>'];
-                    //APP FILES
-                    indexFile = require('html-wiring').appendScripts(indexFile, 'scripts/scripts.js', restJS);
-                    generator.write(generator.destinationPath('app/index.html'), indexFile);
                 })
                 .withArguments([modules[0].name])
+                .withPrompts({
+                    promptmock0: "mock0",
+                    promptmock1: "mock1"
+                })
                 .withOptions({
                     'config': mockdata,
                     'skip-install': true,
@@ -61,35 +63,53 @@ describe('appverse-html5:module', function () {
                 });
         });
 
-        it('should add scripts to index', function () {
-            modules[0].scripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
+        it('should add scripts correctly to wiredep config', function () {
+            for (var key in modules[0].wiredep.overrides) {
+                if (modules[0].wiredep.overrides.hasOwnProperty(key)) {
+                    assert.noFileContent('config/wiredep.js', '/' + key + '/');
+                    modules[0].wiredep.overrides[key].main.forEach(function(name) {
+                        assert.fileContent('config/wiredep.js', name);
+                    });
+                }
+            }
+            modules[0].wiredep.exclude.forEach(function(name) {
+                assert.fileContent('config/wiredep.js', name);
             });
+        });
+        it('should define angular modules ', function () {
+            assert.fileContent('app/app.js', modules[0].angular);
+        });
+        it('should define angular configuration ', function () {
+            assert.fileContent('app/app.js', modules[0].config.name);
+            assert.fileContent('app/app.js', modules[0].config.values[0].name);
+            assert.fileContent('app/app.js', modules[0].config.values[1].name);
         });
 
     });
-    describe('module with scripts and angular', function () {
+
+    describe('add module with scripts, angular and files. No Prompts', function () {
         before(function (done) {
-            //console.log('moving to temp!')
-            fse.removeSync(path.join(__dirname, '../temp'));
+            fse.removeSync(path.join(__dirname, 'temp'));
             helpers.run(path.join(__dirname, '../generators/module'))
                 .inTmpDir(function (dir) {
-                    // `dir` is the path to the new temporary directory
                     fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                    var pathFile = path.join(templatePath, modules[1].name);
+                    modules[1].files.forEach(function (name) {
+                        var fullpath = path.join(pathFile, name);
+                        fse.outputFileSync(fullpath);
+                    });
+
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
-                    var indexFile = generator.fs.read(generator.destinationPath('app/index.html'));
-                    var restJS = ['<script src="bower_components/angular/angular.min.js"></script>'];
-                    //APP FILES
-                    indexFile = require('html-wiring').appendScripts(indexFile, 'scripts/scripts.js', restJS);
-                    generator.write(generator.destinationPath('app/index.html'), indexFile);
                 })
                 .withArguments([modules[1].name])
                 .withOptions({
                     'config': mockdata,
+                    'templatePath': templatePath,
                     'skip-install': true,
-                    'skip-welcome-message': true
+                    'skip-welcome-message': true,
+                    'skip-prompts': true
                 }) // execute with options
                 .on('end', function () {
                     fse.removeSync(path.join(__dirname, 'temp'));
@@ -97,36 +117,56 @@ describe('appverse-html5:module', function () {
                 });
         });
 
-        it('should add scripts to index', function () {
-            modules[1].scripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
+        it('should add scripts correctly to wiredep config', function () {
+            for (var key in modules[1].wiredep.overrides) {
+                if (modules[1].wiredep.overrides.hasOwnProperty(key)) {
+                    assert.noFileContent('config/wiredep.js', '/' + key + '/');
+                    modules[1].wiredep.overrides[key].main.forEach(function(name) {
+                        assert.fileContent('config/wiredep.js', name);
+                    });
+                }
+            }
+            modules[1].wiredep.exclude.forEach(function(name) {
+                assert.fileContent('config/wiredep.js', name);
             });
         });
         it('should define angular modules ', function () {
             assert.fileContent('app/app.js', modules[1].angular);
         });
+        it('should move files ', function () {
+            assert.file(modules[1].files);
+        });
 
     });
-    describe('module with scripts angular and config', function () {
+
+    describe('add module with all the options. Project file', function () {
         before(function (done) {
-            //console.log('moving to temp!')
-            fse.removeSync(path.join(__dirname, '../temp'));
+            fse.removeSync(path.join(__dirname, 'temp'));
             helpers.run(path.join(__dirname, '../generators/module'))
                 .inTmpDir(function (dir) {
-                    // `dir` is the path to the new temporary directory
                     fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                    var pathFile = path.join(templatePath, modules[2].name);
+                    modules[2].files.forEach(function (name) {
+                        var fullpath = path.join(pathFile, name);
+                        fse.outputFileSync(fullpath);
+                    });
+                    modules[2].templates.forEach(function (name) {
+                        var fullpath = path.join(pathFile, name);
+                        fse.outputFileSync(fullpath);
+                    });
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
-                    var indexFile = generator.fs.read(generator.destinationPath('app/index.html'));
-                    var restJS = ['<script src="bower_components/angular/angular.min.js"></script>'];
-                    //APP FILES
-                    indexFile = require('html-wiring').appendScripts(indexFile, 'scripts/scripts.js', restJS);
-                    generator.write(generator.destinationPath('app/index.html'), indexFile);
                 })
                 .withArguments([modules[2].name])
+                .withPrompts({
+                    promptmock0: "mock0",
+                    promptmock1: "mock1"
+                })
                 .withOptions({
                     'config': mockdata,
+                    'templatePath': templatePath,
+                    'jsonproject': projectmodules,
                     'skip-install': true,
                     'skip-welcome-message': true
                 }) // execute with options
@@ -136,9 +176,17 @@ describe('appverse-html5:module', function () {
                 });
         });
 
-        it('should add scripts to index', function () {
-            modules[2].scripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
+        it('should add scripts correctly to wiredep config', function () {
+            for (var key in modules[2].wiredep.overrides) {
+                if (modules[2].wiredep.overrides.hasOwnProperty(key)) {
+                    assert.noFileContent('config/wiredep.js', '/' + key + '/');
+                    modules[2].wiredep.overrides[key].main.forEach(function(name) {
+                        assert.fileContent('config/wiredep.js', name);
+                    });
+                }
+            }
+            modules[2].wiredep.exclude.forEach(function(name) {
+                assert.fileContent('config/wiredep.js', name);
             });
         });
         it('should define angular modules ', function () {
@@ -149,127 +197,23 @@ describe('appverse-html5:module', function () {
             assert.fileContent('app/app.js', modules[2].config.values[0].name);
             assert.fileContent('app/app.js', modules[2].config.values[1].name);
         });
-
-    });
-    describe('add module with scripts angular and files ', function () {
-        before(function (done) {
-            fse.removeSync(path.join(__dirname, 'temp'));
-            helpers.run(path.join(__dirname, '../generators/module'))
-                .inTmpDir(function (dir) {
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
-                    var pathFile = path.join(templatePath, modules[3].name);
-                    modules[3].files.forEach(function (name) {
-                        var fullpath = path.join(pathFile, name);
-                        fse.outputFileSync(fullpath);
-                    });
-
-                })
-                .on('ready', function (generator) {
-                    generator.conflicter.force = true;
-                    var indexFile = generator.fs.read(generator.destinationPath('app/index.html'));
-                    var restJS = ['<script src="bower_components/angular/angular.min.js"></script>'];
-                    //APP FILES
-                    indexFile = require('html-wiring').appendScripts(indexFile, 'scripts/scripts.js', restJS);
-                    generator.write(generator.destinationPath('app/index.html'), indexFile);
-
-                })
-                .withArguments([modules[3].name])
-                .withOptions({
-                    'config': mockdata,
-                    'templatePath': templatePath,
-                    'skip-install': true,
-                    'skip-welcome-message': true
-                }) // execute with options
-                .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
-                });
-        });
-
-        it('should add scripts to index', function () {
-            modules[3].scripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
-            });
-        });
-        it('should define angular modules ', function () {
-            assert.fileContent('app/app.js', modules[3].angular);
-        });
-        it('should move files ', function () {
-            assert.file(modules[3].files);
-        });
-
-    });
-
-
-
-    describe('add module with all the options ', function () {
-        before(function (done) {
-            fse.removeSync(path.join(__dirname, 'temp'));
-            helpers.run(path.join(__dirname, '../generators/module'))
-                .inTmpDir(function (dir) {
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
-                    var pathFile = path.join(templatePath, modules[4].name);
-                    modules[4].files.forEach(function (name) {
-                        var fullpath = path.join(pathFile, name);
-                        fse.outputFileSync(fullpath);
-                    });
-                    modules[4].templates.forEach(function (name) {
-                        var fullpath = path.join(pathFile, name);
-                        fse.outputFileSync(fullpath);
-                    });
-                })
-                .on('ready', function (generator) {
-                    generator.conflicter.force = true;
-                    var indexFile = generator.fs.read(generator.destinationPath('app/index.html'));
-                    var restJS = ['<script src="bower_components/angular/angular.min.js"></script>'];
-                    //APP FILES
-                    indexFile = require('html-wiring').appendScripts(indexFile, 'scripts/scripts.js', restJS);
-                    generator.write(generator.destinationPath('app/index.html'), indexFile);
-
-                })
-                .withArguments([modules[4].name])
-                .withOptions({
-                    'config': mockdata,
-                    'templatePath': templatePath,
-                    'skip-install': true,
-                    'skip-welcome-message': true
-                }) // execute with options
-                .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
-                });
-        });
-
-        it('should add scripts to index', function () {
-            modules[4].scripts.forEach(function (name) {
-                assert.fileContent('app/index.html', name);
-            });
-        });
-        it('should define angular modules ', function () {
-            assert.fileContent('app/app.js', modules[4].angular);
-        });
-        it('should define angular configuration ', function () {
-            assert.fileContent('app/app.js', modules[4].config.name);
-            assert.fileContent('app/app.js', modules[4].config.values[0].name);
-            assert.fileContent('app/app.js', modules[4].config.values[1].name);
-        });
         it('should add package to bower.json', function () {
-            assert.fileContent('bower.json', modules[4].bower[0].name);
-            assert.fileContent('bower.json', modules[4].bower[0].version);
-            assert.fileContent('bower.json', modules[4].bower[1].name);
-            assert.fileContent('bower.json', modules[4].bower[1].version);
+            assert.fileContent('bower.json', modules[2].bower[0].name);
+            assert.fileContent('bower.json', modules[2].bower[0].version);
+            assert.fileContent('bower.json', modules[2].bower[1].name);
+            assert.fileContent('bower.json', modules[2].bower[1].version);
         });
         it('should add package to package.json', function () {
-            assert.fileContent('package.json', modules[4].npm[0].name);
-            assert.fileContent('package.json', modules[4].npm[0].version);
-            assert.fileContent('package.json', modules[4].npm[1].name);
-            assert.fileContent('package.json', modules[4].npm[1].version);
+            assert.fileContent('package.json', modules[2].npm[0].name);
+            assert.fileContent('package.json', modules[2].npm[0].version);
+            assert.fileContent('package.json', modules[2].npm[1].name);
+            assert.fileContent('package.json', modules[2].npm[1].version);
         });
         it('should move files ', function () {
-            assert.file(modules[4].files);
+            assert.file(modules[2].files);
         });
         it('should move templates ', function () {
-            assert.file(modules[4].templates);
+            assert.file(modules[2].templates);
         });
     });
 

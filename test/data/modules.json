@@ -1,19 +1,114 @@
 [
     {
         "name": "modulemock0",
-        "scripts": ["bower_components/modulemock0.js",
-                   "bower_components/modulemock0.min.js"]
+        "wiredep": {
+            "overrides": {
+                "modulemock0": {
+                        "main": [
+                                    "modulemock0.min.js"
+                        ]
+                },
+                "appverse.mock0": {
+                    "main": [
+                                    "dist/appverse.mmock0dep.min.js",
+                                    "dist/appverse.mock0.js",
+                                    "dist/appverse.mock0.css"
+                    ]
+                }
+            },
+            "exclude": [
+                "/exlude-mock0/"
+            ]
+        },
+        "angular": "appverse.mock0",
+        "config": {
+            "name": "MODULE_MOCK_CONFIG",
+            "values": [{
+                "name": "MODULE_MOCK_PARAM",
+                "value": "/mockmodule2"
+            }, {
+                "name": "MODULE_MOCK_PARAM1",
+                "value": "mockmodule2"
+            }]
+        },
+        "prompts": [
+            {
+                "type": "input",
+                "name": "promptmock0",
+                "message": "promptmock0",
+                "default": ""
+            },
+            {
+                "type": "input",
+                "name": "promptmock1",
+                "message": "promptmock1",
+                "default": ""
+            }
+        ]
     },
     {
         "name": "modulemock1",
-        "scripts": ["bower_components/modulemock1.js",
-                   "bower_components/modulemock1.min.js"],
-        "angular": "appverse.mock1"
+        "wiredep": {
+            "overrides": {
+                "modulemock1": {
+                        "main": [
+                                    "modulemock1.min.js"
+                        ]
+                },
+                "appverse.mock1": {
+                    "main": [
+                                    "dist/appverse.mmock1dep.min.js",
+                                    "dist/appverse.mock1.js",
+                                    "dist/appverse.mock1.css"
+                    ]
+                }
+            },
+            "exclude": [
+                "/exlude-mock1/"
+            ]
+        },
+        "angular": "appverse.mock1",
+        "files": [
+            "modulemock/modulemock1file1.js",
+            "modulemock/modulemock1file2.js",
+            "modulemock/modulemock1file3.js"
+        ],
+        "prompts": [
+            {
+                "type": "input",
+                "name": "promptmock0",
+                "message": "promptmock0",
+                "default": ""
+            },
+            {
+                "type": "input",
+                "name": "promptmock1",
+                "message": "promptmock1",
+                "default": ""
+            }
+        ]
     },
     {
         "name": "modulemock2",
-        "scripts": ["bower_components/modulemock2.js",
-                   "bower_components/modulemock2.min.js"],
+        "wiredep": {
+            "overrides": {
+                "modulemock2": {
+                        "main": [
+                                    "modulemock2.min.js"
+                        ]
+                },
+                "appverse.mock2": {
+                    "main": [
+                                    "dist/appverse.mmock2dep.min.js",
+                                    "dist/appverse.mock2.js",
+                                    "dist/appverse.mock2.css"
+                    ]
+                }
+            },
+            "exclude": [
+                "/exlude-mock2/"
+            ]
+        },
         "angular": "appverse.mock2",
         "config": {
             "name": "MODULE_MOCK_CONFIG",
@@ -24,56 +119,43 @@
                 "name": "MODULE_MOCK_PARAM1",
                 "value": "mockmodule2"
             }]
-        }
-    },
-    {
-        "name": "modulemock3",
-        "scripts": ["bower_components/modulemock3.js",
-                   "bower_components/modulemock3.min.js"],
-        "angular": "appverse.mock3",
-        "files": [
-            "modulemock/modulemock3file1.js",
-            "modulemock/modulemock3file2.js",
-            "modulemock/modulemock3file3.js"
-        ]
-    },
-    {
-        "name": "modulemock4",
-        "scripts": ["bower_components/modulemock4.js",
-                   "bower_components/modulemock4.min.js"],
-        "angular": "appverse.mock4",
-        "config": {
-            "name": "MODULE_MOCK_CONFIG",
-            "values": [{
-                "name": "MODULE_MOCK_PARAM",
-                "value": "/mockmodule4"
-            }, {
-                "name": "MODULE_MOCK_PARAM1",
-                "value": "mockmodule4"
-            }]
         },
+        "prompts": [
+            {
+                "type": "input",
+                "name": "promptmock0",
+                "message": "promptmock0",
+                "default": ""
+            },
+            {
+                "type": "input",
+                "name": "promptmock1",
+                "message": "promptmock1",
+                "default": ""
+            }
+        ],
         "templates": [
-            "modulemock/modulemock4template1.js",
-            "modulemock/modulemock4template2.js",
-            "modulemock/modulemock4template3.js"
+            "modulemock/modulemock2template1.js",
+            "modulemock/modulemock2template2.js",
+            "modulemock/modulemock2template3.js"
         ],
         "files": [
-            "modulemock/modulemock4file1.js",
-            "modulemock/modulemock4file2.js",
-            "modulemock/modulemock4file3.js"
+            "modulemock/modulemock2file1.js",
+            "modulemock/modulemock2file2.js",
+            "modulemock/modulemock2file3.js"
         ],
         "npm": [{
-            "name": "modulemock4-npm-package",
+            "name": "modulemock2-npm-package",
             "version": "0.0.1"
         }, {
-            "name": "modulemock4-npm-package2",
+            "name": "modulemock2-npm-package2",
             "version": "0.0.2"
         }],
         "bower": [{
-            "name": "modulemock4-bower-package",
+            "name": "modulemock2-bower-package",
             "version": "0.0.1"
         }, {
-            "name": "modulemock4-bower-package2",
+            "name": "modulemock2-bower-package2",
             "version": "0.0.2"
         }]
     }
