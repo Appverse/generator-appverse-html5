@@ -179,16 +179,16 @@ module.exports = componentGenerator.extend({
                     var replacement = new RegExp('\\bapp/\\b', 'g');
                     var res = scriptPath.replace(replacement, '');
                     scripts.push(res);
-                    this.addScriptsToIndex(scripts);
+                    // this.addScriptsToIndex(scripts);
                 }
             }
         },
-        scripts: function() {
-            //SCRIPTS
-            if (this.component['named-scripts'] && this.options.name) {
-                this.namedScripts(this.component['named-scripts'], this.options.name, this.options.name);
-            }
-        },
+        // scripts: function() {
+        //     //SCRIPTS
+        //     if (this.component['named-scripts'] && this.options.name) {
+        //         this.namedScripts(this.component['named-scripts'], this.options.name, this.options.name);
+        //     }
+        // },
         navigation: function() {
             //NAVIGATION
             if (this.component.navigation) {

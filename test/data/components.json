@@ -2,9 +2,24 @@
 
     {
         "name": "mockcomponent",
-        "option": ["target"],
+        "option": {
+            "required":[
+                "target",
+                "type"
+            ]
+        },
+        "types":[
+            "mocktype1",
+            "mocktype2",
+            "mocktype3",
+            "mocktype4"
+        ],
         "html-snippet": "app/components/$target/$name-MockHMTL.html",
-        "js-snippet": "app/components/$target/$name-MockJS.js"
-
+        "js-snippet": "app/components/$target/$name-MockJS.js",
+        "api" : true,
+        "navigation": true,
+        "named-templates": [
+            "app/components/$target/templates/MockHTML2.html"
+        ]
     }
 ]
