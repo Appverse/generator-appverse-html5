@@ -174,21 +174,9 @@ module.exports = componentGenerator.extend({
                 }
                 if (this.component['js-snippet']) {
                     this.moveNamedTemplate(this.templatepath, this.component['js-snippet'], this.name, this.target);
-                    var scripts = [];
-                    var scriptPath = this.resolveNamedTemplatePath(this.component['js-snippet'], this.name, this.target);
-                    var replacement = new RegExp('\\bapp/\\b', 'g');
-                    var res = scriptPath.replace(replacement, '');
-                    scripts.push(res);
-                    // this.addScriptsToIndex(scripts);
                 }
             }
         },
-        // scripts: function() {
-        //     //SCRIPTS
-        //     if (this.component['named-scripts'] && this.options.name) {
-        //         this.namedScripts(this.component['named-scripts'], this.options.name, this.options.name);
-        //     }
-        // },
         navigation: function() {
             //NAVIGATION
             if (this.component.navigation) {

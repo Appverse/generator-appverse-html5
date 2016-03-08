@@ -91,19 +91,6 @@ validateTarget : function validateTarget (target) {
     //
     this.fs.write(targetPath, targetHTML.html());
 },
-// /**
-//  * Add named scripts to index
-//  * @param {string[]} scripts - Scripts to add
-//  * @param {string} name - Name
-//  * @param {string} target - Target
-//  **/
-//  namedScripts : function namedScripts(scripts, name, target) {
-//     var namedScriptsArray = [];
-//     scripts.forEach(function (script) {
-//         namedScriptsArray.push(this.resolveNamedTemplatePath(script, name, target));
-//     }.bind(this));
-//     this.addScriptsToIndex(namedScriptsArray);
-// },
 /**
  * Add Routing
  * @param {string} name - rounting name
