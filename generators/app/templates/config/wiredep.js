@@ -47,7 +47,7 @@ module.exports = {
                 },
                 "bootstrap-sass": {
                     "main": [
-                                "/assets/javascripts/bootstrap.min.js"
+                                "assets/javascripts/bootstrap.min.js"
                     ]
                 },
                 "angular-bootstrap": {
