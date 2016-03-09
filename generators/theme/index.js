@@ -37,7 +37,7 @@ module.exports = appverseHtml5Gen.extend({
         } else {
             this.provider = this.options['provider'];
         }
-       
+
         this.themeprompts = [];
         this.remotethemes = {};
         this.bootstrapTheme = false;
@@ -47,7 +47,7 @@ module.exports = appverseHtml5Gen.extend({
             this.skipprompts = true;
         } else {
             this.skipprompts = false;
-        } 
+        }
          var done = this.async();
          this.bthemes = [];
          this.info(" Getting themes from " + this.provider);
@@ -55,57 +55,57 @@ module.exports = appverseHtml5Gen.extend({
            if (!error && response.statusCode === 200) {
            this.remotethemes = JSON.parse(body.toString());
            this.remotethemes.themes.forEach(function(entry) {
-                var option = { name: entry.name, value: entry.name};           
+                var option = { name: entry.name, value: entry.name};
                 this.bthemes.push(option);
-           }.bind(this));              
+           }.bind(this));
            done();
           } else {
              this.log("Connection error." + error);
           }
-         }.bind(this));  
+         }.bind(this));
          if (!this.options['skip-prompts']) {
             this.themeprompts = {
                 type: 'list',
                 name: 'themes',
                 message: "Select theme:",
                 choices: [
-                     {name: 'appverse', value: 'appvese'}, 
-                     {name: 'appverse-dark', value: 'appverse-dark'}, 
+                     {name: 'appverse', value: 'appverse'},
+                     {name: 'appverse-dark', value: 'appverse-dark'},
                      {name: 'bootswatch', value: 'bootswatch'}
-                     ], 
+                     ],
                 default: 0
-            }          
+            }
         } else {
             this.themeprompts = {};
         }
-    },    
+    },
     prompting:  {
         theme : function () {
         var done = this.async();
-        this.prompt(this.themeprompts, function(props) { 
+        this.prompt(this.themeprompts, function(props) {
             this.remote = false;
-            this.selectedTheme = props.themes;  
+            this.selectedTheme = props.themes;
             done();
         }.bind(this));
         },
         bootswatch: function () {
           if ( this.selectedTheme === 'bootswatch') {
             var done = this.async();
-            this.prompt ({       
+            this.prompt ({
              type: "list",
              name: "bthemes",
              message: "Select Bootswatch theme:",
              choices: this.bthemes
-            }, function (props) { 
+            }, function (props) {
                  this.remote = true;
-                 this.selectedTheme = props.bthemes; 
-                 this.info ('Selected: ' + this.selectedTheme);                
-                 done();             
+                 this.selectedTheme = props.bthemes;
+                 this.info ('Selected: ' + this.selectedTheme);
+                 done();
             }.bind(this));
-          }                   
-        }   
+          }
+        }
     },
-    writing: {     
+    writing: {
         prepare: function() {
             if (this.remote) {
             function search(nameKey, myArray) {
@@ -120,7 +120,7 @@ module.exports = appverseHtml5Gen.extend({
             }
             }
         },
-        theme: function() {          
+        theme: function() {
           if (this.remote) {
                var done = this.async();
                 request(this.theme.scss, function(error, response, body) {
@@ -131,10 +131,10 @@ module.exports = appverseHtml5Gen.extend({
                         this.log("Connection error.");
                     }
                     done();
-                }.bind(this)); 
-            }    
+                }.bind(this));
+            }
         },
-        variables: function() {          
+        variables: function() {
            if(this.remote) {
                var done = this.async();
                request(this.theme.scssVariables, function(error, response, body) {
@@ -146,13 +146,13 @@ module.exports = appverseHtml5Gen.extend({
                   }
                 done();
               }.bind(this));
-            } else {  
-              this.fs.copyTpl (this.templatePath('config/sass.js'), 
-                        this.destinationPath('config/sass.js'), 
-                        this); 
+            } else {
+              this.fs.copyTpl (this.templatePath('config/sass.js'),
+                        this.destinationPath('config/sass.js'),
+                        this);
             }
-        }                   
-    }, 
+        }
+    },
     end: function() {
         this.log("Finish.");
     }
