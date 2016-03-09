@@ -22,6 +22,20 @@
         "templates": [
            "buildwebkitmock/buildwebkitmocktemplate1.js",
            "buildwebkitmock/buildwebkitmocktemplate2.js"
-        ]
+        ],
+        "prompts": [
+            {
+                "type": "input",
+                "name": "mockprompt0",
+                "message": "mockprompt0",
+                "default": ""
+             }, {
+                "type": "input",
+                "name": "mockprompt1",
+                "message": "mockprompt1",
+                "default": ""
+             }
+        ],
+        "startprompt": true
     }
 ]

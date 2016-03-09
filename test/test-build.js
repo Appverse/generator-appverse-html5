@@ -25,60 +25,127 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 var fse = require('fs-extra');
 var mockdata = path.join(__dirname, 'data/builds.json');
+var jsonfile = path.join(__dirname, 'data/builds-project.json');
 var modules = require(mockdata);
+var jsonproject = require(jsonfile);
 var templatePath = path.join(__dirname, 'temp/generators/build/templates');
 
 describe('appverse-html5:build', function () {
     describe('build', function () {
-        before(function (done) {
-            //console.log('moving to temp!')
-            fse.removeSync(path.join(__dirname, 'temp'));
-            helpers.run(path.join(__dirname, '../generators/build'))
-                .inTmpDir(function (dir) {
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
-                    var pathFile = path.join(templatePath, modules[0].name);
-                    modules[0].files.forEach(function (name) {
-                        var fullpath = path.join(pathFile, name);
-                        fse.outputFileSync(fullpath);
-                    });
-                    modules[0].templates.forEach(function (name) {
-                        var fullpath = path.join(pathFile, name);
-                        fse.outputFileSync(fullpath);
-                    });
-                })
+        describe('with prompts', function () {
+            before(function (done) {
+                //console.log('moving to temp!')
+                fse.removeSync(path.join(__dirname, 'temp'));
+                helpers.run(path.join(__dirname, '../generators/build'))
+                    .inTmpDir(function (dir) {
+                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                        var pathFile = path.join(templatePath, modules[0].name);
+                        modules[0].files.forEach(function (name) {
+                            var fullpath = path.join(pathFile, name);
+                            fse.outputFileSync(fullpath);
+                        });
+                        modules[0].templates.forEach(function (name) {
+                            var fullpath = path.join(pathFile, name);
+                            fse.outputFileSync(fullpath);
+                        });
+                    })
 
-            .withArguments([modules[0].name])
-                .withOptions({
-                    'config': mockdata,
-                    'templatePath': templatePath,
-                    'skip-install': true,
-                    'skip-welcome-message': true
-                }) // execute with options
-                .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
-                });
+                .withArguments([modules[0].name])
+                    .withPrompts({
+                        mockprompt0: "mock0",
+                        mockprompt1: "mock1"
+                    })
+                    .withOptions({
+                        'config': mockdata,
+                        'templatePath': templatePath,
+                        'skip-install': true,
+                        'skip-welcome-message': true
+                    }) // execute with options
+                    .on('end', function () {
+                        fse.removeSync(path.join(__dirname, 'temp'));
+                        done();
+                    });
+            });
+
+            it('should add package to package.json', function () {
+                assert.fileContent([
+                        [ 'package.json',
+                            '\"' + modules[0].npm[0].name + '\":\"' + modules[0].npm[0].version + '\"'
+                        ],
+                        [ 'package.json',
+                            '\"' + modules[0].npm[1].name + '\":\"' + modules[0].npm[1].version + '\"'
+                        ]
+                ]);
+            });
+            it('should add scripts to package.json', function () {
+                assert.fileContent( 'package.json',
+                                    '\"' + modules[0].scripts[0].name + '\":\"' + modules[0].scripts[0].value + '\"' );
+            });
+            it('should move files ', function () {
+                assert.file(modules[0].files);
+            });
+            it('should move templates ', function () {
+                assert.file(modules[0].templates);
+            });
         });
 
-        it('should add package to package.json', function () {
-            assert.fileContent([
-                    [ 'package.json',
-                        '\"' + modules[0].npm[0].name + '\":\"' + modules[0].npm[0].version + '\"'
-                    ],
-                    [ 'package.json',
-                        '\"' + modules[0].npm[1].name + '\":\"' + modules[0].npm[1].version + '\"'
-                    ]
-            ]);
-        });
-        it('should add scripts to package.json', function () {
-            assert.fileContent( 'package.json',
-                                '\"' + modules[0].scripts[0].name + '\":\"' + modules[0].scripts[0].value + '\"' );
-        });
-        it('should move files ', function () {
-            assert.file(modules[0].files);
-        });
-        it('should move templates ', function () {
-            assert.file(modules[0].templates);
+        describe('skip prompts. Use project JSON', function () {
+            before(function (done) {
+                //console.log('moving to temp!')
+                fse.removeSync(path.join(__dirname, 'temp'));
+                helpers.run(path.join(__dirname, '../generators/build'))
+                    .inTmpDir(function (dir) {
+                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                        var pathFile = path.join(templatePath, modules[0].name);
+                        modules[0].files.forEach(function (name) {
+                            var fullpath = path.join(pathFile, name);
+                            fse.outputFileSync(fullpath);
+                        });
+                        modules[0].templates.forEach(function (name) {
+                            var fullpath = path.join(pathFile, name);
+                            fse.outputFileSync(fullpath);
+                        });
+                    })
+
+                .withArguments([modules[0].name])
+                    .withPrompts({
+                        mockprompt0: "mock0",
+                        mockprompt1: "mock1"
+                    })
+                    .withOptions({
+                        'config': mockdata,
+                        'templatePath': templatePath,
+                        'skip-install': true,
+                        'skip-welcome-message': true,
+                        'skip-prompts': true,
+                        'jsonproject': jsonproject
+                    }) // execute with options
+                    .on('end', function () {
+                        fse.removeSync(path.join(__dirname, 'temp'));
+                        done();
+                    });
+            });
+
+            it('should add package to package.json', function () {
+                assert.fileContent([
+                        [ 'package.json',
+                            '\"' + modules[0].npm[0].name + '\":\"' + modules[0].npm[0].version + '\"'
+                        ],
+                        [ 'package.json',
+                            '\"' + modules[0].npm[1].name + '\":\"' + modules[0].npm[1].version + '\"'
+                        ]
+                ]);
+            });
+            it('should add scripts to package.json', function () {
+                assert.fileContent( 'package.json',
+                                    '\"' + modules[0].scripts[0].name + '\":\"' + modules[0].scripts[0].value + '\"' );
+            });
+            it('should move files ', function () {
+                assert.file(modules[0].files);
+            });
+            it('should move templates ', function () {
+                assert.file(modules[0].templates);
+            });
         });
     });
 });

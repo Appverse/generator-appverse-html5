@@ -29,7 +29,7 @@ var request = require('request');
 
 
 describe('appverse-html5:theme', function () {
-    describe('switch to appverse default', function () {
+    describe('switch to appverse default theme', function () {
         before(function (done) {
             //console.log('moving to temp!')
             fse.removeSync(path.join(__dirname, '../temp'));
@@ -59,7 +59,7 @@ describe('appverse-html5:theme', function () {
         });
     });
 
-    describe('switch to dark', function () {
+    describe('switch to appverse-dark theme', function () {
         before(function (done) {
             //console.log('moving to temp!')
             fse.removeSync(path.join(__dirname, '../temp'));
@@ -117,18 +117,20 @@ describe('appverse-html5:theme', function () {
             });
 
             it('should modify _variables.scss', function () {
-                assert.fileContent('app/styles/sass/_variables.scss', '#000 !default;'); //$gray-base
-                assert.fileContent('app/styles/sass/_variables.scss', '#3E3F3A !default;'); //$gray-darker
-                assert.fileContent('app/styles/sass/_variables.scss', '#8E8C84 !default;'); //$gray-dark
-                assert.fileContent('app/styles/sass/_variables.scss', '#98978B !default;'); //$gray
-                assert.fileContent('app/styles/sass/_variables.scss', '#DFD7CA !default;'); //$gray-light
-                assert.fileContent('app/styles/sass/_variables.scss', '#F8F5F0 !default;'); //$gray-lighter
+                assert.fileContent([
+                    [ 'app/styles/sass/_variables.scss', '#000 !default;' ], //$gray-base
+                    [ 'app/styles/sass/_variables.scss', '#3E3F3A !default;' ], //$gray-darker
+                    [ 'app/styles/sass/_variables.scss', '#8E8C84 !default;' ], //$gray-dark
+                    [ 'app/styles/sass/_variables.scss', '#98978B !default;' ], //$gray
+                    [ 'app/styles/sass/_variables.scss', '#DFD7CA !default;' ], //$gray-light
+                    [ 'app/styles/sass/_variables.scss', '#F8F5F0 !default;' ], //$gray-lighter
 
-                assert.fileContent('app/styles/sass/_variables.scss', '#325D88 !default;'); //$brand-primary
-                assert.fileContent('app/styles/sass/_variables.scss', '#93C54B !default;'); //$brand-success
-                assert.fileContent('app/styles/sass/_variables.scss', '#29ABE0 !default;'); //$brand-info
-                assert.fileContent('app/styles/sass/_variables.scss', '#F47C3C !default;'); //$brand-warning
-                assert.fileContent('app/styles/sass/_variables.scss', '#d9534f !default;'); //$brand-danger
+                    [ 'app/styles/sass/_variables.scss', '#325D88 !default;' ], //$brand-primary
+                    [ 'app/styles/sass/_variables.scss', '#93C54B !default;' ], //$brand-success
+                    [ 'app/styles/sass/_variables.scss', '#29ABE0 !default;' ], //$brand-info
+                    [ 'app/styles/sass/_variables.scss', '#F47C3C !default;' ], //$brand-warning
+                    [ 'app/styles/sass/_variables.scss', '#d9534f !default;' ] //$brand-danger
+                ]);
             });
             it('should modify _theme.scss', function () {
                 assert.fileContent('app/styles/sass/_theme.scss', '.sandstone {');

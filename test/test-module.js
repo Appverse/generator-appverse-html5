@@ -80,9 +80,11 @@ describe('appverse-html5:module', function () {
             assert.fileContent('app/app.js', modules[0].angular);
         });
         it('should define angular configuration ', function () {
-            assert.fileContent('app/app.js', modules[0].config.name);
-            assert.fileContent('app/app.js', modules[0].config.values[0].name);
-            assert.fileContent('app/app.js', modules[0].config.values[1].name);
+            assert.fileContent([
+                [ 'app/app.js', modules[0].config.name ],
+                [ 'app/app.js', modules[0].config.values[0].name ],
+                [ 'app/app.js', modules[0].config.values[1].name ]
+            ]);
         });
 
     });
@@ -193,21 +195,27 @@ describe('appverse-html5:module', function () {
             assert.fileContent('app/app.js', modules[2].angular);
         });
         it('should define angular configuration ', function () {
-            assert.fileContent('app/app.js', modules[2].config.name);
-            assert.fileContent('app/app.js', modules[2].config.values[0].name);
-            assert.fileContent('app/app.js', modules[2].config.values[1].name);
+            assert.fileContent([
+                [ 'app/app.js', modules[2].config.name ],
+                [ 'app/app.js', modules[2].config.values[0].name ],
+                [ 'app/app.js', modules[2].config.values[1].name ]
+            ]);
         });
         it('should add package to bower.json', function () {
-            assert.fileContent('bower.json', modules[2].bower[0].name);
-            assert.fileContent('bower.json', modules[2].bower[0].version);
-            assert.fileContent('bower.json', modules[2].bower[1].name);
-            assert.fileContent('bower.json', modules[2].bower[1].version);
+            assert.fileContent([
+                [ 'bower.json', modules[2].bower[0].name ],
+                [ 'bower.json', modules[2].bower[0].version ],
+                [ 'bower.json', modules[2].bower[1].name ],
+                [ 'bower.json', modules[2].bower[1].version ]
+            ]);
         });
         it('should add package to package.json', function () {
-            assert.fileContent('package.json', modules[2].npm[0].name);
-            assert.fileContent('package.json', modules[2].npm[0].version);
-            assert.fileContent('package.json', modules[2].npm[1].name);
-            assert.fileContent('package.json', modules[2].npm[1].version);
+            assert.fileContent([
+                [ 'package.json', modules[2].npm[0].name ],
+                [ 'package.json', modules[2].npm[0].version ],
+                [ 'package.json', modules[2].npm[1].name ],
+                [ 'package.json', modules[2].npm[1].version ]
+            ]);
         });
         it('should move files ', function () {
             assert.file(modules[2].files);
