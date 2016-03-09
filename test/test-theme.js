@@ -27,10 +27,9 @@ var fse = require('fs-extra');
 
 var request = require('request');
 
- 
-describe('appverse-html5:theme', function () {
-    describe('switch to dark ', function () {
 
+describe('appverse-html5:theme', function () {
+    describe('switch to appverse default theme', function () {
         before(function (done) {
             //console.log('moving to temp!')
             fse.removeSync(path.join(__dirname, '../temp'));
@@ -40,7 +39,37 @@ describe('appverse-html5:theme', function () {
                     fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .on('ready', function (generator) {
-                    generator.conflicter.force = true;            
+                    generator.conflicter.force = true;
+                })
+                .withPrompts({
+                    themes: "appverse"
+                })
+                .withOptions({
+                    'skip-install': true,
+                    'skip-welcome-message': true
+                }) // execute with options
+                .on('end', function () {
+                    fse.removeSync(path.join(__dirname, 'temp'));
+                    done();
+                });
+        });
+
+        it('should not add dark theme source to sass.js', function () {
+             assert.noFileContent('config/sass.js', 'appverse-dark');
+        });
+    });
+
+    describe('switch to appverse-dark theme', function () {
+        before(function (done) {
+            //console.log('moving to temp!')
+            fse.removeSync(path.join(__dirname, '../temp'));
+            helpers.run(path.join(__dirname, '../generators/theme'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                })
+                .on('ready', function (generator) {
+                    generator.conflicter.force = true;
                 })
                 .withPrompts({
                     themes: "appverse-dark"
@@ -55,9 +84,57 @@ describe('appverse-html5:theme', function () {
                 });
         });
 
-        it('Appverse theme switch to dark', function () {
-             assert.fileContent('config/sass.js', 'appverse-dark');             
+        it('should add dark theme source to sass.js', function () {
+             assert.fileContent('config/sass.js', 'appverse-dark');
         });
+    });
 
+    describe('switch to bootswatch', function () {
+        describe('switch to Sandstone', function() {
+            before(function (done) {
+            //console.log('moving to temp!')
+                fse.removeSync(path.join(__dirname, '../temp'));
+                helpers.run(path.join(__dirname, '../generators/theme'))
+                    .inTmpDir(function (dir) {
+                        // `dir` is the path to the new temporary directory
+                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                    })
+                    .on('ready', function (generator) {
+                        generator.conflicter.force = true;
+                    })
+                    .withPrompts({
+                        themes: "bootswatch",
+                        bthemes: "Sandstone"
+                    })
+                    .withOptions({
+                        'skip-install': true,
+                        'skip-welcome-message': true
+                    }) // execute with options
+                    .on('end', function () {
+                        fse.removeSync(path.join(__dirname, 'temp'));
+                        done();
+                    });
+            });
+
+            it('should modify _variables.scss', function () {
+                assert.fileContent([
+                    [ 'app/styles/sass/_variables.scss', '#000 !default;' ], //$gray-base
+                    [ 'app/styles/sass/_variables.scss', '#3E3F3A !default;' ], //$gray-darker
+                    [ 'app/styles/sass/_variables.scss', '#8E8C84 !default;' ], //$gray-dark
+                    [ 'app/styles/sass/_variables.scss', '#98978B !default;' ], //$gray
+                    [ 'app/styles/sass/_variables.scss', '#DFD7CA !default;' ], //$gray-light
+                    [ 'app/styles/sass/_variables.scss', '#F8F5F0 !default;' ], //$gray-lighter
+
+                    [ 'app/styles/sass/_variables.scss', '#325D88 !default;' ], //$brand-primary
+                    [ 'app/styles/sass/_variables.scss', '#93C54B !default;' ], //$brand-success
+                    [ 'app/styles/sass/_variables.scss', '#29ABE0 !default;' ], //$brand-info
+                    [ 'app/styles/sass/_variables.scss', '#F47C3C !default;' ], //$brand-warning
+                    [ 'app/styles/sass/_variables.scss', '#d9534f !default;' ] //$brand-danger
+                ]);
+            });
+            it('should modify _theme.scss', function () {
+                assert.fileContent('app/styles/sass/_theme.scss', '.sandstone {');
+            });
+        });
     });
 });

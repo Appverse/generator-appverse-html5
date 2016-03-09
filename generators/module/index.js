@@ -90,10 +90,6 @@ module.exports = moduleGenerator.extend({
         }
     },
     writing: function() {
-        //SCRIPTS
-        if (this.module.scripts) {
-            this.addScriptsToIndex(this.module.scripts);
-        }
         //ANGULAR MODULE
         if (this.module.angular) {
             this.addAngularModule(this.module.angular);
@@ -123,9 +119,6 @@ module.exports = moduleGenerator.extend({
         //CONFIG
         if (this.module.config) {
             this.addConfig(this.module.config);
-        }
-        if (this.module.css) {
-            this.addCSSToIndex(this.module.css);
         }
     },
     install: function() {

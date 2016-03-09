@@ -14,7 +14,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.cache",
     "startprompt": true
@@ -29,7 +29,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.detection",
     "startprompt": true,
@@ -47,7 +47,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.logging",
     "startprompt": true
@@ -62,7 +62,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.performance",
     "startprompt": true
@@ -82,7 +82,7 @@
                 ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "startprompt": false,
     "bower": [
@@ -112,7 +112,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.rest",
     "startprompt": true,
@@ -189,7 +189,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.security",
     "startprompt": false,
@@ -215,7 +215,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.serverPush",
     "startprompt": true,
@@ -262,7 +262,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.translate",
     "startprompt": true,
@@ -283,11 +283,12 @@
                 "main": [
                                 "dist/modernizr-custom.js",
                                 "dist/notification-fx.js",
-                                "dist/appverse.notifications.js"
+                                "dist/appverse.notifications.js",
+                                "dist/notification-bar.css"
                 ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.notifications",
     "bower": [
@@ -296,10 +297,7 @@
         "version": "~0.2.5"
       }
     ],
-    "startprompt": true,
-    "css": [
-      "bower_components/appverse.notifications/dist/notification-bar.css"
-    ]
+    "startprompt": true
   },
   {
     "name": "ionic",
@@ -311,7 +309,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.ionic",
     "startprompt": true,
@@ -343,7 +341,7 @@
                     ]
             }
         },
-        "excludes": []
+        "exclude": []
     },
     "angular": "appverse.native",
     "startprompt": false

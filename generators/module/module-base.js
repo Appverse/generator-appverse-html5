@@ -172,6 +172,8 @@ addWiredepConfig: function(wiredep, fileName) {
         }
     });
 
+    file.update.options.exclude = _.union(file.update.options.exclude, wiredep.exclude);
+
     // Deletes the excludes of the new modules.
     for (var key in wiredep.overrides) {
         if (wiredep.overrides.hasOwnProperty(key)) {
@@ -181,7 +183,7 @@ addWiredepConfig: function(wiredep, fileName) {
             }
         }
     }
-    Array.prototype.push.apply(file.update.options.exclude, wiredep.exlude);
+
     var serialized = modularize(file);
     this.fs.write(this.destinationPath(target), serialized);
 }
