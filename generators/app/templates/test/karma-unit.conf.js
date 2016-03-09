@@ -1,7 +1,7 @@
 /*jshint node:true */
 'use strict';
 
-module.exports = function (config) {
+module.exports = function(config) {
 
     config.set({
         basePath: '../',
@@ -31,12 +31,12 @@ module.exports = function (config) {
             outputFile: 'test/reports/unit/junit-results.xml'
         },
 
-        browsers: ['PhantomJS2_custom'],
+        browsers: ['PhantomJS_custom'],
 
         // you can define custom flags
         customLaunchers: {
             'PhantomJS2_custom': {
-                base: 'PhantomJS2',
+                base: 'PhantomJS',
                 options: {
                     windowName: 'my-window',
                     settings: {
