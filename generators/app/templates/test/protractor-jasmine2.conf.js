@@ -16,14 +16,10 @@ exports.config = {
     getPageTimeout: 20000,
     baseUrl: 'http://localhost:9200',
     framework: 'jasmine2',
-    multiCapabilities: [{
-            browserName: 'phantomjs',
-            'phantomjs.binary.path': require('phantomjs').path,
-            'phantomjs.cli.args': ['--ignore-ssl-errors=true', '--web-security=false'],
+    multiCapabilities: [
+        {
+            browserName: 'chrome'
         }
-        //{
-        //    browserName: 'chrome'
-        //}
         //        , {
         //            browserName: 'firefox'
         //        }, {
@@ -33,11 +29,11 @@ exports.config = {
     plugins: [{
         path: './waitPlugin.js'
     }],
-    onPrepare: function() {
+    onPrepare: function () {
         var jasmineReporters = require('jasmine-reporters');
         var capsPromise = browser.getCapabilities();
         var jasmineEnv = jasmine.getEnv();
-        capsPromise.then(function(caps) {
+        capsPromise.then(function (caps) {
             var browserName = caps.caps_.browserName.toUpperCase();
             var browserVersion = caps.caps_.version;
             var prePendStr = browserName + '-' + browserVersion + '-junit';
@@ -48,8 +44,8 @@ exports.config = {
         });
         return capsPromise;
     },
-    onComplete: function() {
-        browser.driver.executeScript('return __coverage__;').then(function(coverageResults) {
+    onComplete: function () {
+        browser.driver.executeScript('return __coverage__;').then(function (coverageResults) {
             collector.add(coverageResults);
             istanbul.Report
                 .create('lcov', {
