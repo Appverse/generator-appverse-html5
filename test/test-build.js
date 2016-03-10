@@ -38,15 +38,18 @@ describe('appverse-html5:build', function () {
                 fse.removeSync(path.join(__dirname, 'temp'));
                 helpers.run(path.join(__dirname, '../generators/build'))
                     .inTmpDir(function (dir) {
-                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                        var done = this.async();
+
+                        fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                         var pathFile = path.join(templatePath, modules[0].name);
                         modules[0].files.forEach(function (name) {
                             var fullpath = path.join(pathFile, name);
-                            fse.outputFileSync(fullpath);
+                            fse.outputFile(fullpath, done);
                         });
                         modules[0].templates.forEach(function (name) {
                             var fullpath = path.join(pathFile, name);
-                            fse.outputFileSync(fullpath);
+                            fse.outputFile(fullpath, done);
                         });
                     })
 
@@ -67,7 +70,7 @@ describe('appverse-html5:build', function () {
                     });
             });
 
-            it('should add package to package.json', function () {
+            it('should add package to package.json', function (done) {
                 assert.fileContent([
                         [ 'package.json',
                             '\"' + modules[0].npm[0].name + '\":\"' + modules[0].npm[0].version + '\"'
@@ -76,16 +79,20 @@ describe('appverse-html5:build', function () {
                             '\"' + modules[0].npm[1].name + '\":\"' + modules[0].npm[1].version + '\"'
                         ]
                 ]);
+                done();
             });
-            it('should add scripts to package.json', function () {
+            it('should add scripts to package.json', function (done) {
                 assert.fileContent( 'package.json',
                                     '\"' + modules[0].scripts[0].name + '\":\"' + modules[0].scripts[0].value + '\"' );
+                done();
             });
-            it('should move files ', function () {
+            it('should move files ', function (done) {
                 assert.file(modules[0].files);
+                done();
             });
-            it('should move templates ', function () {
+            it('should move templates ', function (done) {
                 assert.file(modules[0].templates);
+                done();
             });
         });
 
@@ -95,15 +102,18 @@ describe('appverse-html5:build', function () {
                 fse.removeSync(path.join(__dirname, 'temp'));
                 helpers.run(path.join(__dirname, '../generators/build'))
                     .inTmpDir(function (dir) {
-                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                        var done = this.async();
+
+                        fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                         var pathFile = path.join(templatePath, modules[0].name);
                         modules[0].files.forEach(function (name) {
                             var fullpath = path.join(pathFile, name);
-                            fse.outputFileSync(fullpath);
+                            fse.outputFile(fullpath, done);
                         });
                         modules[0].templates.forEach(function (name) {
                             var fullpath = path.join(pathFile, name);
-                            fse.outputFileSync(fullpath);
+                            fse.outputFile(fullpath, done);
                         });
                     })
 
@@ -126,7 +136,7 @@ describe('appverse-html5:build', function () {
                     });
             });
 
-            it('should add package to package.json', function () {
+            it('should add package to package.json', function (done) {
                 assert.fileContent([
                         [ 'package.json',
                             '\"' + modules[0].npm[0].name + '\":\"' + modules[0].npm[0].version + '\"'
@@ -135,16 +145,20 @@ describe('appverse-html5:build', function () {
                             '\"' + modules[0].npm[1].name + '\":\"' + modules[0].npm[1].version + '\"'
                         ]
                 ]);
+                done();
             });
-            it('should add scripts to package.json', function () {
+            it('should add scripts to package.json', function (done) {
                 assert.fileContent( 'package.json',
                                     '\"' + modules[0].scripts[0].name + '\":\"' + modules[0].scripts[0].value + '\"' );
+                done();
             });
-            it('should move files ', function () {
+            it('should move files ', function (done) {
                 assert.file(modules[0].files);
+                done();
             });
-            it('should move templates ', function () {
+            it('should move templates ', function (done) {
                 assert.file(modules[0].templates);
+                done();
             });
         });
     });

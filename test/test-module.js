@@ -42,7 +42,10 @@ describe('appverse-html5:module', function () {
             helpers.run(path.join(__dirname, '../generators/module'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -63,7 +66,7 @@ describe('appverse-html5:module', function () {
                 });
         });
 
-        it('should add scripts correctly to wiredep config', function () {
+        it('should add scripts correctly to wiredep config', function (done) {
             for (var key in modules[0].wiredep.overrides) {
                 if (modules[0].wiredep.overrides.hasOwnProperty(key)) {
                     assert.noFileContent('config/wiredep.js', '/' + key + '/');
@@ -75,16 +78,19 @@ describe('appverse-html5:module', function () {
             modules[0].wiredep.exclude.forEach(function(name) {
                 assert.fileContent('config/wiredep.js', name);
             });
+            done();
         });
-        it('should define angular modules ', function () {
+        it('should define angular modules ', function (done) {
             assert.fileContent('app/app.js', modules[0].angular);
+            done();
         });
-        it('should define angular configuration ', function () {
+        it('should define angular configuration ', function (done) {
             assert.fileContent([
                 [ 'app/app.js', modules[0].config.name ],
                 [ 'app/app.js', modules[0].config.values[0].name ],
                 [ 'app/app.js', modules[0].config.values[1].name ]
             ]);
+            done();
         });
 
     });
@@ -94,11 +100,14 @@ describe('appverse-html5:module', function () {
             fse.removeSync(path.join(__dirname, 'temp'));
             helpers.run(path.join(__dirname, '../generators/module'))
                 .inTmpDir(function (dir) {
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                     var pathFile = path.join(templatePath, modules[1].name);
                     modules[1].files.forEach(function (name) {
                         var fullpath = path.join(pathFile, name);
-                        fse.outputFileSync(fullpath);
+                        fse.outputFile(fullpath, done);
                     });
 
                 })
@@ -119,7 +128,7 @@ describe('appverse-html5:module', function () {
                 });
         });
 
-        it('should add scripts correctly to wiredep config', function () {
+        it('should add scripts correctly to wiredep config', function (done) {
             for (var key in modules[1].wiredep.overrides) {
                 if (modules[1].wiredep.overrides.hasOwnProperty(key)) {
                     assert.noFileContent('config/wiredep.js', '/' + key + '/');
@@ -131,12 +140,15 @@ describe('appverse-html5:module', function () {
             modules[1].wiredep.exclude.forEach(function(name) {
                 assert.fileContent('config/wiredep.js', name);
             });
+            done();
         });
-        it('should define angular modules ', function () {
+        it('should define angular modules ', function (done) {
             assert.fileContent('app/app.js', modules[1].angular);
+            done();
         });
-        it('should move files ', function () {
+        it('should move files ', function (done) {
             assert.file(modules[1].files);
+            done();
         });
 
     });
@@ -146,15 +158,18 @@ describe('appverse-html5:module', function () {
             fse.removeSync(path.join(__dirname, 'temp'));
             helpers.run(path.join(__dirname, '../generators/module'))
                 .inTmpDir(function (dir) {
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                     var pathFile = path.join(templatePath, modules[2].name);
                     modules[2].files.forEach(function (name) {
                         var fullpath = path.join(pathFile, name);
-                        fse.outputFileSync(fullpath);
+                        fse.outputFile(fullpath, done);
                     });
                     modules[2].templates.forEach(function (name) {
                         var fullpath = path.join(pathFile, name);
-                        fse.outputFileSync(fullpath);
+                        fse.outputFile(fullpath, done);
                     });
                 })
                 .on('ready', function (generator) {
@@ -178,7 +193,7 @@ describe('appverse-html5:module', function () {
                 });
         });
 
-        it('should add scripts correctly to wiredep config', function () {
+        it('should add scripts correctly to wiredep config', function (done) {
             for (var key in modules[2].wiredep.overrides) {
                 if (modules[2].wiredep.overrides.hasOwnProperty(key)) {
                     assert.noFileContent('config/wiredep.js', '/' + key + '/');
@@ -190,42 +205,45 @@ describe('appverse-html5:module', function () {
             modules[2].wiredep.exclude.forEach(function(name) {
                 assert.fileContent('config/wiredep.js', name);
             });
+            done();
         });
-        it('should define angular modules ', function () {
+        it('should define angular modules ', function (done) {
             assert.fileContent('app/app.js', modules[2].angular);
+            done();
         });
-        it('should define angular configuration ', function () {
+        it('should define angular configuration ', function (done) {
             assert.fileContent([
                 [ 'app/app.js', modules[2].config.name ],
                 [ 'app/app.js', modules[2].config.values[0].name ],
                 [ 'app/app.js', modules[2].config.values[1].name ]
             ]);
+            done();
         });
-        it('should add package to bower.json', function () {
+        it('should add package to bower.json', function (done) {
             assert.fileContent([
                 [ 'bower.json', modules[2].bower[0].name ],
                 [ 'bower.json', modules[2].bower[0].version ],
                 [ 'bower.json', modules[2].bower[1].name ],
                 [ 'bower.json', modules[2].bower[1].version ]
             ]);
+            done();
         });
-        it('should add package to package.json', function () {
+        it('should add package to package.json', function (done) {
             assert.fileContent([
                 [ 'package.json', modules[2].npm[0].name ],
                 [ 'package.json', modules[2].npm[0].version ],
                 [ 'package.json', modules[2].npm[1].name ],
                 [ 'package.json', modules[2].npm[1].version ]
             ]);
+            done();
         });
-        it('should move files ', function () {
+        it('should move files ', function (done) {
             assert.file(modules[2].files);
+            done();
         });
-        it('should move templates ', function () {
+        it('should move templates ', function (done) {
             assert.file(modules[2].templates);
+            done();
         });
     });
-
-
-
-
 });

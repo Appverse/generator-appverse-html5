@@ -37,14 +37,17 @@ describe('appverse-html5:component', function () {
             helpers.run(path.join(__dirname, '../generators/component'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                     var pathFile = path.join(templatePath, components[0].name);
                     var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
-                    fse.outputFileSync(htmlpath);
+                    fse.outputFile(htmlpath, done);
                     var jspath = path.join(pathFile, components[0]['js-snippet'] );
-                    fse.outputFileSync(jspath);
+                    fse.outputFile(jspath, done);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFileSync(temppath);
+                    fse.outputFile(temppath, done);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -70,28 +73,34 @@ describe('appverse-html5:component', function () {
                 });
         });
         //Resolve timestamp on file name.
-        it('should add files to components folder', function () {
+        it('should add files to components folder', function (done) {
            assert.file([
                "app/components/mockview/"
-           ])
+           ]);
+           done();
         });
-        it('should not add scripts to index', function () {
+        it('should not add scripts to index', function (done) {
            assert.noFileContent('app/index.html','MockJS.js');
+           done();
         });
-        it('should add content to the target view', function () {
+        it('should add content to the target view', function (done) {
            assert.fileContent('app/components/mockview/mockview.html','MockHMTL.html');
+           done();
         });
-        it('should add an api json', function () {
+        it('should add an api json', function (done) {
             assert.file([
                 'api/apiname.json'
-            ])
+            ]);
+            done();
         });
-        it('api should contain a single row', function () {
+        it('api should contain a single row', function (done) {
             assert.noFileContent('api/apiname.json', "},");
+            done();
         });
-        it('should add a menu link', function () {
+        it('should add a menu link', function (done) {
             assert.fileContent('app/index.html',
                 'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
+            done();
         });
     });
 
@@ -102,14 +111,17 @@ describe('appverse-html5:component', function () {
             helpers.run(path.join(__dirname, '../generators/component'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                     var pathFile = path.join(templatePath, components[0].name);
                     var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
-                    fse.outputFileSync(htmlpath);
+                    fse.outputFile(htmlpath, done);
                     var jspath = path.join(pathFile, components[0]['js-snippet'] );
-                    fse.outputFileSync(jspath);
+                    fse.outputFile(jspath, done);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFileSync(temppath);
+                    fse.outputFile(temppath, done);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -135,10 +147,11 @@ describe('appverse-html5:component', function () {
                     done();
                 });
         });
-        it('should add a menu dropdown link', function () {
+        it('should add a menu dropdown link', function (done) {
             assert.fileContent('app/index.html', 'mockdropdown<span class="caret">');
             assert.fileContent('app/index.html',
                 'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
+            done();
         });
     });
 
@@ -149,14 +162,17 @@ describe('appverse-html5:component', function () {
             helpers.run(path.join(__dirname, '../generators/component'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                     var pathFile = path.join(templatePath, components[0].name);
                     var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
-                    fse.outputFileSync(htmlpath);
+                    fse.outputFile(htmlpath, done);
                     var jspath = path.join(pathFile, components[0]['js-snippet'] );
-                    fse.outputFileSync(jspath);
+                    fse.outputFile(jspath, done);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFileSync(temppath);
+                    fse.outputFile(temppath, done);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -183,28 +199,34 @@ describe('appverse-html5:component', function () {
                 });
         });
         //Resolve timestamp on file name.
-        it('should add files to components folder', function () {
+        it('should add files to components folder', function (done) {
            assert.file([
                "app/components/mockview/"
-           ])
+           ]);
+           done();
         });
-        it('should not add scripts to index', function () {
+        it('should not add scripts to index', function (done) {
            assert.noFileContent('app/index.html','MockJS.js');
+           done();
         });
-        it('should add content to the target view', function () {
+        it('should add content to the target view', function (done) {
            assert.fileContent('app/components/mockview/mockview.html','MockHMTL.html');
+           done();
         });
-        it('should add an api json', function () {
+        it('should add an api json', function (done) {
             assert.file([
                 'api/apiname.json'
-            ])
+            ]);
+            done();
         });
-        it('api should contain a single row', function () {
+        it('api should contain a single row', function (done) {
             assert.noFileContent('api/apiname.json', "},");
+            done();
         });
-        it('should add a menu link', function () {
+        it('should add a menu link', function (done) {
             assert.fileContent('app/index.html',
                 'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
+            done();
         });
     });
 });

@@ -36,7 +36,10 @@ describe('appverse-html5:theme', function () {
             helpers.run(path.join(__dirname, '../generators/theme'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -54,8 +57,9 @@ describe('appverse-html5:theme', function () {
                 });
         });
 
-        it('should not add dark theme source to sass.js', function () {
+        it('should not add dark theme source to sass.js', function (done) {
              assert.noFileContent('config/sass.js', 'appverse-dark');
+             done();
         });
     });
 
@@ -66,7 +70,10 @@ describe('appverse-html5:theme', function () {
             helpers.run(path.join(__dirname, '../generators/theme'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -84,8 +91,9 @@ describe('appverse-html5:theme', function () {
                 });
         });
 
-        it('should add dark theme source to sass.js', function () {
+        it('should add dark theme source to sass.js', function (done) {
              assert.fileContent('config/sass.js', 'appverse-dark');
+             done();
         });
     });
 
@@ -97,7 +105,10 @@ describe('appverse-html5:theme', function () {
                 helpers.run(path.join(__dirname, '../generators/theme'))
                     .inTmpDir(function (dir) {
                         // `dir` is the path to the new temporary directory
-                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                        var done = this.async();
+
+                        fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                     })
                     .on('ready', function (generator) {
                         generator.conflicter.force = true;
@@ -116,7 +127,7 @@ describe('appverse-html5:theme', function () {
                     });
             });
 
-            it('should modify _variables.scss', function () {
+            it('should modify _variables.scss', function (done) {
                 assert.fileContent([
                     [ 'app/styles/sass/_variables.scss', '#000 !default;' ], //$gray-base
                     [ 'app/styles/sass/_variables.scss', '#3E3F3A !default;' ], //$gray-darker
@@ -131,9 +142,11 @@ describe('appverse-html5:theme', function () {
                     [ 'app/styles/sass/_variables.scss', '#F47C3C !default;' ], //$brand-warning
                     [ 'app/styles/sass/_variables.scss', '#d9534f !default;' ] //$brand-danger
                 ]);
+                done();
             });
-            it('should modify _theme.scss', function () {
+            it('should modify _theme.scss', function (done) {
                 assert.fileContent('app/styles/sass/_theme.scss', '.sandstone {');
+                done();
             });
         });
     });
