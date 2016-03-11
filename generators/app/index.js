@@ -41,6 +41,13 @@ module.exports = appverseHtml5Gen.extend({
             this.welcome(pkg);
             this.checkVersion();
         }
+
+        if (!this.options.demo) {
+            this.demo = false;
+        } else {
+            this.demo = this.options.demo;
+        }
+
         if (!this.options.modules) {
             this.modules = path.join(__dirname, '../module/config/modules.json');
         } else {

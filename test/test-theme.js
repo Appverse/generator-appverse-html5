@@ -49,7 +49,7 @@ describe('appverse-html5:theme', function () {
                 })
                 .withOptions({
                     'skip-install': true,
-                    'skip-welcome-message': true
+                    'skip-welcome-message': truee
                 }) // execute with options
                 .on('end', function () {
                     fse.removeSync(path.join(__dirname, 'temp'));
