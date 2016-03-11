@@ -38,18 +38,15 @@ describe('appverse-html5:build', function () {
                 fse.removeSync(path.join(__dirname, 'temp'));
                 helpers.run(path.join(__dirname, '../generators/build'))
                     .inTmpDir(function (dir) {
-
-                        var done = this.async();
-
-                        fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                         var pathFile = path.join(templatePath, modules[0].name);
                         modules[0].files.forEach(function (name) {
                             var fullpath = path.join(pathFile, name);
-                            fse.outputFile(fullpath, done);
+                            fse.outputFileSync(fullpath);
                         });
                         modules[0].templates.forEach(function (name) {
                             var fullpath = path.join(pathFile, name);
-                            fse.outputFile(fullpath, done);
+                            fse.outputFileSync(fullpath);
                         });
                     })
 
@@ -65,8 +62,7 @@ describe('appverse-html5:build', function () {
                         'skip-welcome-message': true
                     }) // execute with options
                     .on('end', function () {
-                        fse.removeSync(path.join(__dirname, 'temp'));
-                        done();
+                        fse.remove(path.join(__dirname, 'temp'), done);
                     });
             });
 
@@ -102,18 +98,15 @@ describe('appverse-html5:build', function () {
                 fse.removeSync(path.join(__dirname, 'temp'));
                 helpers.run(path.join(__dirname, '../generators/build'))
                     .inTmpDir(function (dir) {
-
-                        var done = this.async();
-
-                        fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                         var pathFile = path.join(templatePath, modules[0].name);
                         modules[0].files.forEach(function (name) {
                             var fullpath = path.join(pathFile, name);
-                            fse.outputFile(fullpath, done);
+                            fse.outputFileSync(fullpath);
                         });
                         modules[0].templates.forEach(function (name) {
                             var fullpath = path.join(pathFile, name);
-                            fse.outputFile(fullpath, done);
+                            fse.outputFileSync(fullpath);
                         });
                     })
 
@@ -131,8 +124,7 @@ describe('appverse-html5:build', function () {
                         'jsonproject': jsonproject
                     }) // execute with options
                     .on('end', function () {
-                        fse.removeSync(path.join(__dirname, 'temp'));
-                        done();
+                        fse.remove(path.join(__dirname, 'temp'), done);
                     });
             });
 

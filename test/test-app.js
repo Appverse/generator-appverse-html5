@@ -39,10 +39,7 @@ describe('appverse-html5:generator', function () {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .withGenerators(deps)
                 .withPrompts({
@@ -98,10 +95,7 @@ describe('appverse-html5:generator', function () {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .withGenerators(deps)
                 .withArguments(['test'])
@@ -155,10 +149,7 @@ describe('appverse-html5:generator', function () {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .withGenerators(deps)
                 .withOptions({
