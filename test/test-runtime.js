@@ -23,8 +23,8 @@
 var path = require('path');
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
-var fse = require('fs-extra'); 
- 
+var fse = require('fs-extra');
+
 describe('appverse-html5:runtime', function () {
     describe('docker runtime ', function () {
 
@@ -34,23 +34,27 @@ describe('appverse-html5:runtime', function () {
             helpers.run(path.join(__dirname, '../generators/runtime'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+
+                    var done = this.async();
+
+                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
                 })
                 .on('ready', function (generator) {
-                    generator.conflicter.force = true;            
-                })              
-                .withOptions({        
-                    'skip-install': true,        
+                    generator.conflicter.force = true;
+                })
+                .withOptions({
+                    'skip-install': true,
                     'skip-welcome-message': true
                 }) // execute with options
-                .on('end', function () {                    
+                .on('end', function () {
                     done();
                 });
         });
 
-        it('Appverse Docker runtime', function () {
+        it('Appverse Docker runtime', function (done) {
               assert.file('Dockerfile');
               assert.file('docker-compose.yml');
+              done();
         });
 
     });
