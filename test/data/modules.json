@@ -69,9 +69,9 @@
         },
         "angular": "appverse.mock1",
         "files": [
-            "modulemock/modulemock1file1.js",
-            "modulemock/modulemock1file2.js",
-            "modulemock/modulemock1file3.js"
+            "files/modulemock1file1.js",
+            "files/modulemock1file2.js",
+            "files/modulemock1file3.js"
         ],
         "prompts": [
             {
@@ -135,14 +135,14 @@
             }
         ],
         "templates": [
-            "modulemock/modulemock2template1.js",
-            "modulemock/modulemock2template2.js",
-            "modulemock/modulemock2template3.js"
+            "templates/modulemock2template1.js",
+            "templates/modulemock2template2.js",
+            "templates/modulemock2template3.js"
         ],
         "files": [
-            "modulemock/modulemock2file1.js",
-            "modulemock/modulemock2file2.js",
-            "modulemock/modulemock2file3.js"
+            "files/modulemock2file1.js",
+            "files/modulemock2file2.js",
+            "files/modulemock2file3.js"
         ],
         "npm": [{
             "name": "modulemock2-npm-package",

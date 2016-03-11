@@ -37,17 +37,14 @@ describe('appverse-html5:component', function () {
             helpers.run(path.join(__dirname, '../generators/component'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     var pathFile = path.join(templatePath, components[0].name);
                     var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
-                    fse.outputFile(htmlpath, done);
+                    fse.outputFileSync(htmlpath);
                     var jspath = path.join(pathFile, components[0]['js-snippet'] );
-                    fse.outputFile(jspath, done);
+                    fse.outputFileSync(jspath);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFile(temppath, done);
+                    fse.outputFileSync(temppath);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -68,8 +65,7 @@ describe('appverse-html5:component', function () {
                     'rows' : 1
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
         //Resolve timestamp on file name.
@@ -111,17 +107,14 @@ describe('appverse-html5:component', function () {
             helpers.run(path.join(__dirname, '../generators/component'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     var pathFile = path.join(templatePath, components[0].name);
                     var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
-                    fse.outputFile(htmlpath, done);
+                    fse.outputFileSync(htmlpath);
                     var jspath = path.join(pathFile, components[0]['js-snippet'] );
-                    fse.outputFile(jspath, done);
+                    fse.outputFileSync(jspath);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFile(temppath, done);
+                    fse.outputFileSync(temppath);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -143,8 +136,7 @@ describe('appverse-html5:component', function () {
                     'rows' : 1
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
         it('should add a menu dropdown link', function (done) {
@@ -162,17 +154,14 @@ describe('appverse-html5:component', function () {
             helpers.run(path.join(__dirname, '../generators/component'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     var pathFile = path.join(templatePath, components[0].name);
                     var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
-                    fse.outputFile(htmlpath, done);
+                    fse.outputFileSync(htmlpath);
                     var jspath = path.join(pathFile, components[0]['js-snippet'] );
-                    fse.outputFile(jspath, done);
+                    fse.outputFileSync(jspath);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFile(temppath, done);
+                    fse.outputFileSync(temppath);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -194,8 +183,7 @@ describe('appverse-html5:component', function () {
                     'schema' : mockschema
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
         //Resolve timestamp on file name.
