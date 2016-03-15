@@ -34,28 +34,46 @@
            %> $scope.myData.push({id:<%=e.id%>, name:"<%=e.name%>"})
          <% });%>
 
-         $scope.gridOptions = {
-             data: 'myData',
-             columnDefs: [ {
-                field: 'id',
-                displayName: 'ID'
-            },{
-                field: 'name',
-                displayName: 'Name'
-            }],
+         function getColumnDefs() {
+            if ($scope.myData) {
+                var cols = [],
+                    names = [];
+                $scope.myData.forEach(function(e) {
+                    for (var name in e) {
+                        if (names.indexOf(name) == -1) {
+                            var def = {
+                                headerName: name,
+                                field: name,
+                                filter: 'text',
+                                suppressMenu: true,
+                                suppressSorting: true
+                            }
+                            names.push(name);
+                            cols.push(def);
+                        }
+                    }
+                });
+                return cols;
+            } else { return undefined }
+        };
+
+        $scope.gridOptions = {
+             enableColResize: true,
+             enableSorting: true,
+             enableFilter: true,
+             headerHeight: 48,
              rowHeight: 48,
-             headerRowHeight: 48,
-             filterOptions: {
-                 filterText: "",
-                 useExternalFilter: false
+             minColWidth: 70,
+             angularCompileRows: true,
+             suppressLoadingOverlay: true,
+             onGridSizeChanged: function() {
+                 $scope.gridOptions.api.sizeColumnsToFit();
              },
-             multiSelect: false,
-             showFooter: true,
-             footerRowHeight: 48,
-             footerTemplate: '<div class="ngTotalSelectContainer pull-right"><div class="ngFooterTotalItems" ng-class="{\'ngNoMultiSelect\': !multiSelect}" ><span class="ngLabel">{{i18n.ngTotalItemsLabel}} {{maxRows()}}</span><span ng-show="filterText.length > 0" class="ngLabel"> ({{i18n.ngShowingItemsLabel}} {{totalFilteredItemsLength()}})</span></div><div class="ngFooterSelectedItems" ng-show="multiSelect"><span class="ngLabel">{{i18n.ngSelectedItemsLabel}} {{selectedItems.length}}</span></div></div>'
+             columnDefs: getColumnDefs(),
+             rowData: $scope.myData,
          };
 
          $scope.filter<%=name%> = function () {
-             $scope.gridOptions.filterOptions.filterText = $scope.filterText;
+             $scope.gridOptions.api.setQuickFilter($scope.filterText);
          };
 }]);

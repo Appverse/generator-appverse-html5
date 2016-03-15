@@ -159,7 +159,7 @@ Type --help option for available module list
         yo appverse-html5:module cache
     ```
 
-* **Detection**: Provides browser and network detection.  
+* **Detection**: Provides browser and network detection.
 
     ```bash
         yo appverse-html5:module detection
@@ -171,10 +171,10 @@ Type --help option for available module list
 
     ```bash
         yo appverse-html5:module performance
-    ```     
+    ```
 
-* **Logging**: Handles several tasks with logging:     
-     * It applies a decorator on native $log service in module ng.     
+* **Logging**: Handles several tasks with logging:
+     * It applies a decorator on native $log service in module ng.
      * It includes sending of log events to server-side REST service.
 
         * Server side log
@@ -193,7 +193,7 @@ Type --help option for available module list
 
     ```bash
         yo appverse-html5:module logging
-    ```   
+    ```
 
 * **Server Push**: This module handles server data communication when it pushes them to the client exposing the factory SocketFactory, which is an API for instantiating sockets that are integrated with Angular's digest cycle.
 It is now based on [SocketIO](http://socket.io/)
@@ -202,13 +202,13 @@ It is now based on [SocketIO](http://socket.io/)
         yo appverse-html5:module serverpush
     ```
 
-* **Translation**: The Internationalization module handles languages in application.  
+* **Translation**: The Internationalization module handles languages in application.
 
 ```bash
     yo appverse-html5:module translate
 ```
 
-* **Security**: [appverse-web-html5-scurity](https://github.com/Appverse/appverse-web-html5-security) Appverse Web Client Side security module based on HTML5 and Java Script  
+* **Security**: [appverse-web-html5-scurity](https://github.com/Appverse/appverse-web-html5-security) Appverse Web Client Side security module based on HTML5 and Java Script
 
 ```bash
     yo appverse-html5:module security
@@ -234,14 +234,14 @@ Execute the subgenerator with the view name as argument. The subgenerator will c
 A new option in the navigation bar will be created as well.
 
     ```bash
-        yo appverse-html5:component view [<name>]        
+        yo appverse-html5:component view --name=[<name>]
     ```
     Where *name* is the View/Controller name you want to add.
 
     The menu option will used to add the option to a dropdown menu in the navigation bar. If the dropdown menu already exists, the new option will be added, if not exists it will be created.
 
     ```bash
-        yo appverse-html5:component view [<name>]  --menu=[<dropdownmenu>]
+        yo appverse-html5:component view --name=[<name>]  --menu=[<dropdownmenu>]
     ```
 
     Where *name* is the View/Controller name you want to add.
@@ -276,13 +276,13 @@ Once a View/Controller is created, we can add different components to the new pa
     Where *view* is the target View/Controller name where you want to include your component.
     Where *type* is the chart type.
 
-* **grid**: Adds [ng-grid](http://angular-ui.github.io/ui-grid/) grid to the view.
+* **grid**: Adds [ag-grid](http://www-ag-grid.com/) grid to the view.
 
     ```bash
         yo appverse-html5:component grid --target=[<view>]
     ```
 
-    The sub-generator will create 10 rows of mock data for the generated Grid, use the **rows** option to set the numbers of rows you want to generate.  
+    The sub-generator will create 10 rows of mock data for the generated Grid, use the **rows** option to set the numbers of rows you want to generate.
 
     ```bash
         yo appverse-html5:component grid --target=[<view>] --rows=[<nrows>]
@@ -293,7 +293,7 @@ Once a View/Controller is created, we can add different components to the new pa
 * **form**: Add a Form component to the target view.
 
     ```bash
-        yo appverse-html5:component form --target=[<view>]  
+        yo appverse-html5:component form --target=[<view>]
     ```
 
     By default the **form** sub-generator will create a simple form with id and name fields.
@@ -341,29 +341,29 @@ Once a View/Controller is created, we can add different components to the new pa
     * A new option in the navigation bar.
 
     ```bash
-        yo appverse-html5:component crud [<name>]
+        yo appverse-html5:component crud --name=[<name>]
     ```
     The **menu** option will add or update a dropdown menu.
 
     ```bash
-        yo appverse-html5:component crud [<name>] --menu=[<menu>]
+        yo appverse-html5:component crud --name=[<name>] --menu=[<menu>]
     ```
     By default the **form** sub-generator will create a simple form with id and name fields.
     Use the **schema** option will be used to generate the entity form (add and edit)
 
     ```bash
-        yo appverse-html5:component crud [<name>] --schema=[<path or url to JSON Schema>]
+        yo appverse-html5:component crud --name=[<name>] --schema=[<path or url to JSON Schema>]
     ```
     Add the **rows** option to generate some fake data rows at the mock server.
 
     ```bash
-        yo appverse-html5:component crud [<name>] --rows=[<nrows>]
+        yo appverse-html5:component crud --name=[<name>] --rows=[<nrows>]
     ```
 
     The **rows** option could be combined with the **schema** option, so the fake data generator will use the entity definition found at the schema.
 
     ```bash
-        yo appverse-html5:component crud [<name>] --schema=[<path or url to JSON Schema>] --rows=[<nrows>]
+        yo appverse-html5:component crud --name=[<name>] --schema=[<path or url to JSON Schema>] --rows=[<nrows>]
     ```
 
 
@@ -414,63 +414,63 @@ Minify images seamlessly. Adds [imagemin](https://github.com/imagemin/imagemin) 
 ```
 
 #### Runtime
-The Appverse HTML5 runtime subgenerator will add necesary [Docker](http://www.docker.com/) files to run your application using [Docker](http://www.docker.com/). 
- * *Dockerfile* - It will provide a based [NGINX](http://nginx.org/) Dockerfile to run your *dist* folder. 
- * *docker-compose.yml* - Docker compose file to run your project with a load balancer using [HAProxy](http://www.haproxy.org/). 
+The Appverse HTML5 runtime subgenerator will add necesary [Docker](http://www.docker.com/) files to run your application using [Docker](http://www.docker.com/).
+ * *Dockerfile* - It will provide a based [NGINX](http://nginx.org/) Dockerfile to run your *dist* folder.
+ * *docker-compose.yml* - Docker compose file to run your project with a load balancer using [HAProxy](http://www.haproxy.org/).
 
 The first step is to create your aplication distribution:
- 
+
 ```bash
-   grunt dist 
+   grunt dist
 ```
 
-Now, you have two options: 
+Now, you have two options:
 
-* Run the application using Docker  
+* Run the application using Docker
 
-   * Build the image: 
-  
+   * Build the image:
+
     ```bash
        docker build -t myapp/nginx .
     ```
-   
+
    * Run:
-   
-    ```bash  
+
+    ```bash
        docker run -p 80:80 --name myapp -d myapp/nginx
     ```
 
-    Where *myapp* is your application name. Then access the URL http://yourdockerhost 
+    Where *myapp* is your application name. Then access the URL http://yourdockerhost
 
-* Run the application with Docker-Compose and HAProxy image that balances between linked containers.  
+* Run the application with Docker-Compose and HAProxy image that balances between linked containers.
 
     ```bash
-       docker-compose up -d 
+       docker-compose up -d
     ```
     Then access the URL http://yourdockerhost
 
     * Scale N instances
-      For example, if you want to set up 3 instances of 'myapp' application: 
+      For example, if you want to set up 3 instances of 'myapp' application:
 
       ```bash
          docker-compose scale myapp=3
          docker-compose up -d -force-recreate
       ```
 
-      Then access the URL http://yourdockerhost, and load balancer will use the 3 instances. You can access the HAProxy dashboard with http://yourdockerhost:1936 to check load balancer metrics.  
- 
+      Then access the URL http://yourdockerhost, and load balancer will use the 3 instances. You can access the HAProxy dashboard with http://yourdockerhost:1936 to check load balancer metrics.
+
 
 #### Theme
 The Appverse HTML5 generator allows to switch the [Appverse Theme](https://github.com/Appverse/Appverse-Bootstrap-Sass-Theme).
 The **theme** subgenerator will prompt the user to select one of both Appverse themes.
 
-[Bootswatch](https://bootswatch.com/) themes are included as well, the subgenerator will connect to [Bootswatch API](https://bootswatch.com/api/3.json) to get the available theme list. 
+[Bootswatch](https://bootswatch.com/) themes are included as well, the subgenerator will connect to [Bootswatch API](https://bootswatch.com/api/3.json) to get the available theme list.
 
 Execution:
 
 ```bash
-    yo appverse-html5:theme    
-```  
+    yo appverse-html5:theme
+```
 
 ### Arguments and options
 
@@ -566,15 +566,15 @@ This is an example of JSON a project file, selecting all the avaliable options f
 Add the skip-install argument to skip npm and bower install process.
 
 ```bash
-    yo appverse-html5 --skip-install  
+    yo appverse-html5 --skip-install
 ```
 
 ```bash
-    yo appverse-html5 --project=myProject.json --skip-install  
+    yo appverse-html5 --project=myProject.json --skip-install
 ```
 
 ```bash
-    yo appverse-html5 myWeb --skip-install    
+    yo appverse-html5 myWeb --skip-install
 ```
 
 The generator will execute 'grunt list' tasks when finish to report all the available grunt tasks into the README.md of the generated project.
@@ -646,7 +646,7 @@ Copyright (c) 2012 GFT Appverse, S.L., Sociedad Unipersonal.
 
  This Source  Code Form  is subject to the  terms of  the Appverse Public License
  Version 2.0  ("APL v2.0").  If a copy of  the APL  was not  distributed with this
- file, You can obtain one at <http://appverse.org/legal/appverse-license/>.
+file, You can obtain one at <http://appverse.org/#/license/information>.
 
  Redistribution and use in  source and binary forms, with or without modification,
  are permitted provided that the  conditions  of the  AppVerse Public License v2.0

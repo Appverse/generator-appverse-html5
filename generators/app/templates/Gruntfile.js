@@ -23,7 +23,17 @@ module.exports = function (grunt) {
             dist: '9100',
             doc: '9200',
             test: '9300'
-        }
+        },
+        scripts: [
+            'app.js',
+            'states/*.js',
+            'components/**/*-module.js',
+            'components/**/*.js',
+            '!components/**/*.spec.js'
+        ],
+        css: [
+            'styles/**/*.css'
+        ]
     };
 
     // Load grunt configurations automatically at config folder

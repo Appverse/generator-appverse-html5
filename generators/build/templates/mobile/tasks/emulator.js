@@ -9,8 +9,8 @@
         'runNodeWebKit',
         'clean:server',
         'concurrent:server',
-        'autoprefixer',
-        'connect:livereload',
+        'postcss:css',
+        'browserSync:dev',
         'concurrent:emulator'
      ]);
 

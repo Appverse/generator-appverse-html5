@@ -27,7 +27,7 @@ var jsf = require('json-schema-faker');
 var pkg = require('../../package.json');
 
 module.exports = componentGenerator.extend({
-    initializing: function () {
+    initializing: function() {
         this.conflicter.force = true;
         if (!this.options['skip-welcome-message']) {
             this.welcome(pkg);
@@ -52,7 +52,7 @@ module.exports = componentGenerator.extend({
             this.info('Component found: ' + JSON.stringify(this.component.name));
             //REQUIRED OPTIONS
             if (this.component.option.required) {
-                this.component.option.required.forEach(function (option) {
+                this.component.option.required.forEach(function(option) {
                     if (!this.options[option]) {
                         this.warning('Can not find component options ' + option + '.');
                         this.warning('You need to provide the option --' + option + '=[option]');
@@ -61,7 +61,7 @@ module.exports = componentGenerator.extend({
                     }
                     //If there is a type options, there is a types array
                     if (option === 'type') {
-                        var validType = this.component.types.inArray(function (e) {
+                        var validType = this.component.types.inArray(function(e) {
                             return e === this.options[option];
                         }.bind(this));
                         if (!validType) {
@@ -87,10 +87,10 @@ module.exports = componentGenerator.extend({
         }
     },
     writing: {
-        schema: function () {
+        schema: function() {
             //SCHEMA
             if (this.options.schema) {
-                this.readJSONSchemaFileOrUrl(this.options.schema, function (error, data) {
+                this.readJSONSchemaFileOrUrl(this.options.schema, function(error, data) {
                     if (!data) {
                         this.warning("Can't find a valid schema definition there!");
                         process.exit();
@@ -125,13 +125,13 @@ module.exports = componentGenerator.extend({
                         name: {
                             type: "string",
                             description: "name",
-                            required: false
+                            required: true
                         },
                     }
                 };
             }
         },
-        rows: function () {
+        rows: function() {
             this.mockentity = [];
             this.rows = 10;
             if (this.options.rows) {
@@ -141,20 +141,20 @@ module.exports = componentGenerator.extend({
                 this.mockentity.push(jsf(this.model.properties));
             }
         },
-        api: function () {
+        api: function() {
             //Write MOCK DATA to JSON File.
             if (this.component.api) {
                 this.info('Writing api/' + this.options.name + '.json');
                 this.fs.write(this.destinationPath('api/' + this.options.name + '.json'), JSON.stringify(this.mockentity));
             }
         },
-        templates: function () {
+        templates: function() {
             //TEMPLATES
             if (this.component['named-templates'] && this.options.name) {
                 this.moveNamedTemplates(this.templatepath, this.component['named-templates'], this.options.name, this.options.name);
             }
         },
-        target: function () {
+        target: function() {
             //TARGET
             if (this.options.target) {
                 if (!this.validateTarget(this.options.target)) {
@@ -174,22 +174,10 @@ module.exports = componentGenerator.extend({
                 }
                 if (this.component['js-snippet']) {
                     this.moveNamedTemplate(this.templatepath, this.component['js-snippet'], this.name, this.target);
-                    var scripts = [];
-                    var scriptPath = this.resolveNamedTemplatePath(this.component['js-snippet'], this.name, this.target);
-                    var replacement = new RegExp('\\bapp/\\b', 'g');
-                    var res = scriptPath.replace(replacement, '');
-                    scripts.push(res);
-                    this.addScriptsToIndex(scripts);
                 }
             }
         },
-        scripts: function () {
-            //SCRIPTS
-            if (this.component['named-scripts'] && this.options.name) {
-                this.namedScripts(this.component['named-scripts'], this.options.name, this.options.name);
-            }
-        },
-        navigation: function () {
+        navigation: function() {
             //NAVIGATION
             if (this.component.navigation) {
                 if (!this.options.menu) {
@@ -201,7 +189,7 @@ module.exports = componentGenerator.extend({
             }
         }
     },
-    end: function () {
+    end: function() {
         this.info("Finish " + this.componentName);
     }
 

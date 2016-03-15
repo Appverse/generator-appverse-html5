@@ -20,28 +20,16 @@
  */
 'use strict';
 
-/*
- * Pay attention to injection of dependencies (factories, entities and Angular objects).
- */
 angular.module('App.Controllers')
 
 .controller('<%=name%>-modal-controller',
-    function ($scope, $modalInstance, item) {
-        var add = true;
-        if(item){
-            add = false;
-        }
-        $scope.item = item;
-        if (item) {
-            $scope.title = 'Edit <%=name%>';
-        } else {
-            $scope.title = 'New <%=name%>';
-        }
-        $scope.ok = function (item) {
-            $modalInstance.close($scope.modalClose(item,add));
+    function ($scope, $uibModalInstance) {
+        
+        $scope.ok = function () {
+            $uibModalInstance.close();
         };
         $scope.cancel = function () {
-            $modalInstance.close();
+            $uibModalInstance.close();
         };
         $scope.datepicker = [];
         $scope.openCalendar = function($event, opened) {

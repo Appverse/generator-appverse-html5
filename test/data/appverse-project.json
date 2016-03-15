@@ -16,7 +16,7 @@
             }
         },
         "cache": {
-            "enabled": false
+            "enabled": true
         },
         "logging": {
             "enabled": false

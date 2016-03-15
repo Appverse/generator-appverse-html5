@@ -1,27 +1,41 @@
 [
     {
-        "name": "buildmock",
+        "name": "buildwebkitmock",
         "files": [
-           "buildmock/buildmock.js",
-           "buildmock/buildmock.js"
+           "buildwebkitmock/buildwebkitmock.js",
+           "buildwebkitmock/buildwebkitmock.js"
         ],
         "npm": [
             {
-                "name": "buildmock-package",
+                "name": "buildwebkitmock-package",
                 "version": "0.0.1"
         },
             {
-                "name": "buildmock-package2",
+                "name": "buildwebkitmock-package2",
                 "version": "0.0.2"
         }
         ],
         "scripts": [{
-            "name": "buildmock",
-            "value": "buildmock script"
+            "name": "buildwebkitmock",
+            "value": "buildwebkitmock script"
         }],
         "templates": [
-           "buildmock/buildmocktemplate1.js",
-           "buildmock/buildmocktemplate2.js"
-        ]
+           "buildwebkitmock/buildwebkitmocktemplate1.js",
+           "buildwebkitmock/buildwebkitmocktemplate2.js"
+        ],
+        "prompts": [
+            {
+                "type": "input",
+                "name": "mockprompt0",
+                "message": "mockprompt0",
+                "default": ""
+             }, {
+                "type": "input",
+                "name": "mockprompt1",
+                "message": "mockprompt1",
+                "default": ""
+             }
+        ],
+        "startprompt": true
     }
 ]

@@ -6,7 +6,13 @@
     "futurehostile": true,
     "globals": {
         "xdescribe": false,
-        "before": false
+        "before": false,
+        "angular": false,
+        "confirm": false,
+        "ngDescribe": false,
+        "browser": false,
+        "element": false,
+        "by": false
     },
     "immed": true,
     "indent": 4,

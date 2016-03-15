@@ -1,0 +1,19 @@
+{
+    "project": "mockProject",
+    "builds": {
+        "buildwebkitmock": {
+            "enabled": true,
+            "config": {
+                "name": "MODULE_MOCK_CONFIG",
+                "values": [{
+                    "name": "MODULE_MOCK_PARAM",
+                    "value": "/mockmodule4"
+                }, {
+                    "name": "MODULE_MOCK_PARAM1",
+                    "value": "mockmodule4"
+                }]
+            }
+        }
+
+    }
+}

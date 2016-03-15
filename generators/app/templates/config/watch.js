@@ -20,6 +20,13 @@ module.exports = {
     jshint: {
       files: ['app/app.js', 'app/states/*.js', 'app/components/**/*.js'],
       tasks: ['jshint']
+    },
+    includeSource: {
+        files: ['app/app.js', 'app/states/*.js', 'app/components/**/*.js'],
+        tasks: ['includeSource']
+    },
+    wiredep: {
+        files: ['app/bower_components/', 'config/wiredep.js'],
+        tasks: ['wiredep']
     }
-
 };

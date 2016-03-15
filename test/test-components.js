@@ -25,6 +25,7 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 var fse = require('fs-extra');
 var mockdata = path.join(__dirname, 'data/components.json');
+var mockschema = path.join(__dirname, 'data/entity-schema.json');
 var components = require(mockdata);
 var templatePath = path.join(__dirname, 'temp/generators/component/templates');
 
@@ -42,14 +43,11 @@ describe('appverse-html5:component', function () {
                     fse.outputFileSync(htmlpath);
                     var jspath = path.join(pathFile, components[0]['js-snippet'] );
                     fse.outputFileSync(jspath);
+                    var temppath = path.join(pathFile, components[0]['named-templates'][0]);
+                    fse.outputFileSync(temppath);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
-                    var indexFile = generator.fs.read(generator.destinationPath('app/index.html'));
-                    var restJS = ['bower_components/angular/angular.min.js'];
-                    //APP FILES
-                    indexFile = require('html-wiring').appendScripts(indexFile, 'scripts/scripts.js', restJS);
-                    generator.write(generator.destinationPath('app/index.html'), indexFile);
 
                     var html = "<div class=\"container\" scrolly-scroll></div>";
                    generator.write(generator.destinationPath('app/components/mockview/mockview.html'), html);
@@ -61,22 +59,162 @@ describe('appverse-html5:component', function () {
                     'templatePath': templatePath,
                     'skip-install': true,
                     'skip-welcome-message': true,
-                    'target' : 'mockview'
+                    'target' : 'mockview',
+                    'type' : 'mocktype3',
+                    'name' : 'apiname',
+                    'rows' : 1
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
-        //Resolve timestamp on file name. 
-        it('should add scripts to index', function () {
-           assert.fileContent('app/index.html','MockJS.js');
+        //Resolve timestamp on file name.
+        it('should add files to components folder', function (done) {
+           assert.file([
+               "app/components/mockview/"
+           ]);
+           done();
         });
-        it('should add content to the target view', function () {
+        it('should not add scripts to index', function (done) {
+           assert.noFileContent('app/index.html','MockJS.js');
+           done();
+        });
+        it('should add content to the target view', function (done) {
            assert.fileContent('app/components/mockview/mockview.html','MockHMTL.html');
+           done();
         });
-
+        it('should add an api json', function (done) {
+            assert.file([
+                'api/apiname.json'
+            ]);
+            done();
+        });
+        it('api should contain a single row', function (done) {
+            assert.noFileContent('api/apiname.json', "},");
+            done();
+        });
+        it('should add a menu link', function (done) {
+            assert.fileContent('app/index.html',
+                'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
+            done();
+        });
     });
 
+    describe('add component with dropdown', function () {
+        before(function (done) {
+            //console.log('moving to temp!')
+            fse.removeSync(path.join(__dirname, '../temp'));
+            helpers.run(path.join(__dirname, '../generators/component'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                    var pathFile = path.join(templatePath, components[0].name);
+                    var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
+                    fse.outputFileSync(htmlpath);
+                    var jspath = path.join(pathFile, components[0]['js-snippet'] );
+                    fse.outputFileSync(jspath);
+                    var temppath = path.join(pathFile, components[0]['named-templates'][0]);
+                    fse.outputFileSync(temppath);
+                })
+                .on('ready', function (generator) {
+                    generator.conflicter.force = true;
 
+                    var html = "<div class=\"container\" scrolly-scroll></div>";
+                   generator.write(generator.destinationPath('app/components/mockview/mockview.html'), html);
+
+                })
+                .withArguments([components[0].name])
+                .withOptions({
+                    'config': mockdata,
+                    'templatePath': templatePath,
+                    'skip-install': true,
+                    'skip-welcome-message': true,
+                    'target' : 'mockview',
+                    'type' : 'mocktype3',
+                    'name' : 'apiname',
+                    'menu' : 'mockdropdown',
+                    'rows' : 1
+                }) // execute with options
+                .on('end', function () {
+                    fse.remove(path.join(__dirname, 'temp'), done);
+                });
+        });
+        it('should add a menu dropdown link', function (done) {
+            assert.fileContent('app/index.html', 'mockdropdown<span class="caret">');
+            assert.fileContent('app/index.html',
+                'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
+            done();
+        });
+    });
+
+    describe('add component with schema', function () {
+        before(function (done) {
+            //console.log('moving to temp!')
+            fse.removeSync(path.join(__dirname, '../temp'));
+            helpers.run(path.join(__dirname, '../generators/component'))
+                .inTmpDir(function (dir) {
+                    // `dir` is the path to the new temporary directory
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                    var pathFile = path.join(templatePath, components[0].name);
+                    var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
+                    fse.outputFileSync(htmlpath);
+                    var jspath = path.join(pathFile, components[0]['js-snippet'] );
+                    fse.outputFileSync(jspath);
+                    var temppath = path.join(pathFile, components[0]['named-templates'][0]);
+                    fse.outputFileSync(temppath);
+                })
+                .on('ready', function (generator) {
+                    generator.conflicter.force = true;
+
+                    var html = "<div class=\"container\" scrolly-scroll></div>";
+                   generator.write(generator.destinationPath('app/components/mockview/mockview.html'), html);
+
+                })
+                .withArguments([components[0].name])
+                .withOptions({
+                    'config': mockdata,
+                    'templatePath': templatePath,
+                    'skip-install': true,
+                    'skip-welcome-message': true,
+                    'target' : 'mockview',
+                    'type'  : 'mocktype3',
+                    'name' : 'apiname',
+                    'rows' : 1,
+                    'schema' : mockschema
+                }) // execute with options
+                .on('end', function () {
+                    fse.remove(path.join(__dirname, 'temp'), done);
+                });
+        });
+        //Resolve timestamp on file name.
+        it('should add files to components folder', function (done) {
+           assert.file([
+               "app/components/mockview/"
+           ]);
+           done();
+        });
+        it('should not add scripts to index', function (done) {
+           assert.noFileContent('app/index.html','MockJS.js');
+           done();
+        });
+        it('should add content to the target view', function (done) {
+           assert.fileContent('app/components/mockview/mockview.html','MockHMTL.html');
+           done();
+        });
+        it('should add an api json', function (done) {
+            assert.file([
+                'api/apiname.json'
+            ]);
+            done();
+        });
+        it('api should contain a single row', function (done) {
+            assert.noFileContent('api/apiname.json', "},");
+            done();
+        });
+        it('should add a menu link', function (done) {
+            assert.fileContent('app/index.html',
+                'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
+            done();
+        });
+    });
 });
