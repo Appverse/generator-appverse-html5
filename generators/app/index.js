@@ -154,7 +154,14 @@ module.exports = appverseHtml5Gen.extend({
       //FILES
       this.moveFiles(this.templatePath(), project.files);
       //TEMPLATES
-      this.moveTemplates(this.templatePath(),project.templates);
+      this.moveTemplates(this.templatePath(), project.templates);
+
+      if (this.options.demo) {
+          //DEMO FILES
+          this.moveFiles(this.templatePath(), project.demofiles);
+          // DEMO TEMPLATES
+          this.moveTemplates(this.templatePath(), project.demotemplates);
+      }
     },
     install: function () {
         if (this.props.moduleOptions) {

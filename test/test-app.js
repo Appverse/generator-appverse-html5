@@ -33,13 +33,90 @@ describe('appverse-html5:generator', function () {
                 [helpers.createDummyGenerator(), 'appverse-html5:build'],
                 [helpers.createDummyGenerator(), 'appverse-html5:runtime']
             ];
+    describe('when called with demo option', function () {
+        before(function (done) {
+            helpers.run(path.join(__dirname, '../generators/app'))
+                .inTmpDir(function (dir) {
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                })
+                .withGenerators(deps)
+                .withPrompts({
+                    appName: 'test',
+                    coreOptions: []
+                })
+                .withOptions({
+                    'skip-install': true,
+                    'skip-welcome-message': true,
+                    'demo': true
+                })
+                .on('end', done);
+        });
+
+        it('should create files and demo files', function () {
+           assert.file(config.files);
+           assert.file(config.demofiles);
+        });
+        it('should move templates and demo templates', function() {
+            assert.file(config.templates);
+            assert.file(config.demotemplates);
+        });
+        it('should replace templates with application name', function () {
+            assert.fileContent([
+                [ 'bower.json', '\"name\": \"test\"' ],
+                [ 'package.json', '\"name\": \"test\"' ],
+                [ 'app/index.html', '<html class=\"no-js\" ng-app=\"testApp\">' ],
+                [ 'app/app.js', 'angular.module(\'testApp\'' ]
+            ]);
+        });
+        it('should add style placeholders to index', function () {
+            assert.fileContent([
+                [ 'app/index.html', '<!-- bower:css -->' ],
+                [ 'app/index.html', '<!-- endbower -->' ],
+                [ 'app/index.html', '<!-- include: \"type\": \"css\", \"files\": \"<%= css %>\" -->' ],
+                [ 'app/index.html', '<!-- /include -->' ]
+            ]);
+        });
+        it('should add script placeholders to index', function () {
+            assert.fileContent([
+                [ 'app/index.html', '<!-- bower:css -->' ],
+                [ 'app/index.html', '<!-- endbower -->' ],
+                [ 'app/index.html', '<!-- include: \"type\": \"js\", \"files\": \"<%= scripts %>\" -->' ],
+                [ 'app/index.html', '<!-- /include -->' ]
+            ]);
+        });
+        it('should add new states and navbar components', function () {
+            assert.fileContent([
+                [ 'app/states/app-states.js', 'components/theme/theme.html' ],
+                [ 'app/states/app-states.js', 'components/components/components.html' ],
+                [ 'app/states/app-states.js', 'components/charts/charts.html' ],
+                [ 'app/states/app-states.js', 'components/icons/icons.html' ],
+                [ 'app/index.html', 'Theme' ],
+                [ 'app/index.html', 'Components' ],
+                [ 'app/index.html', 'Charts' ],
+                [ 'app/index.html', 'Icons' ]
+            ]);
+        });
+    });
 
     describe('when called with prompts (no modules - no builds)', function () {
         before(function (done) {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir,
+                                {filter: function(elem) {
+                                    for (var i = 0; i<config.demotemplates.length; i++){
+                                        if (elem.indexOf(config.demotemplates[i])>-1) {
+                                            return false;
+                                        }
+                                    }
+                                    for (var i = 0; i<config.demofiles.length; i++){
+                                        if (elem.indexOf(config.demofiles[i])>-1) {
+                                            return false;
+                                        }
+                                    }
+                                    return true;
+                                }});
                 })
                 .withGenerators(deps)
                 .withPrompts({
@@ -53,40 +130,49 @@ describe('appverse-html5:generator', function () {
                 .on('end', done);
         });
 
-        it('should create files', function (done) {
+        it('should create files', function () {
             assert.file(config.files);
-            done();
+            assert.noFile(config.demofiles);
         });
-        it('should move templates files', function (done) {
+        it('should move templates files', function () {
             assert.file(config.templates);
-            done();
+            assert.noFile(config.demotemplates);
         });
-        it('should replace templates with application name', function (done) {
+        it('should replace templates with application name', function () {
             assert.fileContent([
                 [ 'bower.json', '\"name\": \"test\"' ],
                 [ 'package.json', '\"name\": \"test\"' ],
                 [ 'app/index.html', '<html class=\"no-js\" ng-app=\"testApp\">' ],
                 [ 'app/app.js', 'angular.module(\'testApp\'' ]
             ]);
-            done();
         });
-        it('should add style placeholders to index', function (done) {
+        it('should add style placeholders to index', function () {
             assert.fileContent([
                 [ 'app/index.html', '<!-- bower:css -->' ],
                 [ 'app/index.html', '<!-- endbower -->' ],
                 [ 'app/index.html', '<!-- include: \"type\": \"css\", \"files\": \"<%= css %>\" -->' ],
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
-            done();
         });
-        it('should add script placeholders to index', function (done) {
+        it('should add script placeholders to index', function () {
             assert.fileContent([
                 [ 'app/index.html', '<!-- bower:css -->' ],
                 [ 'app/index.html', '<!-- endbower -->' ],
                 [ 'app/index.html', '<!-- include: \"type\": \"js\", \"files\": \"<%= scripts %>\" -->' ],
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
-            done();
+        });
+        it('should not add new states and navbar components', function () {
+            assert.noFileContent([
+                [ 'app/states/app-states.js', 'components/theme/theme.html' ],
+                [ 'app/states/app-states.js', 'components/components/components.html' ],
+                [ 'app/states/app-states.js', 'components/charts/charts.html' ],
+                [ 'app/states/app-states.js', 'components/icons/icons.html' ],
+                [ 'app/index.html', 'Theme' ],
+                [ 'app/index.html', 'Components' ],
+                [ 'app/index.html', 'Charts' ],
+                [ 'app/index.html', 'Icons' ]
+            ]);
         });
     });
 
@@ -95,7 +181,20 @@ describe('appverse-html5:generator', function () {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir,
+                                {filter: function(elem) {
+                                    for (var i = 0; i<config.demotemplates.length; i++){
+                                        if (elem.indexOf(config.demotemplates[i])>-1) {
+                                            return false;
+                                        }
+                                    }
+                                    for (var i = 0; i<config.demofiles.length; i++){
+                                        if (elem.indexOf(config.demofiles[i])>-1) {
+                                            return false;
+                                        }
+                                    }
+                                    return true;
+                                }});
                 })
                 .withGenerators(deps)
                 .withArguments(['test'])
@@ -106,40 +205,49 @@ describe('appverse-html5:generator', function () {
                 .on('end', done);
         });
 
-        it('should create files', function (done) {
+        it('should create files', function () {
             assert.file(config.files);
-            done();
+            assert.noFile(config.demofiles);
         });
-        it('should move templates files', function (done) {
+        it('should move templates files', function () {
             assert.file(config.templates);
-            done();
+            assert.noFile(config.demotemplates);
         });
-        it('should replace templates with application name', function (done) {
+        it('should replace templates with application name', function () {
             assert.fileContent([
                 [ 'bower.json', '\"name\": \"test\"' ],
                 [ 'package.json', '\"name\": \"test\"' ],
                 [ 'app/index.html', '<html class=\"no-js\" ng-app=\"testApp\">' ],
                 [ 'app/app.js', 'angular.module(\'testApp\'' ]
             ]);
-            done();
         });
-        it('should add style placeholders to index', function (done) {
+        it('should add style placeholders to index', function () {
             assert.fileContent([
                 [ 'app/index.html', '<!-- bower:css -->' ],
                 [ 'app/index.html', '<!-- endbower -->' ],
                 [ 'app/index.html', '<!-- include: \"type\": \"css\", \"files\": \"<%= css %>\" -->' ],
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
-            done();
         });
-        it('should add script placeholders to index', function (done) {
+        it('should add script placeholders to index', function () {
             assert.fileContent([
                 [ 'app/index.html', '<!-- bower:css -->' ],
                 [ 'app/index.html', '<!-- endbower -->' ],
                 [ 'app/index.html', '<!-- include: \"type\": \"js\", \"files\": \"<%= scripts %>\" -->' ],
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
-            done();
+        });
+        it('should not add new states and navbar components', function () {
+            assert.noFileContent([
+                [ 'app/states/app-states.js', 'components/theme/theme.html' ],
+                [ 'app/states/app-states.js', 'components/components/components.html' ],
+                [ 'app/states/app-states.js', 'components/charts/charts.html' ],
+                [ 'app/states/app-states.js', 'components/icons/icons.html' ],
+                [ 'app/index.html', 'Theme' ],
+                [ 'app/index.html', 'Components' ],
+                [ 'app/index.html', 'Charts' ],
+                [ 'app/index.html', 'Icons' ]
+            ]);
         });
     });
 
@@ -149,7 +257,20 @@ describe('appverse-html5:generator', function () {
             helpers.run(path.join(__dirname, '../generators/app'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir,
+                                {filter: function(elem) {
+                                    for (var i = 0; i<config.demotemplates.length; i++){
+                                        if (elem.indexOf(config.demotemplates[i])>-1) {
+                                            return false;
+                                        }
+                                    }
+                                    for (var i = 0; i<config.demofiles.length; i++){
+                                        if (elem.indexOf(config.demofiles[i])>-1) {
+                                            return false;
+                                        }
+                                    }
+                                    return true;
+                                }});
                 })
                 .withGenerators(deps)
                 .withOptions({
@@ -160,46 +281,54 @@ describe('appverse-html5:generator', function () {
                 .on('end', done);
         });
 
-        it('should create files', function (done) {
+        it('should create files', function () {
             assert.file(config.files);
-            done();
+            assert.noFile(config.demofiles);
         });
-        it('should move templates files', function (done) {
+        it('should move templates files', function () {
             assert.file(config.templates);
-            done();
+            assert.noFile(config.demotemplates);
         });
-        it('should replace templates with application name', function (done) {
+        it('should replace templates with application name', function () {
             assert.fileContent( [
                 [ 'bower.json', '\"name\": \"mytestproject\"' ],
                 [ 'package.json', '\"name\": \"mytestproject\"' ],
                 [ 'app/index.html', '<html class=\"no-js\" ng-app=\"mytestprojectApp\">' ],
                 [ 'app/app.js', 'angular.module(\'mytestprojectApp\'' ]
             ]);
-            done();
         });
-        it('should add style placeholders to index', function (done) {
+        it('should add style placeholders to index', function () {
             assert.fileContent([
                 [ 'app/index.html', '<!-- bower:css -->' ],
                 [ 'app/index.html', '<!-- endbower -->' ],
                 [ 'app/index.html', '<!-- include: \"type\": \"css\", \"files\": \"<%= css %>\" -->' ],
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
-            done();
         });
-        it('should add script placeholders to index', function (done) {
+        it('should add script placeholders to index', function () {
             assert.fileContent([
                 [ 'app/index.html', '<!-- bower:css -->' ],
                 [ 'app/index.html', '<!-- endbower -->' ],
                 [ 'app/index.html', '<!-- include: \"type\": \"js\", \"files\": \"<%= scripts %>\" -->' ],
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
-            done();
         });
-        it('should add module files to bower.json', function (done) {
+        it('should not add new states and navbar components', function () {
+            assert.noFileContent([
+                [ 'app/states/app-states.js', 'components/theme/theme.html' ],
+                [ 'app/states/app-states.js', 'components/components/components.html' ],
+                [ 'app/states/app-states.js', 'components/charts/charts.html' ],
+                [ 'app/states/app-states.js', 'components/icons/icons.html' ],
+                [ 'app/index.html', 'Theme' ],
+                [ 'app/index.html', 'Components' ],
+                [ 'app/index.html', 'Charts' ],
+                [ 'app/index.html', 'Icons' ]
+            ]);
+        });
+        it('should add module files to bower.json', function () {
             assert.fileContent([
                 [ 'config/wiredep.js', 'angular-cache']
             ]);
-            done();
         })
     });
 

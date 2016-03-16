@@ -29,13 +29,6 @@ var beautify = require('js-beautify').js_beautify;
 
 
 var appverseHTML5Generator = appverse.extend({
-    constructor: function () {
-        // Calling the super constructor
-        appverse.apply(this, arguments);
-
-        //adding a custom option
-        this.option('demo'); //Adds support for --demo flag
-    },
 /**
  * Get the Generated application name
  **/
