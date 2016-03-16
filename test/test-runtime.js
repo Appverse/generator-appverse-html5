@@ -34,10 +34,7 @@ describe('appverse-html5:runtime', function () {
             helpers.run(path.join(__dirname, '../generators/runtime'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -56,6 +53,5 @@ describe('appverse-html5:runtime', function () {
               assert.file('docker-compose.yml');
               done();
         });
-
     });
 });

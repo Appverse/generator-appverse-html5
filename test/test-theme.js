@@ -36,10 +36,7 @@ describe('appverse-html5:theme', function () {
             helpers.run(path.join(__dirname, '../generators/theme'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -52,8 +49,7 @@ describe('appverse-html5:theme', function () {
                     'skip-welcome-message': truee
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
 
@@ -70,10 +66,7 @@ describe('appverse-html5:theme', function () {
             helpers.run(path.join(__dirname, '../generators/theme'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -86,8 +79,7 @@ describe('appverse-html5:theme', function () {
                     'skip-welcome-message': true
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
 
@@ -105,10 +97,7 @@ describe('appverse-html5:theme', function () {
                 helpers.run(path.join(__dirname, '../generators/theme'))
                     .inTmpDir(function (dir) {
                         // `dir` is the path to the new temporary directory
-
-                        var done = this.async();
-
-                        fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                        fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     })
                     .on('ready', function (generator) {
                         generator.conflicter.force = true;
@@ -122,8 +111,7 @@ describe('appverse-html5:theme', function () {
                         'skip-welcome-message': true
                     }) // execute with options
                     .on('end', function () {
-                        fse.removeSync(path.join(__dirname, 'temp'));
-                        done();
+                        fse.remove(path.join(__dirname, 'temp'), done);
                     });
             });
 

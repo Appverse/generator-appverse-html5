@@ -25,7 +25,6 @@ var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
 var os = require('os');
 var fse = require('fs-extra');
-var fs = require('fs');
 
 var mockdata = path.join(__dirname, 'data/modules.json');
 var mockproject = path.join(__dirname, 'data/modules-project.json');
@@ -38,14 +37,11 @@ describe('appverse-html5:module', function () {
     describe('add module with scripts, angular and config. Prompts', function () {
         before(function (done) {
             //console.log('moving to temp!')
-            fse.removeSync(path.join(__dirname, '../temp'));
+            fse.removeSync(path.join(__dirname, 'temp'));
             helpers.run(path.join(__dirname, '../generators/module'))
                 .inTmpDir(function (dir) {
                     // `dir` is the path to the new temporary directory
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                 })
                 .on('ready', function (generator) {
                     generator.conflicter.force = true;
@@ -61,8 +57,7 @@ describe('appverse-html5:module', function () {
                     'skip-welcome-message': true
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
 
@@ -100,14 +95,11 @@ describe('appverse-html5:module', function () {
             fse.removeSync(path.join(__dirname, 'temp'));
             helpers.run(path.join(__dirname, '../generators/module'))
                 .inTmpDir(function (dir) {
-
-                    var done = this.async();
-
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     var pathFile = path.join(templatePath, modules[1].name);
                     modules[1].files.forEach(function (name) {
                         var fullpath = path.join(pathFile, name);
-                        fse.outputFile(fullpath, done);
+                        fse.outputFileSync(fullpath);
                     });
 
                 })
@@ -123,8 +115,7 @@ describe('appverse-html5:module', function () {
                     'skip-prompts': true
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
 
@@ -159,17 +150,16 @@ describe('appverse-html5:module', function () {
             helpers.run(path.join(__dirname, '../generators/module'))
                 .inTmpDir(function (dir) {
 
-                    var done = this.async();
 
-                    fse.copy(path.join(__dirname, '../generators/app/templates'), dir, done);
+                    fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     var pathFile = path.join(templatePath, modules[2].name);
                     modules[2].files.forEach(function (name) {
                         var fullpath = path.join(pathFile, name);
-                        fse.outputFile(fullpath, done);
+                        fse.outputFileSync(fullpath);
                     });
                     modules[2].templates.forEach(function (name) {
                         var fullpath = path.join(pathFile, name);
-                        fse.outputFile(fullpath, done);
+                        fse.outputFileSync(fullpath);
                     });
                 })
                 .on('ready', function (generator) {
@@ -188,8 +178,7 @@ describe('appverse-html5:module', function () {
                     'skip-welcome-message': true
                 }) // execute with options
                 .on('end', function () {
-                    fse.removeSync(path.join(__dirname, 'temp'));
-                    done();
+                    fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
 
