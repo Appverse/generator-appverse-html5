@@ -84,18 +84,22 @@ describe('appverse-html5:generator', function () {
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
         });
-        it('should add new states and navbar components', function () {
+        it('should add new states', function () {
             assert.fileContent([
                 [ 'app/states/app-states.js', 'components/theme/theme.html' ],
                 [ 'app/states/app-states.js', 'components/components/components.html' ],
                 [ 'app/states/app-states.js', 'components/charts/charts.html' ],
-                [ 'app/states/app-states.js', 'components/icons/icons.html' ],
+                [ 'app/states/app-states.js', 'components/icons/icons.html' ]
+            ]);
+        });
+        it('should add new navbar items', function () {
+             assert.fileContent([
                 [ 'app/index.html', 'Theme' ],
                 [ 'app/index.html', 'Components' ],
                 [ 'app/index.html', 'Charts' ],
                 [ 'app/index.html', 'Icons' ]
             ]);
-        });
+        })
     });
 
     describe('when called with prompts (no modules - no builds)', function () {
@@ -162,12 +166,16 @@ describe('appverse-html5:generator', function () {
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
         });
-        it('should not add new states and navbar components', function () {
+        it('should not add new states', function () {
             assert.noFileContent([
                 [ 'app/states/app-states.js', 'components/theme/theme.html' ],
                 [ 'app/states/app-states.js', 'components/components/components.html' ],
                 [ 'app/states/app-states.js', 'components/charts/charts.html' ],
-                [ 'app/states/app-states.js', 'components/icons/icons.html' ],
+                [ 'app/states/app-states.js', 'components/icons/icons.html' ]
+            ]);
+        });
+        it('should not add new navbar components', function () {
+            assert.noFileContent([
                 [ 'app/index.html', 'Theme' ],
                 [ 'app/index.html', 'Components' ],
                 [ 'app/index.html', 'Charts' ],
@@ -237,12 +245,16 @@ describe('appverse-html5:generator', function () {
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
         });
-        it('should not add new states and navbar components', function () {
+        it('should not add new states', function () {
             assert.noFileContent([
                 [ 'app/states/app-states.js', 'components/theme/theme.html' ],
                 [ 'app/states/app-states.js', 'components/components/components.html' ],
                 [ 'app/states/app-states.js', 'components/charts/charts.html' ],
-                [ 'app/states/app-states.js', 'components/icons/icons.html' ],
+                [ 'app/states/app-states.js', 'components/icons/icons.html' ]
+            ]);
+        });
+        it('should not add new navbar components', function () {
+            assert.noFileContent([
                 [ 'app/index.html', 'Theme' ],
                 [ 'app/index.html', 'Components' ],
                 [ 'app/index.html', 'Charts' ],
@@ -313,12 +325,16 @@ describe('appverse-html5:generator', function () {
                 [ 'app/index.html', '<!-- /include -->' ]
             ]);
         });
-        it('should not add new states and navbar components', function () {
+        it('should not add new states', function () {
             assert.noFileContent([
                 [ 'app/states/app-states.js', 'components/theme/theme.html' ],
                 [ 'app/states/app-states.js', 'components/components/components.html' ],
                 [ 'app/states/app-states.js', 'components/charts/charts.html' ],
-                [ 'app/states/app-states.js', 'components/icons/icons.html' ],
+                [ 'app/states/app-states.js', 'components/icons/icons.html' ]
+            ]);
+        });
+        it('should not add new navbar components', function () {
+            assert.noFileContent([
                 [ 'app/index.html', 'Theme' ],
                 [ 'app/index.html', 'Components' ],
                 [ 'app/index.html', 'Charts' ],

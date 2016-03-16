@@ -161,6 +161,10 @@ module.exports = appverseHtml5Gen.extend({
           this.moveFiles(this.templatePath(), project.demofiles);
           // DEMO TEMPLATES
           this.moveTemplates(this.templatePath(), project.demotemplates);
+          this.addLinkToNavBar("theme", "glyphicon-pencil");
+          this.addLinkToNavBar("components", "glyphicon-book");
+          this.addLinkToNavBar("charts", "glyphicon-stats");
+          this.addLinkToNavBar("icons", "glyphicon-th");
       }
     },
     install: function () {

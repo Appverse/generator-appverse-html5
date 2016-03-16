@@ -46,7 +46,7 @@ describe('appverse-html5:theme', function () {
                 })
                 .withOptions({
                     'skip-install': true,
-                    'skip-welcome-message': truee
+                    'skip-welcome-message': true
                 }) // execute with options
                 .on('end', function () {
                     fse.remove(path.join(__dirname, 'temp'), done);
