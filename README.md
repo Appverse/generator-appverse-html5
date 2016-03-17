@@ -49,11 +49,11 @@ Running
   Create a directoy:
 
     ```bash
-    mkdir testApp
+        mkdir testApp
     ```
 
     ```bash
-    cd testApp
+        cd testApp
     ```
 
     Execute the generator:
@@ -75,7 +75,9 @@ Running
     ```bash
         grunt server
     ```
+
     or
+
     ```bash
         grunt server:open
     ```
