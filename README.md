@@ -62,6 +62,12 @@ Running
         yo appverse-html5
     ```
 
+    Alternatively, you can load demonstration code:
+
+    ```bash
+        yo appverse-html5 --demo
+    ```
+
     [Yeoman](http://yeoman.io) will generate a boilerplate project with **Appverse - HTML5**.
 
     Execute grunt to test it:
