@@ -10,12 +10,14 @@
         ".jsbeautifyrc",
         "README.md",
         "sonar-project.properties",
-        "app/components/theme/theme.html",
         "app/components/home/home.html",
         "app/components/home/home-controller.js",
         "app/states/app-states.js",
         "app/app.js",
         "test/e2e/homeSpec.js"
+    ],
+    "demotemplates":[
+        "app/components/theme/theme.html"
     ],
     "files": [
         ".yo-rc.json",
@@ -23,6 +25,12 @@
         "Gruntfile.js",
         "LICENSE.md",
         "app/favicon.ico",
+        "test",
+        "app/styles",
+        "config",
+        "tasks"
+    ],
+    "demofiles":[
         "app/components/components/components.html",
         "app/components/components/modal-template.html",
         "app/components/charts/charts.html",
@@ -30,11 +38,7 @@
         "app/components/components/modal-controller.js",
         "app/components/charts/charts-controller.js",
         "app/components/icons/icons-controller.js",
-        "app/components/icons/icons.html",
-        "test",
-        "app/styles",
-        "config",
-        "tasks"
+        "app/components/icons/icons.html"
     ],
     "appScripts": [
         "app.js",

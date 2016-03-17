@@ -92,44 +92,12 @@ validateTarget : function validateTarget (target) {
     this.fs.write(targetPath, targetHTML.html());
 },
 /**
- * Add Routing
- * @param {string} name - rounting name
- **/
-addRouteState : function addRouteState(name) {
-    //STATES
-    var hook = '$stateProvider',
-        path = this.destinationPath('app/states/app-states.js'),
-        file = this.fs.read(path),
-        insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html',controller: '" + name + "Controller'})";
-
-    if (file.indexOf(insert) === -1) {
-        var pos = file.lastIndexOf(hook) + hook.length;
-        var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
-        this.fs.write(path, output);
-    }
-},
-/**
- * Add Link to NAV Bar.
- * @param {string} name - rounting name
- **/
-addLinkToNavBar : function addLinkToNavBar(name) {
-    var indexPath = this.destinationPath('app/index.html');
-    var index = this.fs.read(indexPath);
-    var indexHTML = cheerio.load(index);
-    //ADD LINK
-    var findlink = indexHTML('*[ui-sref="' + name + '"]');
-    if (require('lodash').isEmpty(findlink)) {
-        var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li>';
-        indexHTML('ul.nav.navbar-nav').append(navLink);
-    }
-    this.fs.write(indexPath, indexHTML.html());
-    this.addRouteState(name);
-},
-/**
  * ADD Drop Down to NAV
  * @param {string} name - Dropdown name
+ * @param {String} _icon - OPTIONAL icon to be shown in the NavBar
  **/
- addDropDownOption : function addDropDownOption(name) {
+ addDropDownOption : function addDropDownOption(name, _icon) {
+    var icon = _icon || "glyphicon-globe";
     var indexPath = this.destinationPath('app/index.html');
     var index = this.fs.read(indexPath);
     var indexHTML = cheerio.load(index);
@@ -141,7 +109,7 @@ addLinkToNavBar : function addLinkToNavBar(name) {
         if (require('lodash').isEmpty(findDropdown)) {
             this.info(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
             //NOT EXISTS
-            var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li></ul></li>';
+            var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon ' + icon + '"></i> ' + name + '</a></li></ul></li>';
             this.info(" Adding new option " + name + " to dropdown menu. ");
             indexHTML('ul.nav.navbar-nav').append(htmlCode);
         } else {

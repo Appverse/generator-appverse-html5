@@ -41,6 +41,13 @@ module.exports = appverseHtml5Gen.extend({
             this.welcome(pkg);
             this.checkVersion();
         }
+
+        if (!this.options.demo) {
+            this.demo = false;
+        } else {
+            this.demo = this.options.demo;
+        }
+
         if (!this.options.modules) {
             this.modules = path.join(__dirname, '../module/config/modules.json');
         } else {
@@ -147,7 +154,18 @@ module.exports = appverseHtml5Gen.extend({
       //FILES
       this.moveFiles(this.templatePath(), project.files);
       //TEMPLATES
-      this.moveTemplates(this.templatePath(),project.templates);
+      this.moveTemplates(this.templatePath(), project.templates);
+
+      if (this.options.demo) {
+          //DEMO FILES
+          this.moveFiles(this.templatePath(), project.demofiles);
+          // DEMO TEMPLATES
+          this.moveTemplates(this.templatePath(), project.demotemplates);
+          this.addLinkToNavBar("theme", "glyphicon-pencil");
+          this.addLinkToNavBar("components", "glyphicon-book");
+          this.addLinkToNavBar("charts", "glyphicon-stats");
+          this.addLinkToNavBar("icons", "glyphicon-th");
+      }
     },
     install: function () {
         if (this.props.moduleOptions) {
