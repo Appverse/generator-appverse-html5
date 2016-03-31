@@ -5,17 +5,17 @@ module.exports = function (grunt) {
   grunt.registerTask('dist', [
         'clean:dist',
         'useminPrepare',
+        'wiredep',
         'concurrent:dist',
-        'concat',
         'postcss:css',
+        'includeSource',
+        'concat:generated',
         'copy:dist',
         'ngAnnotate',
-        'cssmin',
-        'uglify',
+        'cssmin:generated',
+        'uglify:generated',
         'rev',
         'usemin',
         'htmlmin'
     ]);
-
-
 };
