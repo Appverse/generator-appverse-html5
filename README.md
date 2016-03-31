@@ -49,17 +49,23 @@ Running
   Create a directoy:
 
     ```bash
-    mkdir testApp
+        mkdir testApp
     ```
 
     ```bash
-    cd testApp
+        cd testApp
     ```
 
     Execute the generator:
 
     ```bash
         yo appverse-html5
+    ```
+
+    Alternatively, you can load demonstration code:
+
+    ```bash
+        yo appverse-html5 --demo
     ```
 
     [Yeoman](http://yeoman.io) will generate a boilerplate project with **Appverse - HTML5**.
@@ -69,7 +75,9 @@ Running
     ```bash
         grunt server
     ```
+
     or
+
     ```bash
         grunt server:open
     ```

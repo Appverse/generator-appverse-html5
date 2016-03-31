@@ -44,24 +44,5 @@ angular.module('<%=appName%>App')
                   url: '/home',
                   templateUrl: 'components/home/home.html'
                 })
-                .state('theme', {
-                  url: '/theme',
-                  templateUrl: 'components/theme/theme.html'
-                })
-                .state('components', {
-                  url: '/components',
-                  templateUrl: 'components/components/components.html',
-                  controller: 'ComponentsController'
-                })
-                .state('charts', {
-                  url: '/charts',
-                  templateUrl: 'components/charts/charts.html',
-                  controller: 'ChartsController'
-                })
-                .state('icons', {
-                  url: '/icons',
-                  templateUrl: 'components/icons/icons.html',
-                  controller: 'IconsController'
-              })
                 ;
             }]);

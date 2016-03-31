@@ -21,6 +21,7 @@
 'use strict';
 var path = require('path');
 var fs = require('fs-extra');
+var cheerio = require('cheerio');
 var appverse = require ('appverse-generator-commons');
 var chalk = require('chalk');
 var ZSchema = require('z-schema');
@@ -29,6 +30,16 @@ var beautify = require('js-beautify').js_beautify;
 
 
 var appverseHTML5Generator = appverse.extend({
+    constructor: function () {
+        // Calling the super constructor
+        appverse.apply(this, arguments);
+
+        //adding a custom option
+        this.option('demo', {
+            alias: 'd',
+            desc: 'Loads demo code for example purposes'
+        }); //Adds support for --demo flag
+    },
 /**
  * Get the Generated application name
  **/
@@ -165,6 +176,43 @@ validateJson : function validateJson(json, tpath, callback) {
         callback(JSON.stringify(this.schema), null);
     }
     callback(null, true);
+},
+/**
+ * Add Routing
+ * @param {string} name - rounting name
+ **/
+addRouteState : function addRouteState(name) {
+    //STATES
+    var hook = '$stateProvider',
+        path = this.destinationPath('app/states/app-states.js'),
+        file = this.fs.read(path),
+        insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html',controller: '" + name.capitalizeFirstLetter() + "Controller'})";
+
+    if (file.indexOf(insert) === -1) {
+        var pos = file.lastIndexOf(hook) + hook.length;
+        var output = [file.slice(0, pos), insert, file.slice(pos)].join('');
+        this.fs.write(path, output);
+    }
+},
+/**
+ * Add Link to NAV Bar.
+ * @param {string} name - rounting name
+ * @param {String} _icon - OPTIONAL icon to be shown in the NavBar
+ **/
+addLinkToNavBar : function addLinkToNavBar(name, _icon) {
+    var icon = _icon || "glyphicon-globe";
+    var indexPath = this.destinationPath('app/index.html');
+    var index = this.fs.read(indexPath);
+    var indexHTML = cheerio.load(index);
+    //ADD LINK
+    var findlink = indexHTML('*[ui-sref="' + name + '"]');
+    if (require('lodash').isEmpty(findlink)) {
+        var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class="glyphicon ' + icon + '"></i> ' + name.capitalizeFirstLetter() + '</a></li>';
+        indexHTML('ul.nav.navbar-nav').append(navLink);
+        indexHTML('ul.sidebar-nav').append(navLink);
+    }
+    this.fs.write(indexPath, indexHTML.html());
+    this.addRouteState(name);
 }
 });
 module.exports = appverseHTML5Generator;
@@ -211,3 +259,10 @@ function modularize( plain ){
             { depth : null }) + ';',
             { indent_size : 2 });
 };
+
+/**
+ * Changes the first letter to its capital.
+ */
+String.prototype.capitalizeFirstLetter = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}

@@ -14,12 +14,15 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
+    <!-- build:css styles/css/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
-
+    <!-- endbuild -->
+    <!-- build:css styles/css/styles.css -->
     <!-- include: "type": "css", "files": "<%%= css %>" -->
+
     <!-- /include -->
+    <!-- endbuild -->
 </head>
 
 <!--Include the module with the app scope-->
@@ -64,18 +67,6 @@
                 <li data-ng-class="{ active: $state.includes('home') }">
                     <a angular-ripple ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
                 </li>
-                <li data-ng-class="{ active: $state.includes('theme') }">
-                    <a angular-ripple ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
-                </li>
-                <li data-ng-class="{ active: $state.includes('components') }">
-                    <a angular-ripple ui-sref="components"><i class="glyphicon glyphicon-book"></i> Components</a>
-                </li>
-                <li data-ng-class="{ active: $state.includes('charts') }">
-                    <a angular-ripple ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
-                </li>
-                <li data-ng-class="{ active: $state.includes('icons') }">
-                    <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
-                </li>
             </ul>
         </div>
     </nav>
@@ -91,18 +82,6 @@
                 <li data-ng-class="{ active: $state.includes('home') }">
                     <a angular-ripple="" ui-sref="home"><i class="glyphicon glyphicon-home"></i> Home</a>
                 </li>
-                <li data-ng-class="{ active: $state.includes('theme') }">
-                    <a angular-ripple="" ui-sref="theme"><i class="glyphicon glyphicon-pencil"></i> Theme</a>
-                </li>
-                <li data-ng-class="{ active: $state.includes('components') }">
-                    <a angular-ripple="" ui-sref="components"><i class="glyphicon glyphicon-book"></i> Components</a>
-                </li>
-                <li data-ng-class="{ active: $state.includes('charts') }">
-                    <a angular-ripple="" ui-sref="charts"><i class="glyphicon glyphicon-stats"></i> Charts</a>
-                </li>
-                <li data-ng-class="{ active: $state.includes('icons') }">
-                    <a angular-ripple="" ui-sref="icons"><i class="glyphicon glyphicon-th"></i> Icons</a>
-                </li>
             </ul>
             <a href="#menu-toggle" angular-ripple="" class="btn btn-primary menu-toggle" id="menu-toggle">
                 <i class="glyphicon glyphicon-triangle-left"></i>
@@ -116,13 +95,13 @@
         -->
         <div ui-view="" class="fade-in" autoscroll="false"></div>
     </div>
-
+    <!-- build:js main.js -->
     <!-- bower:js -->
     <!-- endbower -->
 
     <!-- include: "type": "js", "files": "<%%= scripts %>" -->
     <!-- /include -->
-
+    <!-- endbuild -->
 </body>
 
 </html>
