@@ -14,12 +14,15 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
+    <!-- build:css styles/css/vendor.css -->
     <!-- bower:css -->
     <!-- endbower -->
-
+    <!-- endbuild -->
+    <!-- build:css styles/css/styles.css -->
     <!-- include: "type": "css", "files": "<%%= css %>" -->
+
     <!-- /include -->
+    <!-- endbuild -->
 </head>
 
 <!--Include the module with the app scope-->
@@ -92,13 +95,13 @@
         -->
         <div ui-view="" class="fade-in" autoscroll="false"></div>
     </div>
-
+    <!-- build:js main.js -->
     <!-- bower:js -->
     <!-- endbower -->
 
     <!-- include: "type": "js", "files": "<%%= scripts %>" -->
     <!-- /include -->
-
+    <!-- endbuild -->
 </body>
 
 </html>
