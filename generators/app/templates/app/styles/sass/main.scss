@@ -1,8 +1,16 @@
+//IMPORT ORDER MATTERS IN THIS FILE, SO PLEASE BE CAREFUL TO LEAVE IT LIKE THIS:
+
 //CUSTOM VARIABLES
+@import "custom-styles/variables";
+
+//BOOTSWATCH THEME VARIABLES
 @import "variables";
 
 //APPVERSE BOOTSTRAP THEME (FROM BOWER COMPONENTS)
 @import "bootstrap-theme";
 
+//BOOTSWATCH THEME
+@import "theme";
+
 //CUSTOM STYLES ADDED IN PARTIAL FILES
-@import "partials";
+@import "custom-styles/partials";
