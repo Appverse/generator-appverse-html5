@@ -634,7 +634,7 @@ Some dependant pagackages use **node-gyp**, a cross-platform command-line tool w
     [Microsoft Visual Studio C++ 2013](https://www.visualstudio.com) (Express version works well)
     If the install fails, try uninstalling any C++ 2010 x64&x86 Redistributable that you have installed first
     If you get errors that the 64-bit compilers are not installed you may also need the compiler update for the Windows SDK 7.1
-  * Windows 7/8:
+  * Windows 7/8.1:
     [Microsoft Visual Studio C++ 2013](https://www.visualstudio.com) for Windows Desktop (Express version works well)**
   * All Windows Versions
     For 64-bit builds of node and native modules you will also need the **Windows 7 64-bit SDK**
