@@ -45,13 +45,10 @@ describe('appverse-html5:component', function () {
                     fse.outputFileSync(jspath);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
                     fse.outputFileSync(temppath);
-                })
-                .on('ready', function (generator) {
-                    generator.conflicter.force = true;
 
                     var html = "<div class=\"container\" scrolly-scroll></div>";
-                   generator.write(generator.destinationPath('app/components/mockview/mockview.html'), html);
-
+                    var mockfilepath = path.join(dir, 'app/components/mockview/mockview.html');
+                    fse.outputFileSync(mockfilepath, html);
                 })
                 .withArguments([components[0].name])
                 .withOptions({
@@ -61,8 +58,7 @@ describe('appverse-html5:component', function () {
                     'skip-welcome-message': true,
                     'target' : 'mockview',
                     'type' : 'mocktype3',
-                    'name' : 'apiname',
-                    'rows' : 1
+                    'name' : 'apiname'
                 }) // execute with options
                 .on('end', function () {
                     fse.remove(path.join(__dirname, 'temp'), done);
@@ -115,13 +111,10 @@ describe('appverse-html5:component', function () {
                     fse.outputFileSync(jspath);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
                     fse.outputFileSync(temppath);
-                })
-                .on('ready', function (generator) {
-                    generator.conflicter.force = true;
 
                     var html = "<div class=\"container\" scrolly-scroll></div>";
-                   generator.write(generator.destinationPath('app/components/mockview/mockview.html'), html);
-
+                    var mockfilepath = path.join(dir, 'app/components/mockview/mockview.html');
+                    fse.outputFileSync(mockfilepath, html);
                 })
                 .withArguments([components[0].name])
                 .withOptions({
@@ -132,8 +125,7 @@ describe('appverse-html5:component', function () {
                     'target' : 'mockview',
                     'type' : 'mocktype3',
                     'name' : 'apiname',
-                    'menu' : 'mockdropdown',
-                    'rows' : 1
+                    'menu' : 'mockdropdown'
                 }) // execute with options
                 .on('end', function () {
                     fse.remove(path.join(__dirname, 'temp'), done);
@@ -162,13 +154,10 @@ describe('appverse-html5:component', function () {
                     fse.outputFileSync(jspath);
                     var temppath = path.join(pathFile, components[0]['named-templates'][0]);
                     fse.outputFileSync(temppath);
-                })
-                .on('ready', function (generator) {
-                    generator.conflicter.force = true;
 
                     var html = "<div class=\"container\" scrolly-scroll></div>";
-                   generator.write(generator.destinationPath('app/components/mockview/mockview.html'), html);
-
+                    var mockfilepath = path.join(dir, 'app/components/mockview/mockview.html');
+                    fse.outputFileSync(mockfilepath, html);
                 })
                 .withArguments([components[0].name])
                 .withOptions({
@@ -179,7 +168,6 @@ describe('appverse-html5:component', function () {
                     'target' : 'mockview',
                     'type'  : 'mocktype3',
                     'name' : 'apiname',
-                    'rows' : 1,
                     'schema' : mockschema
                 }) // execute with options
                 .on('end', function () {

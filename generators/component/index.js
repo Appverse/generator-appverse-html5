@@ -179,6 +179,16 @@ module.exports = componentGenerator.extend({
         },
         navigation: function() {
             //NAVIGATION
+            console.log("navigation\n");
+
+            console.log(this.component.navigation);
+            if (this.options.menu != null) {
+                console.log("Hi ha menu, dijous paella");
+                console.log(this.options.menu);
+            }
+            if (!this.options.name) {console.log("No options.name")};
+            console.log(this.options.name);
+
             if (this.component.navigation) {
                 if (!this.options.menu) {
                     this.addLinkToNavBar(this.options.name);
@@ -187,9 +197,13 @@ module.exports = componentGenerator.extend({
                     this.addDropDownOption(this.options.name);
                 }
             }
+
+            console.log("navigation.end");
+
         }
     },
     end: function() {
+        console.log("end");
         this.info("Finish " + this.componentName);
     }
 
