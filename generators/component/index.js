@@ -125,8 +125,7 @@ module.exports = componentGenerator.extend({
                         name: {
                             type: "string",
                             description: "name",
-                            required: true,
-                            faker: 'name.findName'
+                            required: true
                         },
                     }
                 };
@@ -134,13 +133,12 @@ module.exports = componentGenerator.extend({
         },
         rows: function() {
             this.mockentity = [];
-            this.rows = 10;
+            this.rows = 0;
             if (this.options.rows) {
                 this.rows = this.options.rows;
             }
             for (var i = 0; i < this.rows; i++) {
                 this.mockentity.push(jsf(this.model.properties));
-
             }
         },
         api: function() {
