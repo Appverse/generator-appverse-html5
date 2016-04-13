@@ -125,7 +125,8 @@ module.exports = componentGenerator.extend({
                         name: {
                             type: "string",
                             description: "name",
-                            required: true
+                            required: true,
+                            faker: 'name.findName'
                         },
                     }
                 };
@@ -139,6 +140,7 @@ module.exports = componentGenerator.extend({
             }
             for (var i = 0; i < this.rows; i++) {
                 this.mockentity.push(jsf(this.model.properties));
+
             }
         },
         api: function() {
