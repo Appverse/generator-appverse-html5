@@ -60,6 +60,10 @@ describe('appverse-html5:component', function () {
                     'type' : 'mocktype3',
                     'name' : 'apiname'
                 }) // execute with options
+                // .on('end', function () {
+                //     assert.file(path.join(__dirname,   "/temp/generators/component/templates/mockcomponent/app/components/$target/templates/MockHTML2.html"));
+                //     fse.remove(path.join(__dirname, 'temp'), done);
+                // });
                 .on('end', function () {
                     fse.remove(path.join(__dirname, 'temp'), done);
                 });
