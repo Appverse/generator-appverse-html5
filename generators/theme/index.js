@@ -133,6 +133,9 @@ module.exports = appverseHtml5Gen.extend({
                     done();
                 }.bind(this));
             }
+            else{
+              this.fs.write(this.destinationPath('app/styles/sass/_theme.scss'), ' ');
+            }
         },
         variables: function() {
            if(this.remote) {
@@ -147,6 +150,7 @@ module.exports = appverseHtml5Gen.extend({
                 done();
               }.bind(this));
             } else {
+              this.fs.write(this.destinationPath('app/styles/sass/_variables.scss'), ' ');
               this.fs.copyTpl (this.templatePath('config/sass.js'),
                         this.destinationPath('config/sass.js'),
                         this);
