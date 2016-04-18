@@ -1,6 +1,6 @@
 {
   "name": "generator-appverse-html5",
-  "version": "1.0.0-alpha.12",
+  "version": "1.0.0-alpha.13",
   "description": "Appverse HTML 5 generator",
   "license": "MPL-2.0",
   "main": "app/index.js",
@@ -15,7 +15,9 @@
     "npm": ">=2.14.0"
   },
   "scripts": {
-    "test": "node node_modules/mocha/bin/_mocha --reporter node_modules/xunit-file | node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha"
+    "test": "npm run unit && npm run report",
+    "unit": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha",
+    "report": "node node_modules/mocha/bin/_mocha --reporter node_modules/xunit-file"
   },
   "files": [
     "generators"
@@ -41,6 +43,7 @@
     "escodegen": "^1.6.1",
     "esprima": "^2.6.0",
     "estraverse": "^4.1.0",
+    "fs-extra": "^0.26.0",
     "html-wiring": "^1.2.0",
     "json-schema-faker": "0.2.1",
     "lodash": "^3.6.0",

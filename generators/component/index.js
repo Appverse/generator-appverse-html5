@@ -133,7 +133,7 @@ module.exports = componentGenerator.extend({
         },
         rows: function() {
             this.mockentity = [];
-            this.rows = 10;
+            this.rows = 0;
             if (this.options.rows) {
                 this.rows = this.options.rows;
             }
@@ -150,6 +150,7 @@ module.exports = componentGenerator.extend({
         },
         templates: function() {
             //TEMPLATES
+            var self = this;
             if (this.component['named-templates'] && this.options.name) {
                 this.moveNamedTemplates(this.templatepath, this.component['named-templates'], this.options.name, this.options.name);
             }
