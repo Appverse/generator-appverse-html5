@@ -1,0 +1,35 @@
+//AG-GRID COMPONENT CUSTOM STYLES
+.ag-root {
+    background: white !important;
+    border: 1px #DBDBDB solid !important;
+}
+.ag-header {
+    background: white !important;
+    border-bottom: 1px #DBDBDB solid !important;
+}
+.ag-header-row {
+    text-transform: uppercase;
+    color: #A6A6A6;
+    font-weight: bold;
+}
+.ag-header-cell {
+    padding: 10px;
+    border: none !important;
+    text-align: left !important;
+}
+.ag-row {
+    background: white !important;
+    border-bottom: 1px #DBDBDB solid !important;
+    &:hover {
+        background: darken(white, 5%) !important;
+    }
+}
+.ag-cell {
+    padding: 10px !important;
+    border: none !important;
+    p {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
