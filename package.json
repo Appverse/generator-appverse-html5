@@ -1,6 +1,6 @@
 {
   "name": "generator-appverse-html5",
-  "version": "1.0.0-alpha.13",
+  "version": "1.0.0-alpha.14",
   "description": "Appverse HTML 5 generator",
   "license": "MPL-2.0",
   "main": "app/index.js",
@@ -45,6 +45,7 @@
     "estraverse": "^4.1.0",
     "fs-extra": "^0.26.0",
     "html-wiring": "^1.2.0",
+    "js-beautify": "^1.6.2",
     "json-schema-faker": "0.2.1",
     "lodash": "^3.6.0",
     "request": "^2.53.0",

@@ -10,7 +10,7 @@ mkdir /home/yeoman/generated
 chmod 777 /home/yeoman/generated
 cd /home/yeoman/generated
 # Generate application
-yo appverse-html5 generated
+yo appverse-html5 generated --demo
 
 # Add all modules
 yo appverse-html5:module cache
@@ -51,7 +51,7 @@ yo appverse-html5:component crud --name=crud5  --rows=100
 yo appverse-html5:component crud --name=crud6  --rows=100 --menu=crud6
 
 #Add runtime
-yo appverse-html5:runtime 
+yo appverse-html5:runtime
 
 # Run test. Unit
 grunt test
