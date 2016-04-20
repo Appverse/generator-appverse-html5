@@ -138,7 +138,8 @@ module.exports = componentGenerator.extend({
                 this.rows = this.options.rows;
             }
             for (var i = 0; i < this.rows; i++) {
-                this.mockentity.push(jsf(this.model.properties));
+                console.log(jsf(this.model.properties));
+                // this.mockentity.push(jsf(this.model.properties));
             }
         },
         api: function() {

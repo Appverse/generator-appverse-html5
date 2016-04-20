@@ -26,7 +26,7 @@
  */
 angular.module('App.Controllers')
 
-.controller('ChartsController', ['$scope', '$interval',
+.controller('chartsController', ['$scope', '$interval',
         function ($scope, $interval) {
         $scope.name = 'Charts';
         //Lines

@@ -26,7 +26,7 @@
  */
 angular.module('App.Controllers')
 
-.controller('ComponentsController', ['$scope', '$uibModal', '$log', '$http', '$timeout',
+.controller('componentsController', ['$scope', '$uibModal', '$log', '$http', '$timeout',
             function ($scope, $uibModal, $log, $http, $timeout) {
             $scope.name = 'Components';
 
@@ -60,7 +60,7 @@ angular.module('App.Controllers')
                 var newWidth = 600 + slides.length + 1;
                 slides.push({
                     image: 'http://placekitten.com/' + newWidth + '/300',
-                    text: ['More', 'Extra', 'Lots of', 'Surplus'][slides.length % 4] + ' ' + 
+                    text: ['More', 'Extra', 'Lots of', 'Surplus'][slides.length % 4] + ' ' +
                           ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
                 });
             };
