@@ -116,30 +116,33 @@ module.exports = componentGenerator.extend({
                     name: this.name,
                     description: this.name,
                     links: [],
+                    type: 'object',
                     properties: {
                         id: {
                             type: "integer",
-                            description: "id",
-                            required: false
+                            description: "id", 
+                            faker: "random.number"
                         },
                         name: {
                             type: "string",
-                            description: "name",
-                            required: true
-                        },
-                    }
+                            description: "name", 
+                            faker: "name.firstName"
+                        }
+                    },
+                    required: ['id', 'name']
                 };
             }
         },
-        rows: function() {
+        rows: function() { 
             this.mockentity = [];
             this.rows = 0;
             if (this.options.rows) {
                 this.rows = this.options.rows;
-            }
+            } 
             for (var i = 0; i < this.rows; i++) {
-                this.mockentity.push(jsf(this.model.properties));
-            }
+                var obj = jsf(this.model);
+                this.mockentity.push(obj);  
+            }  
         },
         api: function() {
             //Write MOCK DATA to JSON File.
