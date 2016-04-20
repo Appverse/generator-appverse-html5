@@ -186,7 +186,7 @@ addRouteState : function addRouteState(name) {
     var hook = '$stateProvider',
         path = this.destinationPath('app/states/app-states.js'),
         file = this.fs.read(path),
-        insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html',controller: '" + name.capitalizeFirstLetter() + "Controller'})";
+        insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html',controller: '" + name + "Controller'})";
 
     if (file.indexOf(insert) === -1) {
         var pos = file.lastIndexOf(hook) + hook.length;

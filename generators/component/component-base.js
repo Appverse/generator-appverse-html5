@@ -20,6 +20,7 @@
  */
 'use strict';
 var chalk = require('chalk');
+var _ = require('lodash');
 var cheerio = require('cheerio');
 var os = require('os');
 var appverseHTML5Generator = require('../generator-base');
@@ -103,10 +104,10 @@ validateTarget : function validateTarget (target) {
     var indexHTML = cheerio.load(index);
     //ADD LINK
     var findlink = indexHTML('*[ui-sref="' + name + '"]');
-    if (require('lodash').isEmpty(findlink)) {
+    if (_.isEmpty(findlink)) {
         var findDropdown = indexHTML("a.dropdown-toggle:contains('" + this.menu + "')");
         //FIND THE DROPDOWN
-        if (require('lodash').isEmpty(findDropdown)) {
+        if (_.isEmpty(findDropdown)) {
             this.info(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
             //NOT EXISTS
             var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon ' + icon + '"></i> ' + name + '</a></li></ul></li>';

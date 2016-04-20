@@ -2,9 +2,9 @@
 
 angular.module('App.Controllers')
 
-.controller('IconsController',
+.controller('iconsController',
     function ($log, $scope) {
-        $log.debug('IconsController loading');
+        $log.debug('iconsController loading');
 
         /*MATERIAL ICONS*/
         var iconsState1 = [];
@@ -41,7 +41,7 @@ angular.module('App.Controllers')
           } else {
               $scope.icons[index] = iconsState2[index];
           }
-        }; 
+        };
 
         /*EO MATERIAL ICONS*/
     });

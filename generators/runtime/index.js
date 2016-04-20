@@ -36,22 +36,22 @@ module.exports = appverseHtml5Gen.extend({
           this.checkVersion();
       }
   },
-  writing: function() {   
-      //TEMPLATES          
+  writing: function() {
+      //TEMPLATES
        this.fs.copyTpl (this.templatePath('docker/Dockerfile'), this.destinationPath('Dockerfile'), this);
-       this.fs.copyTpl (this.templatePath('docker/docker-compose.yml'), this.destinationPath('docker-compose.yml'), this);  
-  }, 
+       this.fs.copyTpl (this.templatePath('docker/docker-compose.yml'), this.destinationPath('docker-compose.yml'), this);
+  },
   end: function() {
       this.log('\n Docker commands');
-      this.log('***************');     
-      this.log(' Load Balancer:' ); 
-      this.log('     Build and run: $ docker-compose up -d' ); 
-      this.log('     http://<dockerhost>' ); 
+      this.log('***************');
+      this.log(' Load Balancer:' );
+      this.log('     Build and run: $ docker-compose up -d' );
+      this.log('     http://<dockerhost>' );
       this.log(' Scale N instances:' );
       this.log('     $ docker-compose scale ' + this.appName + '=N' );
       this.log('     $ docker-compose up -d -force-recreate' );
       this.log(' HAproxy dashboard:' );
       this.log('     http://<dockerhost>:1936' );
-      this.log('     User: stats / stats' ); 
-  } 
+      this.log('     User: stats / stats' );
+  }
 });
