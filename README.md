@@ -645,7 +645,7 @@ Some dependant pagackages use **node-gyp**, a cross-platform command-line tool w
 
 
 ## Appverse Showcase
-[Appverse HTML5 Showcase](https://appverse.gftlabs.com/showcase-html5/new)
+[Appverse HTML5 Showcase](https://appverse.gftlabs.com/showcase-html5/)
 
 
 ## License
