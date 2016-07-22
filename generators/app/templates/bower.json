@@ -9,7 +9,7 @@
         "angular-ui-select": "~0.12.0",
         "angularjs-slider": "~0.1.21",
         "appverse-web-html5-core": "~0.8.0",
-        "boostrap-sass": "^3.3.6",
+        "bootstrap-sass": "3.3.6",
         "appverse-bootstrap-sass-theme": "~0.0.7",
         "selectize": "~0.12.1",
         "angular-xeditable": "~0.1.9",
