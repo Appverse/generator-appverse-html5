@@ -2,7 +2,7 @@
     "name": "<%=appName%>",
     "version": "0.0.1",
     "dependencies": {
-        "angular-chart.js": "0.10.2",
+        "angular-chart.js": "1.0.0",
         "angular-highlightjs": "~0.5.1",
         "angular-resize": "~1.0.0",
         "angular-ripple": "*",

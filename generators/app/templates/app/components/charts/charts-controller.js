@@ -57,10 +57,10 @@ angular.module('App.Controllers')
         //Dynamic
         $scope.dynLabels = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales', 'Tele Sales', 'Corporate Sales'];
         $scope.dynData = [300, 500, 100, 40, 120];
-        $scope.dynType = 'PolarArea';
+        $scope.dynType = 'polarArea';
 
         $scope.dynToggle = function () {
-            $scope.dynType = $scope.dynType === 'PolarArea' ? 'Pie' : 'PolarArea';
+            $scope.dynType = $scope.dynType === 'polarArea' ? 'pie' : 'polarArea';
         };
 
         $interval(function () {
@@ -108,6 +108,39 @@ angular.module('App.Controllers')
         $scope.onClick = function (points, evt) {
             console.log(points, evt);
         };
-        }
 
+        $scope.onClick = function (points, evt) {
+            console.log(points, evt);
+        };
+
+        $scope.series = ['Series A', 'Series B'];
+        $scope.bubData = [
+                [{ x: 40, y: 10, r: 20 }],
+                [{ x: 33, y: 4, r: 25 }],
+                [{ x: 20, y: 20, r: 20 }],
+                [{ x: 25, y: 25, r: 25 }],
+                [{ x: 30, y: 31, r: 32 }],
+                [{ x: 40, y: 10, r: 20 }],
+                [{ x: 10, y: 10, r: 2 }],
+                [{ x: 50, y: 50, r: 22 }],
+                [{ x: 40, y: 10, r: 20 }],
+                [{ x: 25, y: 10, r: 50 }]
+            ];
+
+            $scope.datasetOverride = [
+            {
+                label: 'Bar chart',
+                borderWidth: 1,
+                type: 'bar'
+            },
+            {
+                label: 'Line chart',
+                borderWidth: 3,
+                hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+                hoverBorderColor: 'rgba(255,99,132,1)',
+                type: 'line'
+            }
+            ];
+
+        }
 ]);
