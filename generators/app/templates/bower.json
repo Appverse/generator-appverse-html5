@@ -2,8 +2,8 @@
     "name": "<%=appName%>",
     "version": "0.0.1",
     "dependencies": {
-        "angular-chart.js": "1.0.0",
-        "angular-highlightjs": "~0.5.1",
+        "angular-chart.js": "~1.0.0",
+        "angular-highlightjs": "~0.6.1",
         "angular-resize": "~1.0.0",
         "angular-ripple": "*",
         "angular-ui-select": "~0.12.0",
