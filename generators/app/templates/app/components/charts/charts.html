@@ -9,7 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Line</div>
                 <div class="panel-body">
-                    <canvas id="line" class="chart chart-line" data="data" labels="labels" legend="true" series="series" click="onClick">
+                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-legend="true" chart-series="series" chart-click="onClick">
                     </canvas>
                 </div>
             </div>
@@ -18,7 +18,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Bar</div>
                 <div class="panel-body">
-                    <canvas id="bar" class="chart chart-bar" data="data" labels="labels" click="onClick"></canvas>
+                    <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-click="onClick"></canvas>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@
                 <div class="panel-heading">Radar</div>
                 <div class="panel-body">
                     <div class="chart-container">
-                        <canvas id="radar" class="chart chart-radar" data="radarData" labels="radarLabels" click="onClick"></canvas>
+                        <canvas id="radar" class="chart chart-radar" chart-data="radarData" chart-labels="radarLabels" chart-click="onClick"></canvas>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                 <div class="panel-heading">Pie</div>
                 <div class="panel-body">
                     <div class="chart-container">
-                        <canvas id="pie" class="chart chart-pie chart-xs ng-isolate-scope" data="pieData" labels="pieLabels" legend="true" click="onClick"></canvas>
+                        <canvas id="pie" class="chart chart-pie chart-xs ng-isolate-scope" chart-data="pieData" chart-labels="pieLabels" chart-legend="true" chart-click="onClick"></canvas>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 <div class="panel-heading">Polar Area </div>
                 <div class="panel-body">
                     <div class="chart-container">
-                        <canvas id="polar-area" class="chart chart-polar-area" data="polarData" labels="polarLabels" legend="true" click="onClick"></canvas>
+                        <canvas id="polar-area" class="chart chart-polar-area" chart-data="polarData" chart-labels="polarLabels" chart-legend="true" chart-click="onClick"></canvas>
                     </div>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <div class="panel-heading">Doughnut</div>
                 <div class="panel-body">
                     <div class="chart-container">
-                        <canvas id="doughnut" class="chart chart-doughnut" data="doughnutData" labels="doughnutLabels" legend="true" click="onClick"></canvas>
+                        <canvas id="doughnut" class="chart chart-doughnut" chart-data="doughnutData" chart-labels="doughnutLabels" chart-legend="true" chart-click="onClick"></canvas>
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <div class="panel-heading">Dynamic (switch interval - 10s) </div>
                 <div class="panel-body">
                     <div class="chart-container">
-                        <canvas id="base" class="chart-base" chart-type="dynType" data="dynData" labels="dynLabels" legend="true"></canvas>
+                        <canvas id="base" class="chart-base" chart-type="dynType" chart-data="dynData" chart-labels="dynLabels" chart-legend="true"></canvas>
                     </div>
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 <div class="panel-heading">Reactive (random data - 5s)</div>
                 <div class="panel-body">
                     <div class="chart-container">
-                        <canvas id="tables" class="chart chart-line ng-isolate-scope" data="reactData" labels="reactLabels" colours="reactColours"></canvas>
+                        <canvas id="tables" class="chart chart-line ng-isolate-scope" chart-data="reactData" chart-labels="reactLabels" chart-colours="reactColours"></canvas>
                     </div>
                 </div>
             </div>

@@ -36,7 +36,7 @@ module.exports = {
                 },
                 "Chart.js": {
                     "main": [
-                                "Chart.min.js"
+                                "Chart.js"
                     ]
                 },
                 "angular-chart.js": {
