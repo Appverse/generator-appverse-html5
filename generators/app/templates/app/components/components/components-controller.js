@@ -1384,7 +1384,7 @@ angular.module('App.Controllers')
                     floor: 0,
                     ceil: 45
                 }
-            }
+            };
 
             $scope.doubleSlider = {
                 min: 1987,
@@ -1393,7 +1393,7 @@ angular.module('App.Controllers')
                     floor: 1900,
                     ceil: 2017
                 }
-            }
+            };
             /*EO SLIDER*/
 
             /*MATERIAL ICONS*/
