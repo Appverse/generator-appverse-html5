@@ -106,7 +106,7 @@
             </ui-select>
 
             <h3>Selectize theme</h3>
-            <p>Selected: {{country.selected}}</p>
+            <p>Selected: {{country.selected.code}} {{country.selected.name}}</p>
             <ui-select ng-model="country.selected" theme="selectize" ng-disabled="disabled" style="width: 300px;">
                 <ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="country in countries | filter: $select.search">
