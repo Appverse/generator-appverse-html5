@@ -1377,6 +1377,25 @@ angular.module('App.Controllers')
                 ];
             /*EO UI-SELECT*/
 
+            /* SLIDER */
+            $scope.singleSlider = {
+                value: 20,
+                options: {
+                    floor: 0,
+                    ceil: 45
+                }
+            }
+
+            $scope.doubleSlider = {
+                min: 1987,
+                max: 2015,
+                options: {
+                    floor: 1900,
+                    ceil: 2017
+                }
+            }
+            /*EO SLIDER*/
+
             /*MATERIAL ICONS*/
             $scope.clickIcon = 'list';
             $scope.clickIconMorph = function () {
