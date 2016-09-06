@@ -59,7 +59,7 @@
         "npm": ">=1.4.5"
     },
     "scripts": {
-        "postinstall": "node node_modules/protractor/bin/webdriver-manager update",
+        "postinstall": "node node_modules/protractor/bin/webdriver-manager update --ie",
         "test": "grunt test"
     }
 }
