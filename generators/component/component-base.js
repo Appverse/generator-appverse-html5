@@ -23,107 +23,106 @@ var chalk = require('chalk');
 var _ = require('lodash');
 var cheerio = require('cheerio');
 var os = require('os');
-var appverseHTML5Generator = require('../generator-base');
+var appverseHTML5Generator = require('../module/module-base');
 
 var componentGenerator = appverseHTML5Generator.extend({
-/**
- *
- * This method rewrites the yeoman.help()  generator/lib/actions/help.js
- * The help() outputs the USAGE file if exists.
- * This method adds dynamic help from the modules.json.
- *
- */
- help: function help() {
-    this.components = require('./config/components.json');
-    this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:component [<component>] [<option>]"));
-    this.log(chalk.bgBlack.white(" Available component list:"));
-    this.components.forEach(function (e) {
-        var required_options = "";
-        var optional_options = "";
-        if (e.option) {
-            if (e.option.required) {
-            e.option.required.forEach(function (o) {
-               required_options += " --" + o + "=[value] ";
-            });
-          }
-            if (e.option.optional) {
-               optional_options = " optional: ";
-               e.option.optional.forEach(function (o) {
-               optional_options += " --" + o + "=[value] ";
-            });
-          }
-             console.log("\t" + chalk.bgBlack.cyan(e.name) + " " + chalk.bgBlack.green(required_options) + " " + chalk.bgBlack.yellow(optional_options) );
-            if (e.types) {
-                 console.log(chalk.bgBlack.yellow("\t     Valid types: " + e.types));
+    /**
+     *
+     * This method rewrites the yeoman.help()  generator/lib/actions/help.js
+     * The help() outputs the USAGE file if exists.
+     * This method adds dynamic help from the modules.json.
+     *
+     */
+    help: function help() {
+        this.components = require('./config/components.json');
+        this.log(chalk.bgBlack.white(os.EOL + " Usage: yo appverse-html5:component [<component>] [<option>]"));
+        this.log(chalk.bgBlack.white(" Available component list:"));
+        this.components.forEach(function(e) {
+            var required_options = "";
+            var optional_options = "";
+            if (e.option) {
+                if (e.option.required) {
+                    e.option.required.forEach(function(o) {
+                        required_options += " --" + o + "=[value] ";
+                    });
+                }
+                if (e.option.optional) {
+                    optional_options = " optional: ";
+                    e.option.optional.forEach(function(o) {
+                        optional_options += " --" + o + "=[value] ";
+                    });
+                }
+                console.log("\t" + chalk.bgBlack.cyan(e.name) + " " + chalk.bgBlack.green(required_options) + " " + chalk.bgBlack.yellow(optional_options));
+                if (e.types) {
+                    console.log(chalk.bgBlack.yellow("\t     Valid types: " + e.types));
+                }
+            } else {
+                console.log("\t" + chalk.bgBlack.cyan(e.name));
             }
+        });
+        return "";
+    },
+    /**
+     * Check if target component exists
+     * @param {string} target - Component name
+     **/
+    validateTarget: function validateTarget(target) {
+        var fullTarget = 'app/components/' + target + '/' + target + '.html';
+        return this.fs.exists(this.destinationPath(fullTarget));
+    },
+    /**
+     * Link generated html to target view
+     * @param {string} template - Template
+     * @param {string} name - Name
+     * @param {string} target - Target
+     **/
+    addToTargetView: function addToTargetView(template, name, target) {
+        var includePath = this.resolveNamedTemplatePath(template, name, target);
+        var replacement = new RegExp('\\bapp/\\b', 'g');
+        var res = includePath.replace(replacement, '');
+        var include = '<div class=\"row\"><div class=\"col-lg-12\"><div ng-include src=\"\'' + res + '\'\"></div></div></div>';
+        var targetPath = this.destinationPath('app/components/' + target + '/' + target + '.html');
+        var targetView = this.fs.read(targetPath);
+        var targetHTML = cheerio.load(targetView);
+        if (targetHTML('div').length > 0 && targetHTML('div').eq(0).parent().length === 0) {
+            targetHTML('div').eq(0).append(include);
         } else {
-            console.log("\t" + chalk.bgBlack.cyan(e.name));
+            targetHTML.root().append(include);
         }
-    });
-    return "";
-},
-/**
-* Check if target component exists
-* @param {string} target - Component name
-**/
-validateTarget : function validateTarget (target) {
-    var fullTarget = 'app/components/' + target + '/' + target + '.html';
-    return this.fs.exists(this.destinationPath (fullTarget));
-},
-/**
- * Link generated html to target view
- * @param {string} template - Template
- * @param {string} name - Name
- * @param {string} target - Target
- **/
- addToTargetView : function addToTargetView(template, name, target) {
-    var includePath = this.resolveNamedTemplatePath(template, name, target);
-    var replacement = new RegExp('\\bapp/\\b', 'g');
-    var res = includePath.replace(replacement, '');
-    var include = '<div class=\"row\"><div class=\"col-lg-12\"><div ng-include src=\"\'' + res + '\'\"></div></div></div>';
-    var targetPath = this.destinationPath('app/components/' + target + '/' + target + '.html');
-    var targetView = this.fs.read(targetPath);
-    var targetHTML = cheerio.load(targetView);
-    if (targetHTML('div').length > 0 && targetHTML('div').eq(0).parent().length === 0) {
-        targetHTML('div').eq(0).append(include);
-    } else {
-        targetHTML.root().append(include);
-    }
-    //
-    this.fs.write(targetPath, targetHTML.html());
-},
-/**
- * ADD Drop Down to NAV
- * @param {string} name - Dropdown name
- * @param {String} _icon - OPTIONAL icon to be shown in the NavBar
- **/
- addDropDownOption : function addDropDownOption(name, _icon) {
-    var icon = _icon || "glyphicon-globe";
-    var indexPath = this.destinationPath('app/index.html');
-    var index = this.fs.read(indexPath);
-    var indexHTML = cheerio.load(index);
-    //ADD LINK
-    var findlink = indexHTML('*[ui-sref="' + name + '"]');
-    if (_.isEmpty(findlink)) {
-        var findDropdown = indexHTML("a.dropdown-toggle:contains('" + this.menu + "')");
-        //FIND THE DROPDOWN
-        if (_.isEmpty(findDropdown)) {
-            this.info(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
-            //NOT EXISTS
-            var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon ' + icon + '"></i> ' + name + '</a></li></ul></li>';
-            this.info(" Adding new option " + name + " to dropdown menu. ");
-            indexHTML('ul.nav.navbar-nav').append(htmlCode);
-        } else {
-            this.info(" Dropdown menu found. ");
-            //EXISTS
-            this.info(" Adding new option " + name + " to dropdown menu. ");
-            var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li>';
-            indexHTML(findDropdown).next().append(navLink);
+        //
+        this.fs.write(targetPath, targetHTML.html());
+    },
+    /**
+     * ADD Drop Down to NAV
+     * @param {string} name - Dropdown name
+     * @param {String} _icon - OPTIONAL icon to be shown in the NavBar
+     **/
+    addDropDownOption: function addDropDownOption(name, _icon) {
+        var icon = _icon || "glyphicon-globe";
+        var indexPath = this.destinationPath('app/index.html');
+        var index = this.fs.read(indexPath);
+        var indexHTML = cheerio.load(index);
+        //ADD LINK
+        var findlink = indexHTML('*[ui-sref="' + name + '"]');
+        if (_.isEmpty(findlink)) {
+            var findDropdown = indexHTML("a.dropdown-toggle:contains('" + this.menu + "')");
+            //FIND THE DROPDOWN
+            if (_.isEmpty(findDropdown)) {
+                this.info(" Dropdown menu " + this.menu + " not found > Adding dropdown menu. ");
+                //NOT EXISTS
+                var htmlCode = '<li class="dropdown"><a angular-ripple class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-list-alt"></i> ' + this.menu + '<span class="caret"></span></a><ul class="dropdown-menu"><li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon ' + icon + '"></i> ' + name + '</a></li></ul></li>';
+                this.info(" Adding new option " + name + " to dropdown menu. ");
+                indexHTML('ul.nav.navbar-nav').append(htmlCode);
+            } else {
+                this.info(" Dropdown menu found. ");
+                //EXISTS
+                this.info(" Adding new option " + name + " to dropdown menu. ");
+                var navLink = '<li data-ng-class="{active: $state.includes(\'' + name + '\')}"><a angular-ripple ui-sref="' + name + '"><i class=" glyphicon glyphicon-globe"></i> ' + name + '</a></li>';
+                indexHTML(findDropdown).next().append(navLink);
+            }
+            this.fs.write(indexPath, indexHTML.html());
         }
-        this.fs.write(indexPath, indexHTML.html());
-        this.addRouteState(name);
     }
-}
 });
 
 module.exports = componentGenerator;

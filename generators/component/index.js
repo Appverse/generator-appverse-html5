@@ -120,12 +120,12 @@ module.exports = componentGenerator.extend({
                     properties: {
                         id: {
                             type: "integer",
-                            description: "id", 
+                            description: "id",
                             faker: "random.number"
                         },
                         name: {
                             type: "string",
-                            description: "name", 
+                            description: "name",
                             faker: "name.firstName"
                         }
                     },
@@ -133,16 +133,16 @@ module.exports = componentGenerator.extend({
                 };
             }
         },
-        rows: function() { 
+        rows: function() {
             this.mockentity = [];
             this.rows = 0;
             if (this.options.rows) {
                 this.rows = this.options.rows;
-            } 
+            }
             for (var i = 0; i < this.rows; i++) {
                 var obj = jsf(this.model);
-                this.mockentity.push(obj);  
-            }  
+                this.mockentity.push(obj);
+            }
         },
         api: function() {
             //Write MOCK DATA to JSON File.
@@ -153,7 +153,6 @@ module.exports = componentGenerator.extend({
         },
         templates: function() {
             //TEMPLATES
-            var self = this;
             if (this.component['named-templates'] && this.options.name) {
                 this.moveNamedTemplates(this.templatepath, this.component['named-templates'], this.options.name, this.options.name);
             }
@@ -190,6 +189,13 @@ module.exports = componentGenerator.extend({
                     this.menu = this.options.menu;
                     this.addDropDownOption(this.options.name);
                 }
+                this.addRouteState(this.options.name);
+            }
+        },
+        module: function() {
+            //MODULE
+            if (this.component.module) {
+                this.addAngularModule('App.' + this.options.name);
             }
         }
     },

@@ -11,13 +11,15 @@
     "named-templates": [
         "app/components/$name/$name-controller.js",
         "app/components/$name/$name.html",
+        "app/components/$name/$name-states.js",
         "test/e2e/$nameSpec.js",
         "test/unit/$name-controllerSpec.js"
     ],
     "named-scripts": [
         "components/$name/$name-controller.js"
     ],
-    "navigation": true
+    "navigation": true,
+    "addModule": true
 }, {
     "name": "form",
     "option": {
@@ -136,6 +138,7 @@
         "app/components/$name/$name-controller.js",
         "app/components/$name/$name-modal-controller.js",
         "app/components/$name/$name.html",
+        "app/components/$name/$name-states.js",
         "app/components/$name/$nameModalForm.html",
         "app/components/$name/actions-template.html",
         "test/e2e/$nameSpec.js",
@@ -146,5 +149,6 @@
         "components/$name/$name-modal-controller.js"
     ],
     "navigation": true,
-    "api": true
+    "api": true,
+    "addModule": true
 }]

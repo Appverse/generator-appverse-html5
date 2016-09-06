@@ -8,41 +8,81 @@
 'use strict';
 
 angular.module('<%=appName%>App')
-    .config(
-    ['$stateProvider', '$urlRouterProvider',
-      function ($stateProvider, $urlRouterProvider) {
 
-                ///////////////////////////////
-                // 1-Redirects and Otherwise //
-                ///////////////////////////////
+.config(['$stateProvider', '$urlRouterProvider',
+    function($stateProvider, $urlRouterProvider) {
 
-                // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
-                $urlRouterProvider
+        ///////////////////////////////
+        // 1-Redirects and Otherwise //
+        ///////////////////////////////
 
-                // The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
-                // Here we are just setting up some convenience urls.
-                //                .when('/t?id', '/topics/:id')
-                //                    .when('/t/:id', '/topics/:id')
+        // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
+        $urlRouterProvider
+
+        // The `when` method says if the url is ever the 1st param, then redirect to the 2nd param
+        // Here we are just setting up some convenience urls.
+        //                .when('/t?id', '/topics/:id')
+        //                    .when('/t/:id', '/topics/:id')
 
 
-                // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
-                    .otherwise('/home');
-                //////////////////////////
-                // 2-State Configurations
-                // Several states hav been configured:
-                // home
-                // tasks
-                //
-                //////////////////////////
-                // We must configure states using $stateProvider.
-                $stateProvider
-                //////////
-                // Home //
-                //////////
-                .state('home', {
-                  // Use a url of '/' to set a states as the 'index'.
-                  url: '/home',
-                  templateUrl: 'components/home/home.html'
-                })
-                ;
-            }]);
+        // If the url is ever invalid, e.g. '/asdf', then redirect to '/' aka the home state
+            .otherwise('/home');
+        //////////////////////////
+        // 2-State Configurations
+        // Several states hav been configured:
+        // home
+        // tasks
+        //
+        //////////////////////////
+        // We must configure states using $stateProvider.
+        $stateProvider
+        //////////
+        // Home //
+        //////////
+            .state('home', {
+            // Use a url of '/' to set a states as the 'index'.
+            url: '/home',
+            templateUrl: 'components/home/home.html'
+        });
+    }
+])
+
+.provider('routerHelper', routerHelperProvider);
+
+routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
+/* @ngInject */
+function routerHelperProvider($locationProvider, $stateProvider, $urlRouterProvider) {
+    /* jshint validthis:true */
+    this.$get = RouterHelper;
+
+    //$locationProvider.html5Mode(true);
+
+    RouterHelper.$inject = ['$state'];
+    /* @ngInject */
+    function RouterHelper($state) {
+        var hasOtherwise = false;
+
+        var service = {
+            configureStates: configureStates,
+            getStates: getStates
+        };
+
+        return service;
+
+        ///////////////
+
+        function configureStates(states, otherwisePath) {
+            states.forEach(function(state) {
+                $stateProvider.state(state.state, state.config);
+            });
+            if (otherwisePath && !hasOtherwise) {
+                hasOtherwise = true;
+                $urlRouterProvider.otherwise(otherwisePath);
+            }
+        }
+
+        function getStates() {
+            return $state.get();
+        }
+    }
+}
