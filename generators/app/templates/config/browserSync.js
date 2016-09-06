@@ -14,8 +14,8 @@ module.exports = {
         browser: ['google chrome', 'firefox'],
         logLevel: 'info',
         files: [
-          'app/**/*.js',
-          'app/**/*.html'
+            'app/**/*.js',
+            'app/**/*.html'
         ]
     },
     dev: {
@@ -23,10 +23,10 @@ module.exports = {
             server: {
                 baseDir: ['./<%= paths.app %>']
             },
-              files: [
+            files: [
                 'app/**/*.js',
                 'app/**/*.html'
-              ],
+            ],
             ports: {
                 min: 9000,
                 max: 9100
@@ -47,8 +47,21 @@ module.exports = {
     },
     test: {
         options: {
+            middleware: require('http-proxy-middleware')('/api', {
+                target: 'http://localhost:8888', // target host
+                changeOrigin: true, // needed for virtual hosted sites
+                ws: true, // proxy websockets
+                pathRewrite: {
+                    '^/api': '' // rewrite paths
+                },
+                proxyTable: {
+                    // when request.headers.host == 'dev.localhost:3000',
+                    // override target 'http://www.example.org' to 'http://localhost:8000'
+                    'localhost:9200': 'http://localhost:8888'
+                }
+            }),
             server: {
-                baseDir: ['./test/coverage/instrument/app', './<%= paths.app %>' ]
+                baseDir: ['./test/coverage/instrument/app', './<%= paths.app %>']
             },
             ports: {
                 min: 9200,

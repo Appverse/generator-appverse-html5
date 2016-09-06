@@ -194,7 +194,7 @@ module.exports = componentGenerator.extend({
         },
         module: function() {
             //MODULE
-            if (this.component.module) {
+            if (this.component.addModule) {
                 this.addAngularModule('App.' + this.options.name);
             }
         }

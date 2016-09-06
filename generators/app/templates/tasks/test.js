@@ -8,6 +8,7 @@ module.exports = function(grunt) {
         'concurrent:server',
         'postcss:css',
         'instrument',
+        'jsonserver',
         'browserSync:test',
         'shell:jasmine2'
     ]);
@@ -29,6 +30,7 @@ module.exports = function(grunt) {
         'concurrent:server',
         'postcss:css',
         'instrument',
+        'jsonserver',
         'browserSync:test',
         'shell:jasmine2'
     ]);

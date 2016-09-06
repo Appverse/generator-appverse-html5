@@ -1,4 +1,4 @@
-/*jshint node:true */
+/*jshint node:true, jquery:true */
 'use strict';
 
 describe('E2E: Testing <%=name%> view', function() {
@@ -11,7 +11,7 @@ describe('E2E: Testing <%=name%> view', function() {
         expect(browser.getLocationAbsUrl()).toBe('/<%=name%>');
     });
 
-    it('should have a div with <%=name%>', function() {
-        expect(element(by.binding('name')).getText()).toBe('<%=lodash.capitalize(name)%>');
+    it('should have a h1 with <%=name%>', function() {
+        expect($('h1').getText()).toBe('<%=lodash.capitalize(name)%>');
     });
 });
