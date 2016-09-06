@@ -1,1 +1,1 @@
-browser.driver.get('');
+browser.get('');
