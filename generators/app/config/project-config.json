@@ -12,11 +12,12 @@
         "sonar-project.properties",
         "app/components/home/home.html",
         "app/components/home/home-controller.js",
+        "app/components/home/home-states.js",
         "app/states/app-states.js",
         "app/app.js",
         "test/e2e/homeSpec.js"
     ],
-    "demotemplates":[
+    "demotemplates": [
         "app/components/theme/theme.html"
     ],
     "files": [
@@ -30,7 +31,7 @@
         "config",
         "tasks"
     ],
-    "demofiles":[
+    "demofiles": [
         "app/components/components/components.html",
         "app/components/components/modal-template.html",
         "app/components/charts/charts.html",
