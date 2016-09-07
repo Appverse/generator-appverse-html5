@@ -101,7 +101,7 @@ module.exports = componentGenerator.extend({
                         if (_.has(data, 'container')) {
                             this.model.properties = data.container.properties;
                         }
-                        if (!_.has(this.model.properties, 'id')) {
+                        if (!_.has(this.model.properties, 'id') && this.componentName !== "form") {
                             this.model.properties.id = {
                                 type: "integer",
                                 description: "id",
@@ -189,7 +189,6 @@ module.exports = componentGenerator.extend({
                     this.menu = this.options.menu;
                     this.addDropDownOption(this.options.name);
                 }
-                this.addRouteState(this.options.name);
             }
         },
         module: function() {

@@ -2,124 +2,124 @@
 module.exports = {
     update: {
         src: ['app/index.html'],
-        options:{
-            "exclude": [
-                "/lodash/",
-                "/sockjs-client/",
-                "/sifter/",
-                "/json3/",
-                "/microplugin/",
-                "/placeholders/",
-                "/angular-highlightjs/",
-                "/angular-cache/",
-                "/angular-dynamic-locale/",
-                "/angular-translate/",
-                "/angular-translate-loader-static-files/",
-                "/restangular/",
-                "/stomp-websocket/"
+        options: {
+            'exclude': [
+                '/lodash/',
+                '/sockjs-client/',
+                '/sifter/',
+                '/json3/',
+                '/microplugin/',
+                '/placeholders/',
+                '/angular-highlightjs/',
+                '/angular-cache/',
+                '/angular-dynamic-locale/',
+                '/angular-translate/',
+                '/angular-translate-loader-static-files/',
+                '/restangular/',
+                '/stomp-websocket/'
             ],
-            "overrides": {
-                "jquery": {
-                    "main": [
-                                "dist/jquery.min.js"
+            'overrides': {
+                'jquery': {
+                    'main': [
+                        'dist/jquery.min.js'
                     ]
                 },
-                "angular": {
-                    "main": [
-                                "angular.min.js"
+                'angular': {
+                    'main': [
+                        'angular.min.js'
                     ]
                 },
-                "angular-touch": {
-                    "main": [
-                                "angular-touch.min.js"
+                'angular-touch': {
+                    'main': [
+                        'angular-touch.min.js'
                     ]
                 },
-                "Chart.js": {
-                    "main": [
-                                "Chart.min.js"
+                'chart.js': {
+                    'main': [
+                        'dist/Chart.bundle.min.js'
                     ]
                 },
-                "angular-chart.js": {
-                    "main": [
-                                "dist/angular-chart.min.js",
-                                "dist/angular-chart.css"
+                'angular-chart.js': {
+                    'main': [
+                        'dist/angular-chart.min.js',
+                        'dist/angular-chart.css'
                     ]
                 },
-                "bootstrap-sass": {
-                    "main": [
-                                "assets/javascripts/bootstrap.min.js"
+                'bootstrap-sass': {
+                    'main': [
+                        'assets/javascripts/bootstrap.min.js'
                     ]
                 },
-                "angular-bootstrap": {
-                    "main": [
-                                "ui-bootstrap-tpls.min.js"
+                'angular-bootstrap': {
+                    'main': [
+                        'ui-bootstrap-tpls.min.js'
                     ]
                 },
-                "ag-grid": {
-                    "main": [
-                                "dist/ag-grid.min.js"
+                'ag-grid': {
+                    'main': [
+                        'dist/ag-grid.min.js'
                     ]
                 },
-                "angular-animate": {
-                    "main": [
-                                "angular-animate.min.js"
+                'angular-animate': {
+                    'main': [
+                        'angular-animate.min.js'
                     ]
                 },
-                "angular-ui-router": {
-                    "main": [
-                                "release/angular-ui-router.min.js"
+                'angular-ui-router': {
+                    'main': [
+                        'release/angular-ui-router.min.js'
                     ]
                 },
-                "angular-ui-select": {
-                    "main": [
-                                "dist/select.min.js",
-                                "dist/select.min.css"
+                'angular-ui-select': {
+                    'main': [
+                        'dist/select.min.js',
+                        'dist/select.min.css'
                     ]
                 },
-                "angularjs-slider": {
-                    "main": [
-                                "dist/rzslider.min.js",
-                                "dist/rzslider.min.css"
+                'angularjs-slider': {
+                    'main': [
+                        'dist/rzslider.min.js',
+                        'dist/rzslider.min.css'
                     ]
                 },
-                "angular-resize": {
-                    "main": [
-                                "dist/angular-resize.min.js"
+                'angular-resize': {
+                    'main': [
+                        'dist/angular-resize.min.js'
                     ]
                 },
-                "angular-sanitize": {
-                    "main": [
-                                "angular-sanitize.min.js"
+                'angular-sanitize': {
+                    'main': [
+                        'angular-sanitize.min.js'
                     ]
                 },
-                "angular-loading-bar": {
-                    "main": [
-                                "build/loading-bar.min.js",
-                                "build/loading-bar.min.css"
+                'angular-loading-bar': {
+                    'main': [
+                        'build/loading-bar.min.js',
+                        'build/loading-bar.min.css'
                     ]
                 },
-                "angular-ripple": {
-                    "main": [
-                                "angular-ripple.js"
-                            ]
+                'angular-ripple': {
+                    'main': [
+                        'angular-ripple.js'
+                    ]
                 },
-                "angular-xeditable": {
-                    "main": [
-                                "dist/css/xeditable.css",
-                                "dist/js/xeditable.js"
-                            ]
+                'angular-xeditable': {
+                    'main': [
+                        'dist/css/xeditable.css',
+                        'dist/js/xeditable.js'
+                    ]
                 },
-                "selectize": {
-                    "main": [
-                                "dist/css/selectize.css"
-                            ]
+                'selectize': {
+                    'main': [
+                        'dist/css/selectize.css'
+                    ]
                 },
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse/appverse.min.js",
-                                "dist/appverse-router/appverse-router.min.js",
-                                "dist/appverse-utils/appverse-utils.min.js"
-                            ]
+                'appverse-web-html5-core': {
+                    'main': [
+                        'dist/appverse/appverse.min.js',
+                        'dist/appverse-router/appverse-router.min.js',
+                        'dist/appverse-utils/appverse-utils.min.js'
+                    ]
                 }
             }
         }

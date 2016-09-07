@@ -33,12 +33,12 @@
         "grunt-usemin": "3.0.0",
         "grunt-wiredep": "^2.0.0",
         "jshint-stylish": "^2.0.1",
-        "karma": "^0.13.0",
+        "karma": "^1.2.0",
         "karma-chrome-launcher": "0.1.8",
         "karma-coverage": "0.3.1",
         "karma-jasmine": "0.3.5",
         "karma-junit-reporter": "^0.2.2",
-        "karma-notify-reporter": "^0.1.1",
+        "karma-notify-reporter": "^1.0.1",
         "karma-phantomjs-launcher": "^1.0.0",
         "karma-sinon": "^1.0.4",
         "load-grunt-configs": "0.4.3",
@@ -52,7 +52,8 @@
         "sinon": "^1.17.2",
         "istanbul": "^0.3.17",
         "jasmine-core": "2.2.0",
-        "jasmine-reporters": "^2.0.7"
+        "jasmine-reporters": "^2.0.7",
+        "bower-npm-resolver": "^0.5.1"
     },
     "engines": {
         "node": ">=0.10.0",

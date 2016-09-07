@@ -31,7 +31,7 @@
          $scope.name = '<%=name%>';
          $scope.myData = [];
          <% mockentity.forEach(function(e) {
-           %> $scope.myData.push({id:<%=e.id%>, name:"<%=e.name%>"})
+           %> $scope.myData.push({id:<%=e.id%>, name:'<%=e.name%>'});
          <% });%>
 
          function getColumnDefs() {
@@ -40,22 +40,22 @@
                     names = [];
                 $scope.myData.forEach(function(e) {
                     for (var name in e) {
-                        if (names.indexOf(name) == -1) {
+                        if (names.indexOf(name) === -1) {
                             var def = {
                                 headerName: name,
                                 field: name,
                                 filter: 'text',
                                 suppressMenu: true,
                                 suppressSorting: true
-                            }
+                            };
                             names.push(name);
                             cols.push(def);
                         }
                     }
                 });
                 return cols;
-            } else { return undefined }
-        };
+            } else { return undefined; }
+        }
 
         $scope.gridOptions = {
              enableColResize: true,

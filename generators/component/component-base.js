@@ -121,6 +121,7 @@ var componentGenerator = appverseHTML5Generator.extend({
                 indexHTML(findDropdown).next().append(navLink);
             }
             this.fs.write(indexPath, indexHTML.html());
+            this.addRouteState(name);
         }
     }
 });

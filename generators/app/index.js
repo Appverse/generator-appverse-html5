@@ -29,7 +29,7 @@ var pkg = require("../../package.json");
 var appverseHtml5Gen = require('../generator-base');
 
 module.exports = appverseHtml5Gen.extend({
-    initializing: function () {
+    initializing: function() {
         this.conflicter.force = true;
         this.skipprompts = false;
         this.props = {};
@@ -75,10 +75,10 @@ module.exports = appverseHtml5Gen.extend({
         // Get a JSON path or URL as value. The JSON defines the project and must validate against schema/appverse-project-schema.json
         if (this.options.project) {
             this.project = this.options.project;
-            this.readJSONFileOrUrl(this.project, function (error, data) {
+            this.readJSONFileOrUrl(this.project, function(error, data) {
                 if (!error) {
                     this.jsonproject = data;
-                    this.validateJson(this.jsonproject, this.templatePath(), function (error, data) {
+                    this.validateJson(this.jsonproject, this.templatePath(), function(error, data) {
                         if (!error) {
                             this.appName = slug.slugify(this.jsonproject.project);
                             //ENABLED MODULES
@@ -112,34 +112,33 @@ module.exports = appverseHtml5Gen.extend({
             }.bind(this));
         }
     },
-    prompting: function () {
+    prompting: function() {
         if (!this.skipprompts) {
             var done = this.async();
             var prompts = [{
-                    name: 'appName',
-                    message: 'What is your app\'s name ?  ' +
-                        '\n Application name cannot contain special characters or a blank space. ' +
-                        '\n Name will be slug if needed.  ',
-                    default: slug.slugify(this.appname)
-                }, {
-                    type: 'checkbox',
-                    name: 'moduleOptions',
-                    message: "Select core modules. \n You can add the modules later executing the subgenerators",
-                    choices: this.promptsConfig(this.modules)
-                }, {
-                    type: 'checkbox',
-                    name: 'buildOptions',
-                    message: "Select build types. \n You can add the build types later executing the subgenerators",
-                    choices: this.promptsConfig(this.builds)
-                }, {
-                    type: "confirm",
-                    name: "docker",
-                    message: "Do you want to add Docker runtime? \n I will add a Dockerfile and Docker Compose files to run your application with a NGINX container and HAProxy.",
-                    default: true
-                }
-                ];
+                name: 'appName',
+                message: 'What is your app\'s name ?  ' +
+                    '\n Application name cannot contain special characters or a blank space. ' +
+                    '\n Name will be slug if needed.  ',
+                default: slug.slugify(this.appname)
+            }, {
+                type: 'checkbox',
+                name: 'moduleOptions',
+                message: "Select core modules. \n You can add the modules later executing the subgenerators",
+                choices: this.promptsConfig(this.modules)
+            }, {
+                type: 'checkbox',
+                name: 'buildOptions',
+                message: "Select build types. \n You can add the build types later executing the subgenerators",
+                choices: this.promptsConfig(this.builds)
+            }, {
+                type: "confirm",
+                name: "docker",
+                message: "Do you want to add Docker runtime? \n I will add a Dockerfile and Docker Compose files to run your application with a NGINX container and HAProxy.",
+                default: true
+            }];
 
-            this.prompt(prompts, function (props) {
+            this.prompt(prompts, function(props) {
                 if (prompts.length > 0) {
                     this.appName = slug.slugify(props.appName);
                     this.props = props;
@@ -150,28 +149,28 @@ module.exports = appverseHtml5Gen.extend({
             }.bind(this));
         }
     },
-    writing: function () {
-      //FILES
-      this.moveFiles(this.templatePath(), project.files);
-      //TEMPLATES
-      this.moveTemplates(this.templatePath(), project.templates);
+    writing: function() {
+        //FILES
+        this.moveFiles(this.templatePath(), project.files);
+        //TEMPLATES
+        this.moveTemplates(this.templatePath(), project.templates);
 
-      if (this.options.demo) {
-          //DEMO FILES
-          this.moveFiles(this.templatePath(), project.demofiles);
-          // DEMO TEMPLATES
-          this.moveTemplates(this.templatePath(), project.demotemplates);
-          this.addLinkToNavBar("theme", "glyphicon-pencil");
-          this.addLinkToNavBar("components", "glyphicon-book");
-          this.addLinkToNavBar("charts", "glyphicon-stats");
-          this.addLinkToNavBar("icons", "glyphicon-th");
-      }
+        if (this.options.demo) {
+            //DEMO FILES
+            this.moveFiles(this.templatePath(), project.demofiles);
+            // DEMO TEMPLATES
+            this.moveTemplates(this.templatePath(), project.demotemplates);
+            this.addLinkToNavBar("theme", "glyphicon-pencil", true);
+            this.addLinkToNavBar("components", "glyphicon-book");
+            this.addLinkToNavBar("charts", "glyphicon-stats");
+            this.addLinkToNavBar("icons", "glyphicon-th");
+        }
     },
-    install: function () {
+    install: function() {
         if (this.props.moduleOptions) {
             if (this.props.moduleOptions.length > 0) {
                 //MODULES
-                this.props.moduleOptions.forEach(function (option) {
+                this.props.moduleOptions.forEach(function(option) {
                     this.composeWith('appverse-html5:module', {
                         args: option,
                         options: {
@@ -188,40 +187,40 @@ module.exports = appverseHtml5Gen.extend({
         if (this.props.buildOptions) {
             if (this.props.buildOptions.length > 0) {
                 //BUILDS
-                this.props.buildOptions.forEach(function (option) {
+                this.props.buildOptions.forEach(function(option) {
                     this.composeWith('appverse-html5:build', {
-                       args: option,
-                       options: {
-                           'builds': this.builds,
-                           'skip-welcome-message': true,
-                           'skip-prompts': this.skipprompts,
-                           'jsonproject': this.jsonproject
-                         }
-                     });
-                 }.bind(this));
-             }
-         }
-         if (this.props.docker) {
-             this.composeWith('appverse-html5:runtime', {
-               options: {
-                 'skip-welcome-message': true,
-                 'skip-install': true
-               }
-              });
-         }
+                        args: option,
+                        options: {
+                            'builds': this.builds,
+                            'skip-welcome-message': true,
+                            'skip-prompts': this.skipprompts,
+                            'jsonproject': this.jsonproject
+                        }
+                    });
+                }.bind(this));
+            }
+        }
+        if (this.props.docker) {
+            this.composeWith('appverse-html5:runtime', {
+                options: {
+                    'skip-welcome-message': true,
+                    'skip-install': true
+                }
+            });
+        }
         this.installDependencies({
             skipInstall: this.options['skip-install'],
-            callback: function () {
+            callback: function() {
                 // Emit a new event - dependencies installed
                 this.emit('dependenciesInstalled');
             }.bind(this)
         });
         //Now you can bind to the dependencies installed event
-        this.on('dependenciesInstalled', function () {
+        this.on('dependenciesInstalled', function() {
             this.spawnCommand('grunt', ['list']);
         });
     },
-    end: function () {
+    end: function() {
         this.log(os.EOL + "Finish!" + os.EOL);
         if (this.options['skip-install']) {
             this.log(os.EOL + "Execute 'npm install & bower install' to resolve project dependencies.");

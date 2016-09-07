@@ -181,12 +181,19 @@ var appverseHTML5Generator = appverse.extend({
      * Add Routing
      * @param {string} name - rounting name
      **/
-    addRouteState: function addRouteState(name) {
+    addRouteState: function addRouteState(name, noController) {
         //STATES
         var hook = 'configureStates([',
             path = this.destinationPath('app/components/' + name + '/' + name + '-states.js'),
             file = this.fs.read(path),
-            insert = "{state:'" + name + "', config: { url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html',controller: '" + name + "Controller' } }";
+            insert = "{state:'" + name + "', config: { url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html'";
+            insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html'";
+
+        if (!noController) {
+            insert += ",controller: '" + name + "Controller'";
+        }
+
+        insert += "} }";
 
         if (file.indexOf(insert) === -1) {
             var pos = file.lastIndexOf(hook) + hook.length;
@@ -199,7 +206,7 @@ var appverseHTML5Generator = appverse.extend({
      * @param {string} name - rounting name
      * @param {String} _icon - OPTIONAL icon to be shown in the NavBar
      **/
-    addLinkToNavBar: function addLinkToNavBar(name, _icon) {
+    addLinkToNavBar: function addLinkToNavBar(name, _icon, noController) {
         var icon = _icon || "glyphicon-globe";
         var indexPath = this.destinationPath('app/index.html');
         var index = this.fs.read(indexPath);
@@ -212,6 +219,7 @@ var appverseHTML5Generator = appverse.extend({
             indexHTML('ul.sidebar-nav').append(navLink);
         }
         this.fs.write(indexPath, indexHTML.html());
+        this.addRouteState(name, noController);
     }
 });
 module.exports = appverseHTML5Generator;

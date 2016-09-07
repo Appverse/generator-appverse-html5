@@ -1,3 +1,4 @@
+/*jshint node:true */
 'use strict';
 
 describe('Unit: Testing <%=name%>', function() {
