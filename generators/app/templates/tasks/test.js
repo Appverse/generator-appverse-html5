@@ -7,6 +7,8 @@ module.exports = function(grunt) {
         'clean:server',
         'concurrent:server',
         'postcss:css',
+        'wiredep',
+        'includeSource',
         'instrument',
         'browserSync:test',
         'shell:jasmine2'
@@ -28,6 +30,8 @@ module.exports = function(grunt) {
         'clean:server',
         'concurrent:server',
         'postcss:css',
+        'wiredep',
+        'includeSource',
         'instrument',
         'browserSync:test',
         'shell:jasmine2'

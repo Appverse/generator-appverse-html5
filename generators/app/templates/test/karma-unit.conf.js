@@ -78,7 +78,7 @@ module.exports = function(config) {
             'app/bower_components/angularjs-slider/dist/rzslider.min.js',
             'app/bower_components/angular-resize/dist/angular-resize.min.js',
             'app/bower_components/angular-sanitize/angular-sanitize.min.js',
-            'app/bower_components/Chart.js/Chart.min.js',
+            'app/bower_components/chart.js/dist/Chart.bundle.min.js',
             'app/bower_components/angular-chart.js/dist/angular-chart.min.js',
             'app/bower_components/angular-animate/angular-animate.min.js',
             'app/bower_components/angular-cache/dist/angular-cache.min.js',
