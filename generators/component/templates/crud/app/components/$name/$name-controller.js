@@ -24,11 +24,14 @@
 
 angular.module('App.Controllers')
 
-    .controller('<%=name%>Controller',
-    function ($scope, Restangular, $log, $uibModal, RESTFactory) {
+.controller('<%=name%>Controller',
+    function($scope, Restangular, $log, $uibModal, RESTFactory) {
         $log.debug('<%=name%>Controller');
 
-        RESTFactory.setAfterRoute('<%=name%>', function () {
+        RESTFactory.setAfterRoute('<%=name%>', function() {
+            if (!$scope.gridOptions.columnDefs) {
+                $scope.initGrid();
+            }
             $scope.gridOptions.api.setRowData($scope['<%=name%>']);
         });
 
@@ -40,15 +43,15 @@ angular.module('App.Controllers')
             rowHeight: 60,
             angularCompileRows: true,
             suppressLoadingOverlay: true,
-            onGridSizeChanged: function () {
+            onGridSizeChanged: function() {
                 $scope.gridOptions.api.sizeColumnsToFit();
             }
         };
 
-        $scope.initGrid = function () {
+        $scope.initGrid = function() {
             var columns = [];
             if ($scope['<%=name%>'].length > 0) {
-                angular.forEach($scope['<%=name%>'][0].plain(), function (value, key) {
+                angular.forEach($scope['<%=name%>'][0].plain(), function(value, key) {
                     var tpl = '<p ng-bind="data.' + key + '"></p>';
                     if (key === 'id') {
                         columns.push({
@@ -65,7 +68,7 @@ angular.module('App.Controllers')
                             template: tpl
                         });
                     }
-                }); 
+                });
                 columns.push({
                     headerName: 'actions',
                     templateUrl: 'components/<%=name%>/actions-template.html',
@@ -73,17 +76,17 @@ angular.module('App.Controllers')
                     maxWidth: 170,
                     suppressMenu: true,
                     suppressSorting: true
-                }); 
+                });
                 $scope.gridOptions.api.setColumnDefs(columns);
                 $scope.gridOptions.api.sizeColumnsToFit();
             }
         };
 
-        $scope.confirm = function (item) {
+        $scope.confirm = function(item) {
             return confirm('Are you sure you want to delete ' + item.name + ' ?');
         };
 
-        $scope.open = function (item, duplicate) {
+        $scope.open = function(item, duplicate) {
             if (item) {
                 item = item.clone();
                 if (duplicate) {
@@ -91,7 +94,7 @@ angular.module('App.Controllers')
                 }
             } else {
                 item = {
-                    getParentList: function () {
+                    getParentList: function() {
                         return $scope['<%=name%>'];
                     }
                 };

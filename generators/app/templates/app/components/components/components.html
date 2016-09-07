@@ -106,7 +106,7 @@
             </ui-select>
 
             <h3>Selectize theme</h3>
-            <p>Selected: {{country.selected}}</p>
+            <p>Selected: {{country.selected.code}} {{country.selected.name}}</p>
             <ui-select ng-model="country.selected" theme="selectize" ng-disabled="disabled" style="width: 300px;">
                 <ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
                 <ui-select-choices repeat="country in countries | filter: $select.search">
@@ -170,10 +170,10 @@
             <br>
             <h2>SLIDERS</h2>
             <h3>Single Slider</h3>
-            <rzslider rz-slider-floor="0" rz-slider-ceil="450" rz-slider-model="20" rz-slider-always-show-bar="true"></rzslider>
+            <rzslider rz-slider-options="singleSlider.options" rz-slider-model="singleSlider.value" rz-slider-always-show-bar="true"></rzslider>
 
             <h3>Max/Min Slider</h3>
-            <rzslider rz-slider-floor="1900" rz-slider-ceil="2015" rz-slider-model="1988" rz-slider-high="2002"></rzslider>
+            <rzslider rz-slider-options="doubleSlider.options" rz-slider-model="doubleSlider.min" rz-slider-high="doubleSlider.max"></rzslider>
             <hr>
 
         </div>
