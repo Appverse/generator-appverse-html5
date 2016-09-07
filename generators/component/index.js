@@ -101,7 +101,7 @@ module.exports = componentGenerator.extend({
                         if (_.has(data, 'container')) {
                             this.model.properties = data.container.properties;
                         }
-                        if (!_.has(this.model.properties, 'id')) {
+                        if (!_.has(this.model.properties, 'id') && this.componentName !== "form") {
                             this.model.properties.id = {
                                 type: "integer",
                                 description: "id",
@@ -120,12 +120,12 @@ module.exports = componentGenerator.extend({
                     properties: {
                         id: {
                             type: "integer",
-                            description: "id", 
+                            description: "id",
                             faker: "random.number"
                         },
                         name: {
                             type: "string",
-                            description: "name", 
+                            description: "name",
                             faker: "name.firstName"
                         }
                     },
@@ -133,16 +133,16 @@ module.exports = componentGenerator.extend({
                 };
             }
         },
-        rows: function() { 
+        rows: function() {
             this.mockentity = [];
             this.rows = 0;
             if (this.options.rows) {
                 this.rows = this.options.rows;
-            } 
+            }
             for (var i = 0; i < this.rows; i++) {
                 var obj = jsf(this.model);
-                this.mockentity.push(obj);  
-            }  
+                this.mockentity.push(obj);
+            }
         },
         api: function() {
             //Write MOCK DATA to JSON File.
