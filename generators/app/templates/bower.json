@@ -9,16 +9,15 @@
         "angular-ui-select": "~0.18.0",
         "angularjs-slider": "~5.4.1",
         "appverse-web-html5-core": "~0.8.0",
-        "bootstrap-sass": "3.3.6",
         "appverse-bootstrap-sass-theme": "~0.0.7",
         "selectize": "~0.12.1",
         "angular-xeditable": "~0.2.0",
         "ag-grid": "~5.0.3",
         "svg-morpheus": "~0.3.2",
-        "angular-material-icons": "~0.6.0",
-        "angular-loading-bar": "~0.8.0",
+        "angular-material-icons": "~0.7.1",
+        "angular-loading-bar": "~0.9.0",
         "angular-animate": "~1.4.8",
-        "es5-shim": "~4.3.1",
+        "es5-shim": "~4.5.9",
         "json3": "~3.3.2",
         "placeholders": "4.0.0",
         "angular-sanitize": "~1.4.8",
@@ -30,8 +29,6 @@
         "angular-mocks": "~1.4.8"
     },
     "resolutions": {
-        "angular": "~1.4.8",
-        "lodash": "~3.10.1"
+        "angular": "~1.4.8"
     }
-
 }
