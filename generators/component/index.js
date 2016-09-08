@@ -153,7 +153,6 @@ module.exports = componentGenerator.extend({
         },
         templates: function() {
             //TEMPLATES
-            var self = this;
             if (this.component['named-templates'] && this.options.name) {
                 this.moveNamedTemplates(this.templatepath, this.component['named-templates'], this.options.name, this.options.name);
             }
@@ -190,6 +189,12 @@ module.exports = componentGenerator.extend({
                     this.menu = this.options.menu;
                     this.addDropDownOption(this.options.name);
                 }
+            }
+        },
+        module: function() {
+            //MODULE
+            if (this.component.addModule) {
+                this.addAngularModule('App.' + this.options.name);
             }
         }
     },

@@ -6,6 +6,7 @@
     angular.module('App.Controllers', []);
 
     angular.module('<%=appName%>App', [
+        'App.home',
         'ngAnimate',
         'ui.bootstrap',
         'angularRipple',

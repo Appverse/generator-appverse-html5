@@ -86,10 +86,10 @@ describe('appverse-html5:generator', function() {
         });
         it('should add new states', function() {
             assert.fileContent([
-                ['app/states/app-states.js', 'components/theme/theme.html'],
-                ['app/states/app-states.js', 'components/components/components.html'],
-                ['app/states/app-states.js', 'components/charts/charts.html'],
-                ['app/states/app-states.js', 'components/icons/icons.html']
+                ['app/components/theme/theme-states.js', 'components/theme/theme.html'],
+                ['app/components/components/components-states.js', 'components/components/components.html'],
+                ['app/components/charts/charts-states.js', 'components/charts/charts.html'],
+                ['app/components/icons/icons-states.js', 'components/icons/icons.html']
             ]);
         });
         it('should add new navbar items', function() {

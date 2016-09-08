@@ -183,16 +183,16 @@ var appverseHTML5Generator = appverse.extend({
      **/
     addRouteState: function addRouteState(name, noController) {
         //STATES
-        var hook = '$stateProvider',
-            path = this.destinationPath('app/states/app-states.js'),
+        var hook = 'configureStates([',
+            path = this.destinationPath('app/components/' + name + '/' + name + '-states.js'),
             file = this.fs.read(path),
-            insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html'";
+            insert = "{state:'" + name + "', config: { url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html'";
 
         if (!noController) {
             insert += ",controller: '" + name + "Controller'";
         }
 
-        insert += "})";
+        insert += "} }";
 
         if (file.indexOf(insert) === -1) {
             var pos = file.lastIndexOf(hook) + hook.length;
@@ -266,11 +266,11 @@ function modularize(plain) {
     }) + ';', {
         indent_size: 2
     });
-};
+}
 
 /**
  * Changes the first letter to its capital.
  */
 String.prototype.capitalizeFirstLetter = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
-}
+};

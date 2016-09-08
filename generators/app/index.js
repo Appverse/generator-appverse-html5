@@ -23,12 +23,11 @@
 var slug = require("underscore.string");
 var os = require('os');
 var path = require('path');
-var wiring = require('html-wiring');
 var project = require('./config/project-config.json');
 var pkg = require("../../package.json");
-var appverseHtml5Gen = require('../generator-base');
+var moduleBase = require('../module/module-base');
 
-module.exports = appverseHtml5Gen.extend({
+module.exports = moduleBase.extend({
     initializing: function() {
         this.conflicter.force = true;
         this.skipprompts = false;
@@ -78,7 +77,7 @@ module.exports = appverseHtml5Gen.extend({
             this.readJSONFileOrUrl(this.project, function(error, data) {
                 if (!error) {
                     this.jsonproject = data;
-                    this.validateJson(this.jsonproject, this.templatePath(), function(error, data) {
+                    this.validateJson(this.jsonproject, this.templatePath(), function(error) {
                         if (!error) {
                             this.appName = slug.slugify(this.jsonproject.project);
                             //ENABLED MODULES
@@ -161,9 +160,13 @@ module.exports = appverseHtml5Gen.extend({
             // DEMO TEMPLATES
             this.moveTemplates(this.templatePath(), project.demotemplates);
             this.addLinkToNavBar("theme", "glyphicon-pencil", true);
+            this.addAngularModule('App.theme');
             this.addLinkToNavBar("components", "glyphicon-book");
+            this.addAngularModule('App.components');
             this.addLinkToNavBar("charts", "glyphicon-stats");
+            this.addAngularModule('App.charts');
             this.addLinkToNavBar("icons", "glyphicon-th");
+            this.addAngularModule('App.icons');
         }
     },
     install: function() {

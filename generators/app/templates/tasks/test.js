@@ -10,6 +10,7 @@ module.exports = function(grunt) {
         'wiredep',
         'includeSource',
         'instrument',
+        'jsonserver',
         'browserSync:test',
         'shell:jasmine2'
     ]);
@@ -33,6 +34,7 @@ module.exports = function(grunt) {
         'wiredep',
         'includeSource',
         'instrument',
+        'jsonserver',
         'browserSync:test',
         'shell:jasmine2'
     ]);

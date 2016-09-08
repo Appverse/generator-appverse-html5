@@ -29,22 +29,25 @@ var mockschema = path.join(__dirname, 'data/entity-schema.json');
 var components = require(mockdata);
 var templatePath = path.join(__dirname, 'temp/generators/component/templates');
 
-describe('appverse-html5:component', function () {
-    describe('add component', function () {
-        before(function (done) {
+describe('appverse-html5:component', function() {
+    describe('add component', function() {
+        before(function(done) {
             //console.log('moving to temp!')
             fse.removeSync(path.join(__dirname, '../temp'));
             helpers.run(path.join(__dirname, '../generators/component'))
-                .inTmpDir(function (dir) {
-                    // `dir` is the path to the new temporary directory
+                .inTmpDir(function(dir) {
                     fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     var pathFile = path.join(templatePath, components[0].name);
-                    var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
+                    var htmlpath = path.join(pathFile, components[0]['html-snippet']);
                     fse.outputFileSync(htmlpath);
-                    var jspath = path.join(pathFile, components[0]['js-snippet'] );
+
+                    var jspath = path.join(pathFile, components[0]['js-snippet']);
                     fse.outputFileSync(jspath);
-                    var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFileSync(temppath);
+
+                    for (var i = 0; i < components[0]['named-templates'].length; i++) {
+                        var temppath = path.join(pathFile, components[0]['named-templates'][i]);
+                        fse.outputFileSync(temppath);
+                    }
 
                     var html = "<div class=\"container\" scrolly-scroll></div>";
                     var mockfilepath = path.join(dir, 'app/components/mockview/mockview.html');
@@ -56,65 +59,68 @@ describe('appverse-html5:component', function () {
                     'templatePath': templatePath,
                     'skip-install': true,
                     'skip-welcome-message': true,
-                    'target' : 'mockview',
-                    'type' : 'mocktype3',
-                    'name' : 'apiname'
-                }) // execute with options
-                // .on('end', function () {
-                //     assert.file(path.join(__dirname,   "/temp/generators/component/templates/mockcomponent/app/components/$target/templates/MockHTML2.html"));
-                //     fse.remove(path.join(__dirname, 'temp'), done);
-                // });
-                .on('end', function () {
+                    'target': 'mockview',
+                    'type': 'mocktype3',
+                    'name': 'apiname'
+                })
+                .on('error', function(error) {
+                    console.error(error);
+                    done();
+                })
+                .on('end', function() {
                     fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
         //Resolve timestamp on file name.
-        it('should add files to components folder', function (done) {
-           assert.file([
-               "app/components/mockview/"
-           ]);
-           done();
+        it('should add files to components folder', function(done) {
+            assert.file([
+                "app/components/mockview/"
+            ]);
+            done();
         });
-        it('should not add scripts to index', function (done) {
-           assert.noFileContent('app/index.html','MockJS.js');
-           done();
+        it('should not add scripts to index', function(done) {
+            assert.noFileContent('app/index.html', 'MockJS.js');
+            done();
         });
-        it('should add content to the target view', function (done) {
-           assert.fileContent('app/components/mockview/mockview.html','MockHMTL.html');
-           done();
+        it('should add content to the target view', function(done) {
+            assert.fileContent('app/components/mockview/mockview.html', 'MockHMTL.html');
+            done();
         });
-        it('should add an api json', function (done) {
+        it('should add an api json', function(done) {
             assert.file([
                 'api/apiname.json'
             ]);
             done();
         });
-        it('api should contain a single row', function (done) {
+        it('api should contain a single row', function(done) {
             assert.noFileContent('api/apiname.json', "},");
             done();
         });
-        it('should add a menu link', function (done) {
+        it('should add a menu link', function(done) {
             assert.fileContent('app/index.html',
                 'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
             done();
         });
     });
 
-    describe('add component with dropdown', function () {
-        before(function (done) {
+    describe('add component with dropdown', function() {
+        before(function(done) {
             //console.log('moving to temp!')
             fse.removeSync(path.join(__dirname, '../temp'));
             helpers.run(path.join(__dirname, '../generators/component'))
-                .inTmpDir(function (dir) {
+                .inTmpDir(function(dir) {
                     // `dir` is the path to the new temporary directory
                     fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     var pathFile = path.join(templatePath, components[0].name);
-                    var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
+                    var htmlpath = path.join(pathFile, components[0]['html-snippet']);
                     fse.outputFileSync(htmlpath);
-                    var jspath = path.join(pathFile, components[0]['js-snippet'] );
+                    var jspath = path.join(pathFile, components[0]['js-snippet']);
                     fse.outputFileSync(jspath);
-                    var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFileSync(temppath);
+
+                    for (var i = 0; i < components[0]['named-templates'].length; i++) {
+                        var temppath = path.join(pathFile, components[0]['named-templates'][i]);
+                        fse.outputFileSync(temppath);
+                    }
 
                     var html = "<div class=\"container\" scrolly-scroll></div>";
                     var mockfilepath = path.join(dir, 'app/components/mockview/mockview.html');
@@ -126,16 +132,16 @@ describe('appverse-html5:component', function () {
                     'templatePath': templatePath,
                     'skip-install': true,
                     'skip-welcome-message': true,
-                    'target' : 'mockview',
-                    'type' : 'mocktype3',
-                    'name' : 'apiname',
-                    'menu' : 'mockdropdown'
+                    'target': 'mockview',
+                    'type': 'mocktype3',
+                    'name': 'apiname',
+                    'menu': 'mockdropdown'
                 }) // execute with options
-                .on('end', function () {
+                .on('end', function() {
                     fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
-        it('should add a menu dropdown link', function (done) {
+        it('should add a menu dropdown link', function(done) {
             assert.fileContent('app/index.html', 'mockdropdown<span class="caret">');
             assert.fileContent('app/index.html',
                 'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
@@ -143,21 +149,25 @@ describe('appverse-html5:component', function () {
         });
     });
 
-    describe('add component with schema', function () {
-        before(function (done) {
+    describe('add component with schema', function() {
+        before(function(done) {
             //console.log('moving to temp!')
             fse.removeSync(path.join(__dirname, '../temp'));
             helpers.run(path.join(__dirname, '../generators/component'))
-                .inTmpDir(function (dir) {
+                .inTmpDir(function(dir) {
                     // `dir` is the path to the new temporary directory
                     fse.copySync(path.join(__dirname, '../generators/app/templates'), dir);
                     var pathFile = path.join(templatePath, components[0].name);
-                    var htmlpath = path.join(pathFile,  components[0]['html-snippet']);
+                    var htmlpath = path.join(pathFile, components[0]['html-snippet']);
                     fse.outputFileSync(htmlpath);
-                    var jspath = path.join(pathFile, components[0]['js-snippet'] );
+
+                    var jspath = path.join(pathFile, components[0]['js-snippet']);
                     fse.outputFileSync(jspath);
-                    var temppath = path.join(pathFile, components[0]['named-templates'][0]);
-                    fse.outputFileSync(temppath);
+
+                    for (var i = 0; i < components[0]['named-templates'].length; i++) {
+                        var temppath = path.join(pathFile, components[0]['named-templates'][i]);
+                        fse.outputFileSync(temppath);
+                    }
 
                     var html = "<div class=\"container\" scrolly-scroll></div>";
                     var mockfilepath = path.join(dir, 'app/components/mockview/mockview.html');
@@ -169,41 +179,41 @@ describe('appverse-html5:component', function () {
                     'templatePath': templatePath,
                     'skip-install': true,
                     'skip-welcome-message': true,
-                    'target' : 'mockview',
-                    'type'  : 'mocktype3',
-                    'name' : 'apiname',
-                    'schema' : mockschema
+                    'target': 'mockview',
+                    'type': 'mocktype3',
+                    'name': 'apiname',
+                    'schema': mockschema
                 }) // execute with options
-                .on('end', function () {
+                .on('end', function() {
                     fse.remove(path.join(__dirname, 'temp'), done);
                 });
         });
         //Resolve timestamp on file name.
-        it('should add files to components folder', function (done) {
-           assert.file([
-               "app/components/mockview/"
-           ]);
-           done();
+        it('should add files to components folder', function(done) {
+            assert.file([
+                "app/components/mockview/"
+            ]);
+            done();
         });
-        it('should not add scripts to index', function (done) {
-           assert.noFileContent('app/index.html','MockJS.js');
-           done();
+        it('should not add scripts to index', function(done) {
+            assert.noFileContent('app/index.html', 'MockJS.js');
+            done();
         });
-        it('should add content to the target view', function (done) {
-           assert.fileContent('app/components/mockview/mockview.html','MockHMTL.html');
-           done();
+        it('should add content to the target view', function(done) {
+            assert.fileContent('app/components/mockview/mockview.html', 'MockHMTL.html');
+            done();
         });
-        it('should add an api json', function (done) {
+        it('should add an api json', function(done) {
             assert.file([
                 'api/apiname.json'
             ]);
             done();
         });
-        it('api should contain a single row', function (done) {
+        it('api should contain a single row', function(done) {
             assert.noFileContent('api/apiname.json', "},");
             done();
         });
-        it('should add a menu link', function (done) {
+        it('should add a menu link', function(done) {
             assert.fileContent('app/index.html',
                 'data-ng-class="{active: $state.includes(&apos;apiname&apos;)}"><a angular-ripple="" ui-sref="apiname">');
             done();
