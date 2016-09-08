@@ -3,12 +3,12 @@
     {
         "name": "mockcomponent",
         "option": {
-            "required":[
+            "required": [
                 "target",
                 "type"
             ]
         },
-        "types":[
+        "types": [
             "mocktype1",
             "mocktype2",
             "mocktype3",
@@ -16,10 +16,11 @@
         ],
         "html-snippet": "app/components/$target/$name-MockHMTL.html",
         "js-snippet": "app/components/$target/$name-MockJS.js",
-        "api" : true,
+        "api": true,
         "navigation": true,
         "named-templates": [
-            "app/components/$target/templates/MockHTML2.html"
+            "app/components/$target/templates/MockHTML2.html",
+            "app/components/$name/$name-states.js"
         ]
     }
 ]

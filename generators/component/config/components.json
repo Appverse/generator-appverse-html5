@@ -9,14 +9,15 @@
         ]
     },
     "named-templates": [
+        "app/components/$name/$name-states.js",
         "app/components/$name/$name-controller.js",
         "app/components/$name/$name.html",
-        "app/components/$name/$name-states.js",
         "test/e2e/$nameSpec.js",
         "test/unit/$name-controllerSpec.js"
     ],
     "named-scripts": [
-        "components/$name/$name-controller.js"
+        "components/$name/$name-controller.js",
+        "components/$name/$name-states.js"
     ],
     "navigation": true,
     "addModule": true
@@ -146,7 +147,8 @@
     ],
     "named-scripts": [
         "components/$name/$name-controller.js",
-        "components/$name/$name-modal-controller.js"
+        "components/$name/$name-modal-controller.js",
+        "components/$name/$name-states.js"
     ],
     "navigation": true,
     "api": true,
