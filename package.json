@@ -1,68 +1,69 @@
 {
-  "name": "generator-appverse-html5",
-  "version": "1.0.0-alpha.18",
-  "description": "Appverse HTML 5 generator",
-  "license": "MPL-2.0",
-  "main": "app/index.js",
-  "repository": "appverse/generator-appverse-html5",
-  "author": {
-    "name": "Appverse",
-    "email": "github@appverse.org",
-    "url": "http://appverse.org"
-  },
-  "engines": {
-    "node": ">=4.2.0",
-    "npm": ">=2.14.0"
-  },
-  "scripts": {
-    "test": "npm run unit && npm run report",
-    "unit": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha",
-    "report": "node node_modules/mocha/bin/_mocha --reporter node_modules/xunit-file"
-  },
-  "files": [
-    "generators"
-  ],
-  "keywords": [
-    "yeoman",
-    "appverse",
-    "bootstrap",
-    "yeoman-generator",
-    "appverse-html5-generator",
-    "scaffold",
-    "generator",
-    "framework",
-    "ui",
-    "angular",
-    "bower",
-    "grunt"
-  ],
-  "dependencies": {
-    "appverse-generator-commons": "0.0.4",
-    "chalk": "^1.1.1",
-    "cheerio": "^0.19.0",
-    "escodegen": "^1.6.1",
-    "esprima": "^2.6.0",
-    "estraverse": "^4.1.0",
-    "fs-extra": "^0.26.0",
-    "html-wiring": "^1.2.0",
-    "js-beautify": "^1.6.2",
-    "json-schema-faker": "0.3.1",
-    "lodash": "4.x",
-    "request": "^2.53.0",
-    "shelljs": "^0.5.3",
-    "underscore.string": "^3.2.2",
-    "urllib-sync": "^1.0.1",
-    "yosay": "^1.0.5",
-    "yeoman-generator": "^0.22.1",
-    "z-schema": "^3.9.4"
-  },
-  "devDependencies": {
-    "fs-extra": "^0.26.0",
-    "istanbul": "^0.4.0",
-    "js-beautify": "^1.6.2",
-    "mocha": "*",
-    "xunit-file": "0.0.9",
-    "yeoman-assert": "^2.1.1",
-    "yeoman-test": "^1.1.0"
-  }
+    "name": "generator-appverse-html5",
+    "version": "1.0.0-alpha.18",
+    "description": "Appverse HTML 5 generator",
+    "license": "MPL-2.0",
+    "main": "app/index.js",
+    "repository": "appverse/generator-appverse-html5",
+    "author": {
+        "name": "Appverse",
+        "email": "github@appverse.org",
+        "url": "http://appverse.org"
+    },
+    "engines": {
+        "node": ">=4.2.0",
+        "npm": ">=2.14.0"
+    },
+    "scripts": {
+        "test": "npm run unit && npm run report",
+        "unit": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha",
+        "report": "node node_modules/mocha/bin/_mocha --reporter node_modules/xunit-file",
+        "preversion": "npm test"
+    },
+    "files": [
+        "generators"
+    ],
+    "keywords": [
+        "yeoman",
+        "appverse",
+        "bootstrap",
+        "yeoman-generator",
+        "appverse-html5-generator",
+        "scaffold",
+        "generator",
+        "framework",
+        "ui",
+        "angular",
+        "bower",
+        "grunt"
+    ],
+    "dependencies": {
+        "appverse-generator-commons": "0.0.4",
+        "chalk": "^1.1.1",
+        "cheerio": "^0.19.0",
+        "escodegen": "^1.6.1",
+        "esprima": "^2.6.0",
+        "estraverse": "^4.1.0",
+        "fs-extra": "^0.26.0",
+        "html-wiring": "^1.2.0",
+        "js-beautify": "^1.6.2",
+        "json-schema-faker": "0.3.1",
+        "lodash": "4.x",
+        "request": "^2.53.0",
+        "shelljs": "^0.5.3",
+        "underscore.string": "^3.2.2",
+        "urllib-sync": "^1.0.1",
+        "yosay": "^1.0.5",
+        "yeoman-generator": "^0.22.1",
+        "z-schema": "^3.9.4"
+    },
+    "devDependencies": {
+        "fs-extra": "^0.26.0",
+        "istanbul": "^0.4.0",
+        "js-beautify": "^1.6.2",
+        "mocha": "*",
+        "xunit-file": "0.0.9",
+        "yeoman-assert": "^2.1.1",
+        "yeoman-test": "^1.1.0"
+    }
 }
