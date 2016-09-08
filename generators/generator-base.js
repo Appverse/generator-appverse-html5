@@ -187,7 +187,6 @@ var appverseHTML5Generator = appverse.extend({
             path = this.destinationPath('app/components/' + name + '/' + name + '-states.js'),
             file = this.fs.read(path),
             insert = "{state:'" + name + "', config: { url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html'";
-            insert = ".state('" + name + "', {url: '/" + name + "',templateUrl: 'components/" + name + "/" + name + ".html'";
 
         if (!noController) {
             insert += ",controller: '" + name + "Controller'";
