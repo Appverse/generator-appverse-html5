@@ -18,7 +18,8 @@
         "test": "npm run unit && npm run report",
         "unit": "node node_modules/istanbul/lib/cli.js cover --include-all-sources -x **/templates/** node_modules/mocha/bin/_mocha",
         "report": "node node_modules/mocha/bin/_mocha --reporter node_modules/xunit-file",
-        "preversion": "npm test"
+        "preversion": "npm test",
+        "postversion": "git push && git push --tags"
     },
     "files": [
         "generators"
