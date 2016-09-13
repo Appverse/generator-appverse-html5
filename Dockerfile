@@ -13,8 +13,12 @@ RUN mkdir src && chown yeoman:yeoman src && npm i -g yo \
     && chown -R yeoman: ~/.npm \
     && chown -R yeoman: /usr/local/lib/node_modules
 
-
-ADD . /home/yeoman/src/generator-appverse-html5
 WORKDIR /home/yeoman/src/generator-appverse-html5
+
+ADD package.json .
 RUN npm install && npm link
-CMD ["npm", "test"]
+
+ADD . .
+RUN npm update
+
+CMD npm test
