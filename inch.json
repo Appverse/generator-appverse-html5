@@ -1,10 +1,10 @@
 {
-  "files": {
-    "included": [
-      "generators/**/**.js"
-    ],
-    "excluded": [
-      "generators/**/templates/*.js"
-    ]
-  }
+    "files": {
+        "included": [
+            "generators/**/**.js"
+        ],
+        "excluded": [
+            "generators/**/templates/**/*.js"
+        ]
+    }
 }
