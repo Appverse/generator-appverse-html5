@@ -8,7 +8,7 @@
         "angular-ripple": "*",
         "angular-ui-select": "~0.18.0",
         "angularjs-slider": "~5.4.1",
-        "appverse-web-html5-core": "~0.8.0",
+        "appverse-web-html5-core": "~1.0.0",
         "appverse-bootstrap-sass-theme": "~0.0.7",
         "selectize": "~0.12.1",
         "angular-xeditable": "~0.2.0",
