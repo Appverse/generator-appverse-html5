@@ -21,7 +21,7 @@ module.exports = {
     dev: {
         options: {
             server: {
-                baseDir: ['./<%= paths.app %>']
+                baseDir: ['./<%%= paths.app %>']
             },
             files: [
                 'app/**/*.js',
@@ -37,7 +37,7 @@ module.exports = {
     dist: {
         options: {
             server: {
-                baseDir: ['./<%= paths.dist %>']
+                baseDir: ['./<%%= paths.dist %>']
             },
             ports: {
                 min: 9100,
@@ -47,8 +47,19 @@ module.exports = {
     },
     test: {
         options: {
+            middleware: require('http-proxy-middleware')('/api', {
+                target: 'http://localhost:<%= props.mockServerPort %>', // target host
+                changeOrigin: true, // needed for virtual hosted sites
+                ws: true, // proxy websockets
+                pathRewrite: {
+                    '^/api': '' // rewrite paths
+                },
+                proxyTable: {
+                    'localhost:9200': 'http://localhost:<%= props.mockServerPort %>'
+                }
+            }),
             server: {
-                baseDir: ['./test/coverage/instrument/app', './<%= paths.app %>']
+                baseDir: ['./test/coverage/instrument/app', './<%%= paths.app %>']
             },
             ports: {
                 min: 9200,

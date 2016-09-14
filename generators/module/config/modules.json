@@ -1,349 +1,313 @@
-[
-    {
-        "name": "cache",
-        "wiredep": {
-            "overrides": {
-                "angular-cache": {
-                    "main": [
-                                "dist/angular-cache.min.js"
-                    ]
-                },
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-cache/appverse-cache.min.js"
-                    ]
-                }
-            },
-            "exclude": []
-        },
-        "angular": "appverse.cache",
-        "startprompt": true
-  },
-    {
-        "name": "detection",
-        "wiredep": {
-            "overrides": {
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-detection/appverse-detection.min.js"
-                    ]
-                }
-            },
-            "exclude": []
-        },
-        "angular": "appverse.detection",
-        "startprompt": true,
-        "files": [
-      "app/resources/detection"
-    ]
-  },
-    {
-        "name": "logging",
-        "wiredep": {
-            "overrides": {
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-logging/appverse-logging.min.js"
-                    ]
-                }
-            },
-            "exclude": []
-        },
-        "angular": "appverse.logging",
-        "startprompt": true
-  },
-    {
-        "name": "performance",
-        "wiredep": {
-            "overrides": {
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-performance/appverse-performance.min.js"
-                    ]
-                }
-            },
-            "exclude": []
-        },
-        "angular": "appverse.performance",
-        "startprompt": true
-  },
-    {
-        "name": "qr",
-        "wiredep": {
-            "overrides": {
-                "qrcode": {
-                    "main": [
-                                "dqrcode/lib/qrcode.min.js"
-                    ]
-                },
-                "angular-qr": {
-                    "main": [
-                                "angular-qr.min.js"
+[{
+    "name": "cache",
+    "wiredep": {
+        "overrides": {
+            "angular-cache": {
+                "main": [
+                    "dist/angular-cache.min.js"
                 ]
-                }
             },
-            "exclude": []
-        },
-        "startprompt": false,
-        "bower": [
-            {
-                "name": "angular-qr",
-                "version": "~0.1.4"
-      }
-    ]
-  },
-    {
-        "name": "rest",
-        "wiredep": {
-            "overrides": {
-                "lodash": {
-                    "main": [
-                                "lodash.min.js"
-                    ]
-                },
-                "restangular": {
-                    "main": [
-                                "dist/restangular.min.js"
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-cache/appverse-cache.min.js"
                 ]
-                },
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-rest/appverse-rest.min.js"
-                    ]
-                }
-            },
-            "exclude": []
+            }
         },
-        "angular": "appverse.rest",
-        "startprompt": true,
-        "prompts": [
-            {
-                "type": "input",
-                "name": "restBaseUrl",
-                "message": "Configure your REST backend URL",
-                "default": "http://127.0.0.1"
-      },
-            {
-                "type": "input",
-                "name": "restBaseUrlPort",
-                "message": "Configure your REST backend URL Port",
-                "default": "8000"
-      },
-            {
-                "type": "input",
-                "name": "mockServerPort",
-                "message": "Configure your REST MOCK server PORT",
-                "default": "8888"
-      }
+        "exclude": []
+    },
+    "angular": "appverse.cache",
+    "startprompt": true
+}, {
+    "name": "detection",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-detection/appverse-detection.min.js"
+                ]
+            }
+        },
+        "exclude": []
+    },
+    "angular": "appverse.detection",
+    "startprompt": true,
+    "files": [
+        "app/resources/detection"
+    ]
+}, {
+    "name": "logging",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-logging/appverse-logging.min.js"
+                ]
+            }
+        },
+        "exclude": []
+    },
+    "angular": "appverse.logging",
+    "startprompt": true
+}, {
+    "name": "performance",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-performance/appverse-performance.min.js"
+                ]
+            }
+        },
+        "exclude": []
+    },
+    "angular": "appverse.performance",
+    "startprompt": true
+}, {
+    "name": "qr",
+    "wiredep": {
+        "overrides": {
+            "qrcode": {
+                "main": [
+                    "dqrcode/lib/qrcode.min.js"
+                ]
+            },
+            "angular-qr": {
+                "main": [
+                    "angular-qr.min.js"
+                ]
+            }
+        },
+        "exclude": []
+    },
+    "startprompt": false,
+    "bower": [{
+        "name": "angular-qr",
+        "version": "~0.1.4"
+    }]
+}, {
+    "name": "rest",
+    "wiredep": {
+        "overrides": {
+            "lodash": {
+                "main": [
+                    "dist/lodash.min.js"
+                ]
+            },
+            "restangular": {
+                "main": [
+                    "dist/restangular.min.js"
+                ]
+            },
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-rest/appverse-rest.min.js"
+                ]
+            }
+        },
+        "exclude": []
+    },
+    "angular": "appverse.rest",
+    "startprompt": true,
+    "prompts": [{
+        "type": "input",
+        "name": "restBaseUrl",
+        "message": "Configure your REST backend URL",
+        "default": "http://127.0.0.1"
+    }, {
+        "type": "input",
+        "name": "restBaseUrlPort",
+        "message": "Configure your REST backend URL Port",
+        "default": "8000"
+    }, {
+        "type": "input",
+        "name": "mockServerPort",
+        "message": "Configure your REST MOCK server PORT",
+        "default": "8888"
+    }],
+    "config": {
+        "name": "REST_CONFIG",
+        "values": [{
+            "name": "BaseUrl",
+            "value": "/api"
+        }, {
+            "name": "RequestSuffix",
+            "value": ""
+        }]
+    },
+    "templates": [
+        "tasks/server.js",
+        "config/jsonserver.js",
+        "config/browserSync.js"
     ],
-        "config": {
-            "name": "REST_CONFIG",
-            "values": [
-                {
-                    "name": "BaseUrl",
-                    "value": "/api"
+    "npm": [{
+        "name": "http-proxy-middleware",
+        "version": "0.8.2"
+    }, {
+        "name": "grunt-appverse-jsonserver",
+        "version": "0.0.2"
+    }]
+}, {
+    "name": "security",
+    "wiredep": {
+        "overrides": {
+            "angular-cookies": {
+                "main": [
+                    "angular-cookies.min.js"
+                ]
+            },
+            "angular-sanitize": {
+                "main": [
+                    "angular-sanitize.min.js"
+                ]
+            },
+            "angular-resouce": {
+                "main": [
+                    "angular-resource.min.js"
+                ]
+            },
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-rest/appverse-rest.min.js"
+                ]
+            }
         },
-                {
-                    "name": "RequestSuffix",
-                    "value": ""
-        }
-      ]
+        "exclude": []
+    },
+    "angular": "appverse.security",
+    "startprompt": false,
+    "bower": [{
+        "name": "appverse-web-html5-security",
+        "version": "~1.0.0"
+    }]
+}, {
+    "name": "serverpush",
+    "wiredep": {
+        "overrides": {
+            "socket.io-client": {
+                "main": [
+                    "socket.io.js"
+                ]
+            },
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-serverpush/appverse-serverpush.min.js"
+                ]
+            }
         },
-        "templates": [
-      "tasks/server.js",
-      "config/jsonserver.js"
-    ],
-        "npm": [
-            {
-                "name": "http-proxy-middleware",
-                "version": "0.8.2"
-      },
-            {
-                "name": "grunt-appverse-jsonserver",
-                "version": "0.0.2"
-      }
+        "exclude": []
+    },
+    "angular": "appverse.serverPush",
+    "startprompt": true,
+    "prompts": [{
+        "type": "input",
+        "message": "Server push base URL?",
+        "name": "BaseUrl",
+        "default": "http://127.0.0.1:3000"
+    }],
+    "config": {
+        "name": "SERVERPUSH_CONFIG",
+        "values": [{
+            "name": "BaseUrl",
+            "value": "http://127.0.0.1:3000"
+        }]
+    }
+}, {
+    "name": "translate",
+    "wiredep": {
+        "overrides": {
+            "angular-translate": {
+                "main": [
+                    "angular-translate.min.js"
+                ]
+            },
+            "angular-translate-loader-static-files": {
+                "main": [
+                    "angular-translate-loader-static-files.min.js"
+                ]
+            },
+            "angular-dynamic-locale": {
+                "main": [
+                    "src/tmhDynamicLocale.js"
+                ]
+            },
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-translate/appverse-translate.min.js"
+                ]
+            }
+        },
+        "exclude": []
+    },
+    "angular": "appverse.translate",
+    "startprompt": true,
+    "files": [
+        "app/resources/i18n"
     ]
-  },
-    {
-        "name": "security",
-        "wiredep": {
-            "overrides": {
-                "angular-cookies": {
-                    "main": [
-                                "angular-cookies.min.js"
-                    ]
-                },
-                "angular-sanitize": {
-                    "main": [
-                                "angular-sanitize.min.js"
+}, {
+    "name": "notifications",
+    "wiredep": {
+        "overrides": {
+            "classie": {
+                "main": [
+                    "classie.js"
                 ]
-                },
-                "angular-resouce": {
-                    "main": [
-                                "angular-resource.min.js"
+            },
+            "appverse.notifications": {
+                "main": [
+                    "dist/modernizr-custom.js",
+                    "dist/notification-fx.js",
+                    "dist/appverse.notifications.js",
+                    "dist/notification-bar.css"
                 ]
-                },
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-rest/appverse-rest.min.js"
-                    ]
-                }
-            },
-            "exclude": []
+            }
         },
-        "angular": "appverse.security",
-        "startprompt": false,
-        "bower": [
-            {
-                "name": "appverse-web-html5-security",
-                "version": "~1.0.0"
-      }
-    ]
-  },
-    {
-        "name": "serverpush",
-        "wiredep": {
-            "overrides": {
-                "socket.io-client": {
-                    "main": [
-                                "dist/socket.io.min.js"
-                    ]
-                },
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-serverpush/appverse-serverpush.min.js"
-                    ]
-                }
-            },
-            "exclude": []
-        },
-        "angular": "appverse.serverPush",
-        "startprompt": true,
-        "prompts": [
-            {
-                "type": "input",
-                "message": "Server push base URL?",
-                "name": "BaseUrl",
-                "default": "http://127.0.0.1:3000"
-      }
-    ],
-        "config": {
-            "name": "SERVERPUSH_CONFIG",
-            "values": [
-                {
-                    "name": "BaseUrl",
-                    "value": "http://127.0.0.1:3000"
-        }
-      ]
-        }
-  },
-    {
-        "name": "translate",
-        "wiredep": {
-            "overrides": {
-                "angular-translate": {
-                    "main": [
-                                "angular-translate.min.js"
-                    ]
-                },
-                "angular-translate-loader-static-files": {
-                    "main": [
-                                "angular-translate-loader-static-files.min.js"
+        "exclude": []
+    },
+    "angular": "appverse.notifications",
+    "bower": [{
+        "name": "appverse.notifications",
+        "version": "~0.2.5"
+    }],
+    "startprompt": true
+}, {
+    "name": "ionic",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-ionic/appverse-ionic.min.js"
                 ]
-                },
-                "angular-dynamic-locale": {
-                    "main": [
-                                "src/tmhDynamicLocale.js"
+            }
+        },
+        "exclude": []
+    },
+    "angular": "appverse.ionic",
+    "startprompt": true,
+    "config": {
+        "name": "IONIC_CONFIG",
+        "values": [{
+            "name": "modalPrompt",
+            "value": true
+        }, {
+            "name": "redirectionPath",
+            "value": "/"
+        }, {
+            "name": "suffix",
+            "value": "-mobile"
+        }]
+    }
+}, {
+    "name": "native",
+    "wiredep": {
+        "overrides": {
+            "appverse-web-html5-core": {
+                "main": [
+                    "dist/appverse-native/appverse-native.min.js"
                 ]
-                },
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-translate/appverse-translate.min.js"
-                    ]
-                }
-            },
-            "exclude": []
+            }
         },
-        "angular": "appverse.translate",
-        "startprompt": true,
-        "files": [
-      "app/resources/i18n"
-    ]
-  },
-    {
-        "name": "notifications",
-        "wiredep": {
-            "overrides": {
-                "classie": {
-                    "main": [
-                                "classie.js"
-                    ]
-                },
-                "appverse.notifications": {
-                    "main": [
-                                "dist/modernizr-custom.js",
-                                "dist/notification-fx.js",
-                                "dist/appverse.notifications.js",
-                                "dist/notification-bar.css"
-                ]
-                }
-            },
-            "exclude": []
-        },
-        "angular": "appverse.notifications",
-        "bower": [
-            {
-                "name": "appverse.notifications",
-                "version": "~0.2.5"
-      }
-    ],
-        "startprompt": true
-  },
-    {
-        "name": "ionic",
-        "wiredep": {
-            "overrides": {
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-ionic/appverse-ionic.min.js"
-                    ]
-                }
-            },
-            "exclude": []
-        },
-        "angular": "appverse.ionic",
-        "startprompt": true,
-        "config": {
-            "name": "IONIC_CONFIG",
-            "values": [
-                {
-                    "name": "modalPrompt",
-                    "value": true
-        },
-                {
-                    "name": "redirectionPath",
-                    "value": "/"
-        },
-                {
-                    "name": "suffix",
-                    "value": "-mobile"
-        }
-      ]
-        }
-  },
-    {
-        "name": "native",
-        "wiredep": {
-            "overrides": {
-                "appverse-web-html5-core": {
-                    "main": [
-                                "dist/appverse-native/appverse-native.min.js"
-                    ]
-                }
-            },
-            "exclude": []
-        },
-        "angular": "appverse.native",
-        "startprompt": false
-  }
-]
+        "exclude": []
+    },
+    "angular": "appverse.native",
+    "startprompt": false
+}]

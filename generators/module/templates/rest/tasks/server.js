@@ -9,9 +9,9 @@ function hasValue(obj, val) {
     return false;
 }
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
-    grunt.task.registerTask('server', 'Serves de application.', function (arg1, arg2, arg3) {
+    grunt.task.registerTask('server', 'Serves de application.', function() {
         var isOpen = hasValue(arguments, "open");
         var isMock = hasValue(arguments, "mock");
         var isDist = hasValue(arguments, "dist");
